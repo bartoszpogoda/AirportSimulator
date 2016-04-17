@@ -1,0 +1,9 @@
+﻿       //  uchwytFormy.SuspendLayout();
+         //   ((System.ComponentModel.ISupportInitialize)(this.miniaturka)).BeginInit();
+		      
+         //   ((System.ComponentModel.ISupportInitialize)(this.miniaturka)).EndInit();
+            //uchwytFormy.ResumeLayout(false);
+
+			
+            this.miniaturka.TabIndex = 0;
+            this.miniaturka.TabStop = false;
