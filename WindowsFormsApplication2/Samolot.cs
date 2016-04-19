@@ -19,19 +19,19 @@ namespace WindowsFormsApplication2
             this.maxPaliwo = maxPaliwo;
             aktualnePaliwo = 0;
         }
-
+        
         public void operacja1() { // tankowanie
 
         }
         abstract public void operacja2();
         abstract public void operacja3();
-
         abstract public string wypiszInformacje();
         
         public int getMaxPaliwo()
         {
             return maxPaliwo;
         }
+
         public int getAktualnePaliwo()
         {
             return aktualnePaliwo;

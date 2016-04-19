@@ -10,7 +10,7 @@ namespace WindowsFormsApplication2
 
         public Lotnisko()
         {
-            InitializeComponent();
+            InitializeComponent();  
             menedzerSamolotow = new MenedzerSamolotow(this);
             menedzerOperacji = new MenedzerOperacji(this);
            

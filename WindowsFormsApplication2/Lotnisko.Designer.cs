@@ -52,7 +52,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(194, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "TANKUJ SKURCZYBYKA";
+            this.label1.Text = "TANKUJ xD";
             this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // timer1
@@ -69,7 +69,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Lotnisko";
-            this.Text = "Symulator Lotniska";
+            this.Text = "Symulator Lotniska v: -0.001";
             this.ResumeLayout(false);
             this.PerformLayout();
 

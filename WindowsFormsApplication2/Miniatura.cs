@@ -7,6 +7,7 @@ namespace WindowsFormsApplication2
     class Miniatura : PictureBox
     {
         private string adresBazowy;
+
         protected MenedzerSamolotow uchwytMenedzerSamolotow;
 
         public Miniatura(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow) : base()
