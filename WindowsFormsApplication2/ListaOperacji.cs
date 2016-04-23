@@ -10,23 +10,38 @@ namespace WindowsFormsApplication2
     {
         private ElementListyOperacji pierwszy;
         private ElementListyOperacji ostatni;
-        private MenedzerOperacji uchwytMenedzerOperacji;
-        
-        public ListaOperacji(MenedzerOperacji uchwytMenedzerOperacji)
+        private ElementListyOperacji iterator;
+
+        public ListaOperacji()
         {
             pierwszy = null;
             ostatni = null;
-            this.uchwytMenedzerOperacji = uchwytMenedzerOperacji;
+        }
+        public void iteratorNaStart()
+        {
+            iterator = pierwszy;
+        }
+        public void iteratorNastepny()
+        {
+            if (iterator.nastepnyElement == null)
+                iterator = pierwszy;
+            else iterator = iterator.nastepnyElement;
         }
 
-        public void wykonajLancuchOperacji()
+        public ElementListyOperacji getPierwszy()
         {
-            pierwszy.wykonajOperacje(this);
+            return pierwszy;
         }
 
-        public void powiadomOBrakuOperacji()
+        public bool iteratorMaNastepny()
         {
-            uchwytMenedzerOperacji.zatrzymajTimer();
+            if (iterator.nastepnyElement == null) return false;
+            return true;
+        }
+        public ElementListyOperacji aktualnyPodIteratorem()
+        {
+            if (iterator == null) return null;
+            return iterator;
         }
 
         public void setPierwszy(ElementListyOperacji pierwszy) {
@@ -38,53 +53,30 @@ namespace WindowsFormsApplication2
             this.ostatni = ostatni;
         }
 
-        public void dodajOperacje(IOperacja operacja)
+        public void dodajElement(ElementListyOperacji element)
         {
-
             if (pierwszy == null)
             {
-                pierwszy = new ElementListyOperacji(operacja);
+                pierwszy = element;
                 ostatni = pierwszy;
             }
             else
             {
-                ostatni.nastepnyElement = new ElementListyOperacji(operacja);
-                ostatni.nastepnyElement.poprzedniElement = ostatni;
-                ostatni = ostatni.nastepnyElement;
+                ostatni.nastepnyElement = element;
+                element.poprzedniElement = ostatni;
+                ostatni = element;
             }
-
-            // dodano operacje wiec odpalamy tajmera!!
-
-            uchwytMenedzerOperacji.uruchomTimer();
-
-        }
-        public ElementListyOperacji znajdzOperacjeNaSamolocie(Samolot samolot)
-        {
-            if (pierwszy.operacja.getSamolot() == samolot) return pierwszy;
-
-            ElementListyOperacji iterator = pierwszy;
-
-            while(iterator.nastepnyElement != null)
-            {
-                iterator = iterator.nastepnyElement;
-
-                if (iterator.operacja.getSamolot() == samolot) return iterator;
-            }
-            return null;
         }
 
-        public void usunOperacjeNaSamolocie(ElementListyOperacji operacja)
+        public void usunElement(ElementListyOperacji element)
         {
-
-            if(pierwszy == operacja)
+            // przepisac
+            if(pierwszy == element)
             {
-                pierwszy.operacja.zatrzymaj();
-
                 if(pierwszy.nastepnyElement == null)
                 {
                     pierwszy = null;
                     ostatni = null;
-                    powiadomOBrakuOperacji();
                     return;
                 }
 
@@ -98,7 +90,7 @@ namespace WindowsFormsApplication2
             {
                 iterator = iterator.nastepnyElement;
 
-                if(iterator == operacja)
+                if(iterator == element)
                 {
                     iterator.operacja.zatrzymaj();
 

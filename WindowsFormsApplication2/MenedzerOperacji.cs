@@ -18,31 +18,79 @@ namespace WindowsFormsApplication2
             timer.Interval = 100;
             timer.Enabled = false; // timer ma sie właczać jak lista operacji nie jest pusta
 
-            listaOperacji = new ListaOperacji(this);
-        }
-        public void dodajOperacje(IOperacja operacja)
-        {
-            listaOperacji.dodajOperacje(operacja);
+            listaOperacji = new ListaOperacji();
         }
 
-        public void zatrzymajOperacjeNaSamolocie(Samolot samolot)
+        private void wykonajLancuchOperacji()
         {
-            listaOperacji.usunOperacjeNaSamolocie(listaOperacji.znajdzOperacjeNaSamolocie(samolot));
+            if(listaOperacji.getPierwszy() == null)
+            {
+                zatrzymajTimer();
+                return;
+            }
+            listaOperacji.getPierwszy().wykonajOperacje(listaOperacji);
         }
+
+        public void dodajOperacje(IOperacja operacja)
+        {
+            listaOperacji.dodajElement(new ElementListyOperacji(operacja));
+            uruchomTimer();
+        }
+
+        private ElementListyOperacji znajdz(IOperacja operacja)
+        {
+            listaOperacji.iteratorNaStart();
+            if (listaOperacji.aktualnyPodIteratorem() == null) return null;
+            if (listaOperacji.aktualnyPodIteratorem().operacja == operacja) return listaOperacji.aktualnyPodIteratorem();
+
+            while (listaOperacji.iteratorMaNastepny())
+            {
+                if (listaOperacji.aktualnyPodIteratorem().operacja == operacja) return listaOperacji.aktualnyPodIteratorem();
+            }
+            return null;
+        }
+        private IOperacja znajdz(Samolot samolot)
+        {
+            listaOperacji.iteratorNaStart();
+            if (listaOperacji.aktualnyPodIteratorem() == null) return null;
+            if (listaOperacji.aktualnyPodIteratorem().operacja.getSamolot() == samolot) return listaOperacji.aktualnyPodIteratorem().operacja;
+
+            while (listaOperacji.iteratorMaNastepny())
+            {
+                if (listaOperacji.aktualnyPodIteratorem().operacja.getSamolot() == samolot) return listaOperacji.aktualnyPodIteratorem().operacja;
+            }
+            return null;
+        }
+
+        public void zatrzymajOperacje(Samolot samolot)
+        {
+            IOperacja operacja = znajdz(samolot);
+            zatrzymajOperacje(operacja);
+        }
+        public void zatrzymajOperacje(IOperacja operacja)
+        {
+            operacja.zatrzymaj();
+            ElementListyOperacji element = znajdz(operacja);
+            if(element != null) listaOperacji.usunElement(element);
+            
+        }
+
 
         public void zatrzymajTimer()
         {
             timer.Enabled = false;
+            Console.WriteLine("Timer: Disabled"); // dbg
         }
         public void uruchomTimer()
         {
             timer.Enabled = true;
+            Console.WriteLine("Timer: Enabled"); // dbg
         }
 
         private void onTimerTick(object sender, EventArgs e)
         {
             //wykonanie metody dla kazdej operacji w liscie
-            listaOperacji.wykonajLancuchOperacji();
+            wykonajLancuchOperacji();
         }
 
     }

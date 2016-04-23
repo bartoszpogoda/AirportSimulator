@@ -27,7 +27,6 @@ namespace WindowsFormsApplication2
                 if (poprzedniElement == null && nastepnyElement == null)
                 {
                     // to był ostatni
-                    uchwytListaOperacji.powiadomOBrakuOperacji();
                     uchwytListaOperacji.setPierwszy(null);
                     uchwytListaOperacji.setOstatni(null);
                 }

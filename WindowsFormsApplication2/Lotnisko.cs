@@ -106,7 +106,7 @@ namespace WindowsFormsApplication2
 
         private void tankowanieCancel_Click(object sender, EventArgs e)
         {
-           if(menedzerSamolotow.getZaznaczony() is Samolot) menedzerOperacji.zatrzymajOperacjeNaSamolocie((Samolot)menedzerSamolotow.getZaznaczony());
+           if(menedzerSamolotow.getZaznaczony() is Samolot) menedzerOperacji.zatrzymajOperacje((Samolot)menedzerSamolotow.getZaznaczony());
         }
     }
 }
