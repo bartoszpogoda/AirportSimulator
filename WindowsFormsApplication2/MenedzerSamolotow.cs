@@ -22,56 +22,38 @@ namespace WindowsFormsApplication2
         private Miniatura zaznaczony;
         private ListaSamolotow listaSamolotow; // w hangarze
         private ListaSamolotow listaSamolotowPowietrze; // w powietrzu
-        private Form uchwytForma;
+        private Lotnisko uchwytForma;
 
         private MenedzerOperacji uchwytMenedzerOperacji;
-
-        private Panel panelSamolotow;
-        private Panel panelInformacji;
-        private Label labelHangar;
-        private Label labelInformacje;
-        private Panel panelSamolotyWPowietrzu;
-        private Label labelSamolotyWPowietrzu;
-
+        
         private PictureBox znacznikZaznaczonego;
 
        
 
-        public MenedzerSamolotow(Form uchwytForma, MenedzerOperacji uchwytMenedzerOperacji) {
+        public MenedzerSamolotow(Lotnisko uchwytForma, MenedzerOperacji uchwytMenedzerOperacji) {
             this.uchwytForma = uchwytForma;
             this.uchwytMenedzerOperacji = uchwytMenedzerOperacji;
             listaSamolotow = new ListaSamolotow();
             listaSamolotowPowietrze = new ListaSamolotow();
 
-
-            panelSamolotow = new Panel();
-            panelInformacji = new Panel();
-            panelSamolotyWPowietrzu = new Panel();
-            labelHangar = new Label();
-            labelInformacje = new Label();
-            labelSamolotyWPowietrzu = new Label();
+            
             znacznikZaznaczonego = new PictureBox();
 
             zainicjujZnacznikZaznaczonego();
-            zainicjujPanelSamolotow();
-            zainicjujPanelInformacji();
-            zainicjujLabelHangar();
-            zainicjujLabelInformacje();
-            zainicjujPanelSamolotowWPowietrzu();
         }
 
         public void dbgDodajSamolot(int i) { // debugFunkcja do usuniecia jak bedzie kreator
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
             else
             {
-                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, panelSamolotow, 200, 20, 500, "Boening707"));
+                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotow(), 200, 20, 500, "Boening707"));
                 narysujSamolotyZListy();
                 narysujSamolotyZListyPowietrze();
             }
         }
 
         public void wygenerujLosowySamolotWPowietrzu() { // prototyp
-            Samolot samolot = new SamolotOsobowy("samolot1", this.uchwytForma, this, panelSamolotyWPowietrzu, 20, 20, 500, "Tupolew");
+            Samolot samolot = new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotowPowietrze(), 20, 20, 500, "Tupolew");
             samolot.zmienStan(Stan.WPowietrzu);
             samolot.setAktualnePaliwo(samolot.getMaxPaliwo()); // to pozniej bedzie losowe
             listaSamolotowPowietrze.dodajSamolot(samolot);
@@ -82,7 +64,6 @@ namespace WindowsFormsApplication2
 
         public MenedzerOperacji getMenedzerOperacji() { return uchwytMenedzerOperacji; }
 
-        public Panel getPanelSamolotow() { return panelSamolotow; }
         private void zainicjujZnacznikZaznaczonego()
         {
             if (znacznikZaznaczonego == null || uchwytForma == null) return;
@@ -96,65 +77,12 @@ namespace WindowsFormsApplication2
             uchwytForma.Controls.Add(znacznikZaznaczonego);
         }
 
-        private void zainicjujPanelSamolotow()
-        {
-            if (panelSamolotow == null || uchwytForma == null) return;
+ 
+  
+ 
+     
 
-            panelSamolotow.BackColor = SystemColors.ControlDark;
-            panelSamolotow.Location = new Point(10, 15);
-            panelSamolotow.Name = "panel1";
-            panelSamolotow.Size = new Size(250, 200);
-            panelSamolotow.MouseWheel += new MouseEventHandler(this.mouseWheelEventHangar);
-            uchwytForma.Controls.Add(panelSamolotow);
-        }
-
-        private void zainicjujPanelSamolotowWPowietrzu()
-        {
-            if (panelSamolotyWPowietrzu == null || uchwytForma == null) return;
-
-            panelSamolotyWPowietrzu.BackColor = SystemColors.ControlDark;
-            panelSamolotyWPowietrzu.Location = new Point(500, 15);
-            panelSamolotyWPowietrzu.Name = "panel1";
-            panelSamolotyWPowietrzu.Size = new Size(70, 250);
-            panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(this.mouseWheelEventPowietrze); // do zaprogramowania
-            uchwytForma.Controls.Add(panelSamolotyWPowietrzu);
-        }
-
-
-        private void zainicjujPanelInformacji()
-        {
-            if (panelInformacji == null || uchwytForma == null) return;
-            panelInformacji.BackColor = Color.AntiqueWhite;
-            panelInformacji.Location = new Point(270, 0);
-            panelInformacji.Name = "panel1";
-            panelInformacji.Size = new Size(200, 210);
-            panelInformacji.TabIndex = 1;
-            uchwytForma.Controls.Add(panelInformacji);
-        }
-
-        private void zainicjujLabelHangar()
-        {
-            if (labelHangar == null || panelSamolotow == null) return;
-            labelHangar.Text = "Samoloty w hangarze:";
-            labelHangar.ForeColor = Color.White;
-            labelHangar.Location = new Point(0, 0);
-            labelHangar.AutoSize = true;
-            labelHangar.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            labelHangar.Parent = panelSamolotow;
-        }
-
-        private void zainicjujLabelInformacje()
-        {
-            if (labelInformacje == null || panelInformacji == null) return;
-            labelInformacje.Text = "Wybierz samolot";
-            labelInformacje.ForeColor = Color.Black;
-            labelInformacje.Location = new Point(0, 0);
-            labelInformacje.AutoSize = true;
-            labelInformacje.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            labelInformacje.Parent = panelInformacji;
-        }
-
-        private void mouseWheelEventHangar(object sender, MouseEventArgs e)
+        public void mouseWheelEventHangar(object sender, MouseEventArgs e)
         {
             if (e.Delta < 0) // scrollowanie w dół
             {
@@ -167,7 +95,7 @@ namespace WindowsFormsApplication2
             narysujSamolotyZListy();
         }
 
-        private void mouseWheelEventPowietrze(object sender, MouseEventArgs e)
+        public void mouseWheelEventPowietrze(object sender, MouseEventArgs e)
         {
             if (e.Delta < 0) // scrollowanie w dół
             {
@@ -236,13 +164,11 @@ namespace WindowsFormsApplication2
                 
             }
 
-            for (i = 0; i < 4; i++)
+            for (i = 0; i < 5; i++)
             {
 
-                listaSamolotowPowietrze.aktualnyPodIteratorem().Location = new Point(
-                        rozmiarOdstepu,
-                           10 + rozmiarOdstepu  + i * rozmiarObrazka
-                           );
+                listaSamolotowPowietrze.aktualnyPodIteratorem().Location = new Point(25,
+                           10 + rozmiarOdstepu  + i * rozmiarObrazka);
                 listaSamolotowPowietrze.aktualnyPodIteratorem().pokaz();
 
                     if (listaSamolotowPowietrze.aktualnyPodIteratorem().Equals(zaznaczony))
@@ -276,7 +202,7 @@ namespace WindowsFormsApplication2
             if (samolot.czyJestPokazany()) znacznikZaznaczonego.Visible = true;
 
             // zmiana informacji
-            if (samolot is Samolot) labelInformacje.Text = ((Samolot)samolot).wypiszInformacje();
+            if (samolot is Samolot) uchwytForma.getLabelInformacje().Text = ((Samolot)samolot).wypiszInformacje();
         }
 
         public Miniatura getZaznaczony()
@@ -286,7 +212,7 @@ namespace WindowsFormsApplication2
 
         public void odswiez()
         {
-            if(zaznaczony is Samolot) labelInformacje.Text = ((Samolot)zaznaczony).wypiszInformacje();
+            if(zaznaczony is Samolot) uchwytForma.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
             // rysowanie nowe?
         }
 
