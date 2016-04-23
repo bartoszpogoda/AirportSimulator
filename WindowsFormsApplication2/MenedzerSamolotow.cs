@@ -14,30 +14,42 @@ namespace WindowsFormsApplication2
         const int rozmiarOdstepu = 10;
         const int iloscKolumn = 4;
         const int iloscRzedow = 3;
-        private const string adresImgZaznaczony = "znacznik.png";
+        private const string adresImgZaznaczony = "znacznik";
         //----------------------------------------------
         private int aktualnyRzadStartowy = 0; // na potrzeby scrollowania
+        private int aktualnyRzadStartowyPowietrze = 0; 
 
         private Miniatura zaznaczony;
         private ListaSamolotow listaSamolotow; // w hangarze
+        private ListaSamolotow listaSamolotowPowietrze; // w powietrzu
         private Form uchwytForma;
+
+        private MenedzerOperacji uchwytMenedzerOperacji;
 
         private Panel panelSamolotow;
         private Panel panelInformacji;
         private Label labelHangar;
         private Label labelInformacje;
+        private Panel panelSamolotyWPowietrzu;
+        private Label labelSamolotyWPowietrzu;
+
         private PictureBox znacznikZaznaczonego;
 
-      
+       
 
-        public MenedzerSamolotow(Form uchwytForma) {
+        public MenedzerSamolotow(Form uchwytForma, MenedzerOperacji uchwytMenedzerOperacji) {
             this.uchwytForma = uchwytForma;
+            this.uchwytMenedzerOperacji = uchwytMenedzerOperacji;
             listaSamolotow = new ListaSamolotow();
+            listaSamolotowPowietrze = new ListaSamolotow();
+
 
             panelSamolotow = new Panel();
             panelInformacji = new Panel();
+            panelSamolotyWPowietrzu = new Panel();
             labelHangar = new Label();
             labelInformacje = new Label();
+            labelSamolotyWPowietrzu = new Label();
             znacznikZaznaczonego = new PictureBox();
 
             zainicjujZnacznikZaznaczonego();
@@ -45,18 +57,37 @@ namespace WindowsFormsApplication2
             zainicjujPanelInformacji();
             zainicjujLabelHangar();
             zainicjujLabelInformacje();
+            zainicjujPanelSamolotowWPowietrzu();
         }
 
-        public void dbgDodajSamolot() { // debugFunkcja do usuniecia jak bedzie kreator
-            listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, 50,20));
-            narysujSamolotyZListy();
+        public void dbgDodajSamolot(int i) { // debugFunkcja do usuniecia jak bedzie kreator
+            if (i == 1) wygenerujLosowySamolotWPowietrzu();
+            else
+            {
+                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, panelSamolotow, 200, 20, 500, "Boening707"));
+                narysujSamolotyZListy();
+                narysujSamolotyZListyPowietrze();
+            }
         }
+
+        public void wygenerujLosowySamolotWPowietrzu() { // prototyp
+            Samolot samolot = new SamolotOsobowy("samolot1", this.uchwytForma, this, panelSamolotyWPowietrzu, 20, 20, 500, "Tupolew");
+            samolot.zmienStan(Stan.WPowietrzu);
+            samolot.setAktualnePaliwo(samolot.getMaxPaliwo()); // to pozniej bedzie losowe
+            listaSamolotowPowietrze.dodajSamolot(samolot);
+            uchwytMenedzerOperacji.dodajOperacje(new OperacjaLot(samolot));
+            narysujSamolotyZListyPowietrze();
+        }
+
+
+        public MenedzerOperacji getMenedzerOperacji() { return uchwytMenedzerOperacji; }
+
         public Panel getPanelSamolotow() { return panelSamolotow; }
         private void zainicjujZnacznikZaznaczonego()
         {
             if (znacznikZaznaczonego == null || uchwytForma == null) return;
 
-            znacznikZaznaczonego.Image = Image.FromFile(adresImgZaznaczony);
+            znacznikZaznaczonego.Image = (Image)Properties.Resources.ResourceManager.GetObject(adresImgZaznaczony);
             znacznikZaznaczonego.BackColor = Color.Transparent;
             znacznikZaznaczonego.Location = new Point(0, 0);
             znacznikZaznaczonego.Enabled = false;
@@ -73,9 +104,22 @@ namespace WindowsFormsApplication2
             panelSamolotow.Location = new Point(10, 15);
             panelSamolotow.Name = "panel1";
             panelSamolotow.Size = new Size(250, 200);
-            panelSamolotow.MouseWheel += new MouseEventHandler(this.mouseWheelEvent);
+            panelSamolotow.MouseWheel += new MouseEventHandler(this.mouseWheelEventHangar);
             uchwytForma.Controls.Add(panelSamolotow);
         }
+
+        private void zainicjujPanelSamolotowWPowietrzu()
+        {
+            if (panelSamolotyWPowietrzu == null || uchwytForma == null) return;
+
+            panelSamolotyWPowietrzu.BackColor = SystemColors.ControlDark;
+            panelSamolotyWPowietrzu.Location = new Point(500, 15);
+            panelSamolotyWPowietrzu.Name = "panel1";
+            panelSamolotyWPowietrzu.Size = new Size(70, 250);
+            panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(this.mouseWheelEventPowietrze); // do zaprogramowania
+            uchwytForma.Controls.Add(panelSamolotyWPowietrzu);
+        }
+
 
         private void zainicjujPanelInformacji()
         {
@@ -109,7 +153,8 @@ namespace WindowsFormsApplication2
             labelInformacje.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 238);
             labelInformacje.Parent = panelInformacji;
         }
-        private void mouseWheelEvent(object sender, MouseEventArgs e)
+
+        private void mouseWheelEventHangar(object sender, MouseEventArgs e)
         {
             if (e.Delta < 0) // scrollowanie w dół
             {
@@ -121,7 +166,20 @@ namespace WindowsFormsApplication2
             }
             narysujSamolotyZListy();
         }
-       
+
+        private void mouseWheelEventPowietrze(object sender, MouseEventArgs e)
+        {
+            if (e.Delta < 0) // scrollowanie w dół
+            {
+                if (listaSamolotowPowietrze.getLength()  - 2 > aktualnyRzadStartowyPowietrze) aktualnyRzadStartowyPowietrze++;
+            }
+            else // scrollowanie w górę
+            {
+                if (aktualnyRzadStartowyPowietrze > 0) aktualnyRzadStartowyPowietrze--;
+            }
+            narysujSamolotyZListyPowietrze();
+        }
+
 
         private void narysujSamolotyZListy()
         {
@@ -160,6 +218,46 @@ namespace WindowsFormsApplication2
                         return;
                     }
                 }
+
+            }
+        }  // hangar
+
+        private void narysujSamolotyZListyPowietrze() // powietrze
+        {
+            int i = aktualnyRzadStartowyPowietrze;
+            listaSamolotowPowietrze.iteratorNaStart();
+            if (listaSamolotowPowietrze.aktualnyPodIteratorem() == null) return; // wychwytuje pusta listaSamolotow
+
+            while (--i >= 0) // pomija elementy ktore zostaly przescrollowane
+            {
+                
+                    listaSamolotowPowietrze.aktualnyPodIteratorem().schowaj();
+                    listaSamolotowPowietrze.iteratorNastepny();
+                
+            }
+
+            for (i = 0; i < 4; i++)
+            {
+
+                listaSamolotowPowietrze.aktualnyPodIteratorem().Location = new Point(
+                        rozmiarOdstepu,
+                           10 + rozmiarOdstepu  + i * rozmiarObrazka
+                           );
+                listaSamolotowPowietrze.aktualnyPodIteratorem().pokaz();
+
+                    if (listaSamolotowPowietrze.aktualnyPodIteratorem().Equals(zaznaczony))
+                    {
+                        znacznikZaznaczonego.Parent = zaznaczony;
+                        znacznikZaznaczonego.Location = new System.Drawing.Point(0, 0);
+                        znacznikZaznaczonego.Visible = true;
+                    }
+
+                    if (listaSamolotowPowietrze.iteratorMaNastepny()) listaSamolotowPowietrze.iteratorNastepny();
+                    else
+                    {
+                        return;
+                    }
+                
 
             }
         }

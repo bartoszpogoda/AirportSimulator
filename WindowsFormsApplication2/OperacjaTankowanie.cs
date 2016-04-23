@@ -27,15 +27,18 @@ namespace WindowsFormsApplication2
             }
 
             samolot.setAktualnePaliwo(samolot.getAktualnePaliwo() + 1);
-
-            if (samolot.getAktualnePaliwo() >= samolot.getMaxPaliwo()) // było == sprobuje >
+            if (samolot.getStan() == Stan.Tankowanie)
             {
-                samolot.setAktualnePaliwo(samolot.getMaxPaliwo());
-                samolot.zmienStan(Stan.Spoczynek);
-                return false;
+                if (samolot.getAktualnePaliwo() >= samolot.getMaxPaliwo()) // było == sprobuje >
+                {
+                    samolot.setAktualnePaliwo(samolot.getMaxPaliwo());
+                    samolot.zmienStan(Stan.Spoczynek);
+                    return false;
+                }
+
+                return true;
             }
-                
-            return true;
+            return false;
         
         }
     }

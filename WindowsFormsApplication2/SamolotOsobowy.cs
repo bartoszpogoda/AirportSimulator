@@ -12,8 +12,8 @@ namespace WindowsFormsApplication2
         private int maxOsob;
         private int aktualnieOsob;
 
-        public SamolotOsobowy(string adresBazowy, Form uchwytFormy, MenedzerSamolotow uchwytMenedzerSamolotow, int maxPaliwo, int maxOsob)
-        : base(adresBazowy,uchwytFormy,uchwytMenedzerSamolotow,maxPaliwo)
+        public SamolotOsobowy(string adresBazowy, Form uchwytFormy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maxPaliwo, int maxOsob, int czasStartu, string model)
+        : base(adresBazowy,uchwytFormy,uchwytMenedzerSamolotow,parent, maxPaliwo,czasStartu, model)
         {
             this.maxOsob = maxOsob;
         }
@@ -33,12 +33,14 @@ namespace WindowsFormsApplication2
 
         public override string wypiszInformacje()
         {
-            string budowanyString = "";
+            string budowanyString = "";         // timer.Interval = 100;
 
             budowanyString += "Typ: Samolot osobowy \n";
+            budowanyString += "Model: " + getModel() + "\n";
+            budowanyString += "Czas startu: " + getCzasStartu()*0.1 + "s\n";
             budowanyString += "Stan: " + getStan() + "\n";
             budowanyString += "Paliwo: " + getAktualnePaliwo() + "/" + getMaxPaliwo() + "\n";
-            budowanyString += "Osob: " + aktualnieOsob + "/" + maxOsob + "\n";
+            budowanyString += "Pasazerow: " + aktualnieOsob + "/" + maxOsob + "\n";
 
             return budowanyString;
         }

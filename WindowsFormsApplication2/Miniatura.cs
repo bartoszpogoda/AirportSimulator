@@ -10,22 +10,31 @@ namespace WindowsFormsApplication2
 
         protected MenedzerSamolotow uchwytMenedzerSamolotow;
 
-        public Miniatura(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow) : base()
+        public Miniatura(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent) : base()
         {
             this.adresBazowy = adresBazowy;
             this.uchwytMenedzerSamolotow = uchwytMenedzerSamolotow;
 
-            ImageLocation = adresBazowy + "s.png";
+            Image = (Image)Properties.Resources.ResourceManager.GetObject(adresBazowy + "s");
+
+           // ImageLocation = adresBazowy + "s.png"; 
             Location = new Point(0, 0);
             Visible = false;
             Enabled = false;
 
-            Parent = uchwytMenedzerSamolotow.getPanelSamolotow();
+            Parent = parent;
             Size = new Size(50, 50);
 
             Click += new EventHandler(miniaturkaOnClick);
-            uchwytMenedzerSamolotow.getPanelSamolotow().Controls.Add(this);
+            parent.Controls.Add(this);
 
+        }
+
+        public void setParent(Control parent)
+        {
+            Parent.Controls.Remove(this);
+            Parent = parent;
+            Parent.Controls.Add(this); // chyba tak
         }
 
         private void miniaturkaOnClick(object sender, EventArgs e)
@@ -52,7 +61,7 @@ namespace WindowsFormsApplication2
 
         public void ustawGrafike(char c)
         {
-            ImageLocation = adresBazowy + c + ".png";
+            Image = (Image)Properties.Resources.ResourceManager.GetObject(adresBazowy + c);
         }
 
     }
