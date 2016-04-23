@@ -7,3 +7,23 @@
 			
             this.miniaturka.TabIndex = 0;
             this.miniaturka.TabStop = false;
+
+			POMYSŁY:
+			 -zestrzel xD
+
+			 BŁEDY:
+			  - tankowanie gdy nie zaznaczone
+
+			 W LOCIE:
+			  - wyladuj
+			  - odeslij
+
+			  W HANGARZE
+			  - tankuj
+			  - kontrola (czy zatankowany)
+			  - na pas startowy  // dodawanie pasazerow na pasie startowym
+			 
+			 NA PASIE STARTOWYM
+			  - zaladuj ludzi / towary
+			  - kontrola
+			  - wystartuj if kontrola

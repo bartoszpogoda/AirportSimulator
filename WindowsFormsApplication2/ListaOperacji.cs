@@ -58,6 +58,64 @@ namespace WindowsFormsApplication2
             uchwytMenedzerOperacji.uruchomTimer();
 
         }
+        public ElementListyOperacji znajdzOperacjeNaSamolocie(Samolot samolot)
+        {
+            if (pierwszy.operacja.getSamolot() == samolot) return pierwszy;
+
+            ElementListyOperacji iterator = pierwszy;
+
+            while(iterator.nastepnyElement != null)
+            {
+                iterator = iterator.nastepnyElement;
+
+                if (iterator.operacja.getSamolot() == samolot) return iterator;
+            }
+            return null;
+        }
+
+        public void usunOperacjeNaSamolocie(ElementListyOperacji operacja)
+        {
+
+            if(pierwszy == operacja)
+            {
+                pierwszy.operacja.zatrzymaj();
+
+                if(pierwszy.nastepnyElement == null)
+                {
+                    pierwszy = null;
+                    ostatni = null;
+                    powiadomOBrakuOperacji();
+                    return;
+                }
+
+                pierwszy.nastepnyElement.poprzedniElement = null;
+                pierwszy = pierwszy.nastepnyElement;
+            }
+
+            ElementListyOperacji iterator = this.pierwszy;
+
+            while(iterator.nastepnyElement != null)
+            {
+                iterator = iterator.nastepnyElement;
+
+                if(iterator == operacja)
+                {
+                    iterator.operacja.zatrzymaj();
+
+                    if (iterator.nastepnyElement == null)
+                    {
+                        ostatni = iterator.poprzedniElement;
+                        iterator.poprzedniElement.nastepnyElement = null;
+                        return;
+                    }
+
+                    iterator.nastepnyElement.poprzedniElement = iterator.poprzedniElement;
+                    iterator.poprzedniElement = iterator.nastepnyElement;
+                    return;
+
+                }
+            }
+        }
 
 
 

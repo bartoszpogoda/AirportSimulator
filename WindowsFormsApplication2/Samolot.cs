@@ -2,8 +2,8 @@
 
 namespace WindowsFormsApplication2
 {
-    public enum Stan { Spoczynek, Zaladunek, Kontrola, Tankowanie, Startowanie, WPowietrzu, Zniszczony };
-    abstract class Samolot : Miniatura// pozniej moze bedzie Abstract poniewaz musi miec swoj typ np transportowy
+    public enum Stan { Hangar, Zaladunek, Kontrola, Tankowanie, Startowanie, WPowietrzu, Zniszczony, Null };
+    public abstract class Samolot : Miniatura
     {
         private int maxPaliwo;
         private int czasStartu; //  chyba w tickach
@@ -25,13 +25,7 @@ namespace WindowsFormsApplication2
             this.maxPaliwo = maxPaliwo;
             aktualnePaliwo = 0;
         }
-
-        public void tankuj() {
-            uchwytMenedzerSamolotow.getMenedzerOperacji().dodajOperacje(new OperacjaTankowanie(this));
-        }
-
         
-
         public int getCzasStartu()
         {
             return czasStartu;
@@ -42,8 +36,7 @@ namespace WindowsFormsApplication2
         public void operacja1() { // tankowanie
 
         }
-        abstract public void operacja2();
-        abstract public void operacja3();
+      
         abstract public string wypiszInformacje();
         
         public int getMaxPaliwo()
@@ -56,20 +49,28 @@ namespace WindowsFormsApplication2
             return aktualnePaliwo;
         }
 
+        public bool jestZatankowany()
+        {
+            if (aktualnePaliwo == maxPaliwo) return true;
+            return false;
+        }
+
         public void setAktualnePaliwo(int aktualnePaliwo)
         {
             this.aktualnePaliwo = aktualnePaliwo;
-            uchwytMenedzerSamolotow.odswiez();
+            uchwytMenedzerSamolotow.odswiezInformacje();
         }
 
         public void zmienStan(Stan stan) {
             aktualnyStan = stan;
 
-            if (aktualnyStan == Stan.Spoczynek) ustawGrafike('s');
+            if (aktualnyStan == Stan.Hangar) ustawGrafike('s');
             else if (aktualnyStan == Stan.Zaladunek) ustawGrafike('k');
             else if(aktualnyStan == Stan.Kontrola) ustawGrafike('z');
             else if(aktualnyStan == Stan.Tankowanie) ustawGrafike('t');
             else if (aktualnyStan == Stan.Startowanie) ustawGrafike('a');
+
+            uchwytMenedzerSamolotow.uaktualnijPrzyciskiJezeliZaznaczony(this);
 
         }
 

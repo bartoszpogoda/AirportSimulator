@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
-    class MenedzerOperacji
+    public class MenedzerOperacji
     {
         private Timer timer;
         private ListaOperacji listaOperacji;
@@ -23,6 +23,11 @@ namespace WindowsFormsApplication2
         public void dodajOperacje(IOperacja operacja)
         {
             listaOperacji.dodajOperacje(operacja);
+        }
+
+        public void zatrzymajOperacjeNaSamolocie(Samolot samolot)
+        {
+            listaOperacji.usunOperacjeNaSamolocie(listaOperacji.znajdzOperacjeNaSamolocie(samolot));
         }
 
         public void zatrzymajTimer()

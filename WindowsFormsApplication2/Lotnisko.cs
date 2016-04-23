@@ -29,35 +29,84 @@ namespace WindowsFormsApplication2
             this.labelHangar.Parent = panelSamolotow;
             this.labelHangar.AutoSize = false;
             this.labelHangar.Size = new System.Drawing.Size(labelHangar.Parent.Size.Width, this.labelHangar.Size.Height);
+
+            schowajWszystkiePrzyciskiPanelu();
         }
         public Panel getPanelSamolotowPowietrze() { return this.panelSamolotyWPowietrzu; }
         public Panel getPanelSamolotow() { return this.panelSamolotow;  }
         public Label getLabelInformacje() { return this.labelInformacje;  }
-
-        public Label getTekstInformacje() { return this.labelTekstInformacje;  }
-        public System.ComponentModel.IContainer getComponents()
+        
+     
+        public void uaktualnijPrzyciskiPanelu(Miniatura aktualnieZaznaczony)
         {
-            return components;
+
+            // bedziemy potem wyłapywac też typ samolotu
+
+            schowajWszystkiePrzyciskiPanelu();
+
+            if (!(aktualnieZaznaczony is Samolot) )
+                return;
+            
+            Samolot aktualnieZaznaczonySamolot = (Samolot)aktualnieZaznaczony;
+            
+
+            Stan stanZaznaczonegoSamolotu = aktualnieZaznaczonySamolot.getStan();
+            
+
+            if (stanZaznaczonegoSamolotu == Stan.Tankowanie)
+            {
+                tankowanieCancel.Enabled = true;
+                tankowanieCancel.Visible = true;
+            }
+            else if(stanZaznaczonegoSamolotu == Stan.Hangar)
+            {
+                kontrola.Enabled = true;
+                kontrola.Visible = true;
+                naPasStartowy.Enabled = true;
+                naPasStartowy.Visible = true;
+                tankowanie.Enabled = true;
+                tankowanie.Visible = true;
+
+                if (aktualnieZaznaczonySamolot.jestZatankowany())
+                    tankowanie.BackColor = System.Drawing.Color.YellowGreen;
+                else
+                    tankowanie.BackColor = System.Drawing.Color.OrangeRed;
+
+                
+            }
+        }
+
+        private void schowajWszystkiePrzyciskiPanelu()
+        {
+            // mozna potem to na tablice przerobic
+            kontrola.Enabled = false;
+            kontrola.Visible = false;
+            naPasStartowy.Enabled = false;
+            naPasStartowy.Visible = false;
+            tankowanie.Enabled = false;
+            tankowanie.Visible = false;
+            tankowanieCancel.Enabled = false;
+            tankowanieCancel.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.dbgDodajSamolot(0);
         }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-            menedzerOperacji.dodajOperacje(new OperacjaTankowanie((Samolot)menedzerSamolotow.getZaznaczony()));
-        }
-            
+   
         private void button2_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.dbgDodajSamolot(1);
         }
 
-        private void labelSamolotyWPowietrzu_Click(object sender, EventArgs e)
+        private void tankowanie_Click(object sender, EventArgs e)
         {
+            menedzerSamolotow.tankujZaznaczonySamolot();
+        }
 
+        private void tankowanieCancel_Click(object sender, EventArgs e)
+        {
+           if(menedzerSamolotow.getZaznaczony() is Samolot) menedzerOperacji.zatrzymajOperacjeNaSamolocie((Samolot)menedzerSamolotow.getZaznaczony());
         }
     }
 }

@@ -17,7 +17,7 @@ namespace WindowsFormsApplication2
             if (pamiec == 1 )
             {
                 if (samolot.getAktualnePaliwo() == samolot.getMaxPaliwo()) return false;
-                if(samolot.getStan() == Stan.Spoczynek)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
+                if(samolot.getStan() == Stan.Hangar)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
                 {
                     samolot.zmienStan(Stan.Tankowanie);
                     pamiec = 0;
@@ -32,7 +32,7 @@ namespace WindowsFormsApplication2
                 if (samolot.getAktualnePaliwo() >= samolot.getMaxPaliwo()) // było == sprobuje >
                 {
                     samolot.setAktualnePaliwo(samolot.getMaxPaliwo());
-                    samolot.zmienStan(Stan.Spoczynek);
+                    samolot.zmienStan(Stan.Hangar);
                     return false;
                 }
 
@@ -40,6 +40,11 @@ namespace WindowsFormsApplication2
             }
             return false;
         
+        }
+
+        public override void zatrzymaj()
+        {
+            samolot.zmienStan(Stan.Hangar);
         }
     }
 }

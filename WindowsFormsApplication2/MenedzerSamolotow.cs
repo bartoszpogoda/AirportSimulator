@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
-    class MenedzerSamolotow
+    public class MenedzerSamolotow
     {
         //STAŁE KONFIGURACYJNE--------------------------
         const int rozmiarObrazka = 50;
@@ -46,7 +46,7 @@ namespace WindowsFormsApplication2
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
             else
             {
-                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotow(), 200, 20, 500, "Boening707"));
+                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotow(), 30, 20, 500, "Boening707"));
                 narysujSamolotyZListy();
                 narysujSamolotyZListyPowietrze();
             }
@@ -99,7 +99,7 @@ namespace WindowsFormsApplication2
         {
             if (e.Delta < 0) // scrollowanie w dół
             {
-                if (listaSamolotowPowietrze.getLength()  - 2 > aktualnyRzadStartowyPowietrze) aktualnyRzadStartowyPowietrze++;
+                if (listaSamolotowPowietrze.getLength()  - 5 > aktualnyRzadStartowyPowietrze) aktualnyRzadStartowyPowietrze++;
             }
             else // scrollowanie w górę
             {
@@ -202,7 +202,27 @@ namespace WindowsFormsApplication2
             if (samolot.czyJestPokazany()) znacznikZaznaczonego.Visible = true;
 
             // zmiana informacji
-            if (samolot is Samolot) uchwytForma.getLabelInformacje().Text = ((Samolot)samolot).wypiszInformacje();
+            //if (samolot is Samolot) uchwytForma.getLabelInformacje().Text = ((Samolot)samolot).wypiszInformacje();
+            odswiezInformacje();
+            uaktualnijPrzyciski();
+        }
+
+        public void uaktualnijPrzyciski()
+        {
+            
+                uchwytForma.uaktualnijPrzyciskiPanelu(zaznaczony);
+        }
+        public void uaktualnijPrzyciskiJezeliZaznaczony(Samolot samolot)
+        {
+            if (zaznaczony is Samolot && ((Samolot)zaznaczony) == samolot)
+            {
+                uchwytForma.uaktualnijPrzyciskiPanelu(zaznaczony);
+            }
+        }
+
+        public void tankujZaznaczonySamolot()
+        {
+            if(zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaTankowanie((Samolot)zaznaczony));
         }
 
         public Miniatura getZaznaczony()
@@ -210,10 +230,12 @@ namespace WindowsFormsApplication2
             return zaznaczony;
         }
 
-        public void odswiez()
+        public void odswiezInformacje()
         {
-            if(zaznaczony is Samolot) uchwytForma.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
-            // rysowanie nowe?
+            if (zaznaczony is Samolot)
+            {
+                uchwytForma.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
+            }// rysowanie nowe?
         }
 
     }

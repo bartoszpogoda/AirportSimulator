@@ -17,19 +17,7 @@ namespace WindowsFormsApplication2
         {
             this.maxOsob = maxOsob;
         }
-
-
-      
-
-        public override void operacja2()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void operacja3()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public override string wypiszInformacje()
         {

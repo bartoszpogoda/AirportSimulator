@@ -20,7 +20,7 @@ namespace WindowsFormsApplication2
                     pamiec = 1;
                 }
                 //if (samolot.getAktualnePaliwo() == 0) return false;
-                if (samolot.getStan() == Stan.Spoczynek)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
+                if (samolot.getStan() == Stan.Hangar)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
                 {
                     samolot.zmienStan(Stan.WPowietrzu);
                     pamiec = 1;
@@ -49,6 +49,11 @@ namespace WindowsFormsApplication2
             }
             return false;
 
+        }
+
+        public override void zatrzymaj()
+        {
+            throw new NotImplementedException();
         }
     }
 }

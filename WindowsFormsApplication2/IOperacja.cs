@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication2
 {
-    abstract class IOperacja
+    public abstract class IOperacja
     {
         protected Samolot samolot; // dotyczy samolotu
         protected int pamiec;
         public abstract bool wykonajTick(); // zwraca false jezeli to bylo ostatnie wykonanie
+
+        public abstract void zatrzymaj();
+
+        public Samolot getSamolot() { return samolot;  }
+
         public IOperacja(Samolot samolot, int pamiec)
         {
             this.samolot = samolot;

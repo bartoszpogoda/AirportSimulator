@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace WindowsFormsApplication2
 {
-    class Miniatura : PictureBox
+    public class Miniatura : PictureBox
     {
         private string adresBazowy;
 

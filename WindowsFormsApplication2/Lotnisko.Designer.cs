@@ -33,7 +33,6 @@ namespace WindowsFormsApplication2
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.panelSamolotow = new System.Windows.Forms.Panel();
             this.panelInformacji = new System.Windows.Forms.Panel();
@@ -42,36 +41,31 @@ namespace WindowsFormsApplication2
             this.labelInformacje = new System.Windows.Forms.Label();
             this.labelTekstInformacje = new System.Windows.Forms.Label();
             this.labelWPowietrzu = new System.Windows.Forms.Label();
+            this.panelPrzyciskow = new System.Windows.Forms.Panel();
+            this.kontrola = new System.Windows.Forms.Button();
+            this.naPasStartowy = new System.Windows.Forms.Button();
+            this.tankowanie = new System.Windows.Forms.Button();
+            this.tankowanieCancel = new System.Windows.Forms.Button();
+            this.panelPrzyciskow.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(176, 238);
+            this.button1.Location = new System.Drawing.Point(10, 221);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(61, 51);
+            this.button1.Size = new System.Drawing.Size(21, 20);
             this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
+            this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(369, 269);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "TANKUJ xD";
-            this.label1.Click += new System.EventHandler(this.label1_Click_1);
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(243, 255);
+            this.button2.Location = new System.Drawing.Point(458, 292);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(21, 23);
             this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
+            this.button2.Text = "+";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -137,33 +131,87 @@ namespace WindowsFormsApplication2
             // labelWPowietrzu
             // 
             this.labelWPowietrzu.AutoSize = true;
+            this.labelWPowietrzu.BackColor = System.Drawing.Color.LightSeaGreen;
             this.labelWPowietrzu.Location = new System.Drawing.Point(0, 0);
             this.labelWPowietrzu.Name = "labelWPowietrzu";
             this.labelWPowietrzu.Size = new System.Drawing.Size(18, 143);
             this.labelWPowietrzu.TabIndex = 3;
             this.labelWPowietrzu.Text = "W\n\nP\nO\nW\nI\nE\nT\nR\nZ\nU";
             this.labelWPowietrzu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelWPowietrzu.BackColor = System.Drawing.Color.LightSeaGreen;
+            // 
+            // panelPrzyciskow
+            // 
+            this.panelPrzyciskow.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.panelPrzyciskow.Controls.Add(this.tankowanieCancel);
+            this.panelPrzyciskow.Controls.Add(this.kontrola);
+            this.panelPrzyciskow.Controls.Add(this.naPasStartowy);
+            this.panelPrzyciskow.Controls.Add(this.tankowanie);
+            this.panelPrzyciskow.Location = new System.Drawing.Point(270, 213);
+            this.panelPrzyciskow.Name = "panelPrzyciskow";
+            this.panelPrzyciskow.Size = new System.Drawing.Size(200, 73);
+            this.panelPrzyciskow.TabIndex = 0;
+            // 
+            // kontrola
+            // 
+            this.kontrola.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.kontrola.Location = new System.Drawing.Point(108, 8);
+            this.kontrola.Name = "kontrola";
+            this.kontrola.Size = new System.Drawing.Size(75, 23);
+            this.kontrola.TabIndex = 2;
+            this.kontrola.Text = "Kontrola";
+            this.kontrola.UseVisualStyleBackColor = false;
+            // 
+            // naPasStartowy
+            // 
+            this.naPasStartowy.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.naPasStartowy.Location = new System.Drawing.Point(13, 37);
+            this.naPasStartowy.Name = "naPasStartowy";
+            this.naPasStartowy.Size = new System.Drawing.Size(170, 23);
+            this.naPasStartowy.TabIndex = 1;
+            this.naPasStartowy.Text = "Na pas startowy";
+            this.naPasStartowy.UseVisualStyleBackColor = false;
+            // 
+            // tankowanie
+            // 
+            this.tankowanie.BackColor = System.Drawing.Color.Beige;
+            this.tankowanie.Location = new System.Drawing.Point(13, 8);
+            this.tankowanie.Name = "tankowanie";
+            this.tankowanie.Size = new System.Drawing.Size(75, 23);
+            this.tankowanie.TabIndex = 0;
+            this.tankowanie.Text = "Tankuj";
+            this.tankowanie.UseVisualStyleBackColor = false;
+            this.tankowanie.Click += new System.EventHandler(this.tankowanie_Click);
+            // 
+            // tankowanieCancel
+            // 
+            this.tankowanieCancel.Location = new System.Drawing.Point(13, 24);
+            this.tankowanieCancel.Name = "tankowanieCancel";
+            this.tankowanieCancel.Size = new System.Drawing.Size(170, 23);
+            this.tankowanieCancel.TabIndex = 3;
+            this.tankowanieCancel.Text = "Zatrzymaj tankowanie";
+            this.tankowanieCancel.UseVisualStyleBackColor = true;
+            this.tankowanieCancel.Click += new System.EventHandler(this.tankowanieCancel_Click);
             // 
             // Lotnisko
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 317);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.labelWPowietrzu);
             this.Controls.Add(this.panelSamolotyWPowietrzu);
             this.Controls.Add(this.labelInformacje);
             this.Controls.Add(this.labelHangar);
             this.Controls.Add(this.panelInformacji);
             this.Controls.Add(this.panelSamolotow);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.panelPrzyciskow);
             this.Controls.Add(this.labelTekstInformacje);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Lotnisko";
             this.Text = "Symulator Lotniska v: -0.001";
+            this.panelPrzyciskow.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -176,15 +224,19 @@ namespace WindowsFormsApplication2
         
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panelSamolotow;
         private System.Windows.Forms.Panel panelInformacji;
+        private System.Windows.Forms.Panel panelPrzyciskow;
         private System.Windows.Forms.Label labelHangar;
         private System.Windows.Forms.Label labelInformacje;
         private System.Windows.Forms.Label labelTekstInformacje;
         private System.Windows.Forms.Panel panelSamolotyWPowietrzu;
         private Label labelWPowietrzu;
+        private Button kontrola;
+        private Button naPasStartowy;
+        private Button tankowanie;
+        private Button tankowanieCancel;
     }
 }
 
