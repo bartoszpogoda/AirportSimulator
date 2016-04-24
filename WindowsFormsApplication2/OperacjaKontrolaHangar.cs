@@ -9,9 +9,14 @@ namespace WindowsFormsApplication2
 {
     class OperacjaKontrolaHangar : IOperacja
     {
-        public OperacjaKontrolaHangar(Samolot samolot, Object o) : base(samolot, -1,o) // -1 - pierwsze wykonanie
+        ProgressBar uchwytPasekPostepu;
+        Samolot samolot;
+        int pamiec;
+        public OperacjaKontrolaHangar(Samolot samolot, ProgressBar uchwytPasekPostepu) // -1 - pierwsze wykonanie
         {
-
+            this.uchwytPasekPostepu = uchwytPasekPostepu;
+            this.samolot = samolot;
+            pamiec = -1;
         }
         public override bool wykonajTick()
         {
@@ -33,11 +38,11 @@ namespace WindowsFormsApplication2
 
                 int progress = (int)(100 - ((double)pamiec / samolot.CzasKontroli)*100);
 
-                if (pamiec2 is ProgressBar) ((ProgressBar)pamiec2).Value = progress;
+                uchwytPasekPostepu.Value = progress;
 
                 if(pamiec < 1)
                 {
-                    if (pamiec2 is ProgressBar) ((ProgressBar)pamiec2).Value = 0;
+                    uchwytPasekPostepu.Value = 0;
 
                     if (samolot.czyZatankowany()) samolot.PoKontroli = true;
 
@@ -53,8 +58,13 @@ namespace WindowsFormsApplication2
 
         public override void zatrzymaj()
         {
-            if (pamiec2 is ProgressBar) ((ProgressBar)pamiec2).Value = 0;
+            uchwytPasekPostepu.Value = 0;
             samolot.AktualnyStan = Stan.Hangar;
+        }
+
+        public override Samolot getSamolot()
+        {
+            return samolot;
         }
     }
 }

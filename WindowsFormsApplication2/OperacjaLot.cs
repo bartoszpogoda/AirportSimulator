@@ -8,9 +8,12 @@ namespace WindowsFormsApplication2
 {
     class OperacjaLot : IOperacja
     {
-        public OperacjaLot(Samolot samolot) : base(samolot, 0) // 0 - pierwsze wykonanie
+        private Samolot samolot;
+        private int pamiec;
+        public OperacjaLot(Samolot samolot) // 0 - pierwsze wykonanie
         {
-
+            pamiec = 0;
+            this.samolot = samolot;
         }
         public override bool wykonajTick()
         {
@@ -55,6 +58,11 @@ namespace WindowsFormsApplication2
         public override void zatrzymaj()
         {
             throw new NotImplementedException();
+        }
+
+        public override Samolot getSamolot()
+        {
+            return samolot;
         }
     }
 }
