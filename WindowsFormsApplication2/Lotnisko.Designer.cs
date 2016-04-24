@@ -36,6 +36,7 @@ namespace WindowsFormsApplication2
             this.button2 = new System.Windows.Forms.Button();
             this.panelSamolotow = new System.Windows.Forms.Panel();
             this.panelInformacji = new System.Windows.Forms.Panel();
+            this.pasekPostepu = new System.Windows.Forms.ProgressBar();
             this.panelSamolotyWPowietrzu = new System.Windows.Forms.Panel();
             this.labelHangar = new System.Windows.Forms.Label();
             this.labelInformacje = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@ namespace WindowsFormsApplication2
             this.kontrola = new System.Windows.Forms.Button();
             this.naPasStartowy = new System.Windows.Forms.Button();
             this.tankowanie = new System.Windows.Forms.Button();
-            this.pasekPostepu = new System.Windows.Forms.ProgressBar();
             this.panelInformacji.SuspendLayout();
             this.panelPrzyciskow.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +87,15 @@ namespace WindowsFormsApplication2
             this.panelInformacji.Name = "panelInformacji";
             this.panelInformacji.Size = new System.Drawing.Size(200, 210);
             this.panelInformacji.TabIndex = 0;
+            // 
+            // pasekPostepu
+            // 
+            this.pasekPostepu.BackColor = System.Drawing.Color.Gold;
+            this.pasekPostepu.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.pasekPostepu.Location = new System.Drawing.Point(3, 190);
+            this.pasekPostepu.Name = "pasekPostepu";
+            this.pasekPostepu.Size = new System.Drawing.Size(194, 17);
+            this.pasekPostepu.TabIndex = 0;
             // 
             // panelSamolotyWPowietrzu
             // 
@@ -195,15 +204,6 @@ namespace WindowsFormsApplication2
             this.tankowanie.Text = "Tankuj";
             this.tankowanie.UseVisualStyleBackColor = false;
             this.tankowanie.Click += new System.EventHandler(this.tankowanie_Click);
-            // 
-            // pasekPostepu
-            // 
-            this.pasekPostepu.BackColor = System.Drawing.Color.Gold;
-            this.pasekPostepu.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.pasekPostepu.Location = new System.Drawing.Point(3, 190);
-            this.pasekPostepu.Name = "pasekPostepu";
-            this.pasekPostepu.Size = new System.Drawing.Size(194, 17);
-            this.pasekPostepu.TabIndex = 0;
             // 
             // Lotnisko
             // 

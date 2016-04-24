@@ -131,5 +131,16 @@ namespace WindowsFormsApplication2
 
             menedzerSamolotow.kontrolujZaznaczonySamolot(pasekPostepu);
         }
+        
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

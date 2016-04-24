@@ -45,6 +45,7 @@ namespace WindowsFormsApplication2
 
             while (listaOperacji.iteratorMaNastepny())
             {
+                listaOperacji.iteratorNastepny();
                 if (listaOperacji.aktualnyPodIteratorem().operacja == operacja) return listaOperacji.aktualnyPodIteratorem();
             }
             return null;
@@ -57,7 +58,9 @@ namespace WindowsFormsApplication2
 
             while (listaOperacji.iteratorMaNastepny())
             {
+                listaOperacji.iteratorNastepny();
                 if (listaOperacji.aktualnyPodIteratorem().operacja.getSamolot() == samolot) return listaOperacji.aktualnyPodIteratorem().operacja;
+       
             }
             return null;
         }
