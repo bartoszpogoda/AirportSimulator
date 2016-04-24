@@ -63,6 +63,16 @@ namespace WindowsFormsApplication2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap kontrolatechniczna {
+            get {
+                object obj = ResourceManager.GetObject("kontrolatechniczna", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap samolot1 {
             get {
                 object obj = ResourceManager.GetObject("samolot1", resourceCulture);
@@ -73,29 +83,9 @@ namespace WindowsFormsApplication2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap samolot1s {
+        internal static System.Drawing.Bitmap tankowanie {
             get {
-                object obj = ResourceManager.GetObject("samolot1s", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap samolot1t {
-            get {
-                object obj = ResourceManager.GetObject("samolot1t", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap samolot1Z {
-            get {
-                object obj = ResourceManager.GetObject("samolot1Z", resourceCulture);
+                object obj = ResourceManager.GetObject("tankowanie", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

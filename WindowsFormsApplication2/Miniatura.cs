@@ -4,37 +4,95 @@ using System.Drawing;
 
 namespace WindowsFormsApplication2
 {
-    public class Miniatura : PictureBox
+    public class Miniatura
     {
         private string adresBazowy;
+        private PictureBox obrazekSamolotu;
+        private PictureBox obrazekStanu;
+        private Control aktualnyNaGorze;
 
         protected MenedzerSamolotow uchwytMenedzerSamolotow;
 
-        public Miniatura(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent) : base()
+        public PictureBox ObrazekSamolotu
+        {
+            get
+            {
+                return obrazekSamolotu;
+            }
+
+            set
+            {
+                obrazekSamolotu = value;
+            }
+        }
+
+        public PictureBox NakladkaStanu
+        {
+            get
+            {
+                return obrazekStanu;
+            }
+
+            set
+            {
+                obrazekStanu = value;
+            }
+        }
+
+        public Control AktualnyNaGorze
+        {
+            get
+            {
+                return aktualnyNaGorze;
+            }
+        }
+
+        public Miniatura()
+        {
+
+        }
+        public Miniatura(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
         {
             this.adresBazowy = adresBazowy;
             this.uchwytMenedzerSamolotow = uchwytMenedzerSamolotow;
 
-            Image = (Image)Properties.Resources.ResourceManager.GetObject(adresBazowy + "s");
+            obrazekSamolotu = new PictureBox();
+            obrazekStanu = new PictureBox();
 
-           // ImageLocation = adresBazowy + "s.png"; 
-            Location = new Point(0, 0);
-            Visible = false;
-            Enabled = false;
 
-            Parent = parent;
-            Size = new Size(50, 50);
+            obrazekSamolotu.Image = (Image)Properties.Resources.ResourceManager.GetObject(adresBazowy);
 
-            Click += new EventHandler(miniaturkaOnClick);
-            parent.Controls.Add(this);
+            // ImageLocation = adresBazowy + "s.png"; 
+            obrazekSamolotu.Location = new Point(0, 0);
+            obrazekSamolotu.Visible = false;
+            obrazekSamolotu.Enabled = false;
 
+            obrazekSamolotu.Parent = parent;
+            obrazekSamolotu.Size = new Size(50, 50);
+
+            obrazekSamolotu.Click += new EventHandler(miniaturkaOnClick);
+            parent.Controls.Add(obrazekSamolotu);
+
+
+            obrazekStanu.Location = new Point(0, 0);
+            obrazekStanu.Visible = false;
+            obrazekStanu.Enabled = false;
+            obrazekStanu.BackColor = Color.Transparent;
+            obrazekStanu.Click += new EventHandler(miniaturkaOnClick);
+
+            obrazekStanu.Parent = obrazekSamolotu;
+            obrazekStanu.Size = new Size(50, 50);
+
+            obrazekSamolotu.Controls.Add(obrazekStanu);
+
+            aktualnyNaGorze = ObrazekSamolotu;
         }
 
         public void setParent(Control parent)
         {
-            Parent.Controls.Remove(this);
-            Parent = parent;
-            Parent.Controls.Add(this); // chyba tak
+            obrazekSamolotu.Parent.Controls.Remove(obrazekSamolotu);
+            obrazekSamolotu.Parent = parent;
+            obrazekSamolotu.Parent.Controls.Add(obrazekSamolotu); // chyba tak
         }
 
         private void miniaturkaOnClick(object sender, EventArgs e)
@@ -44,24 +102,62 @@ namespace WindowsFormsApplication2
 
         public void pokaz()
         {
-            Visible = true;
-            Enabled = true;
+            obrazekSamolotu.Visible = true;
+            obrazekSamolotu.Enabled = true;
         }
 
         public void schowaj()
         {
-            Visible = false;
-            Enabled = false;
+            obrazekSamolotu.Visible = false;
+            obrazekSamolotu.Enabled = false;
         }
 
         public bool czyJestPokazany()
         {
-            return Visible;
+            return obrazekSamolotu.Visible;
         }
 
-        public void ustawGrafike(char c)
+        public void ustawNakladke(Stan aktualnyStan)
         {
-            Image = (Image)Properties.Resources.ResourceManager.GetObject(adresBazowy + c);
+            if (aktualnyStan == Stan.Hangar)
+            {
+                //nakladkaStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(adresBazowy + c);
+                obrazekStanu.Visible = false;
+                obrazekStanu.Enabled = false;
+                aktualnyNaGorze = ObrazekSamolotu;
+            }
+            else if (aktualnyStan == Stan.Zaladunek)
+            {
+                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("zaladunek");
+                obrazekStanu.Visible = true;
+                obrazekStanu.Enabled = true;
+                aktualnyNaGorze = NakladkaStanu;
+            }
+            else if (aktualnyStan == Stan.KontrolaHangar)
+            {
+                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("kontrolatechniczna");
+                obrazekStanu.Visible = true;
+                obrazekStanu.Enabled = true;
+                aktualnyNaGorze = NakladkaStanu;
+            }
+            else if (aktualnyStan == Stan.Tankowanie)
+            {
+                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("tankowanie");
+                obrazekStanu.Visible = true;
+                obrazekStanu.Enabled = true;
+                aktualnyNaGorze = NakladkaStanu;
+            }
+            else if (aktualnyStan == Stan.Startowanie)
+            {
+                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("startowanie");
+                obrazekStanu.Visible = true;
+                obrazekStanu.Enabled = true;
+                aktualnyNaGorze = NakladkaStanu;
+            }
+
+            uchwytMenedzerSamolotow.narysujSamolotyZListy();
+            uchwytMenedzerSamolotow.narysujSamolotyZListyPowietrze();
+
         }
 
     }

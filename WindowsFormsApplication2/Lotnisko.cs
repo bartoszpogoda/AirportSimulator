@@ -50,13 +50,15 @@ namespace WindowsFormsApplication2
             Samolot aktualnieZaznaczonySamolot = (Samolot)aktualnieZaznaczony;
             
 
-            Stan stanZaznaczonegoSamolotu = aktualnieZaznaczonySamolot.getStan();
+            Stan stanZaznaczonegoSamolotu = aktualnieZaznaczonySamolot.AktualnyStan;
             
 
             if (stanZaznaczonegoSamolotu == Stan.Tankowanie)
             {
-                tankowanieCancel.Enabled = true;
-                tankowanieCancel.Visible = true;
+                operationCancel.Text = "Zatrzymaj tankowanie";
+                operationCancel.Enabled = true;
+                operationCancel.Visible = true;
+            
             }
             else if(stanZaznaczonegoSamolotu == Stan.Hangar)
             {
@@ -67,13 +69,26 @@ namespace WindowsFormsApplication2
                 tankowanie.Enabled = true;
                 tankowanie.Visible = true;
 
-                if (aktualnieZaznaczonySamolot.jestZatankowany())
+                if (aktualnieZaznaczonySamolot.czyZatankowany())
                     tankowanie.BackColor = System.Drawing.Color.YellowGreen;
                 else
-                    tankowanie.BackColor = System.Drawing.Color.OrangeRed;
+                    tankowanie.BackColor = System.Drawing.Color.White;
 
-                
+                if (aktualnieZaznaczonySamolot.PoKontroli)
+                    kontrola.BackColor = System.Drawing.Color.YellowGreen;
+                else
+                    kontrola.BackColor = System.Drawing.Color.White;
             }
+            else if(stanZaznaczonegoSamolotu == Stan.KontrolaHangar)
+            {
+                operationCancel.Text = "Zatrzymaj kontrole";
+                operationCancel.Enabled = true;
+                operationCancel.Visible = true;
+                pasekPostepu.Visible = true;
+                pasekPostepu.Enabled = true;
+            }
+
+
         }
 
         private void schowajWszystkiePrzyciskiPanelu()
@@ -85,8 +100,10 @@ namespace WindowsFormsApplication2
             naPasStartowy.Visible = false;
             tankowanie.Enabled = false;
             tankowanie.Visible = false;
-            tankowanieCancel.Enabled = false;
-            tankowanieCancel.Visible = false;
+            operationCancel.Enabled = false;
+            operationCancel.Visible = false;
+            pasekPostepu.Visible = false;
+            pasekPostepu.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -103,10 +120,16 @@ namespace WindowsFormsApplication2
         {
             menedzerSamolotow.tankujZaznaczonySamolot();
         }
-
+        // ugololnic nazwe
         private void tankowanieCancel_Click(object sender, EventArgs e)
         {
            if(menedzerSamolotow.getZaznaczony() is Samolot) menedzerOperacji.zatrzymajOperacje((Samolot)menedzerSamolotow.getZaznaczony());
+        }
+
+        private void kontrola_Click(object sender, EventArgs e)
+        {
+
+            menedzerSamolotow.kontrolujZaznaczonySamolot(pasekPostepu);
         }
     }
 }

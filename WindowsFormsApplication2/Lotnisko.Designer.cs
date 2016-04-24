@@ -42,10 +42,12 @@ namespace WindowsFormsApplication2
             this.labelTekstInformacje = new System.Windows.Forms.Label();
             this.labelWPowietrzu = new System.Windows.Forms.Label();
             this.panelPrzyciskow = new System.Windows.Forms.Panel();
+            this.operationCancel = new System.Windows.Forms.Button();
             this.kontrola = new System.Windows.Forms.Button();
             this.naPasStartowy = new System.Windows.Forms.Button();
             this.tankowanie = new System.Windows.Forms.Button();
-            this.tankowanieCancel = new System.Windows.Forms.Button();
+            this.pasekPostepu = new System.Windows.Forms.ProgressBar();
+            this.panelInformacji.SuspendLayout();
             this.panelPrzyciskow.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +82,7 @@ namespace WindowsFormsApplication2
             // panelInformacji
             // 
             this.panelInformacji.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.panelInformacji.Controls.Add(this.pasekPostepu);
             this.panelInformacji.Location = new System.Drawing.Point(270, 5);
             this.panelInformacji.Name = "panelInformacji";
             this.panelInformacji.Size = new System.Drawing.Size(200, 210);
@@ -142,7 +145,7 @@ namespace WindowsFormsApplication2
             // panelPrzyciskow
             // 
             this.panelPrzyciskow.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.panelPrzyciskow.Controls.Add(this.tankowanieCancel);
+            this.panelPrzyciskow.Controls.Add(this.operationCancel);
             this.panelPrzyciskow.Controls.Add(this.kontrola);
             this.panelPrzyciskow.Controls.Add(this.naPasStartowy);
             this.panelPrzyciskow.Controls.Add(this.tankowanie);
@@ -150,6 +153,16 @@ namespace WindowsFormsApplication2
             this.panelPrzyciskow.Name = "panelPrzyciskow";
             this.panelPrzyciskow.Size = new System.Drawing.Size(200, 73);
             this.panelPrzyciskow.TabIndex = 0;
+            // 
+            // operationCancel
+            // 
+            this.operationCancel.Location = new System.Drawing.Point(13, 24);
+            this.operationCancel.Name = "operationCancel";
+            this.operationCancel.Size = new System.Drawing.Size(170, 23);
+            this.operationCancel.TabIndex = 3;
+            this.operationCancel.Text = "Zatrzymaj tankowanie";
+            this.operationCancel.UseVisualStyleBackColor = true;
+            this.operationCancel.Click += new System.EventHandler(this.tankowanieCancel_Click);
             // 
             // kontrola
             // 
@@ -160,6 +173,7 @@ namespace WindowsFormsApplication2
             this.kontrola.TabIndex = 2;
             this.kontrola.Text = "Kontrola";
             this.kontrola.UseVisualStyleBackColor = false;
+            this.kontrola.Click += new System.EventHandler(this.kontrola_Click);
             // 
             // naPasStartowy
             // 
@@ -182,21 +196,20 @@ namespace WindowsFormsApplication2
             this.tankowanie.UseVisualStyleBackColor = false;
             this.tankowanie.Click += new System.EventHandler(this.tankowanie_Click);
             // 
-            // tankowanieCancel
+            // pasekPostepu
             // 
-            this.tankowanieCancel.Location = new System.Drawing.Point(13, 24);
-            this.tankowanieCancel.Name = "tankowanieCancel";
-            this.tankowanieCancel.Size = new System.Drawing.Size(170, 23);
-            this.tankowanieCancel.TabIndex = 3;
-            this.tankowanieCancel.Text = "Zatrzymaj tankowanie";
-            this.tankowanieCancel.UseVisualStyleBackColor = true;
-            this.tankowanieCancel.Click += new System.EventHandler(this.tankowanieCancel_Click);
+            this.pasekPostepu.BackColor = System.Drawing.Color.Gold;
+            this.pasekPostepu.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.pasekPostepu.Location = new System.Drawing.Point(3, 190);
+            this.pasekPostepu.Name = "pasekPostepu";
+            this.pasekPostepu.Size = new System.Drawing.Size(194, 17);
+            this.pasekPostepu.TabIndex = 0;
             // 
             // Lotnisko
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 317);
+            this.ClientSize = new System.Drawing.Size(591, 470);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.labelWPowietrzu);
@@ -211,6 +224,7 @@ namespace WindowsFormsApplication2
             this.MinimizeBox = false;
             this.Name = "Lotnisko";
             this.Text = "Symulator Lotniska v: -0.001";
+            this.panelInformacji.ResumeLayout(false);
             this.panelPrzyciskow.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -236,7 +250,8 @@ namespace WindowsFormsApplication2
         private Button kontrola;
         private Button naPasStartowy;
         private Button tankowanie;
-        private Button tankowanieCancel;
+        private Button operationCancel;
+        private ProgressBar pasekPostepu;
     }
 }
 

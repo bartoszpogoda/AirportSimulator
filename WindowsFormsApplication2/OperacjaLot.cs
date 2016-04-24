@@ -16,13 +16,13 @@ namespace WindowsFormsApplication2
         {
             if (pamiec == 0)
             {
-                if (samolot.getStan() == Stan.WPowietrzu) {
+                if (samolot.AktualnyStan == Stan.WPowietrzu) {
                     pamiec = 1;
                 }
                 //if (samolot.getAktualnePaliwo() == 0) return false;
-                if (samolot.getStan() == Stan.Hangar)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
+                if (samolot.AktualnyStan == Stan.Hangar)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
                 {
-                    samolot.zmienStan(Stan.WPowietrzu);
+                    samolot.AktualnyStan = Stan.WPowietrzu;
                     pamiec = 1;
                 }
                 return true;
@@ -31,17 +31,18 @@ namespace WindowsFormsApplication2
 
             if (pamiec % 10 == 0)
             {
-                samolot.setAktualnePaliwo(samolot.getAktualnePaliwo() - 1);
+                samolot.AktualnaIloscPaliwa = samolot.AktualnaIloscPaliwa - 1;
             }
 
             pamiec++;
+
             if (pamiec > 10) pamiec = 1;
 
-            if (samolot.getStan() == Stan.WPowietrzu)
+            if (samolot.AktualnyStan == Stan.WPowietrzu)
             {
-                if (samolot.getAktualnePaliwo() <= 0) // było == sprobuje >
+                if (samolot.AktualnaIloscPaliwa <= 0) // było == sprobuje >
                 {
-                    samolot.zmienStan(Stan.Zniszczony);
+                    samolot.AktualnyStan = Stan.Zniszczony;
                     return false;
                 }
 

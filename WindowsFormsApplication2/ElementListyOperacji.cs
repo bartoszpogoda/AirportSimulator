@@ -17,13 +17,13 @@ namespace WindowsFormsApplication2
             this.operacja = operacja;
             nastepnyElement = null;
             poprzedniElement = null;
-            //tekts
         }
 
         public void wykonajOperacje(ListaOperacji uchwytListaOperacji) 
         {
-            if(!operacja.wykonajTick())
-            {
+            if (!operacja.wykonajTick())
+                uchwytListaOperacji.usunElement(this);
+            /*{
                 if (poprzedniElement == null && nastepnyElement == null)
                 {
                     // to był ostatni
@@ -46,6 +46,7 @@ namespace WindowsFormsApplication2
                     nastepnyElement.poprzedniElement = poprzedniElement;
                 }
             }
+            */
 
             if(nastepnyElement != null) nastepnyElement.wykonajOperacje(uchwytListaOperacji);
         }

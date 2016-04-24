@@ -2,80 +2,152 @@
 
 namespace WindowsFormsApplication2
 {
-    public enum Stan { Hangar, Zaladunek, Kontrola, Tankowanie, Startowanie, WPowietrzu, Zniszczony, Null };
+    public enum Stan { Hangar, Zaladunek, KontrolaHangar, Tankowanie, Startowanie, WPowietrzu, Zniszczony, Null };
     public abstract class Samolot : Miniatura
     {
-        private int maxPaliwo;
-        private int czasStartu; //  chyba w tickach
+        //---parametry techniczne
+        private int maksIloscPaliwa;
+        private int czasStartu;         //w tickach
+        private int czasKontroli;         //w tickach
         private string model;
+        //-----------------------
 
+        //---zmienne okreslajace stan
         private Stan aktualnyStan;
-        private int aktualnePaliwo;
-        
+        private int aktualnaIloscPaliwa;
+        private bool kontrolaTechniczna;
+        //---------------------------
 
-        public Stan getStan() { return aktualnyStan; }
-          
-        // tymczasowo
-    
-        public Samolot(string adresBazowy, Form uchwytFormy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maxPaliwo, int czasStartu, string model)
-            : base(adresBazowy,uchwytMenedzerSamolotow, parent)
+        public int MaksIloscPaliwa
         {
-            this.czasStartu = czasStartu;
-            this.model = model;
-            this.maxPaliwo = maxPaliwo;
-            aktualnePaliwo = 0;
+            get
+            {
+                return maksIloscPaliwa;
+            }
+
+            set
+            {
+                maksIloscPaliwa = value;
+            }
         }
-        
-        public int getCzasStartu()
+
+        public int CzasStartu
         {
-            return czasStartu;
+            get
+            {
+                return czasStartu;
+            }
+
+            set
+            {
+                czasStartu = value;
+            }
         }
-        public string getModel() { return model;  }
 
+        public string Model
+        {
+            get
+            {
+                return model;
+            }
 
-        public void operacja1() { // tankowanie
-
+            set
+            {
+                model = value;
+            }
         }
-      
+
+        public Stan AktualnyStan
+        {
+            get
+            {
+                return aktualnyStan;
+            }
+
+            set
+            {
+                aktualnyStan = value;
+                ustawNakladke(value);
+                uchwytMenedzerSamolotow.uaktualnijPrzyciskiJezeliZaznaczony(this);
+                uchwytMenedzerSamolotow.oswiezInformacjeJezeliZaznaczony(this);
+
+            }
+        }
+
+        public int AktualnaIloscPaliwa
+        {
+            get
+            {
+                return aktualnaIloscPaliwa;
+            }
+
+            set
+            {
+                aktualnaIloscPaliwa = value;
+                uchwytMenedzerSamolotow.oswiezInformacjeJezeliZaznaczony(this);
+            }
+        }
+
+        public bool PoKontroli
+        {
+            get
+            {
+                return kontrolaTechniczna;
+            }
+
+            set
+            {
+                kontrolaTechniczna = value;
+            }
+        }
+
+        public int CzasKontroli
+        {
+            get
+            {
+                return czasKontroli;
+            }
+
+            set
+            {
+                czasKontroli = value;
+            }
+        }
+
+        public Samolot(string adresBazowy, Form uchwytFormy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maksIloscPaliwa, int czasStartu, int czasKontroli, string model)
+            : base(adresBazowy, uchwytMenedzerSamolotow, parent)
+        {
+            this.CzasStartu = czasStartu;
+            this.Model = model;
+            this.MaksIloscPaliwa = maksIloscPaliwa;
+            this.czasKontroli = czasKontroli;
+
+            AktualnaIloscPaliwa = 0;
+            PoKontroli = false;
+        }
+
+        public Samolot() : base()
+        {
+            CzasStartu = -1;
+            Model = "";
+            MaksIloscPaliwa = -1;
+
+            AktualnaIloscPaliwa = 0;
+            PoKontroli = false;
+        }
+
+
+
         abstract public string wypiszInformacje();
-        
-        public int getMaxPaliwo()
-        {
-            return maxPaliwo;
-        }
 
-        public int getAktualnePaliwo()
-        {
-            return aktualnePaliwo;
-        }
 
-        public bool jestZatankowany()
+        public bool czyZatankowany()
         {
-            if (aktualnePaliwo == maxPaliwo) return true;
+            if (MaksIloscPaliwa == AktualnaIloscPaliwa) return true;
             return false;
         }
 
-        public void setAktualnePaliwo(int aktualnePaliwo)
-        {
-            this.aktualnePaliwo = aktualnePaliwo;
-            uchwytMenedzerSamolotow.odswiezInformacje();
-        }
-
-        public void zmienStan(Stan stan) {
-            aktualnyStan = stan;
-
-            if (aktualnyStan == Stan.Hangar) ustawGrafike('s');
-            else if (aktualnyStan == Stan.Zaladunek) ustawGrafike('k');
-            else if(aktualnyStan == Stan.Kontrola) ustawGrafike('z');
-            else if(aktualnyStan == Stan.Tankowanie) ustawGrafike('t');
-            else if (aktualnyStan == Stan.Startowanie) ustawGrafike('a');
-
-            uchwytMenedzerSamolotow.uaktualnijPrzyciskiJezeliZaznaczony(this);
-
-        }
-
-
-        
+        public bool czyPoKontroli() { return PoKontroli; }
     }
-    
+
 }

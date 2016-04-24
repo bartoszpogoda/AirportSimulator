@@ -46,16 +46,16 @@ namespace WindowsFormsApplication2
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
             else
             {
-                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotow(), 30, 20, 500, "Boening707"));
+                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotow(), 30, 20, 500, 30, "Boening707"));
                 narysujSamolotyZListy();
                 narysujSamolotyZListyPowietrze();
             }
         }
 
         public void wygenerujLosowySamolotWPowietrzu() { // prototyp
-            Samolot samolot = new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotowPowietrze(), 20, 20, 500, "Tupolew");
-            samolot.zmienStan(Stan.WPowietrzu);
-            samolot.setAktualnePaliwo(samolot.getMaxPaliwo()); // to pozniej bedzie losowe
+            Samolot samolot = new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotowPowietrze(), 20, 20, 500, 30, "Tupolew");
+            samolot.AktualnyStan = Stan.WPowietrzu;
+            samolot.AktualnaIloscPaliwa = samolot.MaksIloscPaliwa; // to pozniej bedzie losowe
             listaSamolotowPowietrze.dodajSamolot(samolot);
             uchwytMenedzerOperacji.dodajOperacje(new OperacjaLot(samolot));
             narysujSamolotyZListyPowietrze();
@@ -109,7 +109,7 @@ namespace WindowsFormsApplication2
         }
 
 
-        private void narysujSamolotyZListy()
+        public void narysujSamolotyZListy()
         {
             int i = aktualnyRzadStartowy;
             listaSamolotow.iteratorNaStart();
@@ -128,14 +128,14 @@ namespace WindowsFormsApplication2
             {
                 for(int j=0; j < iloscKolumn; j++)
                 {
-                    listaSamolotow.aktualnyPodIteratorem().Location = new Point(
+                    listaSamolotow.aktualnyPodIteratorem().ObrazekSamolotu.Location = new Point(
                         rozmiarOdstepu * (j + 1) + j * rozmiarObrazka,
                            10 + rozmiarOdstepu * (i + 1) + i * rozmiarObrazka
                            );
                     listaSamolotow.aktualnyPodIteratorem().pokaz();
 
                     if (listaSamolotow.aktualnyPodIteratorem().Equals(zaznaczony)){
-                        znacznikZaznaczonego.Parent = zaznaczony;
+                        znacznikZaznaczonego.Parent = zaznaczony.AktualnyNaGorze;
                         znacznikZaznaczonego.Location = new System.Drawing.Point(0, 0);
                         znacznikZaznaczonego.Visible = true;
                     }
@@ -150,7 +150,7 @@ namespace WindowsFormsApplication2
             }
         }  // hangar
 
-        private void narysujSamolotyZListyPowietrze() // powietrze
+        public void narysujSamolotyZListyPowietrze() // powietrze
         {
             int i = aktualnyRzadStartowyPowietrze;
             listaSamolotowPowietrze.iteratorNaStart();
@@ -167,13 +167,13 @@ namespace WindowsFormsApplication2
             for (i = 0; i < 5; i++)
             {
 
-                listaSamolotowPowietrze.aktualnyPodIteratorem().Location = new Point(25,
+                listaSamolotowPowietrze.aktualnyPodIteratorem().ObrazekSamolotu.Location = new Point(25,
                            10 + rozmiarOdstepu  + i * rozmiarObrazka);
                 listaSamolotowPowietrze.aktualnyPodIteratorem().pokaz();
 
                     if (listaSamolotowPowietrze.aktualnyPodIteratorem().Equals(zaznaczony))
                     {
-                        znacznikZaznaczonego.Parent = zaznaczony;
+                        znacznikZaznaczonego.Parent = zaznaczony.ObrazekSamolotu;
                         znacznikZaznaczonego.Location = new System.Drawing.Point(0, 0);
                         znacznikZaznaczonego.Visible = true;
                     }
@@ -197,7 +197,7 @@ namespace WindowsFormsApplication2
                 zaznaczony = samolot;
             }
             
-            znacznikZaznaczonego.Parent = samolot;
+            znacznikZaznaczonego.Parent = samolot.AktualnyNaGorze;
             znacznikZaznaczonego.Location = new Point(0, 0);
             if (samolot.czyJestPokazany()) znacznikZaznaczonego.Visible = true;
 
@@ -224,7 +224,10 @@ namespace WindowsFormsApplication2
         {
             if(zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaTankowanie((Samolot)zaznaczony));
         }
-
+        public void kontrolujZaznaczonySamolot(ProgressBar pasekPostepu)
+        {
+            if (zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaKontrolaHangar((Samolot)zaznaczony, pasekPostepu));
+        }
         public Miniatura getZaznaczony()
         {
             return zaznaczony;
@@ -236,6 +239,14 @@ namespace WindowsFormsApplication2
             {
                 uchwytForma.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
             }// rysowanie nowe?
+        }
+
+        public void oswiezInformacjeJezeliZaznaczony(Samolot samolot)
+        {
+            if (zaznaczony is Samolot && zaznaczony == samolot)
+            {
+                uchwytForma.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
+            }
         }
 
     }

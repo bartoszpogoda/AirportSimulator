@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>20</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -83,9 +83,6 @@
     <Compile Include="IOperacja.cs" />
     <Compile Include="ListaOperacji.cs" />
     <Compile Include="MenedzerOperacji.cs" />
-    <Compile Include="Miniatura.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ElementListySamolotow.cs" />
     <Compile Include="Lotnisko.cs">
       <SubType>Form</SubType>
@@ -95,29 +92,27 @@
     </Compile>
     <Compile Include="ListaSamolotow.cs" />
     <Compile Include="MenedzerSamolotow.cs" />
+    <Compile Include="Miniatura.cs" />
+    <Compile Include="OperacjaKontrolaHangar.cs" />
     <Compile Include="OperacjaLot.cs" />
     <Compile Include="OperacjaTankowanie.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Samolot.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SamolotOsobowy.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Samolot.cs" />
+    <Compile Include="SamolotOsobowy.cs" />
     <EmbeddedResource Include="Lotnisko.resx">
       <DependentUpon>Lotnisko.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -134,11 +129,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\samolot1s.png" />
     <None Include="Resources\samolot1.png" />
-    <None Include="Resources\samolot1t.png" />
-    <None Include="Resources\samolot1Z.png" />
     <None Include="Resources\znacznik.png" />
+    <None Include="Resources\tankowanie.png" />
+    <None Include="Resources\kontrolatechniczna.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>

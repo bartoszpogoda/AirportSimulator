@@ -16,23 +16,23 @@ namespace WindowsFormsApplication2
         {
             if (pamiec == 1 )
             {
-                if (samolot.getAktualnePaliwo() == samolot.getMaxPaliwo()) return false;
-                if(samolot.getStan() == Stan.Hangar)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
+                if (samolot.AktualnaIloscPaliwa == samolot.MaksIloscPaliwa) return false;
+                if(samolot.AktualnyStan == Stan.Hangar)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
                 {
-                    samolot.zmienStan(Stan.Tankowanie);
+                    samolot.AktualnyStan = Stan.Tankowanie;
                     pamiec = 0;
                 }
                 return true;
                 
             }
 
-            samolot.setAktualnePaliwo(samolot.getAktualnePaliwo() + 1);
-            if (samolot.getStan() == Stan.Tankowanie)
+            samolot.AktualnaIloscPaliwa = samolot.AktualnaIloscPaliwa + 1;
+            if (samolot.AktualnyStan == Stan.Tankowanie)
             {
-                if (samolot.getAktualnePaliwo() >= samolot.getMaxPaliwo()) // było == sprobuje >
+                if (samolot.AktualnaIloscPaliwa >= samolot.MaksIloscPaliwa) // było == sprobuje >
                 {
-                    samolot.setAktualnePaliwo(samolot.getMaxPaliwo());
-                    samolot.zmienStan(Stan.Hangar);
+                    samolot.AktualnaIloscPaliwa = samolot.MaksIloscPaliwa;
+                    samolot.AktualnyStan = Stan.Hangar;
                     return false;
                 }
 
@@ -44,7 +44,7 @@ namespace WindowsFormsApplication2
 
         public override void zatrzymaj()
         {
-            samolot.zmienStan(Stan.Hangar);
+            samolot.AktualnyStan = Stan.Hangar;
         }
     }
 }
