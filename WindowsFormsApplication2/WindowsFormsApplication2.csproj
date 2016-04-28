@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Beata\Desktop\appka\</PublishUrl>
+    <PublishUrl>I:\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -79,23 +79,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElementListyOperacji.cs" />
-    <Compile Include="IOperacja.cs" />
-    <Compile Include="ListaOperacji.cs" />
-    <Compile Include="MenedzerOperacji.cs" />
-    <Compile Include="ElementListySamolotow.cs" />
+    <Compile Include="ZarzadzanieOperacjami\ElementListyOperacji.cs" />
+    <Compile Include="Operacje\IOperacja.cs" />
+    <Compile Include="ZarzadzanieOperacjami\ListaOperacji.cs" />
+    <Compile Include="ZarzadzanieOperacjami\MenedzerOperacji.cs" />
+    <Compile Include="ZarzadzanieSamolotami\ElementListySamolotow.cs" />
     <Compile Include="Lotnisko.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Lotnisko.Designer.cs">
       <DependentUpon>Lotnisko.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListaSamolotow.cs" />
-    <Compile Include="MenedzerSamolotow.cs" />
-    <Compile Include="Miniatura.cs" />
-    <Compile Include="OperacjaKontrolaHangar.cs" />
-    <Compile Include="OperacjaLot.cs" />
-    <Compile Include="OperacjaTankowanie.cs" />
+    <Compile Include="ZarzadzanieSamolotami\ListaSamolotow.cs" />
+    <Compile Include="ZarzadzanieSamolotami\MenedzerSamolotow.cs" />
+    <Compile Include="Samoloty\Miniatura.cs" />
+    <Compile Include="Operacje\OperacjaKontrolaHangar.cs" />
+    <Compile Include="Operacje\OperacjaLot.cs" />
+    <Compile Include="Operacje\OperacjaTankowanie.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -103,8 +103,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Samolot.cs" />
-    <Compile Include="SamolotOsobowy.cs" />
+    <Compile Include="Samoloty\Samolot.cs" />
+    <Compile Include="Samoloty\SamolotOsobowy.cs" />
     <EmbeddedResource Include="Lotnisko.resx">
       <DependentUpon>Lotnisko.cs</DependentUpon>
     </EmbeddedResource>
