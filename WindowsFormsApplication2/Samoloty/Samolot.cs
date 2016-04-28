@@ -2,7 +2,7 @@
 
 namespace WindowsFormsApplication2
 {
-    public enum Stan { Hangar, Zaladunek, KontrolaHangar, Tankowanie, Startowanie, WPowietrzu, Zniszczony, Null };
+    public enum Stan { Hangar, Zaladunek, KontrolaTechniczna, Tankowanie, Startowanie, WPowietrzu, Zniszczony, Null };
     public abstract class Samolot : Miniatura
     {
         //---parametry techniczne
@@ -101,7 +101,7 @@ namespace WindowsFormsApplication2
             }
         }
 
-        public int CzasKontroli
+        public int CzasKontroliTechnicznej
         {
             get
             {

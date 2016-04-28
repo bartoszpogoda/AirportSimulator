@@ -43,16 +43,7 @@ namespace WindowsFormsApplication2
             if (iterator == null) return null;
             return iterator;
         }
-
-        public void setPierwszy(ElementListyOperacji pierwszy) {
-            this.pierwszy = pierwszy;
-        }
-
-        public void setOstatni(ElementListyOperacji ostatni)
-        {
-            this.ostatni = ostatni;
-        }
-
+       
         public void dodajElement(ElementListyOperacji element)
         {
             if (pierwszy == null)

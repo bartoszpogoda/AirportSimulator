@@ -23,31 +23,7 @@ namespace WindowsFormsApplication2
         {
             if (!operacja.wykonajTick())
                 uchwytListaOperacji.usunElement(this);
-            /*{
-                if (poprzedniElement == null && nastepnyElement == null)
-                {
-                    // to był ostatni
-                    uchwytListaOperacji.setPierwszy(null);
-                    uchwytListaOperacji.setOstatni(null);
-                }
-                else if (poprzedniElement == null)
-                {
-                    uchwytListaOperacji.setPierwszy(nastepnyElement);
-                    nastepnyElement.poprzedniElement = null;
-                }
-                else if(nastepnyElement == null)
-                {
-                    poprzedniElement.nastepnyElement = null; // bedzie dzialac nawet dla nulla
-                    uchwytListaOperacji.setOstatni(poprzedniElement);
-                }
-                else
-                {
-                    poprzedniElement.nastepnyElement = nastepnyElement;
-                    nastepnyElement.poprzedniElement = poprzedniElement;
-                }
-            }
-            */
-
+          
             if(nastepnyElement != null) nastepnyElement.wykonajOperacje(uchwytListaOperacji);
         }
     }

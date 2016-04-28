@@ -1,46 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
-    class OperacjaKontrolaHangar : IOperacja
+    class OperacjaKontrolaTechniczna : IOperacja
     {
         ProgressBar uchwytPasekPostepu;
         Samolot samolot;
-        int pamiec;
-        public OperacjaKontrolaHangar(Samolot samolot, ProgressBar uchwytPasekPostepu) // -1 - pierwsze wykonanie
+        int statusKontroli; // -1 oznacza pierwsze wykonanie, nastepnie przypisany jest czas kontroli samolotu, ktory zmniejsza sie do zera co tick
+
+        public OperacjaKontrolaTechniczna(Samolot samolot, ProgressBar uchwytPasekPostepu) // -1 - pierwsze wykonanie
         {
             this.uchwytPasekPostepu = uchwytPasekPostepu;
             this.samolot = samolot;
-            pamiec = -1;
+            statusKontroli = -1;
         }
+
         public override bool wykonajTick()
         {
-            if (pamiec == -1)
+            if (statusKontroli == -1) // pierwsze wykonanie
             {
-                if (samolot.PoKontroli) return false;
-                if (samolot.AktualnyStan == Stan.Hangar) 
+                if (samolot.PoKontroli)
+                    return false;
+                if (samolot.AktualnyStan == Stan.Hangar) // operacja rozpocznie sie dopiero, gdy samolot bedzie w Hangarze.
                 {
-                    samolot.AktualnyStan = Stan.KontrolaHangar;
-                    pamiec = samolot.CzasKontroli;
+                    samolot.AktualnyStan = Stan.KontrolaTechniczna;
+                    statusKontroli = samolot.CzasKontroliTechnicznej;
                 }
                 return true;
-
             }
 
-            if (samolot.AktualnyStan == Stan.KontrolaHangar)
+            if (samolot.AktualnyStan == Stan.KontrolaTechniczna)
             {
-                pamiec--;
+                statusKontroli--;
 
-                int progress = (int)(100 - ((double)pamiec / samolot.CzasKontroli)*100);
+                int progress = (int)(100 - ((double)statusKontroli / samolot.CzasKontroliTechnicznej)*100);
 
                 uchwytPasekPostepu.Value = progress;
 
-                if(pamiec < 1)
+                if(statusKontroli < 1)
                 {
                     uchwytPasekPostepu.Value = 0;
 
@@ -52,8 +49,8 @@ namespace WindowsFormsApplication2
 
                 return true;
             }
-            return false;
 
+            return false;
         }
 
         public override void zatrzymaj()

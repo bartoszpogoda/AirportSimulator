@@ -9,8 +9,8 @@ namespace WindowsFormsApplication2
     class OperacjaLot : IOperacja
     {
         private Samolot samolot;
-        private int pamiec;
-        public OperacjaLot(Samolot samolot) // 0 - pierwsze wykonanie
+        private int pamiec;  // 0 - pierwsze wykonanie
+        public OperacjaLot(Samolot samolot) 
         {
             pamiec = 0;
             this.samolot = samolot;
@@ -23,7 +23,7 @@ namespace WindowsFormsApplication2
                     pamiec = 1;
                 }
                 //if (samolot.getAktualnePaliwo() == 0) return false;
-                if (samolot.AktualnyStan == Stan.Hangar)  // operacje prawdopodobnie beda sie zbierac i wykonywac dopiero jak bedzie stan spoczynku
+                if (samolot.AktualnyStan == Stan.Hangar) // to jest ogolnie do zmiany bo z hangaru nie moze od rauz leciec
                 {
                     samolot.AktualnyStan = Stan.WPowietrzu;
                     pamiec = 1;

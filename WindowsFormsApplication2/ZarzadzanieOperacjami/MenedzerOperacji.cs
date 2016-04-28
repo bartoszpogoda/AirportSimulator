@@ -11,7 +11,7 @@ namespace WindowsFormsApplication2
     {
         private Timer timer;
         private ListaOperacji listaOperacji;
-        public MenedzerOperacji(Lotnisko uchwytLotnisko)
+        public MenedzerOperacji(OknoAplikacji uchwytOknoAplikacji)
         {
             timer = new Timer(); 
             timer.Tick += new EventHandler(onTimerTick);
