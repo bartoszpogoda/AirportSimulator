@@ -11,9 +11,9 @@ namespace WindowsFormsApplication2
     {
         private Timer timer;
         private ListaOperacji listaOperacji;
-        public MenedzerOperacji(Lotnisko uchwytLotnisko)
+        public MenedzerOperacji(OknoAplikacji uchwytOknoAplikacji)
         {
-            timer = new Timer(); // moze trzeba dac argument
+            timer = new Timer(); 
             timer.Tick += new EventHandler(onTimerTick);
             timer.Interval = 100;
             timer.Enabled = false; // timer ma sie właczać jak lista operacji nie jest pusta

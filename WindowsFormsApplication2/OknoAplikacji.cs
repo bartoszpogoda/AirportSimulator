@@ -3,12 +3,12 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
-    public partial class Lotnisko : Form
+    public partial class OknoAplikacji : Form
     {
         private MenedzerSamolotow menedzerSamolotow;
         private MenedzerOperacji menedzerOperacji;
 
-        public Lotnisko()
+        public OknoAplikacji()
         {
             InitializeComponent();
             menedzerOperacji = new MenedzerOperacji(this);
@@ -79,7 +79,7 @@ namespace WindowsFormsApplication2
                 else
                     kontrola.BackColor = System.Drawing.Color.White;
             }
-            else if(stanZaznaczonegoSamolotu == Stan.KontrolaHangar)
+            else if(stanZaznaczonegoSamolotu == Stan.KontrolaTechniczna)
             {
                 operationCancel.Text = "Zatrzymaj kontrole";
                 operationCancel.Enabled = true;

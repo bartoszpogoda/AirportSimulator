@@ -22,7 +22,7 @@ namespace WindowsFormsApplication2
         private Miniatura zaznaczony;
         private ListaSamolotow listaSamolotow; // w hangarze
         private ListaSamolotow listaSamolotowPowietrze; // w powietrzu
-        private Lotnisko uchwytForma;
+        private OknoAplikacji uchwytOknoAplikacji;
 
         private MenedzerOperacji uchwytMenedzerOperacji;
         
@@ -30,8 +30,8 @@ namespace WindowsFormsApplication2
 
        
 
-        public MenedzerSamolotow(Lotnisko uchwytForma, MenedzerOperacji uchwytMenedzerOperacji) {
-            this.uchwytForma = uchwytForma;
+        public MenedzerSamolotow(OknoAplikacji uchwytOknoAplikacji, MenedzerOperacji uchwytMenedzerOperacji) {
+            this.uchwytOknoAplikacji = uchwytOknoAplikacji;
             this.uchwytMenedzerOperacji = uchwytMenedzerOperacji;
             listaSamolotow = new ListaSamolotow();
             listaSamolotowPowietrze = new ListaSamolotow();
@@ -46,14 +46,14 @@ namespace WindowsFormsApplication2
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
             else
             {
-                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotow(), 30, 20, 500, 30, "Boening707"));
+                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this.uchwytOknoAplikacji, this, uchwytOknoAplikacji.getPanelSamolotow(), 30, 20, 500, 30, "Boening707"));
                 narysujSamolotyZListy();
                 narysujSamolotyZListyPowietrze();
             }
         }
 
         public void wygenerujLosowySamolotWPowietrzu() { // prototyp
-            Samolot samolot = new SamolotOsobowy("samolot1", this.uchwytForma, this, uchwytForma.getPanelSamolotowPowietrze(), 20, 20, 500, 30, "Tupolew");
+            Samolot samolot = new SamolotOsobowy("samolot1", this.uchwytOknoAplikacji, this, uchwytOknoAplikacji.getPanelSamolotowPowietrze(), 20, 20, 500, 30, "Tupolew");
             samolot.AktualnyStan = Stan.WPowietrzu;
             samolot.AktualnaIloscPaliwa = samolot.MaksIloscPaliwa; // to pozniej bedzie losowe
             listaSamolotowPowietrze.dodajSamolot(samolot);
@@ -66,7 +66,7 @@ namespace WindowsFormsApplication2
 
         private void zainicjujZnacznikZaznaczonego()
         {
-            if (znacznikZaznaczonego == null || uchwytForma == null) return;
+            if (znacznikZaznaczonego == null || uchwytOknoAplikacji == null) return;
 
             znacznikZaznaczonego.Image = (Image)Properties.Resources.ResourceManager.GetObject(adresImgZaznaczony);
             znacznikZaznaczonego.BackColor = Color.Transparent;
@@ -74,7 +74,7 @@ namespace WindowsFormsApplication2
             znacznikZaznaczonego.Enabled = false;
             znacznikZaznaczonego.Visible = false;
             znacznikZaznaczonego.Size = new Size(50, 50);
-            uchwytForma.Controls.Add(znacznikZaznaczonego);
+            uchwytOknoAplikacji.Controls.Add(znacznikZaznaczonego);
         }
 
  
@@ -210,13 +210,13 @@ namespace WindowsFormsApplication2
         public void uaktualnijPrzyciski()
         {
             
-                uchwytForma.uaktualnijPrzyciskiPanelu(zaznaczony);
+                uchwytOknoAplikacji.uaktualnijPrzyciskiPanelu(zaznaczony);
         }
         public void uaktualnijPrzyciskiJezeliZaznaczony(Samolot samolot)
         {
             if (zaznaczony is Samolot && ((Samolot)zaznaczony) == samolot)
             {
-                uchwytForma.uaktualnijPrzyciskiPanelu(zaznaczony);
+                uchwytOknoAplikacji.uaktualnijPrzyciskiPanelu(zaznaczony);
             }
         }
 
@@ -226,7 +226,7 @@ namespace WindowsFormsApplication2
         }
         public void kontrolujZaznaczonySamolot(ProgressBar pasekPostepu)
         {
-            if (zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaKontrolaHangar((Samolot)zaznaczony, pasekPostepu));
+            if (zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaKontrolaTechniczna((Samolot)zaznaczony, pasekPostepu));
         }
         public Miniatura getZaznaczony()
         {
@@ -237,7 +237,7 @@ namespace WindowsFormsApplication2
         {
             if (zaznaczony is Samolot)
             {
-                uchwytForma.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
+                uchwytOknoAplikacji.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
             }// rysowanie nowe?
         }
 
@@ -245,7 +245,7 @@ namespace WindowsFormsApplication2
         {
             if (zaznaczony is Samolot && zaznaczony == samolot)
             {
-                uchwytForma.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
+                uchwytOknoAplikacji.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
             }
         }
 

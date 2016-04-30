@@ -121,7 +121,6 @@ namespace WindowsFormsApplication2
         {
             if (aktualnyStan == Stan.Hangar)
             {
-                //nakladkaStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(adresBazowy + c);
                 obrazekStanu.Visible = false;
                 obrazekStanu.Enabled = false;
                 aktualnyNaGorze = ObrazekSamolotu;
@@ -133,7 +132,7 @@ namespace WindowsFormsApplication2
                 obrazekStanu.Enabled = true;
                 aktualnyNaGorze = NakladkaStanu;
             }
-            else if (aktualnyStan == Stan.KontrolaHangar)
+            else if (aktualnyStan == Stan.KontrolaTechniczna)
             {
                 obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("kontrolatechniczna");
                 obrazekStanu.Visible = true;

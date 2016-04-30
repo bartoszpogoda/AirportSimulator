@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
-    partial class Lotnisko
+    partial class OknoAplikacji
     {
         /// <summary>
         /// Required designer variable.
@@ -205,7 +205,7 @@ namespace WindowsFormsApplication2
             this.tankowanie.UseVisualStyleBackColor = false;
             this.tankowanie.Click += new System.EventHandler(this.tankowanie_Click);
             // 
-            // Lotnisko
+            // OknoAplikacji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -222,7 +222,7 @@ namespace WindowsFormsApplication2
             this.Controls.Add(this.labelTekstInformacje);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Lotnisko";
+            this.Name = "OknoAplikacji";
             this.Text = "Symulator Lotniska v: -0.001";
             this.panelInformacji.ResumeLayout(false);
             this.panelPrzyciskow.ResumeLayout(false);
