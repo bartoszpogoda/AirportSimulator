@@ -8,9 +8,9 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 {
     public class MenedzerSamolotow
     {
-       
+
         private int aktualnyRzadStartowy = 0; // na potrzeby scrollowania
-        private int aktualnyRzadStartowyPowietrze = 0; 
+        private int aktualnyRzadStartowyPowietrze = 0;
 
         private Miniatura zaznaczony;
         private ListaSamolotow listaSamolotow; // w hangarze
@@ -18,10 +18,14 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         private OknoAplikacji uchwytOknoAplikacji;
         private MenedzerOperacji uchwytMenedzerOperacji;
-        
+
         private PictureBox pbZaznaczony;
-        
-       
+
+        private PasStartowy pasStartowy1;
+        private PasStartowy pasStartowy2;
+
+
+
 
         public MenedzerSamolotow(OknoAplikacji uchwytOknoAplikacji, MenedzerOperacji uchwytMenedzerOperacji) {
             this.uchwytOknoAplikacji = uchwytOknoAplikacji;
@@ -30,17 +34,20 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             listaSamolotow = new ListaSamolotow();
             listaSamolotowPowietrze = new ListaSamolotow();
 
-            
+
             pbZaznaczony = new PictureBox();
 
             zainicjujZnacznikZaznaczonego();
+
+            pasStartowy1 = new PasStartowy(uchwytOknoAplikacji.getPasStartowy1());
+            pasStartowy2 = new PasStartowy(uchwytOknoAplikacji.getPasStartowy2());
         }
 
         public void dbgDodajSamolot(int i) { // debugFunkcja do usuniecia jak bedzie kreator
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
             else
             {
-                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotow(), 30, 20, 500, 30, "Boening707"));
+                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotow(), 250, 20, 500, 30, "Boening707"));
                 narysujSamolotyZListy();
                 narysujSamolotyZListyPowietrze();
             }
@@ -51,10 +58,10 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             samolot.setAktualnyStan(Stan.WPowietrzu);
             samolot.AktualnaIloscPaliwa = samolot.getMaksIloscPaliwa(); // to pozniej bedzie losowe
             listaSamolotowPowietrze.dodajSamolot(samolot);
-            uchwytMenedzerOperacji.dodajOperacje(new OperacjaLot(samolot));
+            uchwytMenedzerOperacji.dodajOperacje(new OperacjaLot(samolot,this));
             narysujSamolotyZListyPowietrze();
         }
-
+        
 
         public MenedzerOperacji getMenedzerOperacji() { return uchwytMenedzerOperacji; }
 
@@ -89,7 +96,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         {
             if (e.Delta < 0) // scrollowanie w dół
             {
-                if (listaSamolotowPowietrze.getLength()  - 5 > aktualnyRzadStartowyPowietrze) aktualnyRzadStartowyPowietrze++;
+                if (listaSamolotowPowietrze.getLength() - 5 > aktualnyRzadStartowyPowietrze) aktualnyRzadStartowyPowietrze++;
             }
             else // scrollowanie w górę
             {
@@ -114,9 +121,9 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 }
             }
 
-            for (i = 0; i < StaleKonfiguracyjne.iloscRzedow; i++) 
+            for (i = 0; i < StaleKonfiguracyjne.iloscRzedow; i++)
             {
-                for(int j=0; j < StaleKonfiguracyjne.iloscKolumn; j++)
+                for (int j = 0; j < StaleKonfiguracyjne.iloscKolumn; j++)
                 {
                     listaSamolotow.aktualnyPodIteratorem().getObrazekSamolotu().Location = new Point(
                         StaleKonfiguracyjne.rozmiarOdstepu * (j + 1) + j * StaleKonfiguracyjne.rozmiarObrazka,
@@ -124,7 +131,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                            );
                     listaSamolotow.aktualnyPodIteratorem().pokaz();
 
-                    if (listaSamolotow.aktualnyPodIteratorem().Equals(zaznaczony)){
+                    if (listaSamolotow.aktualnyPodIteratorem().Equals(zaznaczony)) {
                         pbZaznaczony.Parent = zaznaczony.getAktualnyNaGorze();
                         pbZaznaczony.Location = new System.Drawing.Point(0, 0);
                         pbZaznaczony.Visible = true;
@@ -148,10 +155,10 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
             while (--i >= 0) // pomija elementy ktore zostaly przescrollowane
             {
-                
-                    listaSamolotowPowietrze.aktualnyPodIteratorem().schowaj();
-                    listaSamolotowPowietrze.iteratorNastepny();
-                
+
+                listaSamolotowPowietrze.aktualnyPodIteratorem().schowaj();
+                listaSamolotowPowietrze.iteratorNastepny();
+
             }
 
             for (i = 0; i < 5; i++)
@@ -161,22 +168,25 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                            10 + StaleKonfiguracyjne.rozmiarOdstepu + i * StaleKonfiguracyjne.rozmiarObrazka);
                 listaSamolotowPowietrze.aktualnyPodIteratorem().pokaz();
 
-                    if (listaSamolotowPowietrze.aktualnyPodIteratorem().Equals(zaznaczony))
-                    {
-                        pbZaznaczony.Parent = zaznaczony.getObrazekSamolotu();
-                        pbZaznaczony.Location = new System.Drawing.Point(0, 0);
-                        pbZaznaczony.Visible = true;
-                    }
+                if (listaSamolotowPowietrze.aktualnyPodIteratorem().Equals(zaznaczony))
+                {
+                    pbZaznaczony.Parent = zaznaczony.getObrazekSamolotu();
+                    pbZaznaczony.Location = new System.Drawing.Point(0, 0);
+                    pbZaznaczony.Visible = true;
+                }
 
-                    if (listaSamolotowPowietrze.iteratorMaNastepny()) listaSamolotowPowietrze.iteratorNastepny();
-                    else
-                    {
-                        return;
-                    }
-                
+                if (listaSamolotowPowietrze.iteratorMaNastepny()) listaSamolotowPowietrze.iteratorNastepny();
+                else
+                {
+                    return;
+                }
+
 
             }
         }
+        
+
+    
 
         public void zaznaczSamolot(Miniatura samolot) {
             if (zaznaczony == null)
@@ -216,8 +226,86 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         }
         public void kontrolujZaznaczonySamolot(ProgressBar pasekPostepu)
         {
-            if (zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaKontrolaTechniczna((Samolot)zaznaczony, pasekPostepu));
+            if (zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaKontrolaTechniczna((Samolot)zaznaczony));
         }
+
+        public void wystartujZaznaczonySamolot()
+        {
+            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.PrzedStartem)
+            {
+                // tu jeszcze warunki czy ludzi jest dobra ilosc i towarow
+
+            if(!pasStartowy1.czyWolny() && pasStartowy1.getAktualnySamolot() == (Samolot)zaznaczony)
+                {
+                    getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy1,this));
+                }
+            else if (!pasStartowy2.czyWolny() && pasStartowy2.getAktualnySamolot() == (Samolot)zaznaczony)
+                {
+
+                }
+
+            }
+        }
+
+
+
+        public void umiescWPowietrzu(Samolot samolot, PasStartowy pasStartowy)
+        {
+            if (pasStartowy == pasStartowy1) pasStartowy1.zdejmijAktualnySamolot();
+            else if (pasStartowy == pasStartowy2) pasStartowy2.zdejmijAktualnySamolot();
+
+            //getMenedzerOperacji().zatrzymajOperacje(samolot); // dbg
+
+            listaSamolotowPowietrze.dodajSamolot(samolot);
+            samolot.getObrazekSamolotu().Parent = uchwytOknoAplikacji.getPanelSamolotowPowietrze();
+            samolot.setAktualnyStan(Stan.WPowietrzu);
+           // getMenedzerOperacji().dodajOperacje(new OperacjaLot(samolot));
+            narysujSamolotyZListyPowietrze();
+        }
+       /* public void wyladujZaznaczonySamolot()
+        {
+            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.WPowietrzu)
+            {
+                if (pasStartowy1.czyWolny())
+                {
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
+                    listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
+                    pasStartowy1.ustawSamolot((Samolot)zaznaczony);
+                    narysujSamolotyZListyPowietrze();
+                    getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1));
+                }
+                else if (pasStartowy2.czyWolny())
+                {
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
+                    listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
+                    pasStartowy2.ustawSamolot((Samolot)zaznaczony);
+                    narysujSamolotyZListyPowietrze();
+                    getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2));
+                }
+            }
+        }*/
+
+        public void wystawZaznaczonyNaWolnyPas() {
+
+            if (!(zaznaczony is Samolot) || !((Samolot)zaznaczony).czyPoKontroli() || !(((Samolot)zaznaczony).getAktualnyStan() == Stan.Hangar)) return;
+
+            if (pasStartowy1.czyWolny()) {
+                ((Samolot)zaznaczony).setAktualnyStan(Stan.PrzedStartem);
+                listaSamolotow.usunSamolot((Samolot)zaznaczony);
+                pasStartowy1.ustawSamolot((Samolot)zaznaczony);
+                narysujSamolotyZListy();
+            }
+            else if (pasStartowy2.czyWolny())
+            {
+                ((Samolot)zaznaczony).setAktualnyStan(Stan.PrzedStartem);
+                listaSamolotow.usunSamolot((Samolot)zaznaczony);
+                pasStartowy2.ustawSamolot((Samolot)zaznaczony);
+                narysujSamolotyZListy();
+            }
+            // zajete
+        }
+
+
         public Miniatura getZaznaczony()
         {
             return zaznaczony;

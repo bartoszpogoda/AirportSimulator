@@ -73,9 +73,29 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap passtartowy {
+            get {
+                object obj = ResourceManager.GetObject("passtartowy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap samolot1 {
             get {
                 object obj = ResourceManager.GetObject("samolot1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startowanie {
+            get {
+                object obj = ResourceManager.GetObject("startowanie", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

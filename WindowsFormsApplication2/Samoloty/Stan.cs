@@ -8,7 +8,7 @@ namespace SymulatorLotniska.Samoloty
 {
     public enum Stan {
 
-        Hangar, Zaladunek, KontrolaTechniczna, Tankowanie, Startowanie, WPowietrzu, Zniszczony, Null
+        Hangar, Zaladunek, KontrolaTechniczna, Tankowanie, Startowanie, WPowietrzu, Zniszczony, PrzedStartem, Null, Ladowanie, PoLadowaniu
 
     };
 }

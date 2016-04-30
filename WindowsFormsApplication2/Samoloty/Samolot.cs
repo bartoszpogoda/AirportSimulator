@@ -16,6 +16,7 @@ namespace SymulatorLotniska.Samoloty
         //---zmienne okreslajace stan
         private Stan aktualnyStan;
         private int aktualnaIloscPaliwa;
+        private int aktualnyPostepKontroliTechnicznej;
         private bool kontrolaTechniczna;
         private bool kontrola;
         //---------------------------
@@ -30,6 +31,8 @@ namespace SymulatorLotniska.Samoloty
         public string getModel() { return model; }
         public void setModel(string model) { this.model = model; }
 
+        public int getAktualnyPostepKontroliTechnicznej() { return aktualnyPostepKontroliTechnicznej; }
+        public int getCzasKontroliTechnicznej() { return czasKontroliTechnicznej; }
 
         public Stan getAktualnyStan() { return aktualnyStan; }
         public void setAktualnyStan(Stan stan)
@@ -53,6 +56,13 @@ namespace SymulatorLotniska.Samoloty
                 aktualnaIloscPaliwa = value;
                 uchwytMenedzerSamolotow.oswiezInformacjeJezeliZaznaczony(this);
             }
+        }
+
+        public void setAktualnyPostepKontroliTechnicznej(int postep)
+        {
+
+            aktualnyPostepKontroliTechnicznej = postep;
+            uchwytMenedzerSamolotow.oswiezInformacjeJezeliZaznaczony(this);
         }
 
         public bool PoKontroli

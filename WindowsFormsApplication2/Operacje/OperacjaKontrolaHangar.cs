@@ -1,17 +1,16 @@
 ﻿using SymulatorLotniska.Samoloty;
+using System;
 using System.Windows.Forms;
 
 namespace SymulatorLotniska.Operacje
 {
     class OperacjaKontrolaTechniczna : IOperacja
     {
-        ProgressBar uchwytPasekPostepu;
         Samolot samolot;
         int statusKontroli; // -1 oznacza pierwsze wykonanie, nastepnie przypisany jest czas kontroli samolotu, ktory zmniejsza sie do zera co tick
 
-        public OperacjaKontrolaTechniczna(Samolot samolot, ProgressBar uchwytPasekPostepu) // -1 - pierwsze wykonanie
+        public OperacjaKontrolaTechniczna(Samolot samolot) // -1 - pierwsze wykonanie
         {
-            this.uchwytPasekPostepu = uchwytPasekPostepu;
             this.samolot = samolot;
             statusKontroli = -1;
         }
@@ -25,23 +24,20 @@ namespace SymulatorLotniska.Operacje
                 if (samolot.getAktualnyStan() == Stan.Hangar) // operacja rozpocznie sie dopiero, gdy samolot bedzie w Hangarze.
                 {
                     samolot.setAktualnyStan(Stan.KontrolaTechniczna);
-                    statusKontroli = samolot.CzasKontroliTechnicznej;
+                    statusKontroli = 1;
                 }
                 return true;
             }
 
             if (samolot.getAktualnyStan() == Stan.KontrolaTechniczna)
             {
-                statusKontroli--;
-
-                int progress = (int)(100 - ((double)statusKontroli / samolot.CzasKontroliTechnicznej)*100);
-
-                uchwytPasekPostepu.Value = progress;
-
-                if(statusKontroli < 1)
+                samolot.setAktualnyPostepKontroliTechnicznej(samolot.getAktualnyPostepKontroliTechnicznej() + 1);
+              
+                 
+                
+                if(samolot.getAktualnyPostepKontroliTechnicznej() >= samolot.getCzasKontroliTechnicznej())
                 {
-                    uchwytPasekPostepu.Value = 0;
-
+                    samolot.setAktualnyPostepKontroliTechnicznej(0);
                     if (samolot.czyZatankowany()) samolot.PoKontroli = true;
 
                     samolot.setAktualnyStan(Stan.Hangar);
@@ -56,7 +52,7 @@ namespace SymulatorLotniska.Operacje
 
         public override void zatrzymaj()
         {
-            uchwytPasekPostepu.Value = 0;
+            samolot.setAktualnyPostepKontroliTechnicznej(0);
             samolot.setAktualnyStan(Stan.Hangar);
         }
 

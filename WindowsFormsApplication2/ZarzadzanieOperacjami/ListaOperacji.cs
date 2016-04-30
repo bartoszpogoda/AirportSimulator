@@ -58,6 +58,8 @@
             // przepisac
             if(pierwszy == element)
             {
+                element.operacja.zatrzymaj();
+
                 if(pierwszy.nastepnyElement == null)
                 {
                     pierwszy = null;
@@ -67,6 +69,9 @@
 
                 pierwszy.nastepnyElement.poprzedniElement = null;
                 pierwszy = pierwszy.nastepnyElement;
+
+                //chyba tutaj return
+                return;
             }
 
             ElementListyOperacji iterator = this.pierwszy;

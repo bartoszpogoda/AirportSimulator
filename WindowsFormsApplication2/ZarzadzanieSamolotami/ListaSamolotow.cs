@@ -61,6 +61,29 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         }
 
+        public void usunSamolot(Samolot samolot)
+        {
+            if(pierwszy.samolot == samolot)
+            {
+                pierwszy = pierwszy.nastepnyElement;
+                return;
+            }
+
+            iteratorNaStart();
+            ElementListySamolotow poprzedni = iterator;
+
+            while (iteratorMaNastepny())
+            {
+                iteratorNastepny();
+
+                if (iterator.samolot == samolot) {
+                    poprzedni.nastepnyElement = iterator.nastepnyElement;
+                }
+
+                poprzedni = iterator;
+            }
+        }
+
 
 
 

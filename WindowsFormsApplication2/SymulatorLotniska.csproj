@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>25</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Operacje\OperacjaLot.cs" />
     <Compile Include="Samoloty\Stan.cs" />
     <Compile Include="ZarzadzanieSamolotami\FabrykaSamolotow.cs" />
     <Compile Include="ZarzadzanieOperacjami\ElementListyOperacji.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="ZarzadzanieSamolotami\MenedzerSamolotow.cs" />
     <Compile Include="Samoloty\Miniatura.cs" />
     <Compile Include="Operacje\OperacjaKontrolaHangar.cs" />
-    <Compile Include="Operacje\OperacjaLot.cs" />
     <Compile Include="Operacje\OperacjaTankowanie.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,6 +108,7 @@
     <Compile Include="Samoloty\Samolot.cs" />
     <Compile Include="Samoloty\SamolotOsobowy.cs" />
     <Compile Include="StaleKonfiguracyjne.cs" />
+    <Compile Include="ZarzadzanieSamolotami\PasStartowy.cs" />
     <EmbeddedResource Include="OknoAplikacji.resx">
       <DependentUpon>OknoAplikacji.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,6 +137,8 @@
     <None Include="Resources\znacznik.png" />
     <None Include="Resources\tankowanie.png" />
     <None Include="Resources\kontrolatechniczna.png" />
+    <None Include="Resources\passtartowy.png" />
+    <None Include="Resources\startowanie.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -43,10 +43,17 @@ namespace SymulatorLotniska
             this.labelTekstInformacje = new System.Windows.Forms.Label();
             this.labelWPowietrzu = new System.Windows.Forms.Label();
             this.panelPrzyciskow = new System.Windows.Forms.Panel();
+            this.wyladuj = new System.Windows.Forms.Button();
             this.operationCancel = new System.Windows.Forms.Button();
             this.kontrola = new System.Windows.Forms.Button();
             this.naPasStartowy = new System.Windows.Forms.Button();
             this.tankowanie = new System.Windows.Forms.Button();
+            this.panelPasStartowy1 = new System.Windows.Forms.Panel();
+            this.panelPasStartowy2 = new System.Windows.Forms.Panel();
+            this.doHangaru = new System.Windows.Forms.Button();
+            this.wprowadzenieLudzi = new System.Windows.Forms.Button();
+            this.start = new System.Windows.Forms.Button();
+            this.wyprowadzLudzi = new System.Windows.Forms.Button();
             this.panelInformacji.SuspendLayout();
             this.panelPrzyciskow.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +70,7 @@ namespace SymulatorLotniska
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(458, 292);
+            this.button2.Location = new System.Drawing.Point(20, 221);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(21, 23);
             this.button2.TabIndex = 2;
@@ -102,7 +109,7 @@ namespace SymulatorLotniska
             this.panelSamolotyWPowietrzu.BackColor = System.Drawing.Color.LightSkyBlue;
             this.panelSamolotyWPowietrzu.Location = new System.Drawing.Point(485, 0);
             this.panelSamolotyWPowietrzu.Name = "panelSamolotyWPowietrzu";
-            this.panelSamolotyWPowietrzu.Size = new System.Drawing.Size(111, 320);
+            this.panelSamolotyWPowietrzu.Size = new System.Drawing.Size(111, 498);
             this.panelSamolotyWPowietrzu.TabIndex = 0;
             // 
             // labelHangar
@@ -154,6 +161,11 @@ namespace SymulatorLotniska
             // panelPrzyciskow
             // 
             this.panelPrzyciskow.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.panelPrzyciskow.Controls.Add(this.wyprowadzLudzi);
+            this.panelPrzyciskow.Controls.Add(this.start);
+            this.panelPrzyciskow.Controls.Add(this.wprowadzenieLudzi);
+            this.panelPrzyciskow.Controls.Add(this.doHangaru);
+            this.panelPrzyciskow.Controls.Add(this.wyladuj);
             this.panelPrzyciskow.Controls.Add(this.operationCancel);
             this.panelPrzyciskow.Controls.Add(this.kontrola);
             this.panelPrzyciskow.Controls.Add(this.naPasStartowy);
@@ -162,6 +174,17 @@ namespace SymulatorLotniska
             this.panelPrzyciskow.Name = "panelPrzyciskow";
             this.panelPrzyciskow.Size = new System.Drawing.Size(200, 73);
             this.panelPrzyciskow.TabIndex = 0;
+            // 
+            // wyladuj
+            // 
+            this.wyladuj.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.wyladuj.Location = new System.Drawing.Point(13, 37);
+            this.wyladuj.Name = "wyladuj";
+            this.wyladuj.Size = new System.Drawing.Size(170, 23);
+            this.wyladuj.TabIndex = 4;
+            this.wyladuj.Text = "Wyląduj";
+            this.wyladuj.UseVisualStyleBackColor = false;
+            this.wyladuj.Click += new System.EventHandler(this.wyladuj_Click);
             // 
             // operationCancel
             // 
@@ -193,6 +216,7 @@ namespace SymulatorLotniska
             this.naPasStartowy.TabIndex = 1;
             this.naPasStartowy.Text = "Na pas startowy";
             this.naPasStartowy.UseVisualStyleBackColor = false;
+            this.naPasStartowy.Click += new System.EventHandler(this.naPasStartowy_Click);
             // 
             // tankowanie
             // 
@@ -205,15 +229,75 @@ namespace SymulatorLotniska
             this.tankowanie.UseVisualStyleBackColor = false;
             this.tankowanie.Click += new System.EventHandler(this.tankowanie_Click);
             // 
+            // panelPasStartowy1
+            // 
+            this.panelPasStartowy1.BackColor = System.Drawing.Color.AliceBlue;
+            this.panelPasStartowy1.Location = new System.Drawing.Point(0, 292);
+            this.panelPasStartowy1.Name = "panelPasStartowy1";
+            this.panelPasStartowy1.Size = new System.Drawing.Size(479, 100);
+            this.panelPasStartowy1.TabIndex = 4;
+            // 
+            // panelPasStartowy2
+            // 
+            this.panelPasStartowy2.BackColor = System.Drawing.Color.AliceBlue;
+            this.panelPasStartowy2.Location = new System.Drawing.Point(0, 398);
+            this.panelPasStartowy2.Name = "panelPasStartowy2";
+            this.panelPasStartowy2.Size = new System.Drawing.Size(479, 100);
+            this.panelPasStartowy2.TabIndex = 5;
+            // 
+            // doHangaru
+            // 
+            this.doHangaru.BackColor = System.Drawing.Color.Beige;
+            this.doHangaru.Location = new System.Drawing.Point(13, 8);
+            this.doHangaru.Name = "doHangaru";
+            this.doHangaru.Size = new System.Drawing.Size(75, 23);
+            this.doHangaru.TabIndex = 5;
+            this.doHangaru.Text = "Do hangaru";
+            this.doHangaru.UseVisualStyleBackColor = false;
+            // 
+            // wprowadzenieLudzi
+            // 
+            this.wprowadzenieLudzi.BackColor = System.Drawing.Color.Beige;
+            this.wprowadzenieLudzi.Location = new System.Drawing.Point(13, 37);
+            this.wprowadzenieLudzi.Name = "wprowadzenieLudzi";
+            this.wprowadzenieLudzi.Size = new System.Drawing.Size(75, 23);
+            this.wprowadzenieLudzi.TabIndex = 6;
+            this.wprowadzenieLudzi.Text = "Wprowadz ludzi";
+            this.wprowadzenieLudzi.UseVisualStyleBackColor = false;
+            // 
+            // start
+            // 
+            this.start.BackColor = System.Drawing.Color.Beige;
+            this.start.Location = new System.Drawing.Point(108, 8);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(75, 23);
+            this.start.TabIndex = 8;
+            this.start.Text = "Startuj";
+            this.start.UseVisualStyleBackColor = false;
+            this.start.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // wyprowadzLudzi
+            // 
+            this.wyprowadzLudzi.BackColor = System.Drawing.Color.Beige;
+            this.wyprowadzLudzi.Location = new System.Drawing.Point(108, 37);
+            this.wyprowadzLudzi.Name = "wyprowadzLudzi";
+            this.wyprowadzLudzi.Size = new System.Drawing.Size(75, 23);
+            this.wyprowadzLudzi.TabIndex = 9;
+            this.wyprowadzLudzi.Text = "Wyprowadz ludzi";
+            this.wyprowadzLudzi.UseVisualStyleBackColor = false;
+            this.wyprowadzLudzi.Click += new System.EventHandler(this.button3_Click);
+            // 
             // OknoAplikacji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 470);
+            this.ClientSize = new System.Drawing.Size(594, 502);
+            this.Controls.Add(this.panelSamolotyWPowietrzu);
+            this.Controls.Add(this.panelPasStartowy2);
+            this.Controls.Add(this.panelPasStartowy1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.labelWPowietrzu);
-            this.Controls.Add(this.panelSamolotyWPowietrzu);
             this.Controls.Add(this.labelInformacje);
             this.Controls.Add(this.labelHangar);
             this.Controls.Add(this.panelInformacji);
@@ -252,6 +336,13 @@ namespace SymulatorLotniska
         private Button tankowanie;
         private Button operationCancel;
         private ProgressBar pasekPostepu;
+        private Panel panelPasStartowy1;
+        private Panel panelPasStartowy2;
+        private Button wyladuj;
+        private Button start;
+        private Button wprowadzenieLudzi;
+        private Button doHangaru;
+        private Button wyprowadzLudzi;
     }
 }
 

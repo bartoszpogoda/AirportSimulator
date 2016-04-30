@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using SymulatorLotniska.Samoloty;
 using SymulatorLotniska.ZarzadzanieOperacjami;
 using SymulatorLotniska.ZarzadzanieSamolotami;
+using System.Drawing;
 
 namespace SymulatorLotniska
 {
@@ -25,7 +26,7 @@ namespace SymulatorLotniska
 
             this.labelWPowietrzu.Parent = panelSamolotyWPowietrzu;
             this.labelWPowietrzu.AutoSize = false;
-            this.labelWPowietrzu.Size = new System.Drawing.Size(this.labelWPowietrzu.Size.Width, this.labelWPowietrzu.Parent.Size.Height);
+            this.labelWPowietrzu.Size = new System.Drawing.Size(this.labelWPowietrzu.Size.Width, this.labelWPowietrzu.Parent.Size.Height/2);
 
             this.labelInformacje.Parent = panelInformacji;
 
@@ -33,13 +34,23 @@ namespace SymulatorLotniska
             this.labelHangar.AutoSize = false;
             this.labelHangar.Size = new System.Drawing.Size(labelHangar.Parent.Size.Width, this.labelHangar.Size.Height);
 
+            this.panelPasStartowy1.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width,2*StaleKonfiguracyjne.rozmiarOdstepu+StaleKonfiguracyjne.rozmiarObrazka+30); // wznoszenie 0 do 30 pikseli
+            this.panelPasStartowy1.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
+            this.panelPasStartowy1.BackColor = Color.Transparent;
+
+            this.panelPasStartowy2.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width, 2 * StaleKonfiguracyjne.rozmiarOdstepu + StaleKonfiguracyjne.rozmiarObrazka + 30); // wznoszenie 0 do 30 pikseli
+            this.panelPasStartowy2.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
+            this.panelPasStartowy2.BackColor = Color.Transparent;
+
             schowajWszystkiePrzyciskiPanelu();
         }
         public Panel getPanelSamolotowPowietrze() { return this.panelSamolotyWPowietrzu; }
         public Panel getPanelSamolotow() { return this.panelSamolotow;  }
         public Label getLabelInformacje() { return this.labelInformacje;  }
-        
-     
+        public Panel getPasStartowy1() { return this.panelPasStartowy1; }
+        public Panel getPasStartowy2() { return this.panelPasStartowy2; }
+
+
         public void uaktualnijPrzyciskiPanelu(Miniatura aktualnieZaznaczony)
         {
 
@@ -90,7 +101,22 @@ namespace SymulatorLotniska
                 pasekPostepu.Visible = true;
                 pasekPostepu.Enabled = true;
             }
-
+            else if (stanZaznaczonegoSamolotu == Stan.WPowietrzu)
+            {
+                wyladuj.Enabled = true;
+                wyladuj.Visible = true;
+            }
+            else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
+            {
+                start.Enabled = true;
+                start.Visible = true;
+                doHangaru.Visible = true;
+                doHangaru.Enabled = true;
+                wprowadzenieLudzi.Enabled = true;
+                wprowadzenieLudzi.Visible = true;
+                wyprowadzLudzi.Enabled = true;
+                wyprowadzLudzi.Visible = true;
+            }
 
         }
 
@@ -107,6 +133,16 @@ namespace SymulatorLotniska
             operationCancel.Visible = false;
             pasekPostepu.Visible = false;
             pasekPostepu.Enabled = false;
+            wyladuj.Enabled = false;
+            wyladuj.Visible = false;
+            start.Enabled = false;
+            start.Visible = false;
+            doHangaru.Visible = false;
+            doHangaru.Enabled = false;
+            wprowadzenieLudzi.Enabled = false;
+            wprowadzenieLudzi.Visible = false;
+            wyprowadzLudzi.Enabled = false;
+            wyprowadzLudzi.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -142,6 +178,26 @@ namespace SymulatorLotniska
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void naPasStartowy_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wystawZaznaczonyNaWolnyPas();
+        }
+
+        private void wyladuj_Click(object sender, EventArgs e)
+        {
+           // menedzerSamolotow.wyladujZaznaczonySamolot();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wystartujZaznaczonySamolot();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
         {
 
         }
