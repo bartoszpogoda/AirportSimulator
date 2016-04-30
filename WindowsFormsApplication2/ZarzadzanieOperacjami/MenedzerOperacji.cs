@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SymulatorLotniska.Operacje;
+using SymulatorLotniska.Samoloty;
+using System;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication2
+namespace SymulatorLotniska.ZarzadzanieOperacjami
 {
     public class MenedzerOperacji
     {
@@ -15,7 +13,7 @@ namespace WindowsFormsApplication2
         {
             timer = new Timer(); 
             timer.Tick += new EventHandler(onTimerTick);
-            timer.Interval = 100;
+            timer.Interval = StaleKonfiguracyjne.interwalTimera;
             timer.Enabled = false; // timer ma sie właczać jak lista operacji nie jest pusta
 
             listaOperacji = new ListaOperacji();

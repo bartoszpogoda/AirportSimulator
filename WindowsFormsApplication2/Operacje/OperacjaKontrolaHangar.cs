@@ -1,6 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using SymulatorLotniska.Samoloty;
+using System.Windows.Forms;
 
-namespace WindowsFormsApplication2
+namespace SymulatorLotniska.Operacje
 {
     class OperacjaKontrolaTechniczna : IOperacja
     {
@@ -21,15 +22,15 @@ namespace WindowsFormsApplication2
             {
                 if (samolot.PoKontroli)
                     return false;
-                if (samolot.AktualnyStan == Stan.Hangar) // operacja rozpocznie sie dopiero, gdy samolot bedzie w Hangarze.
+                if (samolot.getAktualnyStan() == Stan.Hangar) // operacja rozpocznie sie dopiero, gdy samolot bedzie w Hangarze.
                 {
-                    samolot.AktualnyStan = Stan.KontrolaTechniczna;
+                    samolot.setAktualnyStan(Stan.KontrolaTechniczna);
                     statusKontroli = samolot.CzasKontroliTechnicznej;
                 }
                 return true;
             }
 
-            if (samolot.AktualnyStan == Stan.KontrolaTechniczna)
+            if (samolot.getAktualnyStan() == Stan.KontrolaTechniczna)
             {
                 statusKontroli--;
 
@@ -43,7 +44,7 @@ namespace WindowsFormsApplication2
 
                     if (samolot.czyZatankowany()) samolot.PoKontroli = true;
 
-                    samolot.AktualnyStan = Stan.Hangar;
+                    samolot.setAktualnyStan(Stan.Hangar);
                     return false;
                 }
 
@@ -56,7 +57,7 @@ namespace WindowsFormsApplication2
         public override void zatrzymaj()
         {
             uchwytPasekPostepu.Value = 0;
-            samolot.AktualnyStan = Stan.Hangar;
+            samolot.setAktualnyStan(Stan.Hangar);
         }
 
         public override Samolot getSamolot()

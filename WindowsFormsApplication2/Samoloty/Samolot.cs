@@ -1,13 +1,14 @@
-﻿using System.Windows.Forms;
+﻿using SymulatorLotniska.ZarzadzanieSamolotami;
+using System.Windows.Forms;
 
-namespace WindowsFormsApplication2
+namespace SymulatorLotniska.Samoloty
 {
-    public enum Stan { Hangar, Zaladunek, KontrolaTechniczna, Tankowanie, Startowanie, WPowietrzu, Zniszczony, Null };
     public abstract class Samolot : Miniatura
     {
         //---parametry techniczne
         private int maksIloscPaliwa;
-        private int czasStartu;         //w tickach
+        private int czasStartu;           //w tickach
+        private int czasKontroliTechnicznej;         //w tickach
         private int czasKontroli;         //w tickach
         private string model;
         //-----------------------
@@ -16,63 +17,29 @@ namespace WindowsFormsApplication2
         private Stan aktualnyStan;
         private int aktualnaIloscPaliwa;
         private bool kontrolaTechniczna;
+        private bool kontrola;
         //---------------------------
 
-        public int MaksIloscPaliwa
+        public int getMaksIloscPaliwa()  { return maksIloscPaliwa; }
+        public void setMaksIloscPaliwa(int maksIloscPaliwa) { this.maksIloscPaliwa = maksIloscPaliwa; }
+
+        public int getCzasStartu() { return czasStartu; }
+        public void setCzasStartu(int czasStartu) { this.czasStartu = czasStartu; }
+
+
+        public string getModel() { return model; }
+        public void setModel(string model) { this.model = model; }
+
+
+        public Stan getAktualnyStan() { return aktualnyStan; }
+        public void setAktualnyStan(Stan stan)
         {
-            get
-            {
-                return maksIloscPaliwa;
-            }
-
-            set
-            {
-                maksIloscPaliwa = value;
-            }
-        }
-
-        public int CzasStartu
-        {
-            get
-            {
-                return czasStartu;
-            }
-
-            set
-            {
-                czasStartu = value;
-            }
-        }
-
-        public string Model
-        {
-            get
-            {
-                return model;
-            }
-
-            set
-            {
-                model = value;
-            }
-        }
-
-        public Stan AktualnyStan
-        {
-            get
-            {
-                return aktualnyStan;
-            }
-
-            set
-            {
-                aktualnyStan = value;
-                ustawNakladke(value);
+                aktualnyStan = stan;
+                ustawNakladke(stan);
                 uchwytMenedzerSamolotow.uaktualnijPrzyciskiJezeliZaznaczony(this);
                 uchwytMenedzerSamolotow.oswiezInformacjeJezeliZaznaczony(this);
-
-            }
         }
+      
 
         public int AktualnaIloscPaliwa
         {
@@ -105,45 +72,41 @@ namespace WindowsFormsApplication2
         {
             get
             {
-                return czasKontroli;
+                return czasKontroliTechnicznej;
             }
 
             set
             {
-                czasKontroli = value;
+                czasKontroliTechnicznej = value;
             }
         }
 
-        public Samolot(string adresBazowy, Form uchwytFormy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maksIloscPaliwa, int czasStartu, int czasKontroli, string model)
+        public Samolot(string adresMiniaturki, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
+            : base(adresMiniaturki, uchwytMenedzerSamolotow, parent)
+        {
+
+        }
+        
+
+
+        public Samolot(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maksIloscPaliwa, int czasStartu, int czasKontroli, string model)
             : base(adresBazowy, uchwytMenedzerSamolotow, parent)
         {
-            this.CzasStartu = czasStartu;
-            this.Model = model;
-            this.MaksIloscPaliwa = maksIloscPaliwa;
-            this.czasKontroli = czasKontroli;
+            this.czasStartu = czasStartu;
+            this.model = model;
+            this.maksIloscPaliwa = maksIloscPaliwa;
+            this.czasKontroliTechnicznej = czasKontroli;
 
             AktualnaIloscPaliwa = 0;
             PoKontroli = false;
         }
-
-        public Samolot() : base()
-        {
-            CzasStartu = -1;
-            Model = "";
-            MaksIloscPaliwa = -1;
-
-            AktualnaIloscPaliwa = 0;
-            PoKontroli = false;
-        }
-
-
-
+        
         abstract public string wypiszInformacje();
 
 
         public bool czyZatankowany()
         {
-            if (MaksIloscPaliwa == AktualnaIloscPaliwa) return true;
+            if (maksIloscPaliwa == AktualnaIloscPaliwa) return true;
             return false;
         }
 

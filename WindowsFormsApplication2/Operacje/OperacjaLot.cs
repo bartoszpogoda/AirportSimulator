@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SymulatorLotniska.Samoloty;
+using System;
 
-namespace WindowsFormsApplication2
+namespace SymulatorLotniska.Operacje
 {
     class OperacjaLot : IOperacja
     {
@@ -19,13 +16,13 @@ namespace WindowsFormsApplication2
         {
             if (pamiec == 0)
             {
-                if (samolot.AktualnyStan == Stan.WPowietrzu) {
+                if (samolot.getAktualnyStan() == Stan.WPowietrzu) {
                     pamiec = 1;
                 }
                 //if (samolot.getAktualnePaliwo() == 0) return false;
-                if (samolot.AktualnyStan == Stan.Hangar) // to jest ogolnie do zmiany bo z hangaru nie moze od rauz leciec
+                if (samolot.getAktualnyStan() == Stan.Hangar) // to jest ogolnie do zmiany bo z hangaru nie moze od rauz leciec
                 {
-                    samolot.AktualnyStan = Stan.WPowietrzu;
+                    samolot.setAktualnyStan(Stan.WPowietrzu);
                     pamiec = 1;
                 }
                 return true;
@@ -41,11 +38,11 @@ namespace WindowsFormsApplication2
 
             if (pamiec > 10) pamiec = 1;
 
-            if (samolot.AktualnyStan == Stan.WPowietrzu)
+            if (samolot.getAktualnyStan() == Stan.WPowietrzu)
             {
                 if (samolot.AktualnaIloscPaliwa <= 0) // było == sprobuje >
                 {
-                    samolot.AktualnyStan = Stan.Zniszczony;
+                    samolot.setAktualnyStan(Stan.Zniszczony);
                     return false;
                 }
 

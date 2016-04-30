@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
+using SymulatorLotniska.ZarzadzanieSamolotami;
 
-namespace WindowsFormsApplication2
+namespace SymulatorLotniska.Samoloty
 {
     public class Miniatura
     {
@@ -13,44 +14,10 @@ namespace WindowsFormsApplication2
 
         protected MenedzerSamolotow uchwytMenedzerSamolotow;
 
-        public PictureBox ObrazekSamolotu
-        {
-            get
-            {
-                return obrazekSamolotu;
-            }
-
-            set
-            {
-                obrazekSamolotu = value;
-            }
-        }
-
-        public PictureBox NakladkaStanu
-        {
-            get
-            {
-                return obrazekStanu;
-            }
-
-            set
-            {
-                obrazekStanu = value;
-            }
-        }
-
-        public Control AktualnyNaGorze
-        {
-            get
-            {
-                return aktualnyNaGorze;
-            }
-        }
-
-        public Miniatura()
-        {
-
-        }
+        public PictureBox getObrazekSamolotu() { return obrazekSamolotu; }
+        
+        public Control getAktualnyNaGorze() { return aktualnyNaGorze; }
+   
         public Miniatura(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
         {
             this.adresBazowy = adresBazowy;
@@ -85,10 +52,10 @@ namespace WindowsFormsApplication2
 
             obrazekSamolotu.Controls.Add(obrazekStanu);
 
-            aktualnyNaGorze = ObrazekSamolotu;
+            aktualnyNaGorze = obrazekSamolotu;
         }
 
-        public void setParent(Control parent)
+        public void setParent(Control parent) // bedzie potrzebne przy zmianie z hangaru na pas i w powietrze itp
         {
             obrazekSamolotu.Parent.Controls.Remove(obrazekSamolotu);
             obrazekSamolotu.Parent = parent;
@@ -123,35 +90,35 @@ namespace WindowsFormsApplication2
             {
                 obrazekStanu.Visible = false;
                 obrazekStanu.Enabled = false;
-                aktualnyNaGorze = ObrazekSamolotu;
+                aktualnyNaGorze = obrazekSamolotu;
             }
             else if (aktualnyStan == Stan.Zaladunek)
             {
                 obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("zaladunek");
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
-                aktualnyNaGorze = NakladkaStanu;
+                aktualnyNaGorze = obrazekStanu;
             }
             else if (aktualnyStan == Stan.KontrolaTechniczna)
             {
-                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("kontrolatechniczna");
+                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresKontrolaTechniczna);
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
-                aktualnyNaGorze = NakladkaStanu;
+                aktualnyNaGorze = obrazekStanu;
             }
             else if (aktualnyStan == Stan.Tankowanie)
             {
-                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("tankowanie");
+                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresTankowanie);
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
-                aktualnyNaGorze = NakladkaStanu;
+                aktualnyNaGorze = obrazekStanu;
             }
             else if (aktualnyStan == Stan.Startowanie)
             {
                 obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("startowanie");
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
-                aktualnyNaGorze = NakladkaStanu;
+                aktualnyNaGorze = obrazekStanu;
             }
 
             uchwytMenedzerSamolotow.narysujSamolotyZListy();

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using SymulatorLotniska.Samoloty;
+using SymulatorLotniska.ZarzadzanieOperacjami;
+using SymulatorLotniska.ZarzadzanieSamolotami;
 
-namespace WindowsFormsApplication2
+namespace SymulatorLotniska
 {
     public partial class OknoAplikacji : Form
     {
@@ -50,7 +53,7 @@ namespace WindowsFormsApplication2
             Samolot aktualnieZaznaczonySamolot = (Samolot)aktualnieZaznaczony;
             
 
-            Stan stanZaznaczonegoSamolotu = aktualnieZaznaczonySamolot.AktualnyStan;
+            Stan stanZaznaczonegoSamolotu = aktualnieZaznaczonySamolot.getAktualnyStan();
             
 
             if (stanZaznaczonegoSamolotu == Stan.Tankowanie)

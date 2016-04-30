@@ -7,13 +7,13 @@
     <ProjectGuid>{E252D7D6-5134-4149-8E99-605AABBC5F2F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsFormsApplication2</RootNamespace>
-    <AssemblyName>WindowsFormsApplication2</AssemblyName>
+    <RootNamespace>SymulatorLotniska</RootNamespace>
+    <AssemblyName>Symulator Lotniska</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Bartek PC\Desktop\Apka\</PublishUrl>
+    <PublishUrl>C:\Users\Beata\Desktop\SymulatorLotniska\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationRevision>23</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -79,6 +79,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Samoloty\Stan.cs" />
+    <Compile Include="ZarzadzanieSamolotami\FabrykaSamolotow.cs" />
     <Compile Include="ZarzadzanieOperacjami\ElementListyOperacji.cs" />
     <Compile Include="Operacje\IOperacja.cs" />
     <Compile Include="ZarzadzanieOperacjami\ListaOperacji.cs" />
@@ -105,6 +107,7 @@
     </Compile>
     <Compile Include="Samoloty\Samolot.cs" />
     <Compile Include="Samoloty\SamolotOsobowy.cs" />
+    <Compile Include="StaleKonfiguracyjne.cs" />
     <EmbeddedResource Include="OknoAplikacji.resx">
       <DependentUpon>OknoAplikacji.cs</DependentUpon>
     </EmbeddedResource>

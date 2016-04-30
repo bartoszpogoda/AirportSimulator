@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SymulatorLotniska.ZarzadzanieSamolotami;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication2
+namespace SymulatorLotniska.Samoloty
 {
     class SamolotOsobowy : Samolot
     {
@@ -38,8 +34,12 @@ namespace WindowsFormsApplication2
             }
         }
 
-        public SamolotOsobowy(string adresBazowy, Form uchwytFormy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maxPaliwo, int maksIloscPasazerow, int czasStartu, int czasKontroli, string model)
-        : base(adresBazowy, uchwytFormy, uchwytMenedzerSamolotow, parent, maxPaliwo, czasStartu, czasKontroli, model)
+        public SamolotOsobowy(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, string adresMiniaturki)
+        : base(adresMiniaturki, uchwytMenedzerSamolotow, parent) { }
+
+
+        public SamolotOsobowy(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maxPaliwo, int maksIloscPasazerow, int czasStartu, int czasKontroli, string model)
+        : base(adresBazowy, uchwytMenedzerSamolotow, parent, maxPaliwo, czasStartu, czasKontroli, model)
         {
             this.maksIloscPasazerow = maksIloscPasazerow;
 
@@ -53,11 +53,11 @@ namespace WindowsFormsApplication2
             string budowanyString = "";         // timer.Interval = 100;
 
             budowanyString += "Typ: Samolot osobowy \n";
-            budowanyString += "Model: " + Model + "\n";
-            budowanyString += "Czas startu: " + CzasStartu * 0.1 + "s\n";
-            budowanyString += "Stan: " + AktualnyStan + "\n";
+            budowanyString += "Model: " + getModel() + "\n";
+            budowanyString += "Czas startu: " + getCzasStartu() * 0.1 + "s\n";
+            budowanyString += "Stan: " + getAktualnyStan() + "\n";
             budowanyString += "Kontrola techniczna: " + (czyPoKontroli() ? "Tak" : "Nie") + "\n";
-            budowanyString += "Paliwo: " + AktualnaIloscPaliwa + "/" + MaksIloscPaliwa + "\n";
+            budowanyString += "Paliwo: " + AktualnaIloscPaliwa + "/" + getMaksIloscPaliwa() + "\n";
             budowanyString += "Pasazerow: " + AktualnaIloscPasazerow + "/" + MaksIloscPasazerow + "\n";
 
             return budowanyString;

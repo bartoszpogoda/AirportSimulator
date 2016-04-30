@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SymulatorLotniska.Operacje;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsApplication2
+namespace SymulatorLotniska.ZarzadzanieOperacjami
 {
     class ElementListyOperacji
     {

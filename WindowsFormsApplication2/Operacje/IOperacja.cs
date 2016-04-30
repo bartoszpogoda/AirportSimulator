@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApplication2
+﻿using SymulatorLotniska.Samoloty;
+
+namespace SymulatorLotniska.Operacje
 {
     public abstract class IOperacja
     {
