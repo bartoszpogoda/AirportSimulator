@@ -3,6 +3,7 @@ using SymulatorLotniska.Samoloty;
 using SymulatorLotniska.ZarzadzanieOperacjami;
 using System.Drawing;
 using System.Windows.Forms;
+using System;
 
 namespace SymulatorLotniska.ZarzadzanieSamolotami
 {
@@ -229,6 +230,31 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             if (zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaKontrolaTechniczna((Samolot)zaznaczony));
         }
 
+        public void odeslijZaznaczonySamolot()
+        {
+            if(zaznaczony is Samolot)
+            {
+                // warunek odeslania - paliwo itp
+
+                // jesli przeszdl warunek
+                ((Samolot)zaznaczony).setAktualnyStan(Stan.Odeslany);
+                listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
+                ((Samolot)zaznaczony).schowaj();
+
+                zaznaczony.setParent(null);
+                zaznaczony = null;
+
+                odswiezInformacje();
+                uaktualnijPrzyciski();
+                narysujSamolotyZListyPowietrze();
+
+                //wypadałobyzadbac o to zeby te obiekty byly na pewno kasowane, jesli nie sa
+
+
+
+            }
+        }
+
         public void wystartujZaznaczonySamolot()
         {
             if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.PrzedStartem)
@@ -317,6 +343,10 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             {
                 uchwytOknoAplikacji.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
             }// rysowanie nowe?
+            else
+             uchwytOknoAplikacji.getLabelInformacje().Text = "Wybierz samolot";
+
+
         }
 
         public void oswiezInformacjeJezeliZaznaczony(Samolot samolot)

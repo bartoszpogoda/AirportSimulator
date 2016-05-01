@@ -105,8 +105,20 @@ namespace SymulatorLotniska
             {
                 wyladuj.Enabled = true;
                 wyladuj.Visible = true;
+                odeslij.Enabled = true;
+                odeslij.Visible = true;
             }
             else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
+            {
+                start.Enabled = true;
+                start.Visible = true;
+                doHangaru.Visible = true;
+                doHangaru.Enabled = true;
+                wprowadzenieLudzi.Enabled = true;
+                wprowadzenieLudzi.Visible = true;
+                wyprowadzLudzi.Enabled = true;
+                wyprowadzLudzi.Visible = true;
+            } else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
             {
                 start.Enabled = true;
                 start.Visible = true;
@@ -143,6 +155,8 @@ namespace SymulatorLotniska
             wprowadzenieLudzi.Visible = false;
             wyprowadzLudzi.Enabled = false;
             wyprowadzLudzi.Visible = false;
+            odeslij.Enabled = false;
+            odeslij.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -200,6 +214,11 @@ namespace SymulatorLotniska
         private void button3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void odeslij_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.odeslijZaznaczonySamolot();
         }
     }
 }

@@ -59,7 +59,7 @@ namespace SymulatorLotniska.Samoloty
         {
             obrazekSamolotu.Parent.Controls.Remove(obrazekSamolotu);
             obrazekSamolotu.Parent = parent;
-            obrazekSamolotu.Parent.Controls.Add(obrazekSamolotu); // chyba tak
+            if(parent != null) obrazekSamolotu.Parent.Controls.Add(obrazekSamolotu); // chyba tak
         }
 
         private void miniaturkaOnClick(object sender, EventArgs e)

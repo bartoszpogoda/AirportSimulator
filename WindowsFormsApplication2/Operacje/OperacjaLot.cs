@@ -106,7 +106,6 @@ namespace SymulatorLotniska.Operacje
         public override void zatrzymaj()
         {
            
-            samolot.setAktualnyStan(Stan.Zniszczony);
         }
     }
 }

@@ -65,7 +65,9 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         {
             if(pierwszy.samolot == samolot)
             {
+               
                 pierwszy = pierwszy.nastepnyElement;
+                length--;
                 return;
             }
 
@@ -78,6 +80,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
                 if (iterator.samolot == samolot) {
                     poprzedni.nastepnyElement = iterator.nastepnyElement;
+                    length--;
                 }
 
                 poprzedni = iterator;
