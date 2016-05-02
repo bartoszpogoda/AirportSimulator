@@ -38,8 +38,8 @@ namespace SymulatorLotniska.Samoloty
         : base(adresMiniaturki, uchwytMenedzerSamolotow, parent) { }
 
 
-        public SamolotOsobowy(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maxPaliwo, int maksIloscPasazerow, int czasStartu, int czasKontroli, string model)
-        : base(adresBazowy, uchwytMenedzerSamolotow, parent, maxPaliwo, czasStartu, czasKontroli, model)
+        public SamolotOsobowy(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maxPaliwo, int maksIloscPasazerow, int czasStartu, int czasKontroli, int spalanie, string model)
+        : base(adresBazowy, uchwytMenedzerSamolotow, parent, maxPaliwo, czasStartu, czasKontroli, spalanie, model)
         {
             this.maksIloscPasazerow = maksIloscPasazerow;
 

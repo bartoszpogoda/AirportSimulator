@@ -10,6 +10,7 @@ namespace SymulatorLotniska.Samoloty
         private int czasStartu;           //w tickach
         private int czasKontroliTechnicznej;         //w tickach
         private int czasKontroli;         //w tickach
+        private int spalanie;         // co ile tickow spala 1l
         private string model;
         //-----------------------
 
@@ -99,18 +100,21 @@ namespace SymulatorLotniska.Samoloty
         
 
 
-        public Samolot(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maksIloscPaliwa, int czasStartu, int czasKontroli, string model)
+        public Samolot(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maksIloscPaliwa, int czasStartu, int czasKontroli, int spalanie, string model)
             : base(adresBazowy, uchwytMenedzerSamolotow, parent)
         {
             this.czasStartu = czasStartu;
             this.model = model;
             this.maksIloscPaliwa = maksIloscPaliwa;
             this.czasKontroliTechnicznej = czasKontroli;
+            this.spalanie = spalanie;
 
             AktualnaIloscPaliwa = 0;
             PoKontroli = false;
-        }
-        
+
+       }
+       public int getSpalanie() { return spalanie;  }
+         
         abstract public string wypiszInformacje();
 
 

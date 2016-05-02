@@ -71,16 +71,25 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 return;
             }
 
-            iteratorNaStart();
-            ElementListySamolotow poprzedni = iterator;
+            ElementListySamolotow iterator = pierwszy;
+            
+            ElementListySamolotow poprzedni = pierwszy;
 
-            while (iteratorMaNastepny())
+            while (iterator.nastepnyElement != null)
             {
-                iteratorNastepny();
+                iterator = iterator.nastepnyElement;
 
                 if (iterator.samolot == samolot) {
-                    poprzedni.nastepnyElement = iterator.nastepnyElement;
+                    if (iterator.nastepnyElement == null)
+                    {
+                        ostatni = poprzedni; // <-- brak tego też powodował bład
+                        poprzedni.nastepnyElement = null;
+                    }
+                    else
+                        poprzedni.nastepnyElement = iterator.nastepnyElement;
                     length--;
+
+                    return;
                 }
 
                 poprzedni = iterator;
