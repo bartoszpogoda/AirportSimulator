@@ -52,6 +52,7 @@ namespace SymulatorLotniska.Operacje
 
         public override void zatrzymaj()
         {
+            System.Console.Write("Zatrzymywane tankowania");
             samolot.setAktualnyStan(Stan.Hangar);
         }
 
