@@ -120,6 +120,12 @@ namespace SymulatorLotniska.Samoloty
                 obrazekStanu.Enabled = true;
                 aktualnyNaGorze = obrazekStanu;
             }
+            else // rozwiazanie błedu ze zniknaiem zaznacznia
+            {
+                obrazekStanu.Visible = false;
+                obrazekStanu.Enabled = false;
+                aktualnyNaGorze = obrazekSamolotu;
+            }
 
             uchwytMenedzerSamolotow.narysujSamolotyZListy();
             uchwytMenedzerSamolotow.narysujSamolotyZListyPowietrze();

@@ -12,7 +12,7 @@ namespace SymulatorLotniska
         public const int rozmiarOdstepu = 10;
         public const int iloscKolumn = 4;
         public const int iloscRzedow = 3;
-        public const int interwalTimera = 5; // 100 normalie
+        public const int interwalTimera = 1; // 100 normalie
         public const int interwalTankowanie = 1;
 
         public const string adresZnacznik = "znacznik";

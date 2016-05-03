@@ -48,14 +48,14 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
             else
             {
-                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotow(), 250, 20, 500, 30, "Boening707"));
+                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotow(), 250, 50, 100, 30, 100, "Boening707"));
                 narysujSamolotyZListy();
                 narysujSamolotyZListyPowietrze();
             }
         }
 
         public void wygenerujLosowySamolotWPowietrzu() { // prototyp
-            Samolot samolot = new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotowPowietrze(), 20, 20, 500, 30, "Tupolew");
+            Samolot samolot = new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotowPowietrze(), 20, 20, 500, 30, 100, "Tupolew");
             samolot.setAktualnyStan(Stan.WPowietrzu);
             samolot.AktualnaIloscPaliwa = samolot.getMaksIloscPaliwa(); // to pozniej bedzie losowe
             listaSamolotowPowietrze.dodajSamolot(samolot);
@@ -268,6 +268,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             else if (!pasStartowy2.czyWolny() && pasStartowy2.getAktualnySamolot() == (Samolot)zaznaczony)
                 {
 
+                    getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy2, this));
                 }
 
             }
@@ -275,17 +276,12 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
 
 
-        public void umiescWPowietrzu(Samolot samolot, PasStartowy pasStartowy)
+        public void umiescWPowietrzu(Samolot samolot)
         {
-            if (pasStartowy == pasStartowy1) pasStartowy1.zdejmijAktualnySamolot();
-            else if (pasStartowy == pasStartowy2) pasStartowy2.zdejmijAktualnySamolot();
-
-            //getMenedzerOperacji().zatrzymajOperacje(samolot); // dbg
-
+           
             listaSamolotowPowietrze.dodajSamolot(samolot);
             samolot.getObrazekSamolotu().Parent = uchwytOknoAplikacji.getPanelSamolotowPowietrze();
             samolot.setAktualnyStan(Stan.WPowietrzu);
-           // getMenedzerOperacji().dodajOperacje(new OperacjaLot(samolot));
             narysujSamolotyZListyPowietrze();
         }
        /* public void wyladujZaznaczonySamolot()

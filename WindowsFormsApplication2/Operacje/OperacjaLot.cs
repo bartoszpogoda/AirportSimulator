@@ -13,21 +13,27 @@ namespace SymulatorLotniska.Operacje
         private Samolot samolot;
         private PasStartowy pasStartowy;
         private MenedzerSamolotow uchwytMenedzerSamolotow;
-        int pamiec;
+        bool pierwszeWykonanie;
+        int spalanie;
+        int timerSpalanie;
 
         public OperacjaLot(Samolot samolot,PasStartowy pasStartowy,MenedzerSamolotow menedzerSamolotow)
         {
             this.samolot = samolot;
             this.pasStartowy = pasStartowy;
             uchwytMenedzerSamolotow = menedzerSamolotow;
-            pamiec = -1;
+            pierwszeWykonanie = true;
+            timerSpalanie = 1;
+            spalanie = samolot.getSpalanie();
         }
 
         public OperacjaLot(Samolot samolot, MenedzerSamolotow menedzerSamolotow)
         {
             this.samolot = samolot;
             uchwytMenedzerSamolotow = menedzerSamolotow;
-            pamiec = -1;
+            pierwszeWykonanie = true;
+            timerSpalanie = 1;
+            spalanie = samolot.getSpalanie();
         }
 
         public override Samolot getSamolot()
@@ -37,12 +43,12 @@ namespace SymulatorLotniska.Operacje
 
         public override bool wykonajTick()
         {
-            if (pamiec == -1)
+            if (pierwszeWykonanie)
             {
                 if(samolot.getAktualnyStan() == Stan.PrzedStartem)
                 {
                     samolot.setAktualnyStan(Stan.Startowanie);
-                    pamiec = 1;
+                    pierwszeWykonanie = false;
 
                     if (uchwytMenedzerSamolotow.getZaznaczony() == samolot) // bez tego znika zaznaczenie
                     {
@@ -52,7 +58,7 @@ namespace SymulatorLotniska.Operacje
                 }
                 if(samolot.getAktualnyStan() == Stan.WPowietrzu)
                 {
-                    pamiec = 1;
+                    pierwszeWykonanie = false;
                     return true;
                 }
                 return false;
@@ -61,36 +67,30 @@ namespace SymulatorLotniska.Operacje
             if(samolot.getAktualnyStan() == Stan.Startowanie || samolot.getAktualnyStan() == Stan.WPowietrzu)
             {
 
-                if (pamiec % 10 == 0)
+                if (timerSpalanie >= spalanie)
                 {
                     samolot.AktualnaIloscPaliwa = samolot.AktualnaIloscPaliwa - 1;
+                    timerSpalanie = 1;
                 }
-
-                pamiec++;
-
-                if (pamiec > 10) pamiec = 1;
+                else
+                    timerSpalanie++;
+                
 
                 if (samolot.AktualnaIloscPaliwa <= 0) 
-                    {
+                {
                         samolot.setAktualnyStan(Stan.Zniszczony);
                         return false;
-                    }
+                }
                 
                 if(samolot.getAktualnyStan() == Stan.Startowanie)
                 {
-                    if (pasStartowy.przesunSamolotWPrawo())
+                    if (pasStartowy.tick())
                     {
-                        
-                        // tutaj jeszcze przesuniecie w gore;
                         return true;
                     }
                     else
                     {
-                        uchwytMenedzerSamolotow.umiescWPowietrzu(samolot, pasStartowy);
-                        if (uchwytMenedzerSamolotow.getZaznaczony() == samolot)
-                        {
-                            uchwytMenedzerSamolotow.zaznaczSamolot(samolot);
-                        }
+                        uchwytMenedzerSamolotow.umiescWPowietrzu(samolot);
                     }
                 }
 

@@ -13,12 +13,18 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         private Samolot aktualnySamolot;
         private int polozenieSamolotuX;
         private int polozenieSamolotuY;
+        private double dx;
+        private double dy;
+        private int maxX;
+        private int maxY;
         private Control uchwytPanel;
 
         public PasStartowy(Control panel)
         {
             uchwytPanel = panel;
-        }
+            maxX = uchwytPanel.Size.Width - StaleKonfiguracyjne.rozmiarObrazka;
+            maxY = 40;
+    }
 
         public void ustawSamolot(Samolot samolot)
         {
@@ -33,6 +39,9 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 polozenieSamolotuX = 0;
                 polozenieSamolotuY = 40;
             }
+
+            dx = 0;
+            dy = 0;
 
             this.aktualnySamolot = samolot;
             aktualnySamolot.setParent(uchwytPanel);
@@ -59,6 +68,42 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             if (polozenieSamolotuY - 1 <= 0) return false;
             polozenieSamolotuY--;
             odswiezPolozenieSamolotu();
+            return true;
+        }
+
+        public bool tick()
+        {
+            // taki sposob narzuca tez ograniczenie na max speed
+            dx += (double)maxX / (double)aktualnySamolot.getCzasStartu();
+            dy += 1 * (double)maxY / (double)aktualnySamolot.getCzasStartu(); // albo 2*
+
+            if(dx > 1)
+            {
+                dx = 0;
+                if (polozenieSamolotuX + 1 <= maxX)
+                {
+                    polozenieSamolotuX += 1;
+                }
+                else
+                {
+                    zdejmijAktualnySamolot();
+                    return false;
+                }
+            }
+
+            if(dy > 1)
+            {
+                if(polozenieSamolotuX >= maxX / 2 && polozenieSamolotuY + 1 <= maxY)
+                {
+                    polozenieSamolotuY += 1;
+                }
+
+                dy = 0;
+                
+            }
+            
+            odswiezPolozenieSamolotu();
+
             return true;
         }
 
