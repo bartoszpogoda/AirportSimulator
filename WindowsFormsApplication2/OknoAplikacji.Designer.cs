@@ -43,6 +43,7 @@ namespace SymulatorLotniska
             this.labelTekstInformacje = new System.Windows.Forms.Label();
             this.labelWPowietrzu = new System.Windows.Forms.Label();
             this.panelPrzyciskow = new System.Windows.Forms.Panel();
+            this.odeslij = new System.Windows.Forms.Button();
             this.wyprowadzLudzi = new System.Windows.Forms.Button();
             this.start = new System.Windows.Forms.Button();
             this.wprowadzenieLudzi = new System.Windows.Forms.Button();
@@ -54,7 +55,6 @@ namespace SymulatorLotniska
             this.tankowanie = new System.Windows.Forms.Button();
             this.panelPasStartowy1 = new System.Windows.Forms.Panel();
             this.panelPasStartowy2 = new System.Windows.Forms.Panel();
-            this.odeslij = new System.Windows.Forms.Button();
             this.panelInformacji.SuspendLayout();
             this.panelPrzyciskow.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +63,7 @@ namespace SymulatorLotniska
             // 
             this.button1.Location = new System.Drawing.Point(10, 221);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(21, 20);
+            this.button1.Size = new System.Drawing.Size(117, 65);
             this.button1.TabIndex = 0;
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
@@ -71,9 +71,9 @@ namespace SymulatorLotniska
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(20, 221);
+            this.button2.Location = new System.Drawing.Point(133, 221);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(21, 23);
+            this.button2.Size = new System.Drawing.Size(127, 65);
             this.button2.TabIndex = 2;
             this.button2.Text = "+";
             this.button2.UseVisualStyleBackColor = true;
@@ -176,6 +176,17 @@ namespace SymulatorLotniska
             this.panelPrzyciskow.Name = "panelPrzyciskow";
             this.panelPrzyciskow.Size = new System.Drawing.Size(200, 73);
             this.panelPrzyciskow.TabIndex = 0;
+            // 
+            // odeslij
+            // 
+            this.odeslij.BackColor = System.Drawing.Color.Beige;
+            this.odeslij.Location = new System.Drawing.Point(13, 8);
+            this.odeslij.Name = "odeslij";
+            this.odeslij.Size = new System.Drawing.Size(75, 23);
+            this.odeslij.TabIndex = 10;
+            this.odeslij.Text = "Odeślij";
+            this.odeslij.UseVisualStyleBackColor = false;
+            this.odeslij.Click += new System.EventHandler(this.odeslij_Click);
             // 
             // wyprowadzLudzi
             // 
@@ -288,17 +299,6 @@ namespace SymulatorLotniska
             this.panelPasStartowy2.Name = "panelPasStartowy2";
             this.panelPasStartowy2.Size = new System.Drawing.Size(479, 100);
             this.panelPasStartowy2.TabIndex = 5;
-            // 
-            // odeslij
-            // 
-            this.odeslij.BackColor = System.Drawing.Color.Beige;
-            this.odeslij.Location = new System.Drawing.Point(13, 8);
-            this.odeslij.Name = "odeslij";
-            this.odeslij.Size = new System.Drawing.Size(75, 23);
-            this.odeslij.TabIndex = 10;
-            this.odeslij.Text = "Odeślij";
-            this.odeslij.UseVisualStyleBackColor = false;
-            this.odeslij.Click += new System.EventHandler(this.odeslij_Click);
             // 
             // OknoAplikacji
             // 

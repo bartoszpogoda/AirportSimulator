@@ -127,6 +127,7 @@ namespace SymulatorLotniska.Samoloty
                 aktualnyNaGorze = obrazekSamolotu;
             }
 
+            uchwytMenedzerSamolotow.uaktualnijPbZaznaczonyJesliZaznaczony(this);
             uchwytMenedzerSamolotow.narysujSamolotyZListy();
             uchwytMenedzerSamolotow.narysujSamolotyZListyPowietrze();
 

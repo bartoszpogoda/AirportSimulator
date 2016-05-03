@@ -95,14 +95,15 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             {
                 if(polozenieSamolotuX >= maxX / 2 && polozenieSamolotuY + 1 <= maxY)
                 {
-                    polozenieSamolotuY += 1;
+                    if (aktualnySamolot.getAktualnyStan() == Stan.Startowanie) polozenieSamolotuY += 1;
+                    else if (aktualnySamolot.getAktualnyStan() == Stan.Ladowanie) polozenieSamolotuY -= 1;
                 }
 
-                dy = 0;
-                
+                dy = 0; 
             }
-            
-            odswiezPolozenieSamolotu();
+
+            //if(dx == 0 && dy==0)
+             odswiezPolozenieSamolotu();
 
             return true;
         }
@@ -118,7 +119,6 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         }
         private void odswiezPolozenieSamolotu()
         {
-
             aktualnySamolot.getObrazekSamolotu().Location = new System.Drawing.Point(polozenieSamolotuX, 40 - polozenieSamolotuY);
         }
 
