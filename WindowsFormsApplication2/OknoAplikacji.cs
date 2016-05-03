@@ -171,7 +171,7 @@ namespace SymulatorLotniska
 
         private void tankowanie_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.tankujZaznaczonySamolot();
+            menedzerSamolotow.tankujZaznaczony();
         }
         // ugololnic nazwe
         private void tankowanieCancel_Click(object sender, EventArgs e)
@@ -182,7 +182,7 @@ namespace SymulatorLotniska
         private void kontrola_Click(object sender, EventArgs e)
         {
 
-            menedzerSamolotow.kontrolujZaznaczonySamolot(pasekPostepu);
+            menedzerSamolotow.kontrolujTechnicznieZaznaczony(pasekPostepu);
         }
         
 
@@ -203,7 +203,7 @@ namespace SymulatorLotniska
 
         private void wyladuj_Click(object sender, EventArgs e)
         {
-           // menedzerSamolotow.wyladujZaznaczonySamolot();
+           menedzerSamolotow.wyladujZaznaczonySamolot();
         }
 
         private void button6_Click(object sender, EventArgs e)

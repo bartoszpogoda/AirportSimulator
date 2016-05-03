@@ -7,6 +7,10 @@ using System;
 
 namespace SymulatorLotniska.ZarzadzanieSamolotami
 {
+    //TODO: Klase MenedzerSamolotow oraz MendzerOperacji mozna zrobic jako singleton.
+    //TODO: SKoro odnalazlem ten bład moze jednak lepiej bedzie rozdzielic operacje lotu, startowania itp?
+    //      ^ polaczenie tych 3 ze soba jest juz niewygodne gdy trzeba dodac informacje do operacji na temat wolnego
+    //        pasa startowego.
     public class MenedzerSamolotow
     {
 
@@ -35,14 +39,15 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             listaSamolotow = new ListaSamolotow();
             listaSamolotowPowietrze = new ListaSamolotow();
 
-
             pbZaznaczony = new PictureBox();
-
             zainicjujZnacznikZaznaczonego();
 
             pasStartowy1 = new PasStartowy(uchwytOknoAplikacji.getPasStartowy1());
             pasStartowy2 = new PasStartowy(uchwytOknoAplikacji.getPasStartowy2());
         }
+        
+        public Miniatura getZaznaczony() { return zaznaczony; }
+
 
         public void dbgDodajSamolot(int i) { // debugFunkcja do usuniecia jak bedzie kreator
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
@@ -106,7 +111,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             narysujSamolotyZListyPowietrze();
         }
 
-
+        //TODO: Raczej daloby sie to jakos ladniej zapisac. 
         public void narysujSamolotyZListy()
         {
             int i = aktualnyRzadStartowy;
@@ -190,16 +195,11 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
     
 
         public void zaznaczSamolot(Miniatura samolot) {
-            if (zaznaczony == null)
-                zaznaczony = samolot;
-            else if (zaznaczony == samolot) ;
-            else
-            {
-                zaznaczony = samolot;
-            }
+            zaznaczony = samolot;
             
             pbZaznaczony.Parent = samolot.getAktualnyNaGorze();
             pbZaznaczony.Location = new Point(0, 0);
+
             if (samolot.czyJestPokazany()) pbZaznaczony.Visible = true;
 
             // zmiana informacji
@@ -208,10 +208,200 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             uaktualnijPrzyciski();
         }
 
+        public void uaktualnijPbZaznaczonyJesliZaznaczony(Miniatura samolot)
+        {
+            if(zaznaczony == samolot)
+            {
+                pbZaznaczony.Parent = zaznaczony.getAktualnyNaGorze();
+                if (zaznaczony.czyJestPokazany()) pbZaznaczony.Visible = true; // <razcej nie potrzebne
+            }
+        }
+        public void uaktualnijPbZaznaczony()
+        {
+            pbZaznaczony.Parent = zaznaczony.getAktualnyNaGorze();
+            if (zaznaczony.czyJestPokazany()) pbZaznaczony.Visible = true; // <raczej nie potrzebne
+        }
+
+       
+        //--------------------------------------------------------------------
+        //--------------------------------------------------------------------
+        //--------   OPERACJE NA ZAZNACZONYM AKTUALNIE SAMOLOCIE -------------
+        public void tankujZaznaczony()
+        {
+            if (zaznaczony is Samolot)
+            {
+                if (((Samolot)zaznaczony).czyZatankowany())
+                {
+                    // LOG --Samolot (zaznaczony) ma juz pelny bak--
+                }
+                else
+                {
+                    getMenedzerOperacji().dodajOperacje(new OperacjaTankowanie((Samolot)zaznaczony));
+                    // LOG --Rozpoczecie tankowania samolotu (zaznaczony)--
+                }
+            }
+        }
+
+        public void kontrolujTechnicznieZaznaczony(ProgressBar pasekPostepu)
+        {
+            if (zaznaczony is Samolot)
+            {
+                if (((Samolot)zaznaczony).czyPoKontroli())
+                {
+                    // LOG --Samolot (zaznaczony) przeszedl juz kontrole techniczna--
+                }
+                else
+                {
+                    getMenedzerOperacji().dodajOperacje(new OperacjaKontrolaTechniczna((Samolot)zaznaczony));
+                }
+
+            }
+        }
+
+        public void odeslijZaznaczonySamolot()
+        {
+            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.WPowietrzu)
+            {
+                if (false) // warunek odeslania - np za mala ilosc paliwa
+                {
+                   // LOG --Nie mozna odeslac samolotu (zaznaczony) ze wzgledu na......--
+                }
+                else
+                {
+                    // LOG --Samolot (zaznazczony) zostal odeslany--
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Odeslany);
+                    listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
+                    ((Samolot)zaznaczony).schowaj();
+
+                    zaznaczony.setParent(null);
+                    zaznaczony = null;
+
+                    odswiezInformacje();
+                    uaktualnijPrzyciski();
+                    narysujSamolotyZListyPowietrze();
+                }
+            }
+        }
+
+        public void wystawZaznaczonyNaWolnyPas()
+        {
+            if (!(zaznaczony is Samolot) || !((Samolot)zaznaczony).czyPoKontroli() || !(((Samolot)zaznaczony).getAktualnyStan() == Stan.Hangar))
+            {
+                // LOG--Informacje ze nie jest po kontroli technicznej.--
+                return;
+            }
+
+            if (pasStartowy1.czyWolny())
+            {
+                // LOG--Informacja, ze Samolot (zaznaczony) zostal umieszczony na pasie nr 1.--
+                ((Samolot)zaznaczony).setAktualnyStan(Stan.PrzedStartem);
+                listaSamolotow.usunSamolot((Samolot)zaznaczony);
+                pasStartowy1.ustawSamolot((Samolot)zaznaczony);
+                narysujSamolotyZListy();
+            }
+            else if (pasStartowy2.czyWolny())
+            {
+                // LOG--Informacja, ze Samolot (zaznaczony) zostal umieszczony na pasie nr 1.--
+                ((Samolot)zaznaczony).setAktualnyStan(Stan.PrzedStartem);
+                listaSamolotow.usunSamolot((Samolot)zaznaczony);
+                pasStartowy2.ustawSamolot((Samolot)zaznaczony);
+                narysujSamolotyZListy();
+            }
+            else
+            {
+                // LOG--Informacja, ze nie ma wolnych pasów startowych.
+            }
+        }
+        public void wystartujZaznaczonySamolot()
+        {
+            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.PrzedStartem)
+            {
+                if (false) // warunek  czy ludzi jest dobra ilosc i towarow
+                {                    
+                    // LOG --Samolotu (zaznaczony) nie przeszedl kontroli przed startem. Np jest przeludniony--
+                }
+                else
+                {
+                    if(!pasStartowy1.czyWolny() && pasStartowy1.getAktualnySamolot() == (Samolot)zaznaczony)
+                    {
+                        // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
+                        getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy1,this));
+                    }
+                    else if (!pasStartowy2.czyWolny() && pasStartowy2.getAktualnySamolot() == (Samolot)zaznaczony)
+                    {
+                        // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
+                        getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy2, this));
+                    }
+                }
+            }
+        }
+
+        public void wyladujZaznaczonySamolot() // not fully implemented
+        {
+            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.WPowietrzu)
+            {
+                if (pasStartowy1.czyWolny())
+                {
+                    // LOG --Samolot (zaznaczony) podchodzi do ladowania na pasie 2--
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
+                    listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
+                    pasStartowy1.ustawSamolot((Samolot)zaznaczony);
+                    narysujSamolotyZListyPowietrze();
+                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1));
+                }
+                else if (pasStartowy2.czyWolny())
+                {
+                    // LOG --Samolot (zaznaczony) podchodzi do ladowania na pasie 2--
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
+                    listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
+                    pasStartowy2.ustawSamolot((Samolot)zaznaczony);
+                    narysujSamolotyZListyPowietrze();
+                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2));
+                }
+                else
+                {
+                    // LOG --Pasy startowe sa zajete--
+                }
+            }
+        }
+
+
+        //--------------------------------------------------------------------
+        //--------------------------------------------------------------------
+        //--------   OPERACJE NA SAMOLOTACH                      -------------
+
+        public void umiescWPowietrzu(Samolot samolot)
+        {
+            listaSamolotowPowietrze.dodajSamolot(samolot);
+            samolot.getObrazekSamolotu().Parent = uchwytOknoAplikacji.getPanelSamolotowPowietrze();
+            samolot.setAktualnyStan(Stan.WPowietrzu);
+            narysujSamolotyZListyPowietrze();
+        }
+
+      
+
+
+        public void odswiezInformacje()
+        {
+            if (zaznaczony is Samolot)
+            {
+                uchwytOknoAplikacji.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
+            }
+            else
+             uchwytOknoAplikacji.getLabelInformacje().Text = "Wybierz samolot";
+
+
+        }
+        public void oswiezInformacjeJezeliZaznaczony(Samolot samolot)
+        {
+            if (zaznaczony is Samolot && zaznaczony == samolot)
+            {
+                uchwytOknoAplikacji.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
+            }
+        }
         public void uaktualnijPrzyciski()
         {
-            
-                uchwytOknoAplikacji.uaktualnijPrzyciskiPanelu(zaznaczony);
+            uchwytOknoAplikacji.uaktualnijPrzyciskiPanelu(zaznaczony);
         }
         public void uaktualnijPrzyciskiJezeliZaznaczony(Samolot samolot)
         {
@@ -220,138 +410,5 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 uchwytOknoAplikacji.uaktualnijPrzyciskiPanelu(zaznaczony);
             }
         }
-
-        public void tankujZaznaczonySamolot()
-        {
-            if(zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaTankowanie((Samolot)zaznaczony));
-        }
-        public void kontrolujZaznaczonySamolot(ProgressBar pasekPostepu)
-        {
-            if (zaznaczony is Samolot) getMenedzerOperacji().dodajOperacje(new OperacjaKontrolaTechniczna((Samolot)zaznaczony));
-        }
-
-        public void odeslijZaznaczonySamolot()
-        {
-            if(zaznaczony is Samolot)
-            {
-                // warunek odeslania - paliwo itp
-
-                // jesli przeszdl warunek
-                ((Samolot)zaznaczony).setAktualnyStan(Stan.Odeslany);
-                listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
-                ((Samolot)zaznaczony).schowaj();
-
-                zaznaczony.setParent(null);
-                zaznaczony = null;
-
-                odswiezInformacje();
-                uaktualnijPrzyciski();
-                narysujSamolotyZListyPowietrze();
-
-                //wypadałobyzadbac o to zeby te obiekty byly na pewno kasowane, jesli nie sa
-
-
-
-            }
-        }
-
-        public void wystartujZaznaczonySamolot()
-        {
-            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.PrzedStartem)
-            {
-                // tu jeszcze warunki czy ludzi jest dobra ilosc i towarow
-
-            if(!pasStartowy1.czyWolny() && pasStartowy1.getAktualnySamolot() == (Samolot)zaznaczony)
-                {
-                    getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy1,this));
-                }
-            else if (!pasStartowy2.czyWolny() && pasStartowy2.getAktualnySamolot() == (Samolot)zaznaczony)
-                {
-
-                    getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy2, this));
-                }
-
-            }
-        }
-
-
-
-        public void umiescWPowietrzu(Samolot samolot)
-        {
-           
-            listaSamolotowPowietrze.dodajSamolot(samolot);
-            samolot.getObrazekSamolotu().Parent = uchwytOknoAplikacji.getPanelSamolotowPowietrze();
-            samolot.setAktualnyStan(Stan.WPowietrzu);
-            narysujSamolotyZListyPowietrze();
-        }
-       /* public void wyladujZaznaczonySamolot()
-        {
-            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.WPowietrzu)
-            {
-                if (pasStartowy1.czyWolny())
-                {
-                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
-                    listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
-                    pasStartowy1.ustawSamolot((Samolot)zaznaczony);
-                    narysujSamolotyZListyPowietrze();
-                    getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1));
-                }
-                else if (pasStartowy2.czyWolny())
-                {
-                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
-                    listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
-                    pasStartowy2.ustawSamolot((Samolot)zaznaczony);
-                    narysujSamolotyZListyPowietrze();
-                    getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2));
-                }
-            }
-        }*/
-
-        public void wystawZaznaczonyNaWolnyPas() {
-
-            if (!(zaznaczony is Samolot) || !((Samolot)zaznaczony).czyPoKontroli() || !(((Samolot)zaznaczony).getAktualnyStan() == Stan.Hangar)) return;
-
-            if (pasStartowy1.czyWolny()) {
-                ((Samolot)zaznaczony).setAktualnyStan(Stan.PrzedStartem);
-                listaSamolotow.usunSamolot((Samolot)zaznaczony);
-                pasStartowy1.ustawSamolot((Samolot)zaznaczony);
-                narysujSamolotyZListy();
-            }
-            else if (pasStartowy2.czyWolny())
-            {
-                ((Samolot)zaznaczony).setAktualnyStan(Stan.PrzedStartem);
-                listaSamolotow.usunSamolot((Samolot)zaznaczony);
-                pasStartowy2.ustawSamolot((Samolot)zaznaczony);
-                narysujSamolotyZListy();
-            }
-            // zajete
-        }
-
-
-        public Miniatura getZaznaczony()
-        {
-            return zaznaczony;
-        }
-
-        public void odswiezInformacje()
-        {
-            if (zaznaczony is Samolot)
-            {
-                uchwytOknoAplikacji.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
-            }// rysowanie nowe?
-            else
-             uchwytOknoAplikacji.getLabelInformacje().Text = "Wybierz samolot";
-
-
-        }
-
-        public void oswiezInformacjeJezeliZaznaczony(Samolot samolot)
-        {
-            if (zaznaczony is Samolot && zaznaczony == samolot)
-            {
-                uchwytOknoAplikacji.getLabelInformacje().Text = ((Samolot)zaznaczony).wypiszInformacje();
-            }
-        }
-
     }
 }

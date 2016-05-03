@@ -17,7 +17,7 @@ namespace SymulatorLotniska.Operacje
         int spalanie;
         int timerSpalanie;
 
-        public OperacjaLot(Samolot samolot,PasStartowy pasStartowy,MenedzerSamolotow menedzerSamolotow)
+        public OperacjaLot(Samolot samolot, PasStartowy pasStartowy, MenedzerSamolotow menedzerSamolotow)
         {
             this.samolot = samolot;
             this.pasStartowy = pasStartowy;
@@ -45,18 +45,21 @@ namespace SymulatorLotniska.Operacje
         {
             if (pierwszeWykonanie)
             {
-                if(samolot.getAktualnyStan() == Stan.PrzedStartem)
+                if (samolot.getAktualnyStan() == Stan.PrzedStartem)
                 {
                     samolot.setAktualnyStan(Stan.Startowanie);
                     pierwszeWykonanie = false;
 
-                    if (uchwytMenedzerSamolotow.getZaznaczony() == samolot) // bez tego znika zaznaczenie
-                    {
-                        uchwytMenedzerSamolotow.zaznaczSamolot(samolot);
-                    }
+                    /*  if (uchwytMenedzerSamolotow.getZaznaczony() == samolot) // bez tego znika zaznaczenie
+                      {
+                          uchwytMenedzerSamolotow.zaznaczSamolot(samolot);
+                      }*/
+
+                    //uchwytMenedzerSamolotow.uaktualnijPbZaznaczony();
+
                     return true;
                 }
-                if(samolot.getAktualnyStan() == Stan.WPowietrzu)
+                if (samolot.getAktualnyStan() == Stan.WPowietrzu)
                 {
                     pierwszeWykonanie = false;
                     return true;
@@ -64,7 +67,7 @@ namespace SymulatorLotniska.Operacje
                 return false;
             }
 
-            if(samolot.getAktualnyStan() == Stan.Startowanie || samolot.getAktualnyStan() == Stan.WPowietrzu)
+            if (samolot.getAktualnyStan() == Stan.WPowietrzu || samolot.getAktualnyStan() == Stan.Startowanie || samolot.getAktualnyStan() == Stan.Ladowanie)
             {
 
                 if (timerSpalanie >= spalanie)
@@ -78,10 +81,13 @@ namespace SymulatorLotniska.Operacje
 
                 if (samolot.AktualnaIloscPaliwa <= 0) 
                 {
+                    // tutaj sie zrobi cos ciekawszego ;)
                         samolot.setAktualnyStan(Stan.Zniszczony);
                         return false;
                 }
-                
+
+                if (samolot.getAktualnyStan() == Stan.WPowietrzu) return true;
+
                 if(samolot.getAktualnyStan() == Stan.Startowanie)
                 {
                     if (pasStartowy.tick())
@@ -91,6 +97,19 @@ namespace SymulatorLotniska.Operacje
                     else
                     {
                         uchwytMenedzerSamolotow.umiescWPowietrzu(samolot);
+                    }
+                }
+                else if (samolot.getAktualnyStan() == Stan.Ladowanie)
+                {
+                    if (pasStartowy.tick())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        // tutaj do przemyslenia jeszcze 
+                        samolot.setAktualnyStan(Stan.PoLadowaniu); // do zaprogramowania jeszcze
+                        return false;
                     }
                 }
 
