@@ -92,7 +92,10 @@
                     }
 
                     iterator.nastepnyElement.poprzedniElement = iterator.poprzedniElement;
-                    iterator.poprzedniElement = iterator.nastepnyElement;
+                    //iterator.poprzedniElement = iterator.nastepnyElement; <-- wyglada na powazny błąd!!
+                    iterator.poprzedniElement.nastepnyElement = iterator.nastepnyElement;
+                    // tak jest! juz dziala dobrze po naprawieniu tego
+
                     return;
 
                 }
