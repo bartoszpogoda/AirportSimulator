@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Operacje\OperacjaLot.cs" />
+    <Compile Include="Operacje\OperacjaStartowanie.cs" />
     <Compile Include="Samoloty\Stan.cs" />
     <Compile Include="ZarzadzanieSamolotami\FabrykaSamolotow.cs" />
     <Compile Include="ZarzadzanieOperacjami\ElementListyOperacji.cs" />

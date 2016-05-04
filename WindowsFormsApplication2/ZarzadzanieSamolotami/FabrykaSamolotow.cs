@@ -15,11 +15,12 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         public static Samolot wyprodukujBoening767(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
         {
-            Samolot samolot = new SamolotOsobowy(uchwytMenedzerSamolotow,parent,"boening767");
-            
+            //Samolot samolot = new SamolotOsobowy(uchwytMenedzerSamolotow,parent,"boening767");
+
             // konfiguracja
 
-            return samolot;
+            //return samolot;
+            return null;
         }
         
     }

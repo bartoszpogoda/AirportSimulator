@@ -13,7 +13,6 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
     //        pasa startowego.
     public class MenedzerSamolotow
     {
-
         private int aktualnyRzadStartowy = 0; // na potrzeby scrollowania
         private int aktualnyRzadStartowyPowietrze = 0;
 
@@ -28,10 +27,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         private PasStartowy pasStartowy1;
         private PasStartowy pasStartowy2;
-
-
-
-
+        
         public MenedzerSamolotow(OknoAplikacji uchwytOknoAplikacji, MenedzerOperacji uchwytMenedzerOperacji) {
             this.uchwytOknoAplikacji = uchwytOknoAplikacji;
             this.uchwytMenedzerOperacji = uchwytMenedzerOperacji;
@@ -53,14 +49,14 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
             else
             {
-                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotow(), 250, 50, 100, 30, 100, "Boening707"));
+                listaSamolotow.dodajSamolot(new SamolotOsobowy(this, uchwytOknoAplikacji.getPanelSamolotow(), 250, 50, 100, 30, 100, "Boening707"));
                 narysujSamolotyZListy();
                 narysujSamolotyZListyPowietrze();
             }
         }
 
         public void wygenerujLosowySamolotWPowietrzu() { // prototyp
-            Samolot samolot = new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotowPowietrze(), 20, 20, 500, 30, 100, "Tupolew");
+            Samolot samolot = new SamolotOsobowy(this, uchwytOknoAplikacji.getPanelSamolotowPowietrze(), 20, 20, 500, 30, 100, "Tupolew");
             samolot.setAktualnyStan(Stan.WPowietrzu);
             samolot.AktualnaIloscPaliwa = samolot.getMaksIloscPaliwa(); // to pozniej bedzie losowe
             listaSamolotowPowietrze.dodajSamolot(samolot);

@@ -24,7 +24,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             uchwytPanel = panel;
             maxX = uchwytPanel.Size.Width - StaleKonfiguracyjne.rozmiarObrazka;
             maxY = 40;
-    }
+        }
 
         public void ustawSamolot(Samolot samolot)
         {
@@ -44,6 +44,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             dy = 0;
 
             this.aktualnySamolot = samolot;
+
             aktualnySamolot.setParent(uchwytPanel);
             aktualnySamolot.getObrazekSamolotu().Location = new System.Drawing.Point(polozenieSamolotuX, 40 - polozenieSamolotuY);
             aktualnySamolot.pokaz();
@@ -53,24 +54,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         {
             aktualnySamolot = null;
         }
-
-        public void ustawPolozenieSamolotu(int x, int y)
-        {
-            if (x > uchwytPanel.Size.Width || y > uchwytPanel.Size.Height) return;
-            polozenieSamolotuX = x;
-            polozenieSamolotuY = y;
-
-            odswiezPolozenieSamolotu();
-        }
-
-        public bool obnizSamolot()
-        {
-            if (polozenieSamolotuY - 1 <= 0) return false;
-            polozenieSamolotuY--;
-            odswiezPolozenieSamolotu();
-            return true;
-        }
-
+        
         public bool tick()
         {
             // taki sposob narzuca tez ograniczenie na max speed
@@ -110,13 +94,6 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         public Samolot getAktualnySamolot() { return aktualnySamolot; }
 
-        public bool przesunSamolotWPrawo()
-        {
-            if (polozenieSamolotuX + 1 >= uchwytPanel.Size.Width - StaleKonfiguracyjne.rozmiarObrazka) return false;
-            polozenieSamolotuX++;
-            odswiezPolozenieSamolotu();
-            return true;
-        }
         private void odswiezPolozenieSamolotu()
         {
             aktualnySamolot.getObrazekSamolotu().Location = new System.Drawing.Point(polozenieSamolotuX, 40 - polozenieSamolotuY);

@@ -92,16 +92,16 @@ namespace SymulatorLotniska.Samoloty
             }
         }
 
-        public Samolot(string adresMiniaturki, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
-            : base(adresMiniaturki, uchwytMenedzerSamolotow, parent)
+        public Samolot(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
+            : base(uchwytMenedzerSamolotow, parent)
         {
 
         }
         
 
 
-        public Samolot(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maksIloscPaliwa, int czasStartu, int czasKontroli, int spalanie, string model)
-            : base(adresBazowy, uchwytMenedzerSamolotow, parent)
+        public Samolot(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maksIloscPaliwa, int czasStartu, int czasKontroli, int spalanie, string model)
+            : base(uchwytMenedzerSamolotow, parent)
         {
             this.czasStartu = czasStartu;
             this.model = model;
