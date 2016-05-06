@@ -58,6 +58,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         public bool tick()
         {
             // taki sposob narzuca tez ograniczenie na max speed
+            // chyba jest zle wyskalowane
             dx += (double)maxX / (double)aktualnySamolot.getCzasStartu();
             dy += 1 * (double)maxY / (double)aktualnySamolot.getCzasStartu(); // albo 2*
 
@@ -70,18 +71,21 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 }
                 else
                 {
-                    zdejmijAktualnySamolot();
+                    if(aktualnySamolot.getAktualnyStan() == Stan.Startowanie)  zdejmijAktualnySamolot();
                     return false;
                 }
             }
 
             if(dy > 1)
             {
-                if(polozenieSamolotuX >= maxX / 2 && polozenieSamolotuY + 1 <= maxY)
-                {
-                    if (aktualnySamolot.getAktualnyStan() == Stan.Startowanie) polozenieSamolotuY += 1;
-                    else if (aktualnySamolot.getAktualnyStan() == Stan.Ladowanie) polozenieSamolotuY -= 1;
-                }
+                if(aktualnySamolot.getAktualnyStan() == Stan.Startowanie)
+                    if (polozenieSamolotuX >= maxX / 2 && polozenieSamolotuY + 1 <= maxY)
+                        polozenieSamolotuY += 1; 
+
+                if(aktualnySamolot.getAktualnyStan() == Stan.Ladowanie)
+                    if (polozenieSamolotuX >= maxX / 2 && polozenieSamolotuY - 1 >= 0)
+                        polozenieSamolotuY -= 1;
+               
 
                 dy = 0; 
             }

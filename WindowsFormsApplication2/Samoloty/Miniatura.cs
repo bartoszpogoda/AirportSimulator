@@ -117,6 +117,13 @@ namespace SymulatorLotniska.Samoloty
                 obrazekStanu.Enabled = true;
                 aktualnyNaGorze = obrazekStanu;
             }
+            else if (aktualnyStan == Stan.Zniszczony)
+            {
+                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresZniszczony);
+                obrazekStanu.Visible = true;
+                obrazekStanu.Enabled = true;
+                aktualnyNaGorze = obrazekStanu;
+            }
             else // rozwiazanie błedu ze zniknaiem zaznacznia
             {
                 obrazekStanu.Visible = false;

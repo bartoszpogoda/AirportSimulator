@@ -321,12 +321,14 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                     if(!pasStartowy1.czyWolny() && pasStartowy1.getAktualnySamolot() == (Samolot)zaznaczony)
                     {
                         // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
-                        getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy1,this));
+                        ((Samolot)zaznaczony).setAktualnyStan(Stan.Startowanie);
+                        getMenedzerOperacji().dodajOperacje(new OperacjaStartowanie((Samolot)zaznaczony, pasStartowy1,this));
                     }
                     else if (!pasStartowy2.czyWolny() && pasStartowy2.getAktualnySamolot() == (Samolot)zaznaczony)
                     {
                         // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
-                        getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy2, this));
+                        ((Samolot)zaznaczony).setAktualnyStan(Stan.Startowanie);
+                        getMenedzerOperacji().dodajOperacje(new OperacjaStartowanie((Samolot)zaznaczony, pasStartowy2, this));
                     }
                 }
             }
@@ -338,12 +340,12 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             {
                 if (pasStartowy1.czyWolny())
                 {
-                    // LOG --Samolot (zaznaczony) podchodzi do ladowania na pasie 2--
+                    // LOG --Samolot (zaznaczony) podchodzi do ladowania na pasie 1--
                     ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     pasStartowy1.ustawSamolot((Samolot)zaznaczony);
                     narysujSamolotyZListyPowietrze();
-                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1));
+                    getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1,this));
                 }
                 else if (pasStartowy2.czyWolny())
                 {
@@ -352,7 +354,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     pasStartowy2.ustawSamolot((Samolot)zaznaczony);
                     narysujSamolotyZListyPowietrze();
-                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2));
+                    getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2, this));
                 }
                 else
                 {
@@ -371,6 +373,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             listaSamolotowPowietrze.dodajSamolot(samolot);
             samolot.getObrazekSamolotu().Parent = uchwytOknoAplikacji.getPanelSamolotowPowietrze();
             samolot.setAktualnyStan(Stan.WPowietrzu);
+            getMenedzerOperacji().dodajOperacje(new OperacjaLot(samolot, this));
             narysujSamolotyZListyPowietrze();
         }
 

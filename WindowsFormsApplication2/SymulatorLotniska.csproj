@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Beata\Desktop\SymulatorLotniska\</PublishUrl>
+    <PublishUrl>C:\Users\Bartek PC\Desktop\Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>32</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Operacje\OperacjaLadowanie.cs" />
     <Compile Include="Operacje\OperacjaLot.cs" />
     <Compile Include="Operacje\OperacjaStartowanie.cs" />
     <Compile Include="Samoloty\Stan.cs" />
@@ -140,6 +141,7 @@
     <None Include="Resources\kontrolatechniczna.png" />
     <None Include="Resources\passtartowy.png" />
     <None Include="Resources\startowanie.png" />
+    <Content Include="Resources\zn.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>

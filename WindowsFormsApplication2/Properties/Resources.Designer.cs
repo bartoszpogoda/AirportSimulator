@@ -113,6 +113,16 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap zn {
+            get {
+                object obj = ResourceManager.GetObject("zn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap znacznik {
             get {
                 object obj = ResourceManager.GetObject("znacznik", resourceCulture);
