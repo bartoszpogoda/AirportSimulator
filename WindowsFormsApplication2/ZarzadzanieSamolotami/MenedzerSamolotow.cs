@@ -345,7 +345,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     pasStartowy1.ustawSamolot((Samolot)zaznaczony);
                     narysujSamolotyZListyPowietrze();
-                    getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1,this));
+                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1,this));
                 }
                 else if (pasStartowy2.czyWolny())
                 {
@@ -354,7 +354,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     pasStartowy2.ustawSamolot((Samolot)zaznaczony);
                     narysujSamolotyZListyPowietrze();
-                    getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2, this));
+                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2, this));
                 }
                 else
                 {

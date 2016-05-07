@@ -24,10 +24,11 @@ namespace SymulatorLotniska
             this.labelTekstInformacje.AutoSize = false;
             this.labelTekstInformacje.Size = new System.Drawing.Size(labelTekstInformacje.Parent.Size.Width, this.labelTekstInformacje.Size.Height);
 
-            this.labelWPowietrzu.Parent = panelSamolotyWPowietrzu;
-            this.labelWPowietrzu.AutoSize = false;
-            this.labelWPowietrzu.Size = new System.Drawing.Size(this.labelWPowietrzu.Size.Width, this.labelWPowietrzu.Parent.Size.Height/2);
+            this.labelSamolotyPowietrze.Parent = panelSamolotyWPowietrzu;
+            this.labelSamolotyPowietrze.AutoSize = false;
+            this.labelSamolotyPowietrze.Size = new System.Drawing.Size(this.labelSamolotyPowietrze.Parent.Size.Width, this.labelSamolotyPowietrze.Size.Height);
 
+           
             this.labelInformacje.Parent = panelInformacji;
 
             this.labelHangar.Parent = panelSamolotow;
@@ -69,7 +70,7 @@ namespace SymulatorLotniska
 
             if (stanZaznaczonegoSamolotu == Stan.Tankowanie)
             {
-                operationCancel.Text = "Zatrzymaj tankowanie";
+               // operationCancel.Text = "Zatrzymaj tankowanie";
                 operationCancel.Enabled = true;
                 operationCancel.Visible = true;
             
@@ -95,7 +96,7 @@ namespace SymulatorLotniska
             }
             else if(stanZaznaczonegoSamolotu == Stan.KontrolaTechniczna)
             {
-                operationCancel.Text = "Zatrzymaj kontrole";
+                //operationCancel.Text = "Zatrzymaj kontrole";
                 operationCancel.Enabled = true;
                 operationCancel.Visible = true;
                 pasekPostepu.Visible = true;
@@ -110,24 +111,26 @@ namespace SymulatorLotniska
             }
             else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
             {
-                start.Enabled = true;
-                start.Visible = true;
+                btnStartowanie.Enabled = true;
+                btnStartowanie.Visible = true;
                 doHangaru.Visible = true;
                 doHangaru.Enabled = true;
-                wprowadzenieLudzi.Enabled = true;
-                wprowadzenieLudzi.Visible = true;
-                wyprowadzLudzi.Enabled = true;
-                wyprowadzLudzi.Visible = true;
+                btnD1C.Enabled = true;
+                btnD1C.Visible = true;
+                btnD5C.Enabled = true;
+                btnD5C.Visible = true;
+                btnM1C.Enabled = true;
+                btnM1C.Visible = true;
+                btnM5C.Enabled = true;
+                btnM5C.Visible = true;
             } else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
             {
-                start.Enabled = true;
-                start.Visible = true;
+                btnStartowanie.Enabled = true;
+                btnStartowanie.Visible = true;
                 doHangaru.Visible = true;
                 doHangaru.Enabled = true;
-                wprowadzenieLudzi.Enabled = true;
-                wprowadzenieLudzi.Visible = true;
-                wyprowadzLudzi.Enabled = true;
-                wyprowadzLudzi.Visible = true;
+                btnD1C.Enabled = true;
+                btnD1C.Visible = true;
             }
 
         }
@@ -147,14 +150,18 @@ namespace SymulatorLotniska
             pasekPostepu.Enabled = false;
             wyladuj.Enabled = false;
             wyladuj.Visible = false;
-            start.Enabled = false;
-            start.Visible = false;
+            btnStartowanie.Enabled = false;
+            btnStartowanie.Visible = false;
             doHangaru.Visible = false;
             doHangaru.Enabled = false;
-            wprowadzenieLudzi.Enabled = false;
-            wprowadzenieLudzi.Visible = false;
-            wyprowadzLudzi.Enabled = false;
-            wyprowadzLudzi.Visible = false;
+            btnD1C.Enabled = false;
+            btnD1C.Visible = false;
+            btnD5C.Enabled = false;
+            btnD5C.Visible = false;
+            btnM1C.Enabled = false;
+            btnM1C.Visible = false;
+            btnM5C.Enabled = false;
+            btnM5C.Visible = false;
             odeslij.Enabled = false;
             odeslij.Visible = false;
         }
@@ -219,6 +226,21 @@ namespace SymulatorLotniska
         private void odeslij_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.odeslijZaznaczonySamolot();
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wprowadzenieLudzi_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void doHangaru_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

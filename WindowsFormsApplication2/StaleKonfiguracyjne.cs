@@ -16,7 +16,7 @@ namespace SymulatorLotniska
         public const int interwalTankowanie = 1;
 
         public const string adresZnacznik = "znacznik";
-        public const string adresTankowanie = "tankowanie";
+        public const string adresTankowanie = "tankowanieN";
         public const string adresKontrolaTechniczna = "kontrolatechniczna";
         public const string adresZniszczony = "zn";
     }

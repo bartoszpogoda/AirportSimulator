@@ -98,14 +98,14 @@ namespace SymulatorLotniska.Samoloty
             }
             else if (aktualnyStan == Stan.KontrolaTechniczna)
             {
-                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresKontrolaTechniczna);
+                obrazekStanu.Image = Properties.Resources.kontrolaTechnicznaNakladka;
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
                 aktualnyNaGorze = obrazekStanu;
             }
             else if (aktualnyStan == Stan.Tankowanie)
             {
-                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresTankowanie);
+                obrazekStanu.Image = Properties.Resources.tankowanieNakladka;
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
                 aktualnyNaGorze = obrazekStanu;

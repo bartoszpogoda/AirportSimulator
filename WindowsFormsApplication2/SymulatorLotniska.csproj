@@ -79,7 +79,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Operacje\OperacjaLadowanie.cs" />
     <Compile Include="Operacje\OperacjaLot.cs" />
     <Compile Include="Operacje\OperacjaStartowanie.cs" />
     <Compile Include="Samoloty\Stan.cs" />
@@ -141,6 +140,17 @@
     <None Include="Resources\kontrolatechniczna.png" />
     <None Include="Resources\passtartowy.png" />
     <None Include="Resources\startowanie.png" />
+    <None Include="Resources\tankowanieN.png" />
+    <None Include="Resources\buttonNaPas.png" />
+    <None Include="Resources\kontrolaTechnicznaNakladka.png" />
+    <None Include="Resources\tankowanieNakladka.png" />
+    <None Include="Resources\buttonZatrzymanie.png" />
+    <None Include="Resources\buttonM1czlowiek.png" />
+    <None Include="Resources\buttonM5czlowiek.png" />
+    <None Include="Resources\buttonP1czlowiek.png" />
+    <None Include="Resources\buttonP5czlowiek.png" />
+    <None Include="Resources\btnStartowanie.png" />
+    <None Include="Resources\btnDoHangaru.png" />
     <Content Include="Resources\zn.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
