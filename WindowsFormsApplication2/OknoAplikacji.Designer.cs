@@ -44,20 +44,20 @@ namespace SymulatorLotniska
             this.panelSamolotyWPowietrzu = new System.Windows.Forms.Panel();
             this.labelSamolotyPowietrze = new System.Windows.Forms.Label();
             this.panelPrzyciskow = new System.Windows.Forms.Panel();
-            this.odeslij = new System.Windows.Forms.Button();
-            this.wyladuj = new System.Windows.Forms.Button();
-            this.panelPasStartowy1 = new System.Windows.Forms.Panel();
-            this.panelPasStartowy2 = new System.Windows.Forms.Panel();
             this.btnM5C = new System.Windows.Forms.Button();
             this.btnM1C = new System.Windows.Forms.Button();
             this.btnD5C = new System.Windows.Forms.Button();
+            this.odeslij = new System.Windows.Forms.Button();
             this.btnStartowanie = new System.Windows.Forms.Button();
             this.btnD1C = new System.Windows.Forms.Button();
             this.doHangaru = new System.Windows.Forms.Button();
+            this.wyladuj = new System.Windows.Forms.Button();
             this.operationCancel = new System.Windows.Forms.Button();
             this.kontrola = new System.Windows.Forms.Button();
             this.naPasStartowy = new System.Windows.Forms.Button();
             this.tankowanie = new System.Windows.Forms.Button();
+            this.panelPasStartowy1 = new System.Windows.Forms.Panel();
+            this.panelPasStartowy2 = new System.Windows.Forms.Panel();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
@@ -190,44 +190,6 @@ namespace SymulatorLotniska
             this.panelPrzyciskow.Size = new System.Drawing.Size(113, 170);
             this.panelPrzyciskow.TabIndex = 0;
             // 
-            // odeslij
-            // 
-            this.odeslij.BackColor = System.Drawing.Color.Beige;
-            this.odeslij.Location = new System.Drawing.Point(38, 113);
-            this.odeslij.Name = "odeslij";
-            this.odeslij.Size = new System.Drawing.Size(75, 23);
-            this.odeslij.TabIndex = 10;
-            this.odeslij.Text = "Odeślij";
-            this.odeslij.UseVisualStyleBackColor = false;
-            this.odeslij.Click += new System.EventHandler(this.odeslij_Click);
-            // 
-            // wyladuj
-            // 
-            this.wyladuj.BackColor = System.Drawing.Color.LightGoldenrodYellow;
-            this.wyladuj.Location = new System.Drawing.Point(41, 142);
-            this.wyladuj.Name = "wyladuj";
-            this.wyladuj.Size = new System.Drawing.Size(68, 23);
-            this.wyladuj.TabIndex = 4;
-            this.wyladuj.Text = "Wyląduj";
-            this.wyladuj.UseVisualStyleBackColor = false;
-            this.wyladuj.Click += new System.EventHandler(this.wyladuj_Click);
-            // 
-            // panelPasStartowy1
-            // 
-            this.panelPasStartowy1.BackColor = System.Drawing.Color.AliceBlue;
-            this.panelPasStartowy1.Location = new System.Drawing.Point(10, 316);
-            this.panelPasStartowy1.Name = "panelPasStartowy1";
-            this.panelPasStartowy1.Size = new System.Drawing.Size(479, 100);
-            this.panelPasStartowy1.TabIndex = 4;
-            // 
-            // panelPasStartowy2
-            // 
-            this.panelPasStartowy2.BackColor = System.Drawing.Color.AliceBlue;
-            this.panelPasStartowy2.Location = new System.Drawing.Point(10, 422);
-            this.panelPasStartowy2.Name = "panelPasStartowy2";
-            this.panelPasStartowy2.Size = new System.Drawing.Size(479, 100);
-            this.panelPasStartowy2.TabIndex = 5;
-            // 
             // btnM5C
             // 
             this.btnM5C.BackColor = System.Drawing.Color.Beige;
@@ -237,6 +199,7 @@ namespace SymulatorLotniska
             this.btnM5C.Size = new System.Drawing.Size(50, 50);
             this.btnM5C.TabIndex = 13;
             this.btnM5C.UseVisualStyleBackColor = false;
+            this.btnM5C.Click += new System.EventHandler(this.btnM5C_Click);
             // 
             // btnM1C
             // 
@@ -247,6 +210,7 @@ namespace SymulatorLotniska
             this.btnM1C.Size = new System.Drawing.Size(50, 50);
             this.btnM1C.TabIndex = 12;
             this.btnM1C.UseVisualStyleBackColor = false;
+            this.btnM1C.Click += new System.EventHandler(this.btnM1C_Click);
             // 
             // btnD5C
             // 
@@ -257,6 +221,18 @@ namespace SymulatorLotniska
             this.btnD5C.Size = new System.Drawing.Size(50, 50);
             this.btnD5C.TabIndex = 11;
             this.btnD5C.UseVisualStyleBackColor = false;
+            this.btnD5C.Click += new System.EventHandler(this.btnD5C_Click);
+            // 
+            // odeslij
+            // 
+            this.odeslij.BackColor = System.Drawing.Color.Beige;
+            this.odeslij.Location = new System.Drawing.Point(38, 113);
+            this.odeslij.Name = "odeslij";
+            this.odeslij.Size = new System.Drawing.Size(75, 23);
+            this.odeslij.TabIndex = 10;
+            this.odeslij.Text = "Odeślij";
+            this.odeslij.UseVisualStyleBackColor = false;
+            this.odeslij.Click += new System.EventHandler(this.odeslij_Click);
             // 
             // btnStartowanie
             // 
@@ -290,6 +266,17 @@ namespace SymulatorLotniska
             this.doHangaru.TabIndex = 5;
             this.doHangaru.UseVisualStyleBackColor = false;
             this.doHangaru.Click += new System.EventHandler(this.doHangaru_Click);
+            // 
+            // wyladuj
+            // 
+            this.wyladuj.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.wyladuj.Location = new System.Drawing.Point(41, 142);
+            this.wyladuj.Name = "wyladuj";
+            this.wyladuj.Size = new System.Drawing.Size(68, 23);
+            this.wyladuj.TabIndex = 4;
+            this.wyladuj.Text = "Wyląduj";
+            this.wyladuj.UseVisualStyleBackColor = false;
+            this.wyladuj.Click += new System.EventHandler(this.wyladuj_Click);
             // 
             // operationCancel
             // 
@@ -334,6 +321,22 @@ namespace SymulatorLotniska
             this.tankowanie.TabIndex = 0;
             this.tankowanie.UseVisualStyleBackColor = false;
             this.tankowanie.Click += new System.EventHandler(this.tankowanie_Click);
+            // 
+            // panelPasStartowy1
+            // 
+            this.panelPasStartowy1.BackColor = System.Drawing.Color.AliceBlue;
+            this.panelPasStartowy1.Location = new System.Drawing.Point(10, 316);
+            this.panelPasStartowy1.Name = "panelPasStartowy1";
+            this.panelPasStartowy1.Size = new System.Drawing.Size(479, 100);
+            this.panelPasStartowy1.TabIndex = 4;
+            // 
+            // panelPasStartowy2
+            // 
+            this.panelPasStartowy2.BackColor = System.Drawing.Color.AliceBlue;
+            this.panelPasStartowy2.Location = new System.Drawing.Point(10, 422);
+            this.panelPasStartowy2.Name = "panelPasStartowy2";
+            this.panelPasStartowy2.Size = new System.Drawing.Size(479, 100);
+            this.panelPasStartowy2.TabIndex = 5;
             // 
             // OknoAplikacji
             // 

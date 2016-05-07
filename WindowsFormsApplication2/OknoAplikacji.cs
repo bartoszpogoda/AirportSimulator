@@ -235,12 +235,27 @@ namespace SymulatorLotniska
 
         private void wprowadzenieLudzi_Click(object sender, EventArgs e)
         {
-
+            menedzerSamolotow.wprowadzLudzi(1);
         }
 
         private void doHangaru_Click(object sender, EventArgs e)
         {
+            menedzerSamolotow.umiescZaznaczonyWHangarze();
+        }
 
+        private void btnD5C_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wprowadzLudzi(5);
+        }
+
+        private void btnM1C_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wyprowadzLudzi(1);
+        }
+
+        private void btnM5C_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wyprowadzLudzi(5);
         }
     }
 }

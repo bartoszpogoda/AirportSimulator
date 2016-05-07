@@ -1,4 +1,5 @@
 ﻿using SymulatorLotniska.Samoloty;
+using System.Windows.Forms;
 
 namespace SymulatorLotniska.ZarzadzanieSamolotami
 {
@@ -8,15 +9,17 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         private ElementListySamolotow ostatni;
         private int length;
         private ElementListySamolotow iterator;
+        private Control uchwytPanel;
 
         public int getLength()
         {
             return length;
         }
-        public ListaSamolotow()
+        public ListaSamolotow(Control uchwytPanel)
         {
             pierwszy = null;
             ostatni = null;
+            this.uchwytPanel = uchwytPanel;
         }
 
         public void iteratorNaStart()
@@ -57,6 +60,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 ostatni = ostatni.nastepnyElement;
             }
 
+            samolot.setParent(uchwytPanel);
             length++;
 
         }

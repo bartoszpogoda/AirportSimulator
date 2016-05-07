@@ -32,8 +32,8 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             this.uchwytOknoAplikacji = uchwytOknoAplikacji;
             this.uchwytMenedzerOperacji = uchwytMenedzerOperacji;
 
-            listaSamolotow = new ListaSamolotow();
-            listaSamolotowPowietrze = new ListaSamolotow();
+            listaSamolotow = new ListaSamolotow(uchwytOknoAplikacji.getPanelSamolotow());
+            listaSamolotowPowietrze = new ListaSamolotow(uchwytOknoAplikacji.getPanelSamolotowPowietrze());
 
             pbZaznaczony = new PictureBox();
             zainicjujZnacznikZaznaczonego();
@@ -187,8 +187,6 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             }
         }
         
-
-    
 
         public void zaznaczSamolot(Miniatura samolot) {
             zaznaczony = samolot;
@@ -363,6 +361,55 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             }
         }
 
+        public void umiescZaznaczonyWHangarze()
+        {
+            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.PrzedStartem)
+            {
+                if (zaznaczony is SamolotOsobowy)
+                {
+                    if (((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() != 0)
+                    {
+                        // LOG --Nie chcesz chyba zamknac pasazerow w hangarze
+                        return;
+                    }
+                }
+                // zaznaczony is SamolotTowarowy
+
+                if(pasStartowy1.getAktualnySamolot() == zaznaczony)
+                {
+                    pasStartowy1.zdejmijAktualnySamolot();
+                    listaSamolotow.dodajSamolot((Samolot)zaznaczony);
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Hangar);
+                }
+                else if(pasStartowy2.getAktualnySamolot() == zaznaczony)
+                {
+                    pasStartowy2.zdejmijAktualnySamolot();
+                    listaSamolotow.dodajSamolot((Samolot)zaznaczony);
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Hangar);
+                }
+            }
+        }
+
+        public void wprowadzLudzi(int n)
+        {
+            if(zaznaczony is SamolotOsobowy)
+            {
+                ((SamolotOsobowy)zaznaczony).setAktualnaIloscPasazerow(((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() + n);
+            }
+        }
+        public void wyprowadzLudzi(int n)
+        {
+            if (zaznaczony is SamolotOsobowy)
+            {
+                if(((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() - n < 0)
+                {
+                    // LOG --Nie ma tylu pasazerow
+                    return;
+                }
+
+                ((SamolotOsobowy)zaznaczony).setAktualnaIloscPasazerow(((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() - n);
+            }
+        }
 
         //--------------------------------------------------------------------
         //--------------------------------------------------------------------
