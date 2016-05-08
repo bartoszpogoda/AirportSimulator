@@ -4,6 +4,7 @@ using SymulatorLotniska.Samoloty;
 using SymulatorLotniska.ZarzadzanieOperacjami;
 using SymulatorLotniska.ZarzadzanieSamolotami;
 using System.Drawing;
+using SymulatorLotniska.ZarzadzaniePowiadomieniami;
 
 namespace SymulatorLotniska
 {
@@ -11,12 +12,14 @@ namespace SymulatorLotniska
     {
         private MenedzerSamolotow menedzerSamolotow;
         private MenedzerOperacji menedzerOperacji;
+        private MenedzerPowiadomien menedzerPowiadomien;
 
         public OknoAplikacji()
         {
             InitializeComponent();
             menedzerOperacji = new MenedzerOperacji(this);
             menedzerSamolotow = new MenedzerSamolotow(this, menedzerOperacji);
+            menedzerPowiadomien = new MenedzerPowiadomien(groupBox1);
             panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
             panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
 
@@ -257,6 +260,46 @@ namespace SymulatorLotniska
         private void pasekPostepu_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnLewo_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.przesunListePowietrzeLewo();
+        }
+
+        private void btnPrawo_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.przesunListePowietrzePrawo();
+        }
+
+        private void btnDol_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.przesunListeHangarDol();
+        }
+
+        private void btnGora_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.przesunListeHangarGora();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_2(object sender, EventArgs e)
+        {
+            menedzerPowiadomien.dodajPowiadomienie(new Powiadomienie(menedzerPowiadomien, "Samolot alartowraz troche wydluzymy", CharakterPowiadomienia.Pozytywne));
         }
     }
 }

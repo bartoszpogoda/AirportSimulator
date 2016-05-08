@@ -83,28 +83,52 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         public void mouseWheelEventHangar(object sender, MouseEventArgs e)
         {
-            if (e.Delta < 0) // scrollowanie w dół
-            {
-                if (listaSamolotow.getLength() / 4 - 2 > aktualnyRzadStartowy) aktualnyRzadStartowy++;
-            }
+            if (e.Delta < 0) // scrollowanie w dol
+                przesunListeHangarDol();
             else // scrollowanie w górę
+                przesunListeHangarGora();
+        }
+
+        public void przesunListePowietrzeLewo()
+        {
+            if (aktualnyRzadStartowyPowietrze > 0)
             {
-                if (aktualnyRzadStartowy > 0) aktualnyRzadStartowy--;
+                aktualnyRzadStartowyPowietrze--;
+                narysujSamolotyZListyPowietrze();
             }
-            narysujSamolotyZListy();
+        }
+        public void przesunListePowietrzePrawo()
+        {
+            if (listaSamolotowPowietrze.getLength() - 8 > aktualnyRzadStartowyPowietrze)
+            {
+                aktualnyRzadStartowyPowietrze++;
+                narysujSamolotyZListyPowietrze();
+            }
+        }
+
+        public void przesunListeHangarGora()
+        {
+            if (aktualnyRzadStartowy > 0)
+            {
+                aktualnyRzadStartowy--;
+                narysujSamolotyZListy();
+            }
+        }
+        public void przesunListeHangarDol()
+        {
+            if (listaSamolotow.getLength() / StaleKonfiguracyjne.iloscKolumn - StaleKonfiguracyjne.iloscRzedow + 1 > aktualnyRzadStartowy) 
+            {
+                aktualnyRzadStartowy++;
+                narysujSamolotyZListy();
+            }
         }
 
         public void mouseWheelEventPowietrze(object sender, MouseEventArgs e)
         {
-            if (e.Delta < 0) // scrollowanie w dół
-            {
-                if (listaSamolotowPowietrze.getLength() - 5 > aktualnyRzadStartowyPowietrze) aktualnyRzadStartowyPowietrze++;
-            }
+            if (e.Delta < 0) // scrollowanie w prawo
+                przesunListePowietrzePrawo();
             else // scrollowanie w górę
-            {
-                if (aktualnyRzadStartowyPowietrze > 0) aktualnyRzadStartowyPowietrze--;
-            }
-            narysujSamolotyZListyPowietrze();
+                przesunListePowietrzeLewo();
         }
 
         //TODO: Raczej daloby sie to jakos ladniej zapisac. 
@@ -157,17 +181,16 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
             while (--i >= 0) // pomija elementy ktore zostaly przescrollowane
             {
-
                 listaSamolotowPowietrze.aktualnyPodIteratorem().schowaj();
                 listaSamolotowPowietrze.iteratorNastepny();
-
             }
 
-            for (i = 0; i < 5; i++)
+            for (i = 0; i < 8; i++)
             {
-
-                listaSamolotowPowietrze.aktualnyPodIteratorem().getObrazekSamolotu().Location = new Point(25,
-                           10 + StaleKonfiguracyjne.rozmiarOdstepu + i * StaleKonfiguracyjne.rozmiarObrazka);
+                
+                listaSamolotowPowietrze.aktualnyPodIteratorem().getObrazekSamolotu().Location = new Point(StaleKonfiguracyjne.rozmiarOdstepu * (i + 1) + i * StaleKonfiguracyjne.rozmiarObrazka,
+                           10 + StaleKonfiguracyjne.rozmiarOdstepu);
+                
                 listaSamolotowPowietrze.aktualnyPodIteratorem().pokaz();
 
                 if (listaSamolotowPowietrze.aktualnyPodIteratorem().Equals(zaznaczony))
