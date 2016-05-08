@@ -236,7 +236,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             }
         }
 
-        public void kontrolujTechnicznieZaznaczony(ProgressBar pasekPostepu)
+        public void kontrolujTechnicznieZaznaczony()
         {
             if (zaznaczony is Samolot)
             {

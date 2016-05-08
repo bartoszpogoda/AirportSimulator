@@ -151,6 +151,10 @@
     <None Include="Resources\buttonP5czlowiek.png" />
     <None Include="Resources\btnStartowanie.png" />
     <None Include="Resources\btnDoHangaru.png" />
+    <None Include="Resources\btnDol.png" />
+    <None Include="Resources\btnGora.png" />
+    <None Include="Resources\btnLewo.png" />
+    <None Include="Resources\btnPrawo.png" />
     <Content Include="Resources\zn.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>

@@ -99,8 +99,6 @@ namespace SymulatorLotniska
                 //operationCancel.Text = "Zatrzymaj kontrole";
                 operationCancel.Enabled = true;
                 operationCancel.Visible = true;
-                pasekPostepu.Visible = true;
-                pasekPostepu.Enabled = true;
             }
             else if (stanZaznaczonegoSamolotu == Stan.WPowietrzu)
             {
@@ -146,8 +144,6 @@ namespace SymulatorLotniska
             tankowanie.Visible = false;
             operationCancel.Enabled = false;
             operationCancel.Visible = false;
-            pasekPostepu.Visible = false;
-            pasekPostepu.Enabled = false;
             wyladuj.Enabled = false;
             wyladuj.Visible = false;
             btnStartowanie.Enabled = false;
@@ -189,7 +185,7 @@ namespace SymulatorLotniska
         private void kontrola_Click(object sender, EventArgs e)
         {
 
-            menedzerSamolotow.kontrolujTechnicznieZaznaczony(pasekPostepu);
+            menedzerSamolotow.kontrolujTechnicznieZaznaczony();
         }
         
 
@@ -256,6 +252,11 @@ namespace SymulatorLotniska
         private void btnM5C_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.wyprowadzLudzi(5);
+        }
+
+        private void pasekPostepu_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
