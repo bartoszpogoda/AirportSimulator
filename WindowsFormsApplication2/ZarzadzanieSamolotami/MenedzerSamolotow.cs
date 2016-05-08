@@ -13,7 +13,6 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
     //        pasa startowego.
     public class MenedzerSamolotow
     {
-
         private int aktualnyRzadStartowy = 0; // na potrzeby scrollowania
         private int aktualnyRzadStartowyPowietrze = 0;
 
@@ -28,16 +27,13 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         private PasStartowy pasStartowy1;
         private PasStartowy pasStartowy2;
-
-
-
-
+        
         public MenedzerSamolotow(OknoAplikacji uchwytOknoAplikacji, MenedzerOperacji uchwytMenedzerOperacji) {
             this.uchwytOknoAplikacji = uchwytOknoAplikacji;
             this.uchwytMenedzerOperacji = uchwytMenedzerOperacji;
 
-            listaSamolotow = new ListaSamolotow();
-            listaSamolotowPowietrze = new ListaSamolotow();
+            listaSamolotow = new ListaSamolotow(uchwytOknoAplikacji.getPanelSamolotow());
+            listaSamolotowPowietrze = new ListaSamolotow(uchwytOknoAplikacji.getPanelSamolotowPowietrze());
 
             pbZaznaczony = new PictureBox();
             zainicjujZnacznikZaznaczonego();
@@ -53,14 +49,14 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             if (i == 1) wygenerujLosowySamolotWPowietrzu();
             else
             {
-                listaSamolotow.dodajSamolot(new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotow(), 250, 50, 100, 30, 100, "Boening707"));
+                listaSamolotow.dodajSamolot(new SamolotOsobowy(this, uchwytOknoAplikacji.getPanelSamolotow(), 250, 50, 100, 30, 100, "Boening707"));
                 narysujSamolotyZListy();
                 narysujSamolotyZListyPowietrze();
             }
         }
 
         public void wygenerujLosowySamolotWPowietrzu() { // prototyp
-            Samolot samolot = new SamolotOsobowy("samolot1", this, uchwytOknoAplikacji.getPanelSamolotowPowietrze(), 20, 20, 500, 30, 100, "Tupolew");
+            Samolot samolot = new SamolotOsobowy(this, uchwytOknoAplikacji.getPanelSamolotowPowietrze(), 20, 20, 500, 30, 100, "Tupolew");
             samolot.setAktualnyStan(Stan.WPowietrzu);
             samolot.AktualnaIloscPaliwa = samolot.getMaksIloscPaliwa(); // to pozniej bedzie losowe
             listaSamolotowPowietrze.dodajSamolot(samolot);
@@ -87,28 +83,52 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         public void mouseWheelEventHangar(object sender, MouseEventArgs e)
         {
-            if (e.Delta < 0) // scrollowanie w dół
-            {
-                if (listaSamolotow.getLength() / 4 - 2 > aktualnyRzadStartowy) aktualnyRzadStartowy++;
-            }
+            if (e.Delta < 0) // scrollowanie w dol
+                przesunListeHangarDol();
             else // scrollowanie w górę
+                przesunListeHangarGora();
+        }
+
+        public void przesunListePowietrzeLewo()
+        {
+            if (aktualnyRzadStartowyPowietrze > 0)
             {
-                if (aktualnyRzadStartowy > 0) aktualnyRzadStartowy--;
+                aktualnyRzadStartowyPowietrze--;
+                narysujSamolotyZListyPowietrze();
             }
-            narysujSamolotyZListy();
+        }
+        public void przesunListePowietrzePrawo()
+        {
+            if (listaSamolotowPowietrze.getLength() - 8 > aktualnyRzadStartowyPowietrze)
+            {
+                aktualnyRzadStartowyPowietrze++;
+                narysujSamolotyZListyPowietrze();
+            }
+        }
+
+        public void przesunListeHangarGora()
+        {
+            if (aktualnyRzadStartowy > 0)
+            {
+                aktualnyRzadStartowy--;
+                narysujSamolotyZListy();
+            }
+        }
+        public void przesunListeHangarDol()
+        {
+            if (listaSamolotow.getLength() / StaleKonfiguracyjne.iloscKolumn - StaleKonfiguracyjne.iloscRzedow + 1 > aktualnyRzadStartowy) 
+            {
+                aktualnyRzadStartowy++;
+                narysujSamolotyZListy();
+            }
         }
 
         public void mouseWheelEventPowietrze(object sender, MouseEventArgs e)
         {
-            if (e.Delta < 0) // scrollowanie w dół
-            {
-                if (listaSamolotowPowietrze.getLength() - 5 > aktualnyRzadStartowyPowietrze) aktualnyRzadStartowyPowietrze++;
-            }
+            if (e.Delta < 0) // scrollowanie w prawo
+                przesunListePowietrzePrawo();
             else // scrollowanie w górę
-            {
-                if (aktualnyRzadStartowyPowietrze > 0) aktualnyRzadStartowyPowietrze--;
-            }
-            narysujSamolotyZListyPowietrze();
+                przesunListePowietrzeLewo();
         }
 
         //TODO: Raczej daloby sie to jakos ladniej zapisac. 
@@ -161,17 +181,16 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
             while (--i >= 0) // pomija elementy ktore zostaly przescrollowane
             {
-
                 listaSamolotowPowietrze.aktualnyPodIteratorem().schowaj();
                 listaSamolotowPowietrze.iteratorNastepny();
-
             }
 
-            for (i = 0; i < 5; i++)
+            for (i = 0; i < 8; i++)
             {
-
-                listaSamolotowPowietrze.aktualnyPodIteratorem().getObrazekSamolotu().Location = new Point(25,
-                           10 + StaleKonfiguracyjne.rozmiarOdstepu + i * StaleKonfiguracyjne.rozmiarObrazka);
+                
+                listaSamolotowPowietrze.aktualnyPodIteratorem().getObrazekSamolotu().Location = new Point(StaleKonfiguracyjne.rozmiarOdstepu * (i + 1) + i * StaleKonfiguracyjne.rozmiarObrazka,
+                           10 + StaleKonfiguracyjne.rozmiarOdstepu);
+                
                 listaSamolotowPowietrze.aktualnyPodIteratorem().pokaz();
 
                 if (listaSamolotowPowietrze.aktualnyPodIteratorem().Equals(zaznaczony))
@@ -191,8 +210,6 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             }
         }
         
-
-    
 
         public void zaznaczSamolot(Miniatura samolot) {
             zaznaczony = samolot;
@@ -242,7 +259,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             }
         }
 
-        public void kontrolujTechnicznieZaznaczony(ProgressBar pasekPostepu)
+        public void kontrolujTechnicznieZaznaczony()
         {
             if (zaznaczony is Samolot)
             {
@@ -325,12 +342,14 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                     if(!pasStartowy1.czyWolny() && pasStartowy1.getAktualnySamolot() == (Samolot)zaznaczony)
                     {
                         // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
-                        getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy1,this));
+                        ((Samolot)zaznaczony).setAktualnyStan(Stan.Startowanie);
+                        getMenedzerOperacji().dodajOperacje(new OperacjaStartowanie((Samolot)zaznaczony, pasStartowy1,this));
                     }
                     else if (!pasStartowy2.czyWolny() && pasStartowy2.getAktualnySamolot() == (Samolot)zaznaczony)
                     {
                         // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
-                        getMenedzerOperacji().dodajOperacje(new OperacjaLot((Samolot)zaznaczony, pasStartowy2, this));
+                        ((Samolot)zaznaczony).setAktualnyStan(Stan.Startowanie);
+                        getMenedzerOperacji().dodajOperacje(new OperacjaStartowanie((Samolot)zaznaczony, pasStartowy2, this));
                     }
                 }
             }
@@ -342,12 +361,12 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             {
                 if (pasStartowy1.czyWolny())
                 {
-                    // LOG --Samolot (zaznaczony) podchodzi do ladowania na pasie 2--
+                    // LOG --Samolot (zaznaczony) podchodzi do ladowania na pasie 1--
                     ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     pasStartowy1.ustawSamolot((Samolot)zaznaczony);
                     narysujSamolotyZListyPowietrze();
-                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1));
+                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy1,this));
                 }
                 else if (pasStartowy2.czyWolny())
                 {
@@ -356,7 +375,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     pasStartowy2.ustawSamolot((Samolot)zaznaczony);
                     narysujSamolotyZListyPowietrze();
-                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2));
+                    //getMenedzerOperacji().dodajOperacje(new OperacjaLadowanie((Samolot)zaznaczony, pasStartowy2, this));
                 }
                 else
                 {
@@ -365,6 +384,55 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             }
         }
 
+        public void umiescZaznaczonyWHangarze()
+        {
+            if(zaznaczony is Samolot && ((Samolot)zaznaczony).getAktualnyStan() == Stan.PrzedStartem)
+            {
+                if (zaznaczony is SamolotOsobowy)
+                {
+                    if (((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() != 0)
+                    {
+                        // LOG --Nie chcesz chyba zamknac pasazerow w hangarze
+                        return;
+                    }
+                }
+                // zaznaczony is SamolotTowarowy
+
+                if(pasStartowy1.getAktualnySamolot() == zaznaczony)
+                {
+                    pasStartowy1.zdejmijAktualnySamolot();
+                    listaSamolotow.dodajSamolot((Samolot)zaznaczony);
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Hangar);
+                }
+                else if(pasStartowy2.getAktualnySamolot() == zaznaczony)
+                {
+                    pasStartowy2.zdejmijAktualnySamolot();
+                    listaSamolotow.dodajSamolot((Samolot)zaznaczony);
+                    ((Samolot)zaznaczony).setAktualnyStan(Stan.Hangar);
+                }
+            }
+        }
+
+        public void wprowadzLudzi(int n)
+        {
+            if(zaznaczony is SamolotOsobowy)
+            {
+                ((SamolotOsobowy)zaznaczony).setAktualnaIloscPasazerow(((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() + n);
+            }
+        }
+        public void wyprowadzLudzi(int n)
+        {
+            if (zaznaczony is SamolotOsobowy)
+            {
+                if(((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() - n < 0)
+                {
+                    // LOG --Nie ma tylu pasazerow
+                    return;
+                }
+
+                ((SamolotOsobowy)zaznaczony).setAktualnaIloscPasazerow(((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() - n);
+            }
+        }
 
         //--------------------------------------------------------------------
         //--------------------------------------------------------------------
@@ -375,6 +443,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             listaSamolotowPowietrze.dodajSamolot(samolot);
             samolot.getObrazekSamolotu().Parent = uchwytOknoAplikacji.getPanelSamolotowPowietrze();
             samolot.setAktualnyStan(Stan.WPowietrzu);
+            getMenedzerOperacji().dodajOperacje(new OperacjaLot(samolot, this));
             narysujSamolotyZListyPowietrze();
         }
 

@@ -18,14 +18,7 @@
 			  - kontrola
 			  - wystartuj if kontrola
 
-			  Jest blad z zaznaczeniem samolotow w locie ktore znika podczas scrollowania listy.
-
 			  Moze powinna byc operacja ktora co np sekunde wykonuje jakies sprawdzenia 
 			  itp?
 
-			  czasami przyciski zaczynaja migac nie mam pojecia czemu
-			  mysle ze problem lezy gdzies przy zatrzymywaniu sie operacji -> wywolanie metody setStan bo wtedy aktualizuje przyciski esli zaznaczony
-			  zdebugowac trzeba by zrobic jakis wyswietlacz wszystkich operacji w danym momencie
-
-			  ^UPDATE: to jest problem z zatrzymywaniem tankowania. Poniewaz sie zapetla caly czas wywoluje funkcje zatrzymaj. Czyli proble
-			  podobny do tego ktory byl z przechodzeniem operacji  z startowania na wlocie.
+			  Mozna potem zrobić suwak któryzmienia interval timera

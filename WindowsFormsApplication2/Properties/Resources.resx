@@ -124,9 +124,6 @@
   <data name="znacznik" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\znacznik.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tankowanie" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tankowanie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="kontrolatechniczna" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kontrolatechniczna.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -135,5 +132,53 @@
   </data>
   <data name="startowanie" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\startowanie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnDoHangaru" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnDoHangaru.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnStartowanie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnStartowanie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonM1czlowiek" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonM1czlowiek.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonM5czlowiek" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonM5czlowiek.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonNaPas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonNaPas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonP1czlowiek" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonP1czlowiek.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonP5czlowiek" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonP5czlowiek.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonZatrzymanie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonZatrzymanie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kontrolaTechnicznaNakladka" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kontrolaTechnicznaNakladka.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tankowanieN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tankowanieN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tankowanieNakladka" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tankowanieNakladka.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnDol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnDol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnGora" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnGora.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnLewo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnLewo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnPrawo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnPrawo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

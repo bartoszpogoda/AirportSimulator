@@ -8,38 +8,20 @@ namespace SymulatorLotniska.Samoloty
         private int maksIloscPasazerow;
         private int aktualnaIloscPasazerow;
 
-        public int AktualnaIloscPasazerow
-        {
-            get
-            {
-                return aktualnaIloscPasazerow;
-            }
-
-            set
-            {
-                aktualnaIloscPasazerow = value;
-            }
+       public int getAktualnaIloscPasazerow() { return aktualnaIloscPasazerow; }
+        public int getMaksIloscPasazerow() { return maksIloscPasazerow; }
+        
+        public void setAktualnaIloscPasazerow(int aktualnaIloscPasazerow) {
+            this.aktualnaIloscPasazerow = aktualnaIloscPasazerow;
+            uchwytMenedzerSamolotow.oswiezInformacjeJezeliZaznaczony(this);
         }
-
-        public int MaksIloscPasazerow
-        {
-            get
-            {
-                return maksIloscPasazerow;
-            }
-
-            set
-            {
-                maksIloscPasazerow = value;
-            }
-        }
-
-        public SamolotOsobowy(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, string adresMiniaturki)
-        : base(adresMiniaturki, uchwytMenedzerSamolotow, parent) { }
+        
+        public SamolotOsobowy(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
+        : base(uchwytMenedzerSamolotow, parent) { }
 
 
-        public SamolotOsobowy(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maxPaliwo, int maksIloscPasazerow, int czasStartu, int czasKontroli, int spalanie, string model)
-        : base(adresBazowy, uchwytMenedzerSamolotow, parent, maxPaliwo, czasStartu, czasKontroli, spalanie, model)
+        public SamolotOsobowy(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent, int maxPaliwo, int maksIloscPasazerow, int czasStartu, int czasKontroli, int spalanie, string model)
+        : base(uchwytMenedzerSamolotow, parent, maxPaliwo, czasStartu, czasKontroli, spalanie, model)
         {
             this.maksIloscPasazerow = maksIloscPasazerow;
 
@@ -92,12 +74,12 @@ namespace SymulatorLotniska.Samoloty
                 case Stan.PrzedStartem:
                     budowanyString += "Stan: " + "Na pasie startowym\n";
                     budowanyString += "Paliwo: " + AktualnaIloscPaliwa + "l/" + getMaksIloscPaliwa() + "l\n";
-                    budowanyString += "Pasazerow: " + AktualnaIloscPasazerow + "/" + MaksIloscPasazerow + "\n";
+                    budowanyString += "Pasazerow: " + aktualnaIloscPasazerow + "/" + maksIloscPasazerow + "\n";
                     break;
                 case Stan.Startowanie:
                     budowanyString += "Stan: " + "Startowanie\n";
                     budowanyString += "Paliwo: " + AktualnaIloscPaliwa + "l/" + getMaksIloscPaliwa() + "l\n";
-                    budowanyString += "Pasazerow: " + AktualnaIloscPasazerow + "/" + MaksIloscPasazerow + "\n";
+                    budowanyString += "Pasazerow: " + aktualnaIloscPasazerow + "/" + maksIloscPasazerow + "\n";
                     break;
 
             }

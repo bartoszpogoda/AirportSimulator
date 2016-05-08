@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Beata\Desktop\SymulatorLotniska\</PublishUrl>
+    <PublishUrl>C:\Users\Beata\Desktop\WebDevelopment i inne B\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>33</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -80,7 +80,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Operacje\OperacjaLot.cs" />
+    <Compile Include="Operacje\OperacjaStartowanie.cs" />
     <Compile Include="Samoloty\Stan.cs" />
+    <Compile Include="ZarzadzaniePowiadomieniami\CharakterPowiadomienia.cs" />
+    <Compile Include="ZarzadzaniePowiadomieniami\MenedzerPowiadomien.cs" />
+    <Compile Include="ZarzadzaniePowiadomieniami\Powiadomienie.cs" />
     <Compile Include="ZarzadzanieSamolotami\FabrykaSamolotow.cs" />
     <Compile Include="ZarzadzanieOperacjami\ElementListyOperacji.cs" />
     <Compile Include="Operacje\IOperacja.cs" />
@@ -139,6 +143,22 @@
     <None Include="Resources\kontrolatechniczna.png" />
     <None Include="Resources\passtartowy.png" />
     <None Include="Resources\startowanie.png" />
+    <None Include="Resources\tankowanieN.png" />
+    <None Include="Resources\buttonNaPas.png" />
+    <None Include="Resources\kontrolaTechnicznaNakladka.png" />
+    <None Include="Resources\tankowanieNakladka.png" />
+    <None Include="Resources\buttonZatrzymanie.png" />
+    <None Include="Resources\buttonM1czlowiek.png" />
+    <None Include="Resources\buttonM5czlowiek.png" />
+    <None Include="Resources\buttonP1czlowiek.png" />
+    <None Include="Resources\buttonP5czlowiek.png" />
+    <None Include="Resources\btnStartowanie.png" />
+    <None Include="Resources\btnDoHangaru.png" />
+    <None Include="Resources\btnDol.png" />
+    <None Include="Resources\btnGora.png" />
+    <None Include="Resources\btnLewo.png" />
+    <None Include="Resources\btnPrawo.png" />
+    <Content Include="Resources\zn.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>

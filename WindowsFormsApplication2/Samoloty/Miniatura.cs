@@ -7,7 +7,6 @@ namespace SymulatorLotniska.Samoloty
 {
     public class Miniatura
     {
-        private string adresBazowy;
         private PictureBox obrazekSamolotu;
         private PictureBox obrazekStanu;
         private Control aktualnyNaGorze;
@@ -18,18 +17,16 @@ namespace SymulatorLotniska.Samoloty
         
         public Control getAktualnyNaGorze() { return aktualnyNaGorze; }
    
-        public Miniatura(string adresBazowy, MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
+        public Miniatura(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
         {
-            this.adresBazowy = adresBazowy;
             this.uchwytMenedzerSamolotow = uchwytMenedzerSamolotow;
 
             obrazekSamolotu = new PictureBox();
             obrazekStanu = new PictureBox();
 
 
-            obrazekSamolotu.Image = (Image)Properties.Resources.ResourceManager.GetObject(adresBazowy);
-
-            // ImageLocation = adresBazowy + "s.png"; 
+            obrazekSamolotu.Image = (Image)Properties.Resources.ResourceManager.GetObject("samolot1"); // tutaj potem bedzie mozna wiecej obrazkow bazowych
+            
             obrazekSamolotu.Location = new Point(0, 0);
             obrazekSamolotu.Visible = false;
             obrazekSamolotu.Enabled = false;
@@ -66,7 +63,7 @@ namespace SymulatorLotniska.Samoloty
         {
             uchwytMenedzerSamolotow.zaznaczSamolot(this);
         }
-
+        
         public void pokaz()
         {
             obrazekSamolotu.Visible = true;
@@ -101,14 +98,14 @@ namespace SymulatorLotniska.Samoloty
             }
             else if (aktualnyStan == Stan.KontrolaTechniczna)
             {
-                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresKontrolaTechniczna);
+                obrazekStanu.Image = Properties.Resources.kontrolaTechnicznaNakladka;
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
                 aktualnyNaGorze = obrazekStanu;
             }
             else if (aktualnyStan == Stan.Tankowanie)
             {
-                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresTankowanie);
+                obrazekStanu.Image = Properties.Resources.tankowanieNakladka;
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
                 aktualnyNaGorze = obrazekStanu;
@@ -116,6 +113,13 @@ namespace SymulatorLotniska.Samoloty
             else if (aktualnyStan == Stan.Startowanie)
             {
                 obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject("startowanie");
+                obrazekStanu.Visible = true;
+                obrazekStanu.Enabled = true;
+                aktualnyNaGorze = obrazekStanu;
+            }
+            else if (aktualnyStan == Stan.Zniszczony)
+            {
+                obrazekStanu.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresZniszczony);
                 obrazekStanu.Visible = true;
                 obrazekStanu.Enabled = true;
                 aktualnyNaGorze = obrazekStanu;

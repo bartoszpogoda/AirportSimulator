@@ -4,6 +4,7 @@ using SymulatorLotniska.Samoloty;
 using SymulatorLotniska.ZarzadzanieOperacjami;
 using SymulatorLotniska.ZarzadzanieSamolotami;
 using System.Drawing;
+using SymulatorLotniska.ZarzadzaniePowiadomieniami;
 
 namespace SymulatorLotniska
 {
@@ -11,12 +12,14 @@ namespace SymulatorLotniska
     {
         private MenedzerSamolotow menedzerSamolotow;
         private MenedzerOperacji menedzerOperacji;
+        private MenedzerPowiadomien menedzerPowiadomien;
 
         public OknoAplikacji()
         {
             InitializeComponent();
             menedzerOperacji = new MenedzerOperacji(this);
             menedzerSamolotow = new MenedzerSamolotow(this, menedzerOperacji);
+            menedzerPowiadomien = new MenedzerPowiadomien(groupBox1);
             panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
             panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
 
@@ -24,10 +27,11 @@ namespace SymulatorLotniska
             this.labelTekstInformacje.AutoSize = false;
             this.labelTekstInformacje.Size = new System.Drawing.Size(labelTekstInformacje.Parent.Size.Width, this.labelTekstInformacje.Size.Height);
 
-            this.labelWPowietrzu.Parent = panelSamolotyWPowietrzu;
-            this.labelWPowietrzu.AutoSize = false;
-            this.labelWPowietrzu.Size = new System.Drawing.Size(this.labelWPowietrzu.Size.Width, this.labelWPowietrzu.Parent.Size.Height/2);
+            this.labelSamolotyPowietrze.Parent = panelSamolotyWPowietrzu;
+            this.labelSamolotyPowietrze.AutoSize = false;
+            this.labelSamolotyPowietrze.Size = new System.Drawing.Size(this.labelSamolotyPowietrze.Parent.Size.Width, this.labelSamolotyPowietrze.Size.Height);
 
+           
             this.labelInformacje.Parent = panelInformacji;
 
             this.labelHangar.Parent = panelSamolotow;
@@ -69,7 +73,7 @@ namespace SymulatorLotniska
 
             if (stanZaznaczonegoSamolotu == Stan.Tankowanie)
             {
-                operationCancel.Text = "Zatrzymaj tankowanie";
+               // operationCancel.Text = "Zatrzymaj tankowanie";
                 operationCancel.Enabled = true;
                 operationCancel.Visible = true;
             
@@ -95,11 +99,9 @@ namespace SymulatorLotniska
             }
             else if(stanZaznaczonegoSamolotu == Stan.KontrolaTechniczna)
             {
-                operationCancel.Text = "Zatrzymaj kontrole";
+                //operationCancel.Text = "Zatrzymaj kontrole";
                 operationCancel.Enabled = true;
                 operationCancel.Visible = true;
-                pasekPostepu.Visible = true;
-                pasekPostepu.Enabled = true;
             }
             else if (stanZaznaczonegoSamolotu == Stan.WPowietrzu)
             {
@@ -110,24 +112,26 @@ namespace SymulatorLotniska
             }
             else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
             {
-                start.Enabled = true;
-                start.Visible = true;
+                btnStartowanie.Enabled = true;
+                btnStartowanie.Visible = true;
                 doHangaru.Visible = true;
                 doHangaru.Enabled = true;
-                wprowadzenieLudzi.Enabled = true;
-                wprowadzenieLudzi.Visible = true;
-                wyprowadzLudzi.Enabled = true;
-                wyprowadzLudzi.Visible = true;
+                btnD1C.Enabled = true;
+                btnD1C.Visible = true;
+                btnD5C.Enabled = true;
+                btnD5C.Visible = true;
+                btnM1C.Enabled = true;
+                btnM1C.Visible = true;
+                btnM5C.Enabled = true;
+                btnM5C.Visible = true;
             } else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
             {
-                start.Enabled = true;
-                start.Visible = true;
+                btnStartowanie.Enabled = true;
+                btnStartowanie.Visible = true;
                 doHangaru.Visible = true;
                 doHangaru.Enabled = true;
-                wprowadzenieLudzi.Enabled = true;
-                wprowadzenieLudzi.Visible = true;
-                wyprowadzLudzi.Enabled = true;
-                wyprowadzLudzi.Visible = true;
+                btnD1C.Enabled = true;
+                btnD1C.Visible = true;
             }
 
         }
@@ -143,18 +147,20 @@ namespace SymulatorLotniska
             tankowanie.Visible = false;
             operationCancel.Enabled = false;
             operationCancel.Visible = false;
-            pasekPostepu.Visible = false;
-            pasekPostepu.Enabled = false;
             wyladuj.Enabled = false;
             wyladuj.Visible = false;
-            start.Enabled = false;
-            start.Visible = false;
+            btnStartowanie.Enabled = false;
+            btnStartowanie.Visible = false;
             doHangaru.Visible = false;
             doHangaru.Enabled = false;
-            wprowadzenieLudzi.Enabled = false;
-            wprowadzenieLudzi.Visible = false;
-            wyprowadzLudzi.Enabled = false;
-            wyprowadzLudzi.Visible = false;
+            btnD1C.Enabled = false;
+            btnD1C.Visible = false;
+            btnD5C.Enabled = false;
+            btnD5C.Visible = false;
+            btnM1C.Enabled = false;
+            btnM1C.Visible = false;
+            btnM5C.Enabled = false;
+            btnM5C.Visible = false;
             odeslij.Enabled = false;
             odeslij.Visible = false;
         }
@@ -182,7 +188,7 @@ namespace SymulatorLotniska
         private void kontrola_Click(object sender, EventArgs e)
         {
 
-            menedzerSamolotow.kontrolujTechnicznieZaznaczony(pasekPostepu);
+            menedzerSamolotow.kontrolujTechnicznieZaznaczony();
         }
         
 
@@ -219,6 +225,81 @@ namespace SymulatorLotniska
         private void odeslij_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.odeslijZaznaczonySamolot();
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wprowadzenieLudzi_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wprowadzLudzi(1);
+        }
+
+        private void doHangaru_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.umiescZaznaczonyWHangarze();
+        }
+
+        private void btnD5C_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wprowadzLudzi(5);
+        }
+
+        private void btnM1C_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wyprowadzLudzi(1);
+        }
+
+        private void btnM5C_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.wyprowadzLudzi(5);
+        }
+
+        private void pasekPostepu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLewo_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.przesunListePowietrzeLewo();
+        }
+
+        private void btnPrawo_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.przesunListePowietrzePrawo();
+        }
+
+        private void btnDol_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.przesunListeHangarDol();
+        }
+
+        private void btnGora_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.przesunListeHangarGora();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_2(object sender, EventArgs e)
+        {
+            menedzerPowiadomien.dodajPowiadomienie(new Powiadomienie(menedzerPowiadomien, "Samolot alartowraz troche wydluzymy", CharakterPowiadomienia.Pozytywne));
         }
     }
 }
