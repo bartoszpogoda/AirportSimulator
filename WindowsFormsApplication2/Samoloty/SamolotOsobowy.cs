@@ -41,7 +41,7 @@ namespace SymulatorLotniska.Samoloty
             budowanyString += "Paliwo: " + AktualnaIloscPaliwa + "/" + getMaksIloscPaliwa() + "\n";
             budowanyString += "Pasazerow: " + AktualnaIloscPasazerow + "/" + MaksIloscPasazerow + "\n";
 */
-            budowanyString += "Model: " + getModel() + "\n";
+            budowanyString += "Model: " + getModel() + " (ID: " + getID() + ")\n";
             budowanyString += "Typ: Samolot osobowy \n";
 
             switch (getAktualnyStan())

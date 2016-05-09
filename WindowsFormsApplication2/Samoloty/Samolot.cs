@@ -5,6 +5,8 @@ namespace SymulatorLotniska.Samoloty
 {
     public abstract class Samolot : Miniatura
     {
+        public static int IDlicznik = 0;
+
         //---parametry techniczne
         private int maksIloscPaliwa;
         private int czasStartu;           //w tickach
@@ -12,6 +14,7 @@ namespace SymulatorLotniska.Samoloty
         private int czasKontroli;         //w tickach
         private int spalanie;         // co ile tickow spala 1l
         private string model;
+        private int ID;        
         //-----------------------
 
         //---zmienne okreslajace stan
@@ -28,9 +31,12 @@ namespace SymulatorLotniska.Samoloty
         public int getCzasStartu() { return czasStartu; }
         public void setCzasStartu(int czasStartu) { this.czasStartu = czasStartu; }
 
+        public int getID() { return ID; }
 
         public string getModel() { return model; }
         public void setModel(string model) { this.model = model; }
+
+        public string getModelID() { return model + " (ID: " + ID + ")"; }
 
         public int getAktualnyPostepKontroliTechnicznej() { return aktualnyPostepKontroliTechnicznej; }
         public int getCzasKontroliTechnicznej() { return czasKontroliTechnicznej; }
@@ -95,7 +101,7 @@ namespace SymulatorLotniska.Samoloty
         public Samolot(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
             : base(uchwytMenedzerSamolotow, parent)
         {
-
+            ID = IDlicznik++;
         }
         
 
@@ -108,6 +114,7 @@ namespace SymulatorLotniska.Samoloty
             this.maksIloscPaliwa = maksIloscPaliwa;
             this.czasKontroliTechnicznej = czasKontroli;
             this.spalanie = spalanie;
+            ID = IDlicznik++;
 
             AktualnaIloscPaliwa = 0;
             PoKontroli = false;

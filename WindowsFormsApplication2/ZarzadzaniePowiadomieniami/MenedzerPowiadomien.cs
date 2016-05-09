@@ -9,19 +9,29 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
 {
     public class MenedzerPowiadomien
     {
+        private static MenedzerPowiadomien instance;
+        
+        public static MenedzerPowiadomien getInstance()
+        {
+            if (instance != null) return instance;
+
+            instance = new MenedzerPowiadomien();
+            return instance;
+        }
+
         private List<Powiadomienie> listaPowiadomien;
         GroupBox uchwytPanel;
 
-        public MenedzerPowiadomien(GroupBox uchwytPanel)
+        private MenedzerPowiadomien()
         {
             listaPowiadomien = new List<Powiadomienie>();
-            this.uchwytPanel = uchwytPanel;
             
         }
+        public void setUchwytPanel(GroupBox uchwytPanel) { this.uchwytPanel = uchwytPanel; }
         
-        public void dodajPowiadomienie(Powiadomienie powiadomienie)
+        public void dodajPowiadomienie(String komunikat, CharakterPowiadomienia charakterPowiadomienia)
         {
-            listaPowiadomien.Insert(0, powiadomienie);
+            listaPowiadomien.Insert(0, new Powiadomienie(komunikat,charakterPowiadomienia));
             narysuj();
         }
 
@@ -47,7 +57,8 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
                 {
                     break;
                 }
-                listaPowiadomien.ElementAt(i).pokazXY(x, y); 
+                if(i==0) listaPowiadomien.ElementAt(i).pokazXY(x, y, true);
+                else listaPowiadomien.ElementAt(i).pokazXY(x, y, false);
                 y += StaleKonfiguracyjne.rozmiarOdstepu + listaPowiadomien.ElementAt(i).getWysokosc();
             }
             for(; i < listaPowiadomien.Count; i++)

@@ -4,10 +4,11 @@ using SymulatorLotniska.ZarzadzanieOperacjami;
 using System.Drawing;
 using System.Windows.Forms;
 using System;
+using SymulatorLotniska.ZarzadzaniePowiadomieniami;
 
 namespace SymulatorLotniska.ZarzadzanieSamolotami
 {
-    //TODO: Klase MenedzerSamolotow oraz MendzerOperacji mozna zrobic jako singleton.
+    //TODO: Klase MenedzerSamolotow oraz MendzerOperacji mozna zrobic jako singleton. (podobnie jak MenedzerPowiadomien)
     //TODO: SKoro odnalazlem ten bład moze jednak lepiej bedzie rozdzielic operacje lotu, startowania itp?
     //      ^ polaczenie tych 3 ze soba jest juz niewygodne gdy trzeba dodac informacje do operacji na temat wolnego
     //        pasa startowego.
@@ -22,7 +23,6 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         private OknoAplikacji uchwytOknoAplikacji;
         private MenedzerOperacji uchwytMenedzerOperacji;
-
         private PictureBox pbZaznaczony;
 
         private PasStartowy pasStartowy1;
@@ -250,6 +250,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 if (((Samolot)zaznaczony).czyZatankowany())
                 {
                     // LOG --Samolot (zaznaczony) ma juz pelny bak--
+                    MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " ma juz pelny bak", CharakterPowiadomienia.Zwykle);
                 }
                 else
                 {
@@ -266,6 +267,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 if (((Samolot)zaznaczony).czyPoKontroli())
                 {
                     // LOG --Samolot (zaznaczony) przeszedl juz kontrole techniczna--
+                    MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " przeszedl juz kontrole techniczna.", CharakterPowiadomienia.Zwykle);
                 }
                 else
                 {
@@ -286,6 +288,8 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 else
                 {
                     // LOG --Samolot (zaznazczony) zostal odeslany--
+                    MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " zostal odeslany", CharakterPowiadomienia.Zwykle);
+
                     ((Samolot)zaznaczony).setAktualnyStan(Stan.Odeslany);
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     ((Samolot)zaznaczony).schowaj();
@@ -305,12 +309,15 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             if (!(zaznaczony is Samolot) || !((Samolot)zaznaczony).czyPoKontroli() || !(((Samolot)zaznaczony).getAktualnyStan() == Stan.Hangar))
             {
                 // LOG--Informacje ze nie jest po kontroli technicznej.--
+                MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " nie przeszedl kontroli technicznej", CharakterPowiadomienia.Negatywne);
                 return;
             }
 
             if (pasStartowy1.czyWolny())
             {
                 // LOG--Informacja, ze Samolot (zaznaczony) zostal umieszczony na pasie nr 1.--
+                MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " zostal umieszczony na pasie startowym nr 1.", CharakterPowiadomienia.Zwykle);
+
                 ((Samolot)zaznaczony).setAktualnyStan(Stan.PrzedStartem);
                 listaSamolotow.usunSamolot((Samolot)zaznaczony);
                 pasStartowy1.ustawSamolot((Samolot)zaznaczony);
@@ -319,6 +326,8 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             else if (pasStartowy2.czyWolny())
             {
                 // LOG--Informacja, ze Samolot (zaznaczony) zostal umieszczony na pasie nr 1.--
+                MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " zostal umieszczony na pasie startowym nr 2.", CharakterPowiadomienia.Zwykle);
+
                 ((Samolot)zaznaczony).setAktualnyStan(Stan.PrzedStartem);
                 listaSamolotow.usunSamolot((Samolot)zaznaczony);
                 pasStartowy2.ustawSamolot((Samolot)zaznaczony);
@@ -327,6 +336,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             else
             {
                 // LOG--Informacja, ze nie ma wolnych pasów startowych.
+                MenedzerPowiadomien.getInstance().dodajPowiadomienie("Wszyzstkie pasy startowe sa aktualnie zajete", CharakterPowiadomienia.Negatywne);
             }
         }
         public void wystartujZaznaczonySamolot()
@@ -342,12 +352,17 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                     if(!pasStartowy1.czyWolny() && pasStartowy1.getAktualnySamolot() == (Samolot)zaznaczony)
                     {
                         // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
+                        MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " startuje z pasa startowego nr 1.", CharakterPowiadomienia.Pozytywne);
+
+
                         ((Samolot)zaznaczony).setAktualnyStan(Stan.Startowanie);
                         getMenedzerOperacji().dodajOperacje(new OperacjaStartowanie((Samolot)zaznaczony, pasStartowy1,this));
                     }
                     else if (!pasStartowy2.czyWolny() && pasStartowy2.getAktualnySamolot() == (Samolot)zaznaczony)
                     {
-                        // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
+                        // LOG --Samolot (zaznaczony) startuje z pasa drugiego.--
+                        MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " startuje z pasa startowego nr 2.", CharakterPowiadomienia.Pozytywne);
+
                         ((Samolot)zaznaczony).setAktualnyStan(Stan.Startowanie);
                         getMenedzerOperacji().dodajOperacje(new OperacjaStartowanie((Samolot)zaznaczony, pasStartowy2, this));
                     }
@@ -362,6 +377,9 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 if (pasStartowy1.czyWolny())
                 {
                     // LOG --Samolot (zaznaczony) podchodzi do ladowania na pasie 1--
+                    MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " podchodzi do ladowania na pasie startowym nr 1.", CharakterPowiadomienia.Pozytywne);
+
+
                     ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     pasStartowy1.ustawSamolot((Samolot)zaznaczony);
@@ -371,6 +389,8 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 else if (pasStartowy2.czyWolny())
                 {
                     // LOG --Samolot (zaznaczony) podchodzi do ladowania na pasie 2--
+                    MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " podchodzi do ladowania na pasie startowym nr 2.", CharakterPowiadomienia.Pozytywne);
+
                     ((Samolot)zaznaczony).setAktualnyStan(Stan.Ladowanie);
                     listaSamolotowPowietrze.usunSamolot((Samolot)zaznaczony);
                     pasStartowy2.ustawSamolot((Samolot)zaznaczony);
@@ -380,6 +400,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 else
                 {
                     // LOG --Pasy startowe sa zajete--
+                    MenedzerPowiadomien.getInstance().dodajPowiadomienie("Wszyzstkie pasy startowe sa aktualnie zajete", CharakterPowiadomienia.Negatywne);
                 }
             }
         }
@@ -392,7 +413,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 {
                     if (((SamolotOsobowy)zaznaczony).getAktualnaIloscPasazerow() != 0)
                     {
-                        // LOG --Nie chcesz chyba zamknac pasazerow w hangarze
+                        MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + ((Samolot)zaznaczony).getModelID() + " nie moze zostac umieszczony w hangarze, poniewaz nie zostal opuszczony przez pasazerow.", CharakterPowiadomienia.Negatywne);
                         return;
                     }
                 }

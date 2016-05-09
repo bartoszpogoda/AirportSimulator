@@ -17,16 +17,15 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
     {
         Label textBox;
         Panel panel;
-        MenedzerPowiadomien uchwytMenedzerPowiadomien;
-        public Powiadomienie(MenedzerPowiadomien uchwytMenedzerPowiadomien, String komunikat, CharakterPowiadomienia charakter)
+        CharakterPowiadomienia charakterPowiadomienia;
+        public Powiadomienie(String komunikat, CharakterPowiadomienia charakter)
         {
 
             panel = new Panel();
             textBox = new Label();
+            this.charakterPowiadomienia = charakter;
             schowaj();
-
-            this.uchwytMenedzerPowiadomien = uchwytMenedzerPowiadomien;
-
+            
             panel.BackColor = SystemColors.ControlLightLight;
             panel.BorderStyle = BorderStyle.FixedSingle;
 
@@ -39,11 +38,11 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
             //textBox.Size = new Size(151, 40);
             textBox.MaximumSize = new Size(StaleKonfiguracyjne.powiadomienieX, 0);
             textBox.AutoSize = true;
-            textBox.Text = komunikat;
+            textBox.Text = komunikat + "\n" + DateTime.Now.ToString("                                    HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
 
             panel.Size = new Size(StaleKonfiguracyjne.powiadomienieX, textBox.Size.Height+6);
 
-            panel.Parent = uchwytMenedzerPowiadomien.getPanel();
+            panel.Parent = MenedzerPowiadomien.getInstance().getPanel();
             panel.Click += onClick;
             textBox.Click += onClick;
             
@@ -63,18 +62,50 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
         private void onClick(object sender, EventArgs e)
         {
             usun();
-            uchwytMenedzerPowiadomien.usunPowiadomienie(this);
+            MenedzerPowiadomien.getInstance().usunPowiadomienie(this);
         }
 
-        public void pokazXY(int x, int y) // zwraca wysokosc jednak nei
+        public void pokazXY(int x, int y, bool czyPierwszy) // zwraca wysokosc jednak nei
         {
             panel.Location = new Point(x, y);
+
+
+            if (!czyPierwszy)
+            {
+                switch (charakterPowiadomienia)
+                {
+                    case CharakterPowiadomienia.Zwykle:
+                    case CharakterPowiadomienia.Pozytywne:
+                        panel.BackColor = Color.DarkGray;
+                        break;
+                    case CharakterPowiadomienia.Negatywne:
+                        panel.BackColor = Color.PaleVioletRed;
+                        break;
+                }
+                    
+            }
+            else
+            {
+                switch (charakterPowiadomienia)
+                {
+                    case CharakterPowiadomienia.Zwykle:
+                        panel.BackColor = Color.White;
+                        break;
+                    case CharakterPowiadomienia.Pozytywne:
+                        panel.BackColor = Color.LightGreen;
+                        break;
+                    case CharakterPowiadomienia.Negatywne:
+                        panel.BackColor = Color.Crimson;
+                        break;
+                }
+            }
 
             panel.Visible = true;
             panel.Enabled = true;
 
             textBox.Visible = true;
             textBox.Enabled = true;
+            
             
         }
 

@@ -12,14 +12,13 @@ namespace SymulatorLotniska
     {
         private MenedzerSamolotow menedzerSamolotow;
         private MenedzerOperacji menedzerOperacji;
-        private MenedzerPowiadomien menedzerPowiadomien;
 
         public OknoAplikacji()
         {
             InitializeComponent();
             menedzerOperacji = new MenedzerOperacji(this);
+            MenedzerPowiadomien.getInstance().setUchwytPanel(groupBox1);
             menedzerSamolotow = new MenedzerSamolotow(this, menedzerOperacji);
-            menedzerPowiadomien = new MenedzerPowiadomien(groupBox1);
             panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
             panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
 
@@ -299,7 +298,6 @@ namespace SymulatorLotniska
 
         private void button3_Click_2(object sender, EventArgs e)
         {
-            menedzerPowiadomien.dodajPowiadomienie(new Powiadomienie(menedzerPowiadomien, "Samolot alartowraz troche wydluzymy", CharakterPowiadomienia.Pozytywne));
         }
     }
 }

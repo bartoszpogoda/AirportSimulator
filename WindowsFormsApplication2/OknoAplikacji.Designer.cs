@@ -40,6 +40,7 @@ namespace SymulatorLotniska
             this.btnDol = new System.Windows.Forms.Button();
             this.labelHangar = new System.Windows.Forms.Label();
             this.panelInformacji = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.labelTekstInformacje = new System.Windows.Forms.Label();
             this.labelInformacje = new System.Windows.Forms.Label();
             this.panelSamolotyWPowietrzu = new System.Windows.Forms.Panel();
@@ -62,7 +63,6 @@ namespace SymulatorLotniska
             this.panelPasStartowy1 = new System.Windows.Forms.Panel();
             this.panelPasStartowy2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
@@ -71,9 +71,9 @@ namespace SymulatorLotniska
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(109, 167);
+            this.button1.Location = new System.Drawing.Point(9, 176);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(71, 23);
+            this.button1.Size = new System.Drawing.Size(117, 14);
             this.button1.TabIndex = 0;
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
@@ -81,9 +81,9 @@ namespace SymulatorLotniska
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(238, 122);
+            this.button2.Location = new System.Drawing.Point(218, 176);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(27, 68);
+            this.button2.Size = new System.Drawing.Size(47, 14);
             this.button2.TabIndex = 2;
             this.button2.Text = "+";
             this.button2.UseVisualStyleBackColor = true;
@@ -147,6 +147,16 @@ namespace SymulatorLotniska
             this.panelInformacji.Name = "panelInformacji";
             this.panelInformacji.Size = new System.Drawing.Size(280, 200);
             this.panelInformacji.TabIndex = 0;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(132, 176);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(80, 14);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "+";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_2);
             // 
             // labelTekstInformacje
             // 
@@ -239,7 +249,8 @@ namespace SymulatorLotniska
             // 
             // btnM5C
             // 
-            this.btnM5C.BackColor = System.Drawing.Color.Beige;
+            this.btnM5C.BackColor = System.Drawing.Color.White;
+            this.btnM5C.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnM5C.Image = global::SymulatorLotniska.Properties.Resources.buttonM5czlowiek;
             this.btnM5C.Location = new System.Drawing.Point(59, 59);
             this.btnM5C.Name = "btnM5C";
@@ -250,7 +261,7 @@ namespace SymulatorLotniska
             // 
             // btnM1C
             // 
-            this.btnM1C.BackColor = System.Drawing.Color.Beige;
+            this.btnM1C.BackColor = System.Drawing.Color.White;
             this.btnM1C.Image = global::SymulatorLotniska.Properties.Resources.buttonM1czlowiek;
             this.btnM1C.Location = new System.Drawing.Point(59, 3);
             this.btnM1C.Name = "btnM1C";
@@ -261,7 +272,7 @@ namespace SymulatorLotniska
             // 
             // btnD5C
             // 
-            this.btnD5C.BackColor = System.Drawing.Color.Beige;
+            this.btnD5C.BackColor = System.Drawing.Color.White;
             this.btnD5C.Image = global::SymulatorLotniska.Properties.Resources.buttonP5czlowiek;
             this.btnD5C.Location = new System.Drawing.Point(3, 59);
             this.btnD5C.Name = "btnD5C";
@@ -272,7 +283,7 @@ namespace SymulatorLotniska
             // 
             // odeslij
             // 
-            this.odeslij.BackColor = System.Drawing.Color.Beige;
+            this.odeslij.BackColor = System.Drawing.Color.White;
             this.odeslij.Location = new System.Drawing.Point(38, 113);
             this.odeslij.Name = "odeslij";
             this.odeslij.Size = new System.Drawing.Size(75, 23);
@@ -283,7 +294,7 @@ namespace SymulatorLotniska
             // 
             // btnStartowanie
             // 
-            this.btnStartowanie.BackColor = System.Drawing.Color.Beige;
+            this.btnStartowanie.BackColor = System.Drawing.Color.White;
             this.btnStartowanie.Image = global::SymulatorLotniska.Properties.Resources.btnStartowanie;
             this.btnStartowanie.Location = new System.Drawing.Point(4, 115);
             this.btnStartowanie.Name = "btnStartowanie";
@@ -294,7 +305,7 @@ namespace SymulatorLotniska
             // 
             // btnD1C
             // 
-            this.btnD1C.BackColor = System.Drawing.Color.Beige;
+            this.btnD1C.BackColor = System.Drawing.Color.White;
             this.btnD1C.Image = global::SymulatorLotniska.Properties.Resources.buttonP1czlowiek;
             this.btnD1C.Location = new System.Drawing.Point(3, 3);
             this.btnD1C.Name = "btnD1C";
@@ -305,7 +316,7 @@ namespace SymulatorLotniska
             // 
             // doHangaru
             // 
-            this.doHangaru.BackColor = System.Drawing.Color.Beige;
+            this.doHangaru.BackColor = System.Drawing.Color.White;
             this.doHangaru.Image = global::SymulatorLotniska.Properties.Resources.btnDoHangaru;
             this.doHangaru.Location = new System.Drawing.Point(60, 115);
             this.doHangaru.Name = "doHangaru";
@@ -316,7 +327,7 @@ namespace SymulatorLotniska
             // 
             // wyladuj
             // 
-            this.wyladuj.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.wyladuj.BackColor = System.Drawing.Color.White;
             this.wyladuj.Location = new System.Drawing.Point(41, 142);
             this.wyladuj.Name = "wyladuj";
             this.wyladuj.Size = new System.Drawing.Size(68, 23);
@@ -349,7 +360,7 @@ namespace SymulatorLotniska
             // 
             // naPasStartowy
             // 
-            this.naPasStartowy.BackColor = System.Drawing.Color.Beige;
+            this.naPasStartowy.BackColor = System.Drawing.Color.White;
             this.naPasStartowy.Image = ((System.Drawing.Image)(resources.GetObject("naPasStartowy.Image")));
             this.naPasStartowy.Location = new System.Drawing.Point(3, 115);
             this.naPasStartowy.Name = "naPasStartowy";
@@ -360,7 +371,7 @@ namespace SymulatorLotniska
             // 
             // tankowanie
             // 
-            this.tankowanie.BackColor = System.Drawing.Color.Beige;
+            this.tankowanie.BackColor = System.Drawing.Color.White;
             this.tankowanie.Image = global::SymulatorLotniska.Properties.Resources.tankowanieN;
             this.tankowanie.Location = new System.Drawing.Point(3, 3);
             this.tankowanie.Name = "tankowanie";
@@ -394,16 +405,6 @@ namespace SymulatorLotniska
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Centrum powiadomien";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(185, 86);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(27, 68);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "+";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_2);
             // 
             // OknoAplikacji
             // 
