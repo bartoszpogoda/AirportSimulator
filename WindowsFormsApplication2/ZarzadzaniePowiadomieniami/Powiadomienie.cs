@@ -95,7 +95,7 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
                         panel.BackColor = Color.LightGreen;
                         break;
                     case CharakterPowiadomienia.Negatywne:
-                        panel.BackColor = Color.Crimson;
+                        panel.BackColor = Color.HotPink;
                         break;
                 }
             }
