@@ -1,6 +1,6 @@
-﻿using SymulatorLotniska.Samoloty;
+﻿using SymulatorLotniska.Planes;
 using System.Windows.Forms;
-
+/*
 namespace SymulatorLotniska.ZarzadzanieSamolotami
 {
     class ListaSamolotow
@@ -40,14 +40,14 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             return true;
         }
 
-        public Samolot aktualnyPodIteratorem()
+        public Plane aktualnyPodIteratorem()
         {
             if (iterator == null) return null;
             return iterator.samolot;
         }
         
 
-        public void dodajSamolot(Samolot samolot) {
+        public void dodajSamolot(Plane samolot) {
 
             if (pierwszy == null)
             {
@@ -65,7 +65,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
         }
 
-        public void usunSamolot(Samolot samolot)
+        public void usunSamolot(Plane samolot)
         {
             if(pierwszy.samolot == samolot)
             {
@@ -106,3 +106,4 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 
     }
 }
+*/

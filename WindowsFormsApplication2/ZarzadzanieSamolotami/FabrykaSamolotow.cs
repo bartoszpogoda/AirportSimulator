@@ -1,4 +1,4 @@
-﻿using SymulatorLotniska.Samoloty;
+﻿using SymulatorLotniska.Planes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         // tutaj bedzie logika tworzenia samolotow nowych oraz 
         // generatory ustalonych
 
-        public static Samolot wyprodukujBoening767(MenedzerSamolotow uchwytMenedzerSamolotow, Control parent)
+        public static Plane wyprodukujBoening767(AirportManager uchwytMenedzerSamolotow, Control parent)
         {
             //Samolot samolot = new SamolotOsobowy(uchwytMenedzerSamolotow,parent,"boening767");
 

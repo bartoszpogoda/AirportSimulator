@@ -79,29 +79,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Operacje\OperacjaLot.cs" />
-    <Compile Include="Operacje\OperacjaStartowanie.cs" />
-    <Compile Include="Samoloty\Stan.cs" />
-    <Compile Include="ZarzadzaniePowiadomieniami\CharakterPowiadomienia.cs" />
-    <Compile Include="ZarzadzaniePowiadomieniami\MenedzerPowiadomien.cs" />
-    <Compile Include="ZarzadzaniePowiadomieniami\Powiadomienie.cs" />
+    <Compile Include="Operacje\OperationInAir.cs" />
+    <Compile Include="Operacje\OperationTakeoff.cs" />
+    <Compile Include="Planes\State.cs" />
+    <Compile Include="ZarzadzaniePowiadomieniami\NotificationType.cs" />
+    <Compile Include="ZarzadzaniePowiadomieniami\NotificationManager.cs" />
+    <Compile Include="ZarzadzaniePowiadomieniami\Notification.cs" />
+    <Compile Include="ZarzadzanieSamolotami\AirportManagerGraphics.cs" />
     <Compile Include="ZarzadzanieSamolotami\FabrykaSamolotow.cs" />
-    <Compile Include="ZarzadzanieOperacjami\ElementListyOperacji.cs" />
-    <Compile Include="Operacje\IOperacja.cs" />
-    <Compile Include="ZarzadzanieOperacjami\ListaOperacji.cs" />
-    <Compile Include="ZarzadzanieOperacjami\MenedzerOperacji.cs" />
+    <Compile Include="ZarzadzanieOperacjami\OperationListElement.cs" />
+    <Compile Include="Operacje\IOperation.cs" />
+    <Compile Include="ZarzadzanieOperacjami\OperationList.cs" />
+    <Compile Include="ZarzadzanieOperacjami\OperationManager.cs" />
     <Compile Include="ZarzadzanieSamolotami\ElementListySamolotow.cs" />
-    <Compile Include="OknoAplikacji.cs">
+    <Compile Include="AppWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OknoAplikacji.Designer.cs">
-      <DependentUpon>OknoAplikacji.cs</DependentUpon>
+    <Compile Include="AppWindow.Designer.cs">
+      <DependentUpon>AppWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="ZarzadzanieSamolotami\Hangar.cs" />
     <Compile Include="ZarzadzanieSamolotami\ListaSamolotow.cs" />
-    <Compile Include="ZarzadzanieSamolotami\MenedzerSamolotow.cs" />
-    <Compile Include="Samoloty\Miniatura.cs" />
-    <Compile Include="Operacje\OperacjaKontrolaHangar.cs" />
-    <Compile Include="Operacje\OperacjaTankowanie.cs" />
+    <Compile Include="ZarzadzanieSamolotami\AirportManager.cs" />
+    <Compile Include="Planes\PlaneImage.cs" />
+    <Compile Include="Operacje\OperationTechnicalInspection.cs" />
+    <Compile Include="Operacje\OperationFueling.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -109,12 +111,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Samoloty\Samolot.cs" />
-    <Compile Include="Samoloty\SamolotOsobowy.cs" />
+    <Compile Include="Planes\Plane.cs" />
+    <Compile Include="Planes\PassengerPlane.cs" />
     <Compile Include="StaleKonfiguracyjne.cs" />
     <Compile Include="ZarzadzanieSamolotami\PasStartowy.cs" />
-    <EmbeddedResource Include="OknoAplikacji.resx">
-      <DependentUpon>OknoAplikacji.cs</DependentUpon>
+    <EmbeddedResource Include="AppWindow.resx">
+      <DependentUpon>AppWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -173,9 +175,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Iterator\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

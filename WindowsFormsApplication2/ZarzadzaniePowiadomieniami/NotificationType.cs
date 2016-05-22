@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
 {
-    public enum CharakterPowiadomienia
+    public enum NotificationType
     {
-
-        Zwykle,Pozytywne,Negatywne
-
+        Normal,Positive,Negative
     };
 }

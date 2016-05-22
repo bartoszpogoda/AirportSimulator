@@ -12,38 +12,38 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
     // i stworzym konkretne implementacje tej klasy np PowiadomienieZajeciePasaStartowego itp. ale w sumie nie wiem
     // troche dlugie te nazwy kappa a nie ma takiej potrzeby raczej 
     
-    public class Powiadomienie
+    public class Notification
     {
         Label textBox;
         Panel panel;
-        CharakterPowiadomienia charakterPowiadomienia;
-        public Powiadomienie(String komunikat, CharakterPowiadomienia charakter)
+        NotificationType notificationType;
+        public Notification(String text, NotificationType notificationType)
         {
             textBox = new Label();
             textBox.BorderStyle = BorderStyle.None;
             textBox.Location = new Point(3, 3);
             textBox.MaximumSize = new Size(StaleKonfiguracyjne.powiadomienieX, 0);
             textBox.AutoSize = true;
-            textBox.Text = komunikat + "\n" + DateTime.Now.ToString
+            textBox.Text = text + "\n" + DateTime.Now.ToString
                 ("                                    HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
             textBox.Click += onClick;
 
 
             panel = new Panel();
-            schowaj();
+            hide();
             panel.BorderStyle = BorderStyle.FixedSingle;
             panel.Controls.Add(textBox);
             panel.Size = new Size(StaleKonfiguracyjne.powiadomienieX, textBox.Size.Height+6);
-            panel.Parent = MenedzerPowiadomien.getInstance().getPanel();
+            panel.Parent = NotificationManager.getInstance().getPanel();
             panel.Click += onClick;
-            this.charakterPowiadomienia = charakter;
+            this.notificationType = notificationType;
         }
-        public int getWysokosc() { return panel.Size.Height; }
+        public int getHeight() { return panel.Size.Height; }
 
         /// <summary>
         /// ukrywa panel powiadomienia
         /// </summary>
-        public void schowaj()
+        public void hide()
         {
             panel.Visible = false;
             panel.Enabled = false;
@@ -51,26 +51,26 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
 
         private void onClick(object sender, EventArgs e) 
         {
-            usun();
-            MenedzerPowiadomien.getInstance().usunPowiadomienie(this);
+            remove();
+            NotificationManager.getInstance().removeNotification(this);
         }
 
         /// <summary>
         /// pokazuje powiadomienie w okreslonym miejscu
         /// </summary> 
-        public void pokaz(Point pozycja) 
+        public void show(Point pozycja) 
         {
             panel.Location = pozycja;
             
-            switch (charakterPowiadomienia)
+            switch (notificationType)
             {
-                    case CharakterPowiadomienia.Zwykle:
+                    case NotificationType.Normal:
                         panel.BackColor = Color.White;
                         break;
-                    case CharakterPowiadomienia.Pozytywne:
+                    case NotificationType.Positive:
                         panel.BackColor = Color.FromArgb(162,252,140);
                         break;
-                    case CharakterPowiadomienia.Negatywne:
+                    case NotificationType.Negative:
                         panel.BackColor = Color.FromArgb(252, 113, 113);
                         break;
             }
@@ -79,9 +79,7 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
             panel.Enabled = true;
         }
 
-       
-        
-        public void usun()
+        public void remove()
         {
             panel.Visible = false;
             panel.Enabled = false;

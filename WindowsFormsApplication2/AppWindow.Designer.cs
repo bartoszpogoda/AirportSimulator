@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace SymulatorLotniska
 {
-    partial class OknoAplikacji
+    partial class AppWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@ namespace SymulatorLotniska
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OknoAplikacji));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppWindow));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panelSamolotow = new System.Windows.Forms.Panel();

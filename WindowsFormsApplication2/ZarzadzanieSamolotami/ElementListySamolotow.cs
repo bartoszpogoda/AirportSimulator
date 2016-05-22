@@ -1,13 +1,13 @@
-﻿using SymulatorLotniska.Samoloty;
+﻿using SymulatorLotniska.Planes;
 
 namespace SymulatorLotniska.ZarzadzanieSamolotami
 {
     class ElementListySamolotow
     {
-        public Samolot samolot;
+        public Plane samolot;
         public ElementListySamolotow nastepnyElement;
 
-        public ElementListySamolotow(Samolot samolot)
+        public ElementListySamolotow(Plane samolot)
         {
             this.samolot = samolot;
             nastepnyElement = null;

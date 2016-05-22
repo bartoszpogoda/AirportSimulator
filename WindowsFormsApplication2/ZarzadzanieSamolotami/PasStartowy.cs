@@ -1,4 +1,4 @@
-﻿using SymulatorLotniska.Samoloty;
+﻿using SymulatorLotniska.Planes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
 {
     public class PasStartowy
     {
-        private Samolot aktualnySamolot;
+        private Plane aktualnySamolot;
         private int polozenieSamolotuX;
         private int polozenieSamolotuY;
         private double dx;
@@ -18,22 +18,25 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         private int maxX;
         private int maxY;
         private Control uchwytPanel;
+        private int ID;
 
-        public PasStartowy(Control panel)
+        public PasStartowy(Control panel, int ID)
         {
             uchwytPanel = panel;
             maxX = uchwytPanel.Size.Width - StaleKonfiguracyjne.rozmiarObrazka;
             maxY = 40;
+            this.ID = ID;
         }
 
-        public void ustawSamolot(Samolot samolot)
+        public int getID() { return ID; }
+        public void ustawSamolot(Plane samolot)
         {
-            if (samolot.getAktualnyStan() == Stan.PrzedStartem)
+            if (samolot.getCurrentState() == State.OnRunwayBefTakeoff)
             {
                 polozenieSamolotuX = 0;
                 polozenieSamolotuY = 0;
             }
-            else if(samolot.getAktualnyStan() == Stan.Ladowanie)
+            else if(samolot.getCurrentState() == State.Landing)
             {
 
                 polozenieSamolotuX = 0;
@@ -46,8 +49,8 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             this.aktualnySamolot = samolot;
 
             aktualnySamolot.setParent(uchwytPanel);
-            aktualnySamolot.getObrazekSamolotu().Location = new System.Drawing.Point(polozenieSamolotuX, 40 - polozenieSamolotuY);
-            aktualnySamolot.pokaz();
+            aktualnySamolot.getPlaneImage().Location = new System.Drawing.Point(polozenieSamolotuX, 40 - polozenieSamolotuY);
+            aktualnySamolot.show();
         }
 
         public void zdejmijAktualnySamolot()
@@ -59,8 +62,8 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         {
             // taki sposob narzuca tez ograniczenie na max speed
             // chyba jest zle wyskalowane
-            dx += (double)maxX / (double)aktualnySamolot.getCzasStartu();
-            dy += 1 * (double)maxY / (double)aktualnySamolot.getCzasStartu(); // albo 2*
+            dx += (double)maxX / (double)aktualnySamolot.getTakeoffTime();
+            dy += 1 * (double)maxY / (double)aktualnySamolot.getTakeoffTime(); // albo 2*
 
             if(dx > 1)
             {
@@ -71,18 +74,18 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
                 }
                 else
                 {
-                    if(aktualnySamolot.getAktualnyStan() == Stan.Startowanie)  zdejmijAktualnySamolot();
+                    if(aktualnySamolot.getCurrentState() == State.Takeoff)  zdejmijAktualnySamolot();
                     return false;
                 }
             }
 
             if(dy > 1)
             {
-                if(aktualnySamolot.getAktualnyStan() == Stan.Startowanie)
+                if(aktualnySamolot.getCurrentState() == State.Takeoff)
                     if (polozenieSamolotuX >= maxX / 2 && polozenieSamolotuY + 1 <= maxY)
                         polozenieSamolotuY += 1; 
 
-                if(aktualnySamolot.getAktualnyStan() == Stan.Ladowanie)
+                if(aktualnySamolot.getCurrentState() == State.Landing)
                     if (polozenieSamolotuX >= maxX / 2 && polozenieSamolotuY - 1 >= 0)
                         polozenieSamolotuY -= 1;
                
@@ -96,11 +99,11 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
             return true;
         }
 
-        public Samolot getAktualnySamolot() { return aktualnySamolot; }
+        public Plane getAktualnySamolot() { return aktualnySamolot; }
 
         private void odswiezPolozenieSamolotu()
         {
-            aktualnySamolot.getObrazekSamolotu().Location = new System.Drawing.Point(polozenieSamolotuX, 40 - polozenieSamolotuY);
+            aktualnySamolot.getPlaneImage().Location = new System.Drawing.Point(polozenieSamolotuX, 40 - polozenieSamolotuY);
         }
 
         public bool czyWolny()
