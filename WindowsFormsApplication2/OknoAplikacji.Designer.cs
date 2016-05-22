@@ -63,6 +63,7 @@ namespace SymulatorLotniska
             this.panelPasStartowy1 = new System.Windows.Forms.Panel();
             this.panelPasStartowy2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
@@ -400,17 +401,28 @@ namespace SymulatorLotniska
             // 
             this.groupBox1.Location = new System.Drawing.Point(521, 230);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(170, 303);
+            this.groupBox1.Size = new System.Drawing.Size(170, 286);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Centrum powiadomien";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(521, 522);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(170, 20);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "Wyczyść";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // OknoAplikacji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 545);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelSamolotyWPowietrzu);
             this.Controls.Add(this.panelPasStartowy2);
@@ -469,6 +481,7 @@ namespace SymulatorLotniska
         private Button btnLewo;
         private GroupBox groupBox1;
         private Button button3;
+        private Button button4;
     }
 }
 

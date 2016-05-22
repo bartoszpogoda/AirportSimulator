@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
 {
@@ -43,6 +44,16 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
 
         public GroupBox getPanel() { return uchwytPanel; }
 
+        public void wyczysc()
+        {
+            foreach (Powiadomienie p in listaPowiadomien)
+                p.usun();
+
+
+
+            listaPowiadomien.Clear();
+            narysuj();
+        }
 
         private void narysuj()
         {
@@ -57,8 +68,7 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
                 {
                     break;
                 }
-                if(i==0) listaPowiadomien.ElementAt(i).pokazXY(x, y, true);
-                else listaPowiadomien.ElementAt(i).pokazXY(x, y, false);
+                listaPowiadomien.ElementAt(i).pokaz(new Point(x, y));
                 y += StaleKonfiguracyjne.rozmiarOdstepu + listaPowiadomien.ElementAt(i).getWysokosc();
             }
             for(; i < listaPowiadomien.Count; i++)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SymulatorLotniska.Samoloty;
 using SymulatorLotniska.ZarzadzanieSamolotami;
+using SymulatorLotniska.ZarzadzaniePowiadomieniami;
 
 namespace SymulatorLotniska.Operacje
 {
@@ -67,7 +68,7 @@ namespace SymulatorLotniska.Operacje
 
         public override void zatrzymaj()
         {
-
+            MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + startujacySamolot.getModelID() + " wzniósł się w powietrze. Teraz znajduje się w przestrzeni powietrznej nad lotniskiem", CharakterPowiadomienia.Pozytywne);
         }
     }
 }

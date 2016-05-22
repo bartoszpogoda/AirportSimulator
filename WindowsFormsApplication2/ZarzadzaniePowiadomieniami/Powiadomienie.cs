@@ -11,8 +11,7 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
     // ToDo: Powiadomienie raczej stanie sie interfejsem, (ew klasa abstrakcyjna)
     // i stworzym konkretne implementacje tej klasy np PowiadomienieZajeciePasaStartowego itp. ale w sumie nie wiem
     // troche dlugie te nazwy kappa a nie ma takiej potrzeby raczej 
-
-    // Panel bedize koloru w zaleznosci od charakteru komunikatu np czerwone jak sie cos spierniczy
+    
     public class Powiadomienie
     {
         Label textBox;
@@ -20,100 +19,70 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
         CharakterPowiadomienia charakterPowiadomienia;
         public Powiadomienie(String komunikat, CharakterPowiadomienia charakter)
         {
-
-            panel = new Panel();
             textBox = new Label();
-            this.charakterPowiadomienia = charakter;
-            schowaj();
-            
-            panel.BackColor = SystemColors.ControlLightLight;
-            panel.BorderStyle = BorderStyle.FixedSingle;
-
-
-            panel.Controls.Add(textBox);
-            panel.Location = new Point(0, 0);
-
             textBox.BorderStyle = BorderStyle.None;
             textBox.Location = new Point(3, 3);
-            //textBox.Size = new Size(151, 40);
             textBox.MaximumSize = new Size(StaleKonfiguracyjne.powiadomienieX, 0);
             textBox.AutoSize = true;
-            textBox.Text = komunikat + "\n" + DateTime.Now.ToString("                                    HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+            textBox.Text = komunikat + "\n" + DateTime.Now.ToString
+                ("                                    HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+            textBox.Click += onClick;
 
+
+            panel = new Panel();
+            schowaj();
+            panel.BorderStyle = BorderStyle.FixedSingle;
+            panel.Controls.Add(textBox);
             panel.Size = new Size(StaleKonfiguracyjne.powiadomienieX, textBox.Size.Height+6);
-
             panel.Parent = MenedzerPowiadomien.getInstance().getPanel();
             panel.Click += onClick;
-            textBox.Click += onClick;
-            
-
-
+            this.charakterPowiadomienia = charakter;
         }
+        public int getWysokosc() { return panel.Size.Height; }
 
+        /// <summary>
+        /// ukrywa panel powiadomienia
+        /// </summary>
         public void schowaj()
         {
             panel.Visible = false;
             panel.Enabled = false;
-
-            textBox.Visible = false;
-            textBox.Enabled = false;
         }
 
-        private void onClick(object sender, EventArgs e)
+        private void onClick(object sender, EventArgs e) 
         {
             usun();
             MenedzerPowiadomien.getInstance().usunPowiadomienie(this);
         }
 
-        public void pokazXY(int x, int y, bool czyPierwszy) // zwraca wysokosc jednak nei
+        /// <summary>
+        /// pokazuje powiadomienie w okreslonym miejscu
+        /// </summary> 
+        public void pokaz(Point pozycja) 
         {
-            panel.Location = new Point(x, y);
-
-
-            if (!czyPierwszy)
+            panel.Location = pozycja;
+            
+            switch (charakterPowiadomienia)
             {
-                switch (charakterPowiadomienia)
-                {
-                    case CharakterPowiadomienia.Zwykle:
-                    case CharakterPowiadomienia.Pozytywne:
-                        panel.BackColor = Color.DarkGray;
-                        break;
-                    case CharakterPowiadomienia.Negatywne:
-                        panel.BackColor = Color.PaleVioletRed;
-                        break;
-                }
-                    
-            }
-            else
-            {
-                switch (charakterPowiadomienia)
-                {
                     case CharakterPowiadomienia.Zwykle:
                         panel.BackColor = Color.White;
                         break;
                     case CharakterPowiadomienia.Pozytywne:
-                        panel.BackColor = Color.LightGreen;
+                        panel.BackColor = Color.FromArgb(162,252,140);
                         break;
                     case CharakterPowiadomienia.Negatywne:
-                        panel.BackColor = Color.HotPink;
+                        panel.BackColor = Color.FromArgb(252, 113, 113);
                         break;
-                }
             }
 
             panel.Visible = true;
             panel.Enabled = true;
-
-            textBox.Visible = true;
-            textBox.Enabled = true;
-            
-            
         }
 
-        public int getWysokosc() { return panel.Size.Height; }
+       
         
         public void usun()
         {
-
             panel.Visible = false;
             panel.Enabled = false;
 
@@ -122,7 +91,6 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
 
             textBox.Parent.Controls.Remove(textBox);
             panel.Parent.Controls.Remove(panel);
-
         }
 
     }

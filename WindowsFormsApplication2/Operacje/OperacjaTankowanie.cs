@@ -1,4 +1,5 @@
 ﻿using SymulatorLotniska.Samoloty;
+using SymulatorLotniska.ZarzadzaniePowiadomieniami;
 
 namespace SymulatorLotniska.Operacje
 {
@@ -52,7 +53,7 @@ namespace SymulatorLotniska.Operacje
 
         public override void zatrzymaj()
         {
-            System.Console.Write("Zatrzymywane tankowania");
+            MenedzerPowiadomien.getInstance().dodajPowiadomienie("Samolot " + samolot.getModelID() + " zostal zatankowany.", CharakterPowiadomienia.Pozytywne);
             samolot.setAktualnyStan(Stan.Hangar);
         }
 
