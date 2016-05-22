@@ -56,7 +56,7 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
         private void redraw()
         {
             int x = 0;
-            int y = 3*StaleKonfiguracyjne.rozmiarOdstepu;
+            int y = 3*ConfigurationConstants.interspaceSize;
 
             int i = 0;
 
@@ -67,7 +67,7 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
                     break;
                 }
                 listNotification.ElementAt(i).show(new Point(x, y));
-                y += StaleKonfiguracyjne.rozmiarOdstepu + listNotification.ElementAt(i).getHeight();
+                y += ConfigurationConstants.interspaceSize + listNotification.ElementAt(i).getHeight();
             }
             for(; i < listNotification.Count; i++)
             {

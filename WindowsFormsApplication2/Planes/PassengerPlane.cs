@@ -24,7 +24,7 @@ namespace SymulatorLotniska.Planes
         public int getMaxNumberOfPassengers() { return maxNumberOfPassengers; }
         public void setCurrentNumberOfPassengers(int newNumberOfPassengers) {
             this.currentNumberOfPassengers = newNumberOfPassengers;
-            handleAirportManager.oswiezInformacjeJezeliZaznaczony(this);
+            handleAirportManager.refreshInformationPanelIfSelected(this);
         }
        
         public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza

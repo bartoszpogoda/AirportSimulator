@@ -89,7 +89,7 @@ namespace SymulatorLotniska.Planes
             }
             else if (newState == State.Destroyed)
             {
-                currentStateImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(StaleKonfiguracyjne.adresZniszczony);
+                currentStateImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(ConfigurationConstants.adresZniszczony);
                 currentStateImage.Visible = true;
                 currentStateImage.Enabled = true;
                 currentOnTop = currentStateImage;
@@ -101,9 +101,8 @@ namespace SymulatorLotniska.Planes
                 currentOnTop = currentPlaneImage;
             }
 
-            handleAirportManager.uaktualnijPbZaznaczonyJesliZaznaczony(this);
-            handleAirportManager.narysujSamolotyZListy();
-            handleAirportManager.narysujSamolotyZListyPowietrze();
+            handleAirportManager.refreshPbSelectedIfSelected(this);
+            handleAirportManager.redraw();
 
         }
         public bool isVisible()

@@ -47,18 +47,18 @@ namespace SymulatorLotniska.Planes
         {
                 currentState = newState;
                 setStateImage(newState);
-                handleAirportManager.uaktualnijPrzyciskiJezeliZaznaczony(this);
-                handleAirportManager.oswiezInformacjeJezeliZaznaczony(this);
+                handleAirportManager.refreshButtonPanelIfSelected(this);
+                handleAirportManager.refreshInformationPanelIfSelected(this);
         }
         public int getCurrentFuelLevel() { return currentFuelLevel; }
         public void setCurrentFuelLevel(int fuelLevel) {
             currentFuelLevel = fuelLevel;
-            handleAirportManager.oswiezInformacjeJezeliZaznaczony(this);
+            handleAirportManager.refreshInformationPanelIfSelected(this);
         }
         public void setCurrentTechnicalInspectionProgress(int progress)
         {
             currentTechnicalInspectionProgress = progress;
-            handleAirportManager.oswiezInformacjeJezeliZaznaczony(this);
+            handleAirportManager.refreshInformationPanelIfSelected(this);
         }
         public int getFuelUsage() { return fuelUsage; }
         public bool isTanked()

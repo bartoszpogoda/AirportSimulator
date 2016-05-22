@@ -19,8 +19,8 @@ namespace SymulatorLotniska
             menedzerOperacji = new OperationManager(this);
             NotificationManager.getInstance().setPanel(groupBox1);
             menedzerSamolotow = new AirportManager(this, menedzerOperacji);
-            panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
-            panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
+            //panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
+            //panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
 
             this.labelTekstInformacje.Parent = panelInformacji;
             this.labelTekstInformacje.AutoSize = false;
@@ -37,11 +37,11 @@ namespace SymulatorLotniska
             this.labelHangar.AutoSize = false;
             this.labelHangar.Size = new System.Drawing.Size(labelHangar.Parent.Size.Width, this.labelHangar.Size.Height);
 
-            this.panelPasStartowy1.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width,2*StaleKonfiguracyjne.rozmiarOdstepu+StaleKonfiguracyjne.rozmiarObrazka+30); // wznoszenie 0 do 30 pikseli
+            this.panelPasStartowy1.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width,2*ConfigurationConstants.interspaceSize+ConfigurationConstants.imageSize+30); // wznoszenie 0 do 30 pikseli
             this.panelPasStartowy1.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
             this.panelPasStartowy1.BackColor = Color.Transparent;
 
-            this.panelPasStartowy2.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width, 2 * StaleKonfiguracyjne.rozmiarOdstepu + StaleKonfiguracyjne.rozmiarObrazka + 30); // wznoszenie 0 do 30 pikseli
+            this.panelPasStartowy2.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width, 2 * ConfigurationConstants.interspaceSize + ConfigurationConstants.imageSize + 30); // wznoszenie 0 do 30 pikseli
             this.panelPasStartowy2.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
             this.panelPasStartowy2.BackColor = Color.Transparent;
 
@@ -263,22 +263,22 @@ namespace SymulatorLotniska
 
         private void btnLewo_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.przesunListePowietrzeLewo();
+            menedzerSamolotow.getAirspace().scrollLeft();
         }
 
         private void btnPrawo_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.przesunListePowietrzePrawo();
+            menedzerSamolotow.getAirspace().scrollRight();
         }
 
         private void btnDol_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.przesunListeHangarDol();
+            menedzerSamolotow.getHangar().scrollDown();
         }
 
         private void btnGora_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.przesunListeHangarGora();
+            menedzerSamolotow.getHangar().scrollUp();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)

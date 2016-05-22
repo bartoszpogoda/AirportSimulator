@@ -23,7 +23,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         public PasStartowy(Control panel, int ID)
         {
             uchwytPanel = panel;
-            maxX = uchwytPanel.Size.Width - StaleKonfiguracyjne.rozmiarObrazka;
+            maxX = uchwytPanel.Size.Width - ConfigurationConstants.imageSize;
             maxY = 40;
             this.ID = ID;
         }

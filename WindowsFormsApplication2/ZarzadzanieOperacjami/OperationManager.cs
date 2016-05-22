@@ -13,7 +13,7 @@ namespace SymulatorLotniska.ZarzadzanieOperacjami
         {
             timer = new Timer(); 
             timer.Tick += new EventHandler(onTimerTick);
-            timer.Interval = StaleKonfiguracyjne.interwalTimera;
+            timer.Interval = ConfigurationConstants.interwalTimera;
             timer.Enabled = false; // timer ma sie właczać jak lista operacji nie jest pusta
 
             operationList = new OperationList();

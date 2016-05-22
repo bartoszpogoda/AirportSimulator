@@ -22,7 +22,7 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
             textBox = new Label();
             textBox.BorderStyle = BorderStyle.None;
             textBox.Location = new Point(3, 3);
-            textBox.MaximumSize = new Size(StaleKonfiguracyjne.powiadomienieX, 0);
+            textBox.MaximumSize = new Size(ConfigurationConstants.powiadomienieX, 0);
             textBox.AutoSize = true;
             textBox.Text = text + "\n" + DateTime.Now.ToString
                 ("                                    HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
@@ -33,7 +33,7 @@ namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
             hide();
             panel.BorderStyle = BorderStyle.FixedSingle;
             panel.Controls.Add(textBox);
-            panel.Size = new Size(StaleKonfiguracyjne.powiadomienieX, textBox.Size.Height+6);
+            panel.Size = new Size(ConfigurationConstants.powiadomienieX, textBox.Size.Height+6);
             panel.Parent = NotificationManager.getInstance().getPanel();
             panel.Click += onClick;
             this.notificationType = notificationType;

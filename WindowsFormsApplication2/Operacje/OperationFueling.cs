@@ -26,7 +26,7 @@ namespace SymulatorLotniska.Operacje
         {
             if (plane.getCurrentState() != State.Fueling) return false;
             
-            if (++intervalTimer < StaleKonfiguracyjne.interwalTankowanie) return true;
+            if (++intervalTimer < ConfigurationConstants.interwalTankowanie) return true;
 
             intervalTimer = 0;
                     
