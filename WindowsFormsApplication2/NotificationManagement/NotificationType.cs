@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
+namespace SymulatorLotniska.NotificationManagement
 {
-    public enum CharakterPowiadomienia
+    public enum NotificationType
     {
-
-        Zwykle,Pozytywne,Negatywne
-
+        Normal,Positive,Negative
     };
 }

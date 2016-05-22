@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Windows.Forms;
-using SymulatorLotniska.Samoloty;
-using SymulatorLotniska.ZarzadzanieOperacjami;
-using SymulatorLotniska.ZarzadzanieSamolotami;
+using SymulatorLotniska.Planes;
+using SymulatorLotniska.OperationManagement;
+using SymulatorLotniska.AirportManagement;
 using System.Drawing;
-using SymulatorLotniska.ZarzadzaniePowiadomieniami;
+using SymulatorLotniska.NotificationManagement;
 
 namespace SymulatorLotniska
 {
-    public partial class OknoAplikacji : Form
+    public partial class AppWindow : Form
     {
-        private MenedzerSamolotow menedzerSamolotow;
-        private MenedzerOperacji menedzerOperacji;
+        private AirportManager menedzerSamolotow;
+        private OperationManager menedzerOperacji;
 
-        public OknoAplikacji()
+        public AppWindow()
         {
             InitializeComponent();
-            menedzerOperacji = new MenedzerOperacji(this);
-            MenedzerPowiadomien.getInstance().setUchwytPanel(groupBox1);
-            menedzerSamolotow = new MenedzerSamolotow(this, menedzerOperacji);
-            panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
-            panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
+            menedzerOperacji = new OperationManager(this);
+            NotificationManager.getInstance().setPanel(groupBox1);
+            menedzerSamolotow = new AirportManager(this, menedzerOperacji);
+            //panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
+            //panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
 
             this.labelTekstInformacje.Parent = panelInformacji;
             this.labelTekstInformacje.AutoSize = false;
@@ -37,11 +37,11 @@ namespace SymulatorLotniska
             this.labelHangar.AutoSize = false;
             this.labelHangar.Size = new System.Drawing.Size(labelHangar.Parent.Size.Width, this.labelHangar.Size.Height);
 
-            this.panelPasStartowy1.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width,2*StaleKonfiguracyjne.rozmiarOdstepu+StaleKonfiguracyjne.rozmiarObrazka+30); // wznoszenie 0 do 30 pikseli
+            this.panelPasStartowy1.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width,2*ConfigurationConstants.interspaceSize+ConfigurationConstants.imageSize+30); // wznoszenie 0 do 30 pikseli
             this.panelPasStartowy1.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
             this.panelPasStartowy1.BackColor = Color.Transparent;
 
-            this.panelPasStartowy2.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width, 2 * StaleKonfiguracyjne.rozmiarOdstepu + StaleKonfiguracyjne.rozmiarObrazka + 30); // wznoszenie 0 do 30 pikseli
+            this.panelPasStartowy2.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width, 2 * ConfigurationConstants.interspaceSize + ConfigurationConstants.imageSize + 30); // wznoszenie 0 do 30 pikseli
             this.panelPasStartowy2.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
             this.panelPasStartowy2.BackColor = Color.Transparent;
 
@@ -54,30 +54,30 @@ namespace SymulatorLotniska
         public Panel getPasStartowy2() { return this.panelPasStartowy2; }
 
 
-        public void uaktualnijPrzyciskiPanelu(Miniatura aktualnieZaznaczony)
+        public void uaktualnijPrzyciskiPanelu(PlaneImage aktualnieZaznaczony)
         {
 
             // bedziemy potem wyłapywac też typ samolotu
 
             schowajWszystkiePrzyciskiPanelu();
 
-            if (!(aktualnieZaznaczony is Samolot) )
+            if (!(aktualnieZaznaczony is Plane) )
                 return;
             
-            Samolot aktualnieZaznaczonySamolot = (Samolot)aktualnieZaznaczony;
+            Plane aktualnieZaznaczonySamolot = (Plane)aktualnieZaznaczony;
             
 
-            Stan stanZaznaczonegoSamolotu = aktualnieZaznaczonySamolot.getAktualnyStan();
+            State stanZaznaczonegoSamolotu = aktualnieZaznaczonySamolot.getCurrentState();
             
 
-            if (stanZaznaczonegoSamolotu == Stan.Tankowanie)
+            if (stanZaznaczonegoSamolotu == State.Fueling)
             {
                // operationCancel.Text = "Zatrzymaj tankowanie";
                 operationCancel.Enabled = true;
                 operationCancel.Visible = true;
             
             }
-            else if(stanZaznaczonegoSamolotu == Stan.Hangar)
+            else if(stanZaznaczonegoSamolotu == State.Hangar)
             {
                 kontrola.Enabled = true;
                 kontrola.Visible = true;
@@ -86,30 +86,30 @@ namespace SymulatorLotniska
                 tankowanie.Enabled = true;
                 tankowanie.Visible = true;
 
-                if (aktualnieZaznaczonySamolot.czyZatankowany())
+                if (aktualnieZaznaczonySamolot.isTanked())
                     tankowanie.BackColor = System.Drawing.Color.YellowGreen;
                 else
                     tankowanie.BackColor = System.Drawing.Color.White;
 
-                if (aktualnieZaznaczonySamolot.PoKontroli)
+                if (aktualnieZaznaczonySamolot.isAfterTechnicalInspection())
                     kontrola.BackColor = System.Drawing.Color.YellowGreen;
                 else
                     kontrola.BackColor = System.Drawing.Color.White;
             }
-            else if(stanZaznaczonegoSamolotu == Stan.KontrolaTechniczna)
+            else if(stanZaznaczonegoSamolotu == State.TechnicalInspection)
             {
                 //operationCancel.Text = "Zatrzymaj kontrole";
                 operationCancel.Enabled = true;
                 operationCancel.Visible = true;
             }
-            else if (stanZaznaczonegoSamolotu == Stan.WPowietrzu)
+            else if (stanZaznaczonegoSamolotu == State.InAir)
             {
                 wyladuj.Enabled = true;
                 wyladuj.Visible = true;
                 odeslij.Enabled = true;
                 odeslij.Visible = true;
             }
-            else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
+            else if (stanZaznaczonegoSamolotu == State.OnRunwayBefTakeoff && aktualnieZaznaczonySamolot is PassengerPlane)
             {
                 btnStartowanie.Enabled = true;
                 btnStartowanie.Visible = true;
@@ -123,7 +123,7 @@ namespace SymulatorLotniska
                 btnM1C.Visible = true;
                 btnM5C.Enabled = true;
                 btnM5C.Visible = true;
-            } else if (stanZaznaczonegoSamolotu == Stan.PrzedStartem && aktualnieZaznaczonySamolot is SamolotOsobowy)
+            } else if (stanZaznaczonegoSamolotu == State.OnRunwayBefTakeoff && aktualnieZaznaczonySamolot is PassengerPlane)
             {
                 btnStartowanie.Enabled = true;
                 btnStartowanie.Visible = true;
@@ -176,18 +176,18 @@ namespace SymulatorLotniska
 
         private void tankowanie_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.tankujZaznaczony();
+            menedzerSamolotow.fuel();
         }
         // ugololnic nazwe
         private void tankowanieCancel_Click(object sender, EventArgs e)
         {
-           if(menedzerSamolotow.getZaznaczony() is Samolot) menedzerOperacji.zatrzymajOperacje((Samolot)menedzerSamolotow.getZaznaczony());
+           if(menedzerSamolotow.getZaznaczony() is Plane) menedzerOperacji.stopOperation((Plane)menedzerSamolotow.getZaznaczony());
         }
 
         private void kontrola_Click(object sender, EventArgs e)
         {
 
-            menedzerSamolotow.kontrolujTechnicznieZaznaczony();
+            menedzerSamolotow.inspectTechnically();
         }
         
 
@@ -203,17 +203,17 @@ namespace SymulatorLotniska
 
         private void naPasStartowy_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.wystawZaznaczonyNaWolnyPas();
+            menedzerSamolotow.placeSelectedOnRunway();
         }
 
         private void wyladuj_Click(object sender, EventArgs e)
         {
-           menedzerSamolotow.wyladujZaznaczonySamolot();
+           menedzerSamolotow.landSelectedPlane();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.wystartujZaznaczonySamolot();
+            menedzerSamolotow.takeoffSelectedPlane();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -263,22 +263,22 @@ namespace SymulatorLotniska
 
         private void btnLewo_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.przesunListePowietrzeLewo();
+            menedzerSamolotow.getAirspace().scrollLeft();
         }
 
         private void btnPrawo_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.przesunListePowietrzePrawo();
+            menedzerSamolotow.getAirspace().scrollRight();
         }
 
         private void btnDol_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.przesunListeHangarDol();
+            menedzerSamolotow.getHangar().scrollDown();
         }
 
         private void btnGora_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.przesunListeHangarGora();
+            menedzerSamolotow.getHangar().scrollUp();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -302,7 +302,7 @@ namespace SymulatorLotniska
 
         private void button4_Click(object sender, EventArgs e)
         {
-            MenedzerPowiadomien.getInstance().wyczysc();
+            NotificationManager.getInstance().clear();
         }
     }
 }

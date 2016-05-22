@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace SymulatorLotniska
 {
-    class StaleKonfiguracyjne
+    class ConfigurationConstants
     {
-        public const int rozmiarObrazka = 50;
-        public const int rozmiarOdstepu = 10;
-        public const int iloscKolumn = 4;
-        public const int iloscRzedow = 3;
-        public const int interwalTimera = 1; // 100 normalie
+        public const int imageSize = 50;
+        public const int interspaceSize = 10;
+        public const int interwalTimera = 16; // 100 normalie, jednak nie bo nie ma plynnsci
         public const int interwalTankowanie = 1;
         public const int ilePowiadomien = 5;
         public const int powiadomienieX = 170;
