@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
+namespace SymulatorLotniska.NotificationManagement
 {
     // ToDo: Powiadomienie raczej stanie sie interfejsem, (ew klasa abstrakcyjna)
     // i stworzym konkretne implementacje tej klasy np PowiadomienieZajeciePasaStartowego itp. ale w sumie nie wiem

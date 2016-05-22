@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SymulatorLotniska.ZarzadzanieSamolotami
+namespace SymulatorLotniska.AirportManagement
 {
     public class Hangar
     {
@@ -35,6 +35,7 @@ namespace SymulatorLotniska.ZarzadzanieSamolotami
         public void remove(Plane plane)
         {
             hangarContent.Remove(plane);
+            plane.hide();
             redraw();
         }
 

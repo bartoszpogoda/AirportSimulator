@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
 using SymulatorLotniska.Planes;
-using SymulatorLotniska.ZarzadzanieOperacjami;
-using SymulatorLotniska.ZarzadzanieSamolotami;
+using SymulatorLotniska.OperationManagement;
+using SymulatorLotniska.AirportManagement;
 using System.Drawing;
-using SymulatorLotniska.ZarzadzaniePowiadomieniami;
+using SymulatorLotniska.NotificationManagement;
 
 namespace SymulatorLotniska
 {
@@ -203,17 +203,17 @@ namespace SymulatorLotniska
 
         private void naPasStartowy_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.wystawZaznaczonyNaWolnyPas();
+            menedzerSamolotow.placeSelectedOnRunway();
         }
 
         private void wyladuj_Click(object sender, EventArgs e)
         {
-           menedzerSamolotow.wyladujZaznaczonySamolot();
+           menedzerSamolotow.landSelectedPlane();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.wystartujZaznaczonySamolot();
+            menedzerSamolotow.takeoffSelectedPlane();
         }
 
         private void button3_Click(object sender, EventArgs e)

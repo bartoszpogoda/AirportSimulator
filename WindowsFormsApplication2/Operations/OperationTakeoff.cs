@@ -1,19 +1,19 @@
 ﻿using SymulatorLotniska.Planes;
-using SymulatorLotniska.ZarzadzanieSamolotami;
-using SymulatorLotniska.ZarzadzaniePowiadomieniami;
+using SymulatorLotniska.AirportManagement;
+using SymulatorLotniska.NotificationManagement;
 
-namespace SymulatorLotniska.Operacje
+namespace SymulatorLotniska.Operations
 {
     class OperationTakeoff : IOperation
     {
         private Plane plane;
-        private PasStartowy runway;
+        private Runway runway;
         private AirportManager handleAirportManager;
 
         private int fuelUsageInterval;
         private int fuelUsageIntervalTimer;
 
-        public OperationTakeoff(Plane plane, PasStartowy runway, AirportManager handleAirportManager)
+        public OperationTakeoff(Plane plane, Runway runway, AirportManager handleAirportManager)
         {
             this.plane = plane;
             this.runway = runway;

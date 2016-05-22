@@ -1,4 +1,4 @@
-﻿using SymulatorLotniska.ZarzadzanieSamolotami;
+﻿using SymulatorLotniska.AirportManagement;
 using System.Windows.Forms;
 
 namespace SymulatorLotniska.Planes

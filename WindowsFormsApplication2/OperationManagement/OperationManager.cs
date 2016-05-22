@@ -1,9 +1,9 @@
-﻿using SymulatorLotniska.Operacje;
+﻿using SymulatorLotniska.Operations;
 using SymulatorLotniska.Planes;
 using System;
 using System.Windows.Forms;
 
-namespace SymulatorLotniska.ZarzadzanieOperacjami
+namespace SymulatorLotniska.OperationManagement
 {
     public class OperationManager
     {

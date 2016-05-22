@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SymulatorLotniska.ZarzadzaniePowiadomieniami
+namespace SymulatorLotniska.NotificationManagement
 {
     public enum NotificationType
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
-using SymulatorLotniska.ZarzadzanieSamolotami;
+using SymulatorLotniska.AirportManagement;
 
 namespace SymulatorLotniska.Planes
 {

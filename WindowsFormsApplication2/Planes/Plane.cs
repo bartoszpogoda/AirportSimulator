@@ -1,4 +1,4 @@
-﻿using SymulatorLotniska.ZarzadzanieSamolotami;
+﻿using SymulatorLotniska.AirportManagement;
 using System.Windows.Forms;
 using System;
 
@@ -13,7 +13,7 @@ namespace SymulatorLotniska.Planes
 
         //---parametry techniczne
         private int maxFuelLevel;
-        private int takeoffTime;           //w tickach
+        private int takeoffInterval;           //w tickach
         private int technicalInspectionTime;         //w tickach
         private int fuelUsage;         // co ile tickow spala 1l
         private string model;
@@ -30,8 +30,8 @@ namespace SymulatorLotniska.Planes
         //---gettery i settery
         public int getMaxFuelLevel()  { return maxFuelLevel; }
         public void setMaxFuelLevel(int maxFuelLevel) { this.maxFuelLevel = maxFuelLevel; }
-        public int getTakeoffTime() { return takeoffTime; }
-        public void setTakeoffTime(int takeoffTime) { this.takeoffTime = takeoffTime; }
+        public int getTakeoffInterval() { return takeoffInterval; }
+        public void setTakeoffTime(int takeoffTime) { this.takeoffInterval = takeoffTime; }
         public int getID() { return ID; }
         public string getModel() { return model; }
         public void setModel(string model) { this.model = model; }
@@ -83,7 +83,7 @@ namespace SymulatorLotniska.Planes
         {
             ID = IDcounter++;
 
-            this.takeoffTime = czasStartu;
+            this.takeoffInterval = czasStartu;
             this.model = model;
             this.maxFuelLevel = maksIloscPaliwa;
             this.technicalInspectionTime = czasKontroli;

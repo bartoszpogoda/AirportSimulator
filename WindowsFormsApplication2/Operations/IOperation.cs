@@ -1,6 +1,6 @@
 ﻿using SymulatorLotniska.Planes;
 
-namespace SymulatorLotniska.Operacje
+namespace SymulatorLotniska.Operations
 {
     public abstract class IOperation
     {

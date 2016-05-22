@@ -1,7 +1,7 @@
 ﻿using SymulatorLotniska.Planes;
-using SymulatorLotniska.ZarzadzaniePowiadomieniami;
+using SymulatorLotniska.NotificationManagement;
 
-namespace SymulatorLotniska.Operacje
+namespace SymulatorLotniska.Operations
 {
     class OperationFueling : IOperation
     {
