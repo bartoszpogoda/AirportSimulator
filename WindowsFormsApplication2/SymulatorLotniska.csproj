@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Beata\Desktop\WebSite\</PublishUrl>
+    <PublishUrl>C:\Users\Bartek PC\Desktop\Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>35</ApplicationRevision>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -94,7 +94,9 @@
     <Compile Include="NotificationManagement\NotificationManager.cs" />
     <Compile Include="NotificationManagement\Notification.cs" />
     <Compile Include="AirportManagement\Airspace.cs" />
-    <Compile Include="AirportManagement\FabrykaSamolotow.cs" />
+    <Compile Include="AirportManagement\FabrykaSamolotow.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="OperationManagement\OperationListElement.cs" />
     <Compile Include="Operations\IOperation.cs" />
     <Compile Include="OperationManagement\OperationList.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Planes\PassengerPlane.cs" />
     <Compile Include="ConfigurationConstants.cs" />
     <Compile Include="AirportManagement\Runway.cs" />
+    <Compile Include="Resources\ImageColections.cs" />
     <EmbeddedResource Include="AirportManagement\PlaneFactory.resx">
       <DependentUpon>PlaneFactory.cs</DependentUpon>
     </EmbeddedResource>
@@ -146,7 +149,9 @@
     <None Include="WindowsFormsApplication2_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\samolot1.png" />
@@ -170,6 +175,13 @@
     <None Include="Resources\btnGora.png" />
     <None Include="Resources\btnLewo.png" />
     <None Include="Resources\btnPrawo.png" />
+    <None Include="Resources\P1.png" />
+    <None Include="Resources\P2.png" />
+    <None Include="Resources\T1.png" />
+    <None Include="Resources\T2.png" />
+    <None Include="Resources\T3.png" />
+    <None Include="Resources\T4.png" />
+    <None Include="Resources\btnTick.png" />
     <Content Include="Resources\zn.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>

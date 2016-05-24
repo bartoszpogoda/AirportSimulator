@@ -36,6 +36,11 @@ namespace SymulatorLotniska.Planes
             currentOnTop = currentPlaneImage;
         }
 
+        public void setPlaneImage(string adress)
+        {
+            currentPlaneImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(adress);
+        }
+
         public PictureBox getPlaneImage() { return currentPlaneImage; }
         public Control getCurrentOnTop() { return currentOnTop; }
         
