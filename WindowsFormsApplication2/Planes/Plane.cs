@@ -28,6 +28,7 @@ namespace SymulatorLotniska.Planes
         //---------------------------
 
         //---gettery i settery
+        public void setFuelUsage(int fuelUsage) { this.fuelUsage = fuelUsage; }
         public int getMaxFuelLevel()  { return maxFuelLevel; }
         public void setMaxFuelLevel(int maxFuelLevel) { this.maxFuelLevel = maxFuelLevel; }
         public int getTakeoffInterval() { return takeoffInterval; }
@@ -70,6 +71,13 @@ namespace SymulatorLotniska.Planes
         //---------------------------
 
         //--Konstruktory
+        
+        public Plane(AirportManager handleAirportManager) : base(handleAirportManager)
+        {
+            ID = IDcounter++;
+
+        }
+
         public Plane(AirportManager uchwytMenedzerSamolotow, Control parent)
             : base(uchwytMenedzerSamolotow, parent)
         {

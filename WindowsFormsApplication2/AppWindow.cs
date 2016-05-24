@@ -46,6 +46,8 @@ namespace SymulatorLotniska
             this.panelPasStartowy2.BackColor = Color.Transparent;
 
             schowajWszystkiePrzyciskiPanelu();
+            hideFactoryPanel();
+
         }
         public Panel getPanelSamolotowPowietrze() { return this.panelSamolotyWPowietrzu; }
         public Panel getPanelSamolotow() { return this.panelSamolotow;  }
@@ -53,7 +55,185 @@ namespace SymulatorLotniska
         public Panel getPasStartowy1() { return this.panelPasStartowy1; }
         public Panel getPasStartowy2() { return this.panelPasStartowy2; }
 
+        // Potem to przepiszemy jako osobna klasa Factory : Panel (dziedziczy po Panel)
+        // FACTORY PANEL LOGIC --------------------------------------------------------------------------------------OOOOOOOOOOOOOOOOOOOOO
+        enum PlaneType { Passenger, Military, Transport, NotSelected}
 
+        private PlaneType currentFactoring = PlaneType.NotSelected;
+
+        public void showFactoryPanel()
+        {
+            this.mainPlaneFactoryPanel.Visible = true;
+            this.mainPlaneFactoryPanel.Enabled = true;
+            rbPassenger.Checked = true;
+            updateControls();
+        }
+
+        public void hideFactoryPanel()
+        {
+            this.mainPlaneFactoryPanel.Visible = false;
+            this.mainPlaneFactoryPanel.Enabled = false;
+        }
+
+        public void resetControls()
+        {
+            textBoxModel.ResetText();
+        
+            textBoxFuelUsage.ResetText();
+
+            textBoxMaxFuelLevel.ResetText();
+
+            textBoxTakeoffInterval.ResetText();
+
+            textBoxWeaponType.ResetText();
+
+            textBoxSpecific.ResetText();
+        }
+
+        public void updateControls()
+        {
+            resetControls();
+
+            switch (currentFactoring)
+            {
+                case PlaneType.NotSelected:
+
+                    labelModel.Visible = false;
+                    textBoxModel.Visible = false;
+
+                    labelFuelUsage.Visible = false;
+                    textBoxFuelUsage.Visible = false;
+
+                    labelMaxFuelLevel.Visible = false;
+                    textBoxMaxFuelLevel.Visible = false;
+
+                    labelTakeoffInterval.Visible = false;
+                    textBoxTakeoffInterval.Visible = false;
+
+                    labelWeaponType.Visible = false;
+                    textBoxWeaponType.Visible = false;
+
+                    labelSpecific.Visible = false;
+                    textBoxSpecific.Visible = false;
+
+                    return;
+
+                case PlaneType.Passenger:
+                    
+                    labelSpecific.Text = "Maksymalna ilość pasażerow";
+                    labelSpecific.Visible = true;
+                    textBoxSpecific.Visible = true;
+
+                    labelWeaponType.Visible = false;
+                    textBoxWeaponType.Visible = false;
+
+                    break;
+            }
+
+            labelModel.Visible = true;
+            textBoxModel.Visible = true;
+
+            labelFuelUsage.Visible = true;
+            textBoxFuelUsage.Visible = true;
+
+            labelMaxFuelLevel.Visible = true;
+            textBoxMaxFuelLevel.Visible = true;
+
+            labelTakeoffInterval.Visible = true;
+            textBoxTakeoffInterval.Visible = true;
+        }
+       
+   
+        private void rbPassenger_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbPassenger.Checked == true)
+            {
+                currentFactoring = PlaneType.Passenger;
+                updateControls();
+            }
+        }
+
+        private void rbTransport_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private bool validateData()
+        {
+            if(textBoxModel.Text == "")
+            {
+                MessageBox.Show("Podaj model samolotu!");
+                return false;
+            }
+            if (textBoxFuelUsage.Text == "")
+            {
+                MessageBox.Show("Określ spalanie samolotu!");
+                return false;
+            }
+            if (textBoxMaxFuelLevel.Text == "")
+            {
+                MessageBox.Show("Określ pojemność baku samolotu!");
+                return false;
+            }
+            if (textBoxTakeoffInterval.Text == "")
+            {
+                MessageBox.Show("Określ czas startu samolotu!");
+                return false;
+            }
+
+           /* int result;
+            if (!Int32.TryParse(labelFuelUsage.Text,out result))
+            {
+                MessageBox.Show("Wartość spalania musi być liczbą!");
+                return false;
+            }*/
+
+
+            return true;
+        }
+
+        private void buttonCreateInHangar_Click(object sender, EventArgs e)
+        {
+            if(!validateData()) return;
+
+            Plane factoriedPlane;
+
+            if (currentFactoring == PlaneType.Passenger)
+            {
+                factoriedPlane = new PassengerPlane(menedzerSamolotow);
+            }
+            else factoriedPlane = new PassengerPlane(menedzerSamolotow);
+
+
+            factoriedPlane.setModel(textBoxModel.Text);
+            factoriedPlane.setFuelUsage(Int32.Parse(textBoxFuelUsage.Text));
+            factoriedPlane.setMaxFuelLevel(Int32.Parse(textBoxMaxFuelLevel.Text));
+            factoriedPlane.setTakeoffTime(Int32.Parse(textBoxTakeoffInterval.Text));
+            factoriedPlane.setAfterTechnicalInspection(false);
+
+            if (currentFactoring == PlaneType.Passenger)
+            {
+               ((PassengerPlane)factoriedPlane).setMaxNumberOfPassengers(Int32.Parse(textBoxSpecific.Text));
+            }
+
+            //factoriedPlane.setParent(panelSamolotow);
+            menedzerSamolotow.getHangar().addToHangar(factoriedPlane);
+            hideFactoryPanel();
+
+        }
+
+        private void buttonCreateInAir_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            hideFactoryPanel();
+        }
+
+
+        // --------------------- --------------------------------------------------------------------------------------OOOOOOOOOOOOOOOOOOOOO
         public void uaktualnijPrzyciskiPanelu(PlaneImage aktualnieZaznaczony)
         {
 
@@ -104,10 +284,10 @@ namespace SymulatorLotniska
             }
             else if (stanZaznaczonegoSamolotu == State.InAir)
             {
-                wyladuj.Enabled = true;
-                wyladuj.Visible = true;
-                odeslij.Enabled = true;
-                odeslij.Visible = true;
+                btnLanding.Enabled = true;
+                btnLanding.Visible = true;
+                btnSendAway.Enabled = true;
+                btnSendAway.Visible = true;
             }
             else if (stanZaznaczonegoSamolotu == State.OnRunwayBefTakeoff && aktualnieZaznaczonySamolot is PassengerPlane)
             {
@@ -146,8 +326,6 @@ namespace SymulatorLotniska
             tankowanie.Visible = false;
             operationCancel.Enabled = false;
             operationCancel.Visible = false;
-            wyladuj.Enabled = false;
-            wyladuj.Visible = false;
             btnStartowanie.Enabled = false;
             btnStartowanie.Visible = false;
             doHangaru.Visible = false;
@@ -160,8 +338,11 @@ namespace SymulatorLotniska
             btnM1C.Visible = false;
             btnM5C.Enabled = false;
             btnM5C.Visible = false;
-            odeslij.Enabled = false;
-            odeslij.Visible = false;
+            btnLanding.Enabled = false;
+            btnLanding.Visible = false;
+            btnSendAway.Enabled = false;
+            btnSendAway.Visible = false;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -190,17 +371,6 @@ namespace SymulatorLotniska
             menedzerSamolotow.inspectTechnically();
         }
         
-
-        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void naPasStartowy_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.placeSelectedOnRunway();
@@ -216,21 +386,11 @@ namespace SymulatorLotniska
             menedzerSamolotow.takeoffSelectedPlane();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void odeslij_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.odeslijZaznaczonySamolot();
         }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void wprowadzenieLudzi_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.wprowadzLudzi(1);
@@ -256,11 +416,6 @@ namespace SymulatorLotniska
             menedzerSamolotow.wyprowadzLudzi(5);
         }
 
-        private void pasekPostepu_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnLewo_Click(object sender, EventArgs e)
         {
             menedzerSamolotow.getAirspace().scrollLeft();
@@ -281,28 +436,36 @@ namespace SymulatorLotniska
             menedzerSamolotow.getHangar().scrollUp();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click_2(object sender, EventArgs e)
-        {
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             NotificationManager.getInstance().clear();
         }
+        
+        private void btnLanding_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.landSelectedPlane();
+        }
+
+        private void btnSendAway_Click(object sender, EventArgs e)
+        {
+            menedzerSamolotow.odeslijZaznaczonySamolot();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            showFactoryPanel();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+      
     }
 }

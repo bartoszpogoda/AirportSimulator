@@ -7,6 +7,14 @@ namespace SymulatorLotniska.Planes
     {
         private int maxNumberOfPassengers;
         private int currentNumberOfPassengers;
+
+        public PassengerPlane(AirportManager handleAirportManager)
+        : base(handleAirportManager)
+        {
+            maxNumberOfPassengers = 0;
+            currentNumberOfPassengers = 0;
+        }
+
         public PassengerPlane(AirportManager handleAirportManager, Control parentControl)
         : base(handleAirportManager, parentControl)
         {
@@ -26,6 +34,7 @@ namespace SymulatorLotniska.Planes
             this.currentNumberOfPassengers = newNumberOfPassengers;
             handleAirportManager.refreshInformationPanelIfSelected(this);
         }
+        public void setMaxNumberOfPassengers(int maxNumberOfPassengers) { this.maxNumberOfPassengers = maxNumberOfPassengers; }
        
         public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza
         {

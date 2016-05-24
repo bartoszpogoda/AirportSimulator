@@ -12,7 +12,7 @@ namespace SymulatorLotniska.Planes
         private Control currentOnTop;
 
         protected AirportManager handleAirportManager;
-        public PlaneImage(AirportManager handleAirportManager, Control parentControl, String imageName = "samolot1")
+        public PlaneImage(AirportManager handleAirportManager, Control parentControl = null, String imageName = "samolot1")
         {
             this.handleAirportManager = handleAirportManager;
 
