@@ -45,10 +45,10 @@ namespace SymulatorLotniska.Planes
                     budowanyString += "Stan: " + "Lądowanie\n";
                     break;
                 case State.OnRunwayAftLanding:
-                    budowanyString += "Stan: " + "Przed startem\n";
+                    budowanyString += "Stan: " + "Po wylądowaniu\n";
                     break;
                 case State.OnRunwayBefTakeoff:
-                    budowanyString += "Stan: " + "Po wylądowaniu\n";
+                    budowanyString += "Stan: " + "Przed startem\n";
                     break;
                 case State.Takeoff:
                     budowanyString += "Stan: " + "Startowanie\n";

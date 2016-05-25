@@ -323,5 +323,10 @@ namespace SymulatorLotniska
         {
 
         }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            menedzerSamolotow.dbgDodajSamolot(0);
+        }
     }
 }

@@ -36,6 +36,12 @@ namespace SymulatorLotniska.AirportManagement
         {
             hangarContent.Remove(plane);
             plane.hide();
+
+            if (hangarContent.Count / columnCount - rowCount + 1 <= firstRowToDraw)
+            {
+                firstRowToDraw = hangarContent.Count / columnCount - rowCount;
+            }
+
             redraw();
         }
 
@@ -69,9 +75,7 @@ namespace SymulatorLotniska.AirportManagement
         {
             if (hangarContent.Count == 0) return;
 
-            int i = 0;
-            
-            int rowsToSkip = firstRowToDraw;
+            int i = 0, rowsToSkip = firstRowToDraw;
 
             while(--rowsToSkip >= 0)
             {
@@ -92,18 +96,7 @@ namespace SymulatorLotniska.AirportManagement
 
                     hangarContent.ElementAt(i).getPlaneImage().Location = getPosition(currentRow, currentColumn);
                     hangarContent.ElementAt(i).show();
-
-                    // tutaj cos w stylu tego jesli nie bedzie dzialac
-
-                    /*
                     
-                    if (listaSamolotow.aktualnyPodIteratorem().Equals(selectedPlane)) {
-                        pbSelectedPlane.Parent = selectedPlane.getCurrentOnTop();
-                        pbSelectedPlane.Location = new System.Drawing.Point(0, 0);
-                        pbSelectedPlane.Visible = true;
-                    }
-                     */
-
                     i++;
                 }
             }

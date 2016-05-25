@@ -98,10 +98,6 @@ namespace SymulatorLotniska.AirportManagement
             else
             {
                 hangar.addToHangar(new PassengerPlane(this, handleAppWindow.getPanelSamolotow(), 50, 50, 1 , 30, 100, "Boen4ing707"));
-                hangar.addToHangar(new PassengerPlane(this, handleAppWindow.getPanelSamolotow(), 50, 50, 2, 30, 100, "Boen5ing707"));
-                hangar.addToHangar(new PassengerPlane(this, handleAppWindow.getPanelSamolotow(), 50, 50, 3, 30, 100, "Boen6ing707"));
-                hangar.addToHangar(new PassengerPlane(this, handleAppWindow.getPanelSamolotow(), 50, 50, 4, 30, 100, "Boen5ing707"));
-                hangar.addToHangar(new PassengerPlane(this, handleAppWindow.getPanelSamolotow(), 50, 50, 5, 30, 100, "Boen6ing707"));
             }
         }
 

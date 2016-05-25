@@ -62,10 +62,12 @@ namespace SymulatorLotniska
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
             this.panelPrzyciskow.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSamolotow
@@ -364,6 +366,7 @@ namespace SymulatorLotniska
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Location = new System.Drawing.Point(522, 246);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(170, 286);
@@ -395,6 +398,16 @@ namespace SymulatorLotniska
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(27, 128);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // AppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -422,6 +435,7 @@ namespace SymulatorLotniska
             this.panelSamolotyWPowietrzu.ResumeLayout(false);
             this.panelSamolotyWPowietrzu.PerformLayout();
             this.panelPrzyciskow.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -461,6 +475,7 @@ namespace SymulatorLotniska
         private Panel panel1;
         private Label label1;
         private Button button6;
+        private Button button2;
     }
 }
 
