@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SymulatorLotniska.Resources;
 using System.Drawing;
 
 namespace SymulatorLotniska.AirportManagement
@@ -23,6 +22,8 @@ namespace SymulatorLotniska.AirportManagement
         {
             return instance;
         }
+
+        private PlaneType currentFactoring = PlaneType.Passenger;
 
         private RadioButton rbMilitary;
         private RadioButton rbTransport;
@@ -61,7 +62,7 @@ namespace SymulatorLotniska.AirportManagement
 
         private PictureBox[] images;
         
-        enum PlaneType { Passenger, Military, Transport, NotSelected }
+        enum PlaneType { Passenger, Military, Transport }
 
         private FabrykaSamolotow(AppWindow handleAppWindow,AirportManager handleAirportManager)
         {
@@ -183,6 +184,7 @@ namespace SymulatorLotniska.AirportManagement
             this.rbMilitary.TabStop = true;
             this.rbMilitary.Text = "Samolot wojskowy";
             this.rbMilitary.UseVisualStyleBackColor = true;
+            this.rbMilitary.CheckedChanged += new System.EventHandler(this.rbMilitary_CheckedChanged);
             // 
             // imageChoosePanel
             // 
@@ -379,9 +381,19 @@ namespace SymulatorLotniska.AirportManagement
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 
+            labelModel.Visible = true;
+            textBoxModel.Visible = true;
+
+            labelFuelUsage.Visible = true;
+            textBoxFuelUsage.Visible = true;
+
+            labelMaxFuelLevel.Visible = true;
+            textBoxMaxFuelLevel.Visible = true;
+
+            labelTakeoffInterval.Visible = true;
+            textBoxTakeoffInterval.Visible = true;
 
             rbPassenger.Checked = true;
-            updateControls();
 
         }
 
@@ -417,8 +429,7 @@ namespace SymulatorLotniska.AirportManagement
                     return "error";
             }
         }
-
-        private PlaneType currentFactoring = PlaneType.NotSelected;
+        
 
         public void showFactoryPanel()
         {
@@ -445,6 +456,7 @@ namespace SymulatorLotniska.AirportManagement
             chosenImageHandle = null;
             chosenImage.Visible = false;
             chosenImageMark.Parent = null;
+            chosenImageName = null;
         }
 
         public void updateImages()
@@ -496,28 +508,6 @@ namespace SymulatorLotniska.AirportManagement
 
             switch (currentFactoring)
             {
-                case PlaneType.NotSelected:
-
-                    labelModel.Visible = false;
-                    textBoxModel.Visible = false;
-
-                    labelFuelUsage.Visible = false;
-                    textBoxFuelUsage.Visible = false;
-
-                    labelMaxFuelLevel.Visible = false;
-                    textBoxMaxFuelLevel.Visible = false;
-
-                    labelTakeoffInterval.Visible = false;
-                    textBoxTakeoffInterval.Visible = false;
-
-                    labelWeaponType.Visible = false;
-                    textBoxWeaponType.Visible = false;
-
-                    labelSpecific.Visible = false;
-                    textBoxSpecific.Visible = false;
-
-                    return;
-
                 case PlaneType.Passenger:
 
                     labelSpecific.Text = "Maksymalna ilość pasażerow";
@@ -528,19 +518,29 @@ namespace SymulatorLotniska.AirportManagement
                     textBoxWeaponType.Visible = false;
 
                     break;
+                case PlaneType.Transport:
+                    labelSpecific.Text = "Maksymalna ładowność (kg)";
+                    labelSpecific.Visible = true;
+                    textBoxSpecific.Visible = true;
+
+                    labelWeaponType.Visible = false;
+                    textBoxWeaponType.Visible = false;
+
+                    break;
+                case PlaneType.Military:
+
+                    labelSpecific.Text = "Maksymalna ilość amunicji";
+                    labelSpecific.Visible = true;
+                    textBoxSpecific.Visible = true;
+
+                    labelWeaponType.Visible = true;
+                    textBoxWeaponType.Visible = true;
+
+                    break;
+
+
             }
-
-            labelModel.Visible = true;
-            textBoxModel.Visible = true;
-
-            labelFuelUsage.Visible = true;
-            textBoxFuelUsage.Visible = true;
-
-            labelMaxFuelLevel.Visible = true;
-            textBoxMaxFuelLevel.Visible = true;
-
-            labelTakeoffInterval.Visible = true;
-            textBoxTakeoffInterval.Visible = true;
+            
         }
 
 
@@ -564,43 +564,105 @@ namespace SymulatorLotniska.AirportManagement
             }
         }
 
+        private void rbMilitary_CheckedChanged(object sender, EventArgs e)
+        {
+            if(rbMilitary.Checked == true)
+            {
+                currentFactoring = PlaneType.Military;
+                updateControls();
+                updateImages();
+            }
+        }
+
         private bool validateData()
         {
-            if (chosenImageName == "")
+            if (chosenImageName == null)
             {
-                MessageBox.Show("Wybierz miniature!");
+                MessageBox.Show("Wybierz miniaturę");
                 return false;
             }
-
-
             if (textBoxModel.Text == "")
             {
-                MessageBox.Show("Podaj model samolotu!");
+                MessageBox.Show("Podaj model samolotu");
                 return false;
             }
             if (textBoxFuelUsage.Text == "")
             {
-                MessageBox.Show("Określ spalanie samolotu!");
+                MessageBox.Show("Określ spalanie samolotu");
                 return false;
             }
             if (textBoxMaxFuelLevel.Text == "")
             {
-                MessageBox.Show("Określ pojemność baku samolotu!");
+                MessageBox.Show("Określ pojemność baku samolotu");
                 return false;
             }
             if (textBoxTakeoffInterval.Text == "")
             {
-                MessageBox.Show("Określ czas startu samolotu!");
+                MessageBox.Show("Określ czas startu samolotu");
+                return false;
+            }
+            if(!textBoxFuelUsage.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Spalanie samolotu musi być liczbą całkowitą");
+                return false;
+            }
+            if (!textBoxMaxFuelLevel.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Pojemność baku samolotu musi być liczbą całkowitą");
+                return false;
+            }
+            if (!textBoxTakeoffInterval.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Czas startu samolotu musi być liczbą całkowitą");
                 return false;
             }
 
-            /* int result;
-             if (!Int32.TryParse(labelFuelUsage.Text,out result))
-             {
-                 MessageBox.Show("Wartość spalania musi być liczbą!");
-                 return false;
-             }*/
+            if(currentFactoring == PlaneType.Passenger)
+            {
+                if (textBoxSpecific.Text == "")
+                {
+                    MessageBox.Show("Określ maksymalna ilość pasażerów");
+                    return false;
+                }
+                if (!textBoxSpecific.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Maksymalna ilość pasażerów musi być liczbą całkowitą");
+                    return false;
+                }
+            }
+            else if(currentFactoring == PlaneType.Transport)
+            {
+                if (textBoxSpecific.Text == "")
+                {
+                    MessageBox.Show("Określ maksymalna pojemność samolotu");
+                    return false;
+                }
+                if (!textBoxSpecific.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Maksymalna pojemność samolotu musi być liczbą całkowitą");
+                    return false;
+                }
+            }
+            else if(currentFactoring == PlaneType.Military)
+            {
+               
+                if (textBoxWeaponType.Text == "")
+                {
+                    MessageBox.Show("Określ typ broni");
+                    return false;
+                }
 
+                if (textBoxSpecific.Text == "")
+                {
+                    MessageBox.Show("Określ maksymalną ilość amunicji");
+                    return false;
+                }
+                if (!textBoxSpecific.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Maksymalna ilość amunicji musi być liczbą całkowitą");
+                    return false;
+                }
+            }
 
             return true;
         }
@@ -614,8 +676,19 @@ namespace SymulatorLotniska.AirportManagement
             if (currentFactoring == PlaneType.Passenger)
             {
                 factoriedPlane = new PassengerPlane(handleAirportManager);
+                ((PassengerPlane)factoriedPlane).setMaxNumberOfPassengers(Int32.Parse(textBoxSpecific.Text));
             }
-            else factoriedPlane = new PassengerPlane(handleAirportManager);
+            else if (currentFactoring == PlaneType.Transport)
+            {
+                factoriedPlane = new TransportPlane(handleAirportManager);
+                ((TransportPlane)factoriedPlane).setMaxStorageCapacity(Int32.Parse(textBoxSpecific.Text));
+            }
+            else
+            {
+                factoriedPlane = new MilitaryPlane(handleAirportManager);
+                ((MilitaryPlane)factoriedPlane).setWeaponType(textBoxWeaponType.Text);
+                ((MilitaryPlane)factoriedPlane).setMaxAmmo(Int32.Parse(textBoxSpecific.Text));
+            }
 
             factoriedPlane.setPlaneImage(chosenImageName);
             factoriedPlane.setModel(textBoxModel.Text);
@@ -623,43 +696,17 @@ namespace SymulatorLotniska.AirportManagement
             factoriedPlane.setMaxFuelLevel(Int32.Parse(textBoxMaxFuelLevel.Text));
             factoriedPlane.setTakeoffTime(Int32.Parse(textBoxTakeoffInterval.Text));
             factoriedPlane.setAfterTechnicalInspection(false);
-
-            if (currentFactoring == PlaneType.Passenger)
-            {
-                ((PassengerPlane)factoriedPlane).setMaxNumberOfPassengers(Int32.Parse(textBoxSpecific.Text));
-            }
-
-            //factoriedPlane.setParent(panelSamolotow);
+            
             handleAirportManager.getHangar().addToHangar(factoriedPlane);
             hideFactoryPanel();
             resetControls();
             handleAppWindow.planeFactoryButtonToTop();
 
         }
-
-        private void buttonCreateInAir_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            hideFactoryPanel();
-            handleAppWindow.planeFactoryButtonToTop();
-        }
-
-        
-        // tutaj bedzie logika tworzenia samolotow nowych oraz 
-        // generatory ustalonych
-
-        public static Plane wyprodukujBoening767(AirportManager uchwytMenedzerSamolotow, Control parent)
-        {
-            //Samolot samolot = new SamolotOsobowy(uchwytMenedzerSamolotow,parent,"boening767");
-
-            // konfiguracja
-
-            //return samolot;
-            return null;
+            resetControls();
         }
         
     }

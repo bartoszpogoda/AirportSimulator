@@ -99,9 +99,9 @@ namespace SymulatorLotniska.Planes
             this.currentFuelLevel = 0;
             this.afterTechnicalInspection = false;
        }
-       //--------------
-         
-        abstract public string getInformation();  
+        //--------------
+
+        abstract public string getInformation();
     }
 
 }

@@ -38,7 +38,7 @@ namespace SymulatorLotniska.Planes
        
         public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza
         {
-            string budowanyString = "";         // timer.Interval = 100;
+            string budowanyString = "";       
 
             budowanyString += "Model: " + getModel() + " (ID: " + getID() + ")\n";
             budowanyString += "Typ: Samolot osobowy \n";
@@ -47,12 +47,12 @@ namespace SymulatorLotniska.Planes
             {
                 case State.Hangar:
                     budowanyString += "Stan: " + "W hangarze\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "l/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
                     budowanyString += "Po kontroli technicznej: " + (isAfterTechnicalInspection() ? "Tak" : "Nie") + "\n";
                     break;
                 case State.Fueling:
                     budowanyString += "Stan: " + "Tankowanie\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "l/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
                     break;
                 case State.TechnicalInspection:
                     budowanyString += "Stan: " + "Podczas kontroli technicznej\n";
@@ -60,24 +60,27 @@ namespace SymulatorLotniska.Planes
                     break;
                 case State.InAir:
                     budowanyString += "Stan: " + "W locie nad lotniskiem\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "l/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
                     break;
                 case State.Landing:
                     budowanyString += "Stan: " + "Lądowanie\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "l/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
                     break;
                 case State.OnRunwayAftLanding:
-                    budowanyString += "Stan: " + "Na pasie startowym\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "l/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Stan: " + "Po wylądowaniu\n";
+                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
                     break;
                 case State.OnRunwayBefTakeoff:
-                    budowanyString += "Stan: " + "Na pasie startowym\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "l/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Stan: " + "Przed startem\n";
+                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
                     budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
                     break;
                 case State.Takeoff:
                     budowanyString += "Stan: " + "Startowanie\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "l/" + getMaxFuelLevel() + "l\n";
+                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
                     budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
                     break;
 

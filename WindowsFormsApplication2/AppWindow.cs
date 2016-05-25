@@ -5,7 +5,6 @@ using SymulatorLotniska.OperationManagement;
 using SymulatorLotniska.AirportManagement;
 using System.Drawing;
 using SymulatorLotniska.NotificationManagement;
-using SymulatorLotniska.Resources;
 
 namespace SymulatorLotniska
 {
@@ -78,10 +77,8 @@ namespace SymulatorLotniska
 
             if (stanZaznaczonegoSamolotu == State.Fueling)
             {
-               // operationCancel.Text = "Zatrzymaj tankowanie";
                 operationCancel.Enabled = true;
                 operationCancel.Visible = true;
-            
             }
             else if(stanZaznaczonegoSamolotu == State.Hangar)
             {
