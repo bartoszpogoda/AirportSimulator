@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SymulatorLotniska
 {
-    class ConfigurationConstants
+    class Constants
     {
         public const int imageSize = 50;
         public const int interspaceSize = 10;
-        public const int interwalTimera = 15; // 100 normalie, jednak nie bo nie ma plynnsci
-        public const int interwalTankowanie = 1;
+        public const int interwalTimera = 15; 
+        public const int interwalTankowanie = 10;
         public const int ilePowiadomien = 5;
         public const int powiadomienieX = 170;
 

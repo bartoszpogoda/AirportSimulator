@@ -10,11 +10,9 @@ namespace SymulatorLotniska.Planes
         private PictureBox currentPlaneImage;
         private PictureBox currentStateImage;
         private Control currentOnTop;
-
-        protected AirportManager handleAirportManager;
-        public PlaneImage(AirportManager handleAirportManager, Control parentControl = null, String imageName = "samolot1")
+        
+        public PlaneImage(Control parentControl = null, String imageName = "samolot1")
         {
-            this.handleAirportManager = handleAirportManager;
 
             currentPlaneImage = new PictureBox();
             currentStateImage = new PictureBox();
@@ -49,7 +47,7 @@ namespace SymulatorLotniska.Planes
         /// </summary>
         private void onClick(object sender, EventArgs e)
         {
-            handleAirportManager.zaznaczSamolot(this);
+            AirportManager.getInstance().zaznaczSamolot(this);
         }
         public void show()
         {
@@ -94,7 +92,7 @@ namespace SymulatorLotniska.Planes
             }
             else if (newState == State.Destroyed)
             {
-                currentStateImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(ConfigurationConstants.adresZniszczony);
+                currentStateImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(Constants.adresZniszczony);
                 currentStateImage.Visible = true;
                 currentStateImage.Enabled = true;
                 currentOnTop = currentStateImage;
@@ -106,8 +104,8 @@ namespace SymulatorLotniska.Planes
                 currentOnTop = currentPlaneImage;
             }
 
-            handleAirportManager.refreshPbSelectedIfSelected(this);
-            handleAirportManager.redraw();
+            AirportManager.getInstance().refreshPbSelectedIfSelected(this);
+            AirportManager.getInstance().redraw();
 
         }
         public bool isVisible()

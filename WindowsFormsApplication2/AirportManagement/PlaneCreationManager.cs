@@ -9,16 +9,16 @@ using System.Drawing;
 
 namespace SymulatorLotniska.AirportManagement
 {// moze singleton?
-    class FabrykaSamolotow : Panel
+    class PlaneCreationManager : Panel
     {
-        private static FabrykaSamolotow instance;
+        private static PlaneCreationManager instance;
 
-        public static void init(AppWindow handleAppWindow, AirportManager handleAirportManager)
+        public static void init(AppWindow handleAppWindow)
         {
-            instance = new FabrykaSamolotow(handleAppWindow, handleAirportManager);
+            instance = new PlaneCreationManager(handleAppWindow);
         }
 
-        public static FabrykaSamolotow getInstance()
+        public static PlaneCreationManager getInstance()
         {
             return instance;
         }
@@ -56,174 +56,163 @@ namespace SymulatorLotniska.AirportManagement
         private PictureBox chosenImageMark;
         private PictureBox chosenImage;
         private string chosenImageName;
-
-        private AirportManager handleAirportManager;
+        
         private AppWindow handleAppWindow;
 
         private PictureBox[] images;
         
         enum PlaneType { Passenger, Military, Transport }
 
-        private FabrykaSamolotow(AppWindow handleAppWindow,AirportManager handleAirportManager)
+        private PlaneCreationManager(AppWindow handleAppWindow)
         {
             this.handleAppWindow = handleAppWindow;
             Parent = handleAppWindow;
             Visible = false;
-            this.handleAirportManager = handleAirportManager;
 
             images = new PictureBox[6];
 
             chosenImageMark = new PictureBox();
 
-            chosenImageMark.Image = (Image)Properties.Resources.ResourceManager.GetObject(ConfigurationConstants.adresZnacznik);
+            chosenImageMark.Image = (Image)Properties.Resources.ResourceManager.GetObject(Constants.adresZnacznik);
             chosenImageMark.BackColor = Color.Transparent;
             chosenImageMark.Location = new Point(0, 0);
-            chosenImageMark.Enabled = false;
-            chosenImageMark.Visible = false;
-            chosenImageMark.Size = new Size(ConfigurationConstants.imageSize, ConfigurationConstants.imageSize);
-
-
+            chosenImageMark.Size = new Size(Constants.imageSize, Constants.imageSize);
+            
             rbPassenger = new RadioButton();
             rbTransport = new RadioButton();
             rbMilitary = new RadioButton();
-
             imageChoosePanel = new Panel();
             parameterChoosePanel = new Panel();
-
-            buttonCreateInHangar = new System.Windows.Forms.Button();
-            this.chosenImage = new PictureBox();
-
-            this.panel2 = new Panel();
-            this.panel1 = new Panel();
-            this.labelModel = new Label();
-            this.label1 = new Label();
-            this.textBoxModel = new TextBox();
-            this.textBoxFuelUsage = new TextBox();
-            this.textBoxMaxFuelLevel = new TextBox();
-            this.textBoxTakeoffInterval = new TextBox();
-            this.textBoxSpecific = new TextBox();
-            this.labelFuelUsage = new Label();
-            this.labelTakeoffInterval = new Label();
-            this.labelMaxFuelLevel = new Label();
-            this.labelSpecific = new Label();
-            this.textBoxWeaponType = new TextBox();
-            this.labelWeaponType = new Label();
-            this.cancelButton = new Button();
+            buttonCreateInHangar = new Button();
+            chosenImage = new PictureBox();
+            panel2 = new Panel();
+            panel1 = new Panel();
+            labelModel = new Label();
+            label1 = new Label();
+            textBoxModel = new TextBox();
+            textBoxFuelUsage = new TextBox();
+            textBoxMaxFuelLevel = new TextBox();
+            textBoxTakeoffInterval = new TextBox();
+            textBoxSpecific = new TextBox();
+            labelFuelUsage = new Label();
+            labelTakeoffInterval = new Label();
+            labelMaxFuelLevel = new Label();
+            labelSpecific = new Label();
+            textBoxWeaponType = new TextBox();
+            labelWeaponType = new Label();
+            cancelButton = new Button();
 
             BackColor = System.Drawing.SystemColors.ControlLightLight;
-            Controls.Add(this.cancelButton);
-            Controls.Add(this.panel2);
-            Controls.Add(this.buttonCreateInHangar);
-            Controls.Add(this.parameterChoosePanel);
-            Controls.Add(this.imageChoosePanel);
-            Controls.Add(this.rbMilitary);
-            Controls.Add(this.rbTransport);
-            Controls.Add(this.rbPassenger);
-            Controls.Add(this.panel1);
-            //Location = new System.Drawing.Point(10, 12);
-            // Location = new System.Drawing.Point(10, 0);
+            Controls.Add(cancelButton);
+            Controls.Add(panel2);
+            Controls.Add(buttonCreateInHangar);
+            Controls.Add(parameterChoosePanel);
+            Controls.Add(imageChoosePanel);
+            Controls.Add(rbMilitary);
+            Controls.Add(rbTransport);
+            Controls.Add(rbPassenger);
+            Controls.Add(panel1);
             Location = new System.Drawing.Point(0, 0);
             Name = "mainPlaneFactoryPanel";
-            // Size = new System.Drawing.Size(682, 230);
             Size = new System.Drawing.Size(Parent.Size.Width, 230);
-            TabIndex = 8;
+            //TabIndex = 8;
 
-           //
+            //
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(1, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(230, 27);
-            this.panel1.TabIndex = 0;
+            panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            panel1.Controls.Add(label1);
+            panel1.Location = new System.Drawing.Point(1, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(230, 27);
+            //panel1.TabIndex = 0;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(200, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Tworzenie nowego samolotu";
+            label1.AutoSize = true;
+            label1.BackColor = System.Drawing.Color.Transparent;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            label1.Location = new System.Drawing.Point(3, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(200, 18);
+            label1.TabIndex = 0;
+            label1.Text = "Tworzenie nowego samolotu";
             // 
             // rbPassenger
             // 
-            this.rbPassenger.AutoSize = true;
-            this.rbPassenger.Location = new System.Drawing.Point(7, 41);
-            this.rbPassenger.Name = "rbPassenger";
-            this.rbPassenger.Size = new System.Drawing.Size(116, 17);
-            this.rbPassenger.TabIndex = 1;
-            this.rbPassenger.TabStop = true;
-            this.rbPassenger.Text = "Samolot pasażerski";
-            this.rbPassenger.UseVisualStyleBackColor = true;
-            this.rbPassenger.CheckedChanged += new System.EventHandler(this.rbPassenger_CheckedChanged);
+            rbPassenger.AutoSize = true;
+            rbPassenger.Location = new System.Drawing.Point(7, 41);
+            rbPassenger.Name = "rbPassenger";
+            rbPassenger.Size = new System.Drawing.Size(116, 17);
+            rbPassenger.TabIndex = 1;
+            rbPassenger.TabStop = true;
+            rbPassenger.Text = "Samolot pasażerski";
+            rbPassenger.UseVisualStyleBackColor = true;
+            rbPassenger.CheckedChanged += new System.EventHandler(rbPassenger_CheckedChanged);
             // 
             // rbTransport
             // 
-            this.rbTransport.AutoSize = true;
-            this.rbTransport.Location = new System.Drawing.Point(7, 64);
-            this.rbTransport.Name = "rbTransport";
-            this.rbTransport.Size = new System.Drawing.Size(126, 17);
-            this.rbTransport.TabIndex = 2;
-            this.rbTransport.TabStop = true;
-            this.rbTransport.Text = "Samolot transportowy";
-            this.rbTransport.UseVisualStyleBackColor = true;
-            this.rbTransport.CheckedChanged += new System.EventHandler(this.rbTransport_CheckedChanged);
+            rbTransport.AutoSize = true;
+            rbTransport.Location = new System.Drawing.Point(7, 64);
+            rbTransport.Name = "rbTransport";
+            rbTransport.Size = new System.Drawing.Size(126, 17);
+            rbTransport.TabIndex = 2;
+            rbTransport.TabStop = true;
+            rbTransport.Text = "Samolot transportowy";
+            rbTransport.UseVisualStyleBackColor = true;
+            rbTransport.CheckedChanged += new System.EventHandler(rbTransport_CheckedChanged);
             // 
             // rbMilitary
             // 
-            this.rbMilitary.AutoSize = true;
-            this.rbMilitary.Location = new System.Drawing.Point(7, 87);
-            this.rbMilitary.Name = "rbMilitary";
-            this.rbMilitary.Size = new System.Drawing.Size(112, 17);
-            this.rbMilitary.TabIndex = 3;
-            this.rbMilitary.TabStop = true;
-            this.rbMilitary.Text = "Samolot wojskowy";
-            this.rbMilitary.UseVisualStyleBackColor = true;
-            this.rbMilitary.CheckedChanged += new System.EventHandler(this.rbMilitary_CheckedChanged);
+            rbMilitary.AutoSize = true;
+            rbMilitary.Location = new System.Drawing.Point(7, 87);
+            rbMilitary.Name = "rbMilitary";
+            rbMilitary.Size = new System.Drawing.Size(112, 17);
+            rbMilitary.TabIndex = 3;
+            rbMilitary.TabStop = true;
+            rbMilitary.Text = "Samolot wojskowy";
+            rbMilitary.UseVisualStyleBackColor = true;
+            rbMilitary.CheckedChanged += new System.EventHandler(rbMilitary_CheckedChanged);
             // 
             // imageChoosePanel
             // 
-            this.imageChoosePanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.imageChoosePanel.Location = new System.Drawing.Point(169, 33);
-            this.imageChoosePanel.Name = "imageChoosePanel";
-            this.imageChoosePanel.Size = new System.Drawing.Size(170, 115);
-            this.imageChoosePanel.TabIndex = 4;
+            imageChoosePanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            imageChoosePanel.Location = new System.Drawing.Point(169, 33);
+            imageChoosePanel.Name = "imageChoosePanel";
+            imageChoosePanel.Size = new System.Drawing.Size(170, 115);
+            imageChoosePanel.TabIndex = 4;
             // 
             // parameterChoosePanel
             // 
-            this.parameterChoosePanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.parameterChoosePanel.Controls.Add(this.labelWeaponType);
-            this.parameterChoosePanel.Controls.Add(this.textBoxWeaponType);
-            this.parameterChoosePanel.Controls.Add(this.labelSpecific);
-            this.parameterChoosePanel.Controls.Add(this.labelMaxFuelLevel);
-            this.parameterChoosePanel.Controls.Add(this.labelTakeoffInterval);
-            this.parameterChoosePanel.Controls.Add(this.labelFuelUsage);
-            this.parameterChoosePanel.Controls.Add(this.textBoxSpecific);
-            this.parameterChoosePanel.Controls.Add(this.textBoxTakeoffInterval);
-            this.parameterChoosePanel.Controls.Add(this.textBoxMaxFuelLevel);
-            this.parameterChoosePanel.Controls.Add(this.textBoxFuelUsage);
-            this.parameterChoosePanel.Controls.Add(this.textBoxModel);
-            this.parameterChoosePanel.Controls.Add(this.labelModel);
-            this.parameterChoosePanel.Location = new System.Drawing.Point(359, 6);
-            this.parameterChoosePanel.Name = "parameterChoosePanel";
-            this.parameterChoosePanel.Size = new System.Drawing.Size(255, 180);
-            this.parameterChoosePanel.TabIndex = 5;
+            parameterChoosePanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            parameterChoosePanel.Controls.Add(labelWeaponType);
+            parameterChoosePanel.Controls.Add(textBoxWeaponType);
+            parameterChoosePanel.Controls.Add(labelSpecific);
+            parameterChoosePanel.Controls.Add(labelMaxFuelLevel);
+            parameterChoosePanel.Controls.Add(labelTakeoffInterval);
+            parameterChoosePanel.Controls.Add(labelFuelUsage);
+            parameterChoosePanel.Controls.Add(textBoxSpecific);
+            parameterChoosePanel.Controls.Add(textBoxTakeoffInterval);
+            parameterChoosePanel.Controls.Add(textBoxMaxFuelLevel);
+            parameterChoosePanel.Controls.Add(textBoxFuelUsage);
+            parameterChoosePanel.Controls.Add(textBoxModel);
+            parameterChoosePanel.Controls.Add(labelModel);
+            parameterChoosePanel.Location = new System.Drawing.Point(359, 6);
+            parameterChoosePanel.Name = "parameterChoosePanel";
+            parameterChoosePanel.Size = new System.Drawing.Size(255, 180);
+            parameterChoosePanel.TabIndex = 5;
             // 
             // buttonCreateInHangar
             // 
             buttonCreateInHangar.Image = (Image)Properties.Resources.btnTick;
-            this.buttonCreateInHangar.BackColor = System.Drawing.Color.White;
-            this.buttonCreateInHangar.Location = new System.Drawing.Point(200, 150);
-            this.buttonCreateInHangar.Name = "buttonCreateInHangar";
-            this.buttonCreateInHangar.Size = new System.Drawing.Size(50, 50);
-            this.buttonCreateInHangar.TabIndex = 6;
-            this.buttonCreateInHangar.UseVisualStyleBackColor = false;
-            this.buttonCreateInHangar.Click += new System.EventHandler(this.buttonCreateInHangar_Click);
+            buttonCreateInHangar.BackColor = System.Drawing.Color.White;
+            buttonCreateInHangar.Location = new System.Drawing.Point(200, 150);
+            buttonCreateInHangar.Name = "buttonCreateInHangar";
+            buttonCreateInHangar.Size = new System.Drawing.Size(50, 50);
+            buttonCreateInHangar.TabIndex = 6;
+            buttonCreateInHangar.UseVisualStyleBackColor = false;
+            buttonCreateInHangar.Click += new System.EventHandler(buttonCreateInHangar_Click);
 
             // 
             // pictureBox1
@@ -250,136 +239,136 @@ namespace SymulatorLotniska.AirportManagement
             // 
             // chosenImage
             // 
-            this.chosenImage.BackColor = System.Drawing.SystemColors.Desktop;
-            this.chosenImage.Location = new System.Drawing.Point(5, 5);
-            this.chosenImage.Name = "chosenImage";
-            this.chosenImage.Size = new System.Drawing.Size(50, 50);
-            this.chosenImage.TabIndex = 7;
-            this.chosenImage.TabStop = false;
+            chosenImage.BackColor = System.Drawing.SystemColors.Desktop;
+            chosenImage.Location = new System.Drawing.Point(5, 5);
+            chosenImage.Name = "chosenImage";
+            chosenImage.Size = new System.Drawing.Size(50, 50);
+            chosenImage.TabIndex = 7;
+            chosenImage.TabStop = false;
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panel2.Controls.Add(this.chosenImage);
-            this.panel2.Location = new System.Drawing.Point(37, 124);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(60, 60);
-            this.panel2.TabIndex = 8;
+            panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            panel2.Controls.Add(chosenImage);
+            panel2.Location = new System.Drawing.Point(37, 124);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(60, 60);
+            panel2.TabIndex = 8;
             // 
             // labelModel
             // 
-            this.labelModel.AutoSize = true;
-            this.labelModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelModel.Location = new System.Drawing.Point(63, 6);
-            this.labelModel.Name = "labelModel";
-            this.labelModel.Size = new System.Drawing.Size(42, 15);
-            this.labelModel.TabIndex = 0;
-            this.labelModel.Text = "Model";
+            labelModel.AutoSize = true;
+            labelModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            labelModel.Location = new System.Drawing.Point(63, 6);
+            labelModel.Name = "labelModel";
+            labelModel.Size = new System.Drawing.Size(42, 15);
+            labelModel.TabIndex = 0;
+            labelModel.Text = "Model";
             // 
             // textBoxModel
             // 
-            this.textBoxModel.Location = new System.Drawing.Point(117, 5);
-            this.textBoxModel.Name = "textBoxModel";
-            this.textBoxModel.Size = new System.Drawing.Size(100, 20);
-            this.textBoxModel.TabIndex = 1;
+            textBoxModel.Location = new System.Drawing.Point(117, 5);
+            textBoxModel.Name = "textBoxModel";
+            textBoxModel.Size = new System.Drawing.Size(100, 20);
+            textBoxModel.TabIndex = 1;
             // 
             // textBoxFuelUsage
             // 
-            this.textBoxFuelUsage.Location = new System.Drawing.Point(117, 30);
-            this.textBoxFuelUsage.Name = "textBoxFuelUsage";
-            this.textBoxFuelUsage.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFuelUsage.TabIndex = 2;
+            textBoxFuelUsage.Location = new System.Drawing.Point(117, 30);
+            textBoxFuelUsage.Name = "textBoxFuelUsage";
+            textBoxFuelUsage.Size = new System.Drawing.Size(100, 20);
+            textBoxFuelUsage.TabIndex = 2;
             // 
             // textBoxMaxFuelLevel
             // 
-            this.textBoxMaxFuelLevel.Location = new System.Drawing.Point(117, 55);
-            this.textBoxMaxFuelLevel.Name = "textBoxMaxFuelLevel";
-            this.textBoxMaxFuelLevel.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMaxFuelLevel.TabIndex = 3;
+            textBoxMaxFuelLevel.Location = new System.Drawing.Point(117, 55);
+            textBoxMaxFuelLevel.Name = "textBoxMaxFuelLevel";
+            textBoxMaxFuelLevel.Size = new System.Drawing.Size(100, 20);
+            textBoxMaxFuelLevel.TabIndex = 3;
             // 
             // textBoxTakeoffInterval
             // 
-            this.textBoxTakeoffInterval.Location = new System.Drawing.Point(117, 81);
-            this.textBoxTakeoffInterval.Name = "textBoxTakeoffInterval";
-            this.textBoxTakeoffInterval.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTakeoffInterval.TabIndex = 4;
+            textBoxTakeoffInterval.Location = new System.Drawing.Point(117, 81);
+            textBoxTakeoffInterval.Name = "textBoxTakeoffInterval";
+            textBoxTakeoffInterval.Size = new System.Drawing.Size(100, 20);
+            textBoxTakeoffInterval.TabIndex = 4;
             // 
             // textBoxSpecific
             // 
-            this.textBoxSpecific.Location = new System.Drawing.Point(69, 157);
-            this.textBoxSpecific.Name = "textBoxSpecific";
-            this.textBoxSpecific.Size = new System.Drawing.Size(100, 20);
-            this.textBoxSpecific.TabIndex = 5;
+            textBoxSpecific.Location = new System.Drawing.Point(69, 157);
+            textBoxSpecific.Name = "textBoxSpecific";
+            textBoxSpecific.Size = new System.Drawing.Size(100, 20);
+            textBoxSpecific.TabIndex = 5;
             // 
             // labelFuelUsage
             // 
-            this.labelFuelUsage.AutoSize = true;
-            this.labelFuelUsage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelFuelUsage.Location = new System.Drawing.Point(49, 31);
-            this.labelFuelUsage.Name = "labelFuelUsage";
-            this.labelFuelUsage.Size = new System.Drawing.Size(56, 15);
-            this.labelFuelUsage.TabIndex = 6;
-            this.labelFuelUsage.Text = "Spalanie";
+            labelFuelUsage.AutoSize = true;
+            labelFuelUsage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            labelFuelUsage.Location = new System.Drawing.Point(49, 31);
+            labelFuelUsage.Name = "labelFuelUsage";
+            labelFuelUsage.Size = new System.Drawing.Size(56, 15);
+            labelFuelUsage.TabIndex = 6;
+            labelFuelUsage.Text = "Spalanie";
             // 
             // labelTakeoffInterval
             // 
-            this.labelTakeoffInterval.AutoSize = true;
-            this.labelTakeoffInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTakeoffInterval.Location = new System.Drawing.Point(38, 82);
-            this.labelTakeoffInterval.Name = "labelTakeoffInterval";
-            this.labelTakeoffInterval.Size = new System.Drawing.Size(67, 15);
-            this.labelTakeoffInterval.TabIndex = 7;
-            this.labelTakeoffInterval.Text = "Czas startu";
+            labelTakeoffInterval.AutoSize = true;
+            labelTakeoffInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            labelTakeoffInterval.Location = new System.Drawing.Point(38, 82);
+            labelTakeoffInterval.Name = "labelTakeoffInterval";
+            labelTakeoffInterval.Size = new System.Drawing.Size(67, 15);
+            labelTakeoffInterval.TabIndex = 7;
+            labelTakeoffInterval.Text = "Czas startu";
             // 
             // labelMaxFuelLevel
             // 
-            this.labelMaxFuelLevel.AutoSize = true;
-            this.labelMaxFuelLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelMaxFuelLevel.Location = new System.Drawing.Point(6, 56);
-            this.labelMaxFuelLevel.Name = "labelMaxFuelLevel";
-            this.labelMaxFuelLevel.Size = new System.Drawing.Size(99, 15);
-            this.labelMaxFuelLevel.TabIndex = 8;
-            this.labelMaxFuelLevel.Text = "Pojemnosc baku";
+            labelMaxFuelLevel.AutoSize = true;
+            labelMaxFuelLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            labelMaxFuelLevel.Location = new System.Drawing.Point(6, 56);
+            labelMaxFuelLevel.Name = "labelMaxFuelLevel";
+            labelMaxFuelLevel.Size = new System.Drawing.Size(99, 15);
+            labelMaxFuelLevel.TabIndex = 8;
+            labelMaxFuelLevel.Text = "Pojemnosc baku";
             // 
             // labelSpecific
             // 
-            this.labelSpecific.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelSpecific.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSpecific.Location = new System.Drawing.Point(30, 139);
-            this.labelSpecific.Name = "labelSpecific";
-            this.labelSpecific.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelSpecific.Size = new System.Drawing.Size(177, 15);
-            this.labelSpecific.TabIndex = 9;
-            this.labelSpecific.Text = "Maksymalna ilość pasażerow";
-            this.labelSpecific.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelSpecific.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            labelSpecific.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            labelSpecific.Location = new System.Drawing.Point(30, 139);
+            labelSpecific.Name = "labelSpecific";
+            labelSpecific.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            labelSpecific.Size = new System.Drawing.Size(177, 15);
+            labelSpecific.TabIndex = 9;
+            labelSpecific.Text = "Maksymalna ilość pasażerow";
+            labelSpecific.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxWeaponType
             // 
-            this.textBoxWeaponType.Location = new System.Drawing.Point(117, 107);
-            this.textBoxWeaponType.Name = "textBoxWeaponType";
-            this.textBoxWeaponType.Size = new System.Drawing.Size(100, 20);
-            this.textBoxWeaponType.TabIndex = 10;
+            textBoxWeaponType.Location = new System.Drawing.Point(117, 107);
+            textBoxWeaponType.Name = "textBoxWeaponType";
+            textBoxWeaponType.Size = new System.Drawing.Size(100, 20);
+            textBoxWeaponType.TabIndex = 10;
             // 
             // labelWeaponType
             // 
-            this.labelWeaponType.AutoSize = true;
-            this.labelWeaponType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelWeaponType.Location = new System.Drawing.Point(32, 108);
-            this.labelWeaponType.Name = "labelWeaponType";
-            this.labelWeaponType.Size = new System.Drawing.Size(73, 15);
-            this.labelWeaponType.TabIndex = 11;
-            this.labelWeaponType.Text = "Model broni";
+            labelWeaponType.AutoSize = true;
+            labelWeaponType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            labelWeaponType.Location = new System.Drawing.Point(32, 108);
+            labelWeaponType.Name = "labelWeaponType";
+            labelWeaponType.Size = new System.Drawing.Size(73, 15);
+            labelWeaponType.TabIndex = 11;
+            labelWeaponType.Text = "Model broni";
             // 
             // cancelButton
             // 
             cancelButton.Image = (Image)Properties.Resources.buttonZatrzymanie;
-            this.cancelButton.BackColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(260, 150);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(50, 50);
-            this.cancelButton.TabIndex = 10;
-            this.cancelButton.UseVisualStyleBackColor = false;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            cancelButton.BackColor = System.Drawing.Color.White;
+            cancelButton.Location = new System.Drawing.Point(260, 150);
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new System.Drawing.Size(50, 50);
+            cancelButton.TabIndex = 10;
+            cancelButton.UseVisualStyleBackColor = false;
+            cancelButton.Click += new System.EventHandler(cancelButton_Click);
 
             labelModel.Visible = true;
             textBoxModel.Visible = true;
@@ -420,11 +409,11 @@ namespace SymulatorLotniska.AirportManagement
             switch(currentFactoring)
             {
                 case PlaneType.Passenger:
-                    return ImageColections.passengerPlaneNames[i];
+                    return PlaneImagesCollection.passengerPlaneNames[i];
                 case PlaneType.Military:
-                    return ImageColections.militaryPlaneNames[i];
+                    return PlaneImagesCollection.militaryPlaneNames[i];
                 case PlaneType.Transport:
-                    return ImageColections.transportPlaneNames[i];
+                    return PlaneImagesCollection.transportPlaneNames[i];
                 default:
                     return "error";
             }
@@ -468,9 +457,9 @@ namespace SymulatorLotniska.AirportManagement
 
             if(currentFactoring == PlaneType.Passenger)
             {
-                for(int i=0; i<ImageColections.passengerPlaneNames.Count; i++)
+                for(int i=0; i<PlaneImagesCollection.passengerPlaneNames.Count; i++)
                 {
-                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(ImageColections.passengerPlaneNames[i]);
+                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.passengerPlaneNames[i]);
                     images[i].Visible = true;
                     images[i].Enabled = true;
 
@@ -485,9 +474,9 @@ namespace SymulatorLotniska.AirportManagement
             }
             if(currentFactoring == PlaneType.Transport)
             {
-                for (int i = 0; i < ImageColections.transportPlaneNames.Count; i++)
+                for (int i = 0; i < PlaneImagesCollection.transportPlaneNames.Count; i++)
                 {
-                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(ImageColections.transportPlaneNames[i]);
+                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.transportPlaneNames[i]);
                     images[i].Visible = true;
                     images[i].Enabled = true;
 
@@ -675,17 +664,17 @@ namespace SymulatorLotniska.AirportManagement
 
             if (currentFactoring == PlaneType.Passenger)
             {
-                factoriedPlane = new PassengerPlane(handleAirportManager);
+                factoriedPlane = new PassengerPlane();
                 ((PassengerPlane)factoriedPlane).setMaxNumberOfPassengers(Int32.Parse(textBoxSpecific.Text));
             }
             else if (currentFactoring == PlaneType.Transport)
             {
-                factoriedPlane = new TransportPlane(handleAirportManager);
+                factoriedPlane = new TransportPlane();
                 ((TransportPlane)factoriedPlane).setMaxStorageCapacity(Int32.Parse(textBoxSpecific.Text));
             }
             else
             {
-                factoriedPlane = new MilitaryPlane(handleAirportManager);
+                factoriedPlane = new MilitaryPlane();
                 ((MilitaryPlane)factoriedPlane).setWeaponType(textBoxWeaponType.Text);
                 ((MilitaryPlane)factoriedPlane).setMaxAmmo(Int32.Parse(textBoxSpecific.Text));
             }
@@ -697,7 +686,7 @@ namespace SymulatorLotniska.AirportManagement
             factoriedPlane.setTakeoffTime(Int32.Parse(textBoxTakeoffInterval.Text));
             factoriedPlane.setAfterTechnicalInspection(false);
             
-            handleAirportManager.getHangar().addToHangar(factoriedPlane);
+            AirportManager.getInstance().getHangar().addToHangar(factoriedPlane);
             hideFactoryPanel();
             resetControls();
             handleAppWindow.planeFactoryButtonToTop();

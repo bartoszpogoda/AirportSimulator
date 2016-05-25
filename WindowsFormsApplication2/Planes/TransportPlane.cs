@@ -9,7 +9,7 @@ namespace SymulatorLotniska.Planes
         private int currentStorageContent;
         
 
-        public TransportPlane(AirportManager handleAirportManager) : base(handleAirportManager)
+        public TransportPlane()
         { }
 
         public int getMaxStorageCapacity() { return maxStorageCapacity; }

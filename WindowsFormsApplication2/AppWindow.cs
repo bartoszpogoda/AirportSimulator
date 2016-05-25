@@ -10,19 +10,11 @@ namespace SymulatorLotniska
 {
     public partial class AppWindow : Form
     {
-        private AirportManager menedzerSamolotow;
-        private OperationManager menedzerOperacji;
-
         public AppWindow()
         {
             InitializeComponent();
-            ImageColections.init();
-
-            menedzerOperacji = new OperationManager(this);
             NotificationManager.getInstance().setPanel(groupBox1);
-            menedzerSamolotow = new AirportManager(this, menedzerOperacji);
-
-            FabrykaSamolotow.init(this, menedzerSamolotow);
+            
 
             //panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
             //panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
@@ -42,11 +34,11 @@ namespace SymulatorLotniska
             this.labelHangar.AutoSize = false;
             this.labelHangar.Size = new System.Drawing.Size(labelHangar.Parent.Size.Width, this.labelHangar.Size.Height);
 
-            this.panelPasStartowy1.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width,2*ConfigurationConstants.interspaceSize+ConfigurationConstants.imageSize+30); // wznoszenie 0 do 30 pikseli
+            this.panelPasStartowy1.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width,2*Constants.interspaceSize+Constants.imageSize+30); // wznoszenie 0 do 30 pikseli
             this.panelPasStartowy1.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
             this.panelPasStartowy1.BackColor = Color.Transparent;
 
-            this.panelPasStartowy2.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width, 2 * ConfigurationConstants.interspaceSize + ConfigurationConstants.imageSize + 30); // wznoszenie 0 do 30 pikseli
+            this.panelPasStartowy2.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width, 2 * Constants.interspaceSize + Constants.imageSize + 30); // wznoszenie 0 do 30 pikseli
             this.panelPasStartowy2.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
             this.panelPasStartowy2.BackColor = Color.Transparent;
 
@@ -168,95 +160,86 @@ namespace SymulatorLotniska
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            menedzerSamolotow.dbgDodajSamolot(0);
-        }
-   
-        private void button2_Click(object sender, EventArgs e)
-        {
-            menedzerSamolotow.dbgDodajSamolot(1);
-        }
-
+        
         private void tankowanie_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.fuel();
+            AirportManager.getInstance().fuel();
         }
         // ugololnic nazwe
         private void tankowanieCancel_Click(object sender, EventArgs e)
         {
-           if(menedzerSamolotow.getZaznaczony() is Plane) menedzerOperacji.stopOperation((Plane)menedzerSamolotow.getZaznaczony());
+           if(AirportManager.getInstance().getSelectedPlane() is Plane) OperationManager.getInstance().stopOperation((Plane)AirportManager.getInstance().getSelectedPlane());
         }
 
         private void kontrola_Click(object sender, EventArgs e)
         {
 
-            menedzerSamolotow.inspectTechnically();
+            AirportManager.getInstance().inspectTechnically();
         }
         
         private void naPasStartowy_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.placeSelectedOnRunway();
+            AirportManager.getInstance().placeSelectedOnRunway();
         }
 
         private void wyladuj_Click(object sender, EventArgs e)
         {
-           menedzerSamolotow.landSelectedPlane();
+            AirportManager.getInstance().landSelectedPlane();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.takeoffSelectedPlane();
+            AirportManager.getInstance().takeoffSelectedPlane();
         }
 
         private void odeslij_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.odeslijZaznaczonySamolot();
+            AirportManager.getInstance().odeslijZaznaczonySamolot();
         }
         
         private void wprowadzenieLudzi_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.wprowadzLudzi(1);
+            AirportManager.getInstance().wprowadzLudzi(1);
         }
 
         private void doHangaru_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.umiescZaznaczonyWHangarze();
+            AirportManager.getInstance().umiescZaznaczonyWHangarze();
         }
 
         private void btnD5C_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.wprowadzLudzi(5);
+            AirportManager.getInstance().wprowadzLudzi(5);
         }
 
         private void btnM1C_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.wyprowadzLudzi(1);
+            AirportManager.getInstance().wyprowadzLudzi(1);
         }
 
         private void btnM5C_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.wyprowadzLudzi(5);
+            AirportManager.getInstance().wyprowadzLudzi(5);
         }
 
         private void btnLewo_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.getAirspace().scrollLeft();
+            AirportManager.getInstance().getAirspace().scrollLeft();
         }
 
         private void btnPrawo_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.getAirspace().scrollRight();
+            AirportManager.getInstance().getAirspace().scrollRight();
         }
 
         private void btnDol_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.getHangar().scrollDown();
+            AirportManager.getInstance().getHangar().scrollDown();
         }
 
         private void btnGora_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.getHangar().scrollUp();
+            AirportManager.getInstance().getHangar().scrollUp();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -266,17 +249,17 @@ namespace SymulatorLotniska
         
         private void btnLanding_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.landSelectedPlane();
+            AirportManager.getInstance().landSelectedPlane();
         }
 
         private void btnSendAway_Click(object sender, EventArgs e)
         {
-            menedzerSamolotow.odeslijZaznaczonySamolot();
+            AirportManager.getInstance().odeslijZaznaczonySamolot();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            FabrykaSamolotow.getInstance().showFactoryPanel();
+            PlaneCreationManager.getInstance().showFactoryPanel();
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -291,18 +274,18 @@ namespace SymulatorLotniska
 
         private void button6_Click_1(object sender, EventArgs e)
         {
-            if (FabrykaSamolotow.getInstance().Visible)
+            if (PlaneCreationManager.getInstance().Visible)
             {
-                FabrykaSamolotow.getInstance().hideFactoryPanel();
+                PlaneCreationManager.getInstance().hideFactoryPanel();
                 ((Button)sender).Parent = this;
                 ((Button)sender).Location = new Point(0, 0);
                 ((Button)sender).BackColor = SystemColors.MenuHighlight;
             }
             else
             {
-                FabrykaSamolotow.getInstance().showFactoryPanel();
-                ((Button)sender).Parent = FabrykaSamolotow.getInstance();
-                ((Button)sender).Location = new Point(0, FabrykaSamolotow.getInstance().Size.Height - ((Button)sender).Size.Height);
+                PlaneCreationManager.getInstance().showFactoryPanel();
+                ((Button)sender).Parent = PlaneCreationManager.getInstance();
+                ((Button)sender).Location = new Point(0, PlaneCreationManager.getInstance().Size.Height - ((Button)sender).Size.Height);
                // ((Button)sender).BackColor = Color.IndianRed;
             }
         }
@@ -323,10 +306,6 @@ namespace SymulatorLotniska
         {
 
         }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            menedzerSamolotow.dbgDodajSamolot(0);
-        }
+        
     }
 }

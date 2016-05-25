@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SymulatorLotniska
 {
-    public static class ImageColections
+    public static class PlaneImagesCollection
     {
         public static List<string> passengerPlaneNames;
         public static List<string> transportPlaneNames;

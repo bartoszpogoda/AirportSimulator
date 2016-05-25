@@ -79,12 +79,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AirportManagement\PlaneFactory.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="AirportManagement\PlaneFactory.Designer.cs">
-      <DependentUpon>PlaneFactory.cs</DependentUpon>
-    </Compile>
     <Compile Include="Operations\OperationInAir.cs" />
     <Compile Include="Operations\OperationLanding.cs" />
     <Compile Include="Operations\OperationTakeoff.cs" />
@@ -94,7 +88,7 @@
     <Compile Include="NotificationManagement\NotificationManager.cs" />
     <Compile Include="NotificationManagement\Notification.cs" />
     <Compile Include="AirportManagement\Airspace.cs" />
-    <Compile Include="AirportManagement\FabrykaSamolotow.cs">
+    <Compile Include="AirportManagement\PlaneCreationManager.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="OperationManagement\OperationListElement.cs" />
@@ -122,12 +116,9 @@
     </Compile>
     <Compile Include="Planes\Plane.cs" />
     <Compile Include="Planes\PassengerPlane.cs" />
-    <Compile Include="ConfigurationConstants.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="AirportManagement\Runway.cs" />
-    <Compile Include="ImageColections.cs" />
-    <EmbeddedResource Include="AirportManagement\PlaneFactory.resx">
-      <DependentUpon>PlaneFactory.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="PlaneImagesCollection.cs" />
     <EmbeddedResource Include="AppWindow.resx">
       <DependentUpon>AppWindow.cs</DependentUpon>
     </EmbeddedResource>

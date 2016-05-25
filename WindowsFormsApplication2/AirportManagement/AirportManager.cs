@@ -16,33 +16,42 @@ namespace SymulatorLotniska.AirportManagement
     //TODO: W setCurrentState mozna dodac ifa ktory sprawdza czy samolot sie zniszczyl i wtedy ewentualnie robi cos ciekawego
     public class AirportManager
     {
-        private PlaneImage selectedPlane;
-        private PictureBox pbSelectedPlane;
+        private static AirportManager instance;
+
+        public static void init(AppWindow handleAppWindow)
+        {
+            if(instance == null) instance = new AirportManager(handleAppWindow);
+        }
+
+        public static AirportManager getInstance()
+        {
+            return instance;
+        }
 
         private AppWindow handleAppWindow;
-        private OperationManager handleOperationManager;
 
+        private PlaneImage selectedPlane;
+        private PictureBox pbSelectedPlane;
+        
         private Hangar hangar;
         private Airspace airspace;
-        private List<Runway> pasyStartowe;
-                
-        public AirportManager(AppWindow handleAppWindow, OperationManager handleOperationManager) {
-            this.handleAppWindow = handleAppWindow;
-            this.handleOperationManager = handleOperationManager;
+        private List<Runway> runwayList;
 
-            pasyStartowe = new List<Runway>();
+        private AirportManager(AppWindow handleAppWindow) {
+            this.handleAppWindow = handleAppWindow;
+
+            runwayList = new List<Runway>();
+            pbSelectedPlane = new PictureBox();
             hangar = new Hangar(handleAppWindow.getPanelSamolotow(), 3, 4);
             airspace = new Airspace(handleAppWindow.getPanelSamolotowPowietrze(), 8);
             
-            pbSelectedPlane = new PictureBox();
             initializePbSelectedPlane();
 
-            pasyStartowe.Add(new Runway(handleAppWindow.getPasStartowy1(), 1));
-            pasyStartowe.Add(new Runway(handleAppWindow.getPasStartowy2(), 2));
+            runwayList.Add(new Runway(handleAppWindow.getPasStartowy1(), 1));
+            runwayList.Add(new Runway(handleAppWindow.getPasStartowy2(), 2));
         }
         
-        public PlaneImage getZaznaczony() { return selectedPlane; }
-
+        public PlaneImage getSelectedPlane() { return selectedPlane; }
         public Hangar getHangar() { return hangar; }
         public Airspace getAirspace() { return airspace; }
 
@@ -50,14 +59,15 @@ namespace SymulatorLotniska.AirportManagement
         {
             if (pbSelectedPlane == null || handleAppWindow == null) return;
 
-            pbSelectedPlane.Image = (Image)Properties.Resources.ResourceManager.GetObject(ConfigurationConstants.adresZnacznik);
+            pbSelectedPlane.Image = (Image)Properties.Resources.ResourceManager.GetObject(Constants.adresZnacznik);
             pbSelectedPlane.BackColor = Color.Transparent;
             pbSelectedPlane.Location = new Point(0, 0);
             pbSelectedPlane.Enabled = false;
             pbSelectedPlane.Visible = false;
-            pbSelectedPlane.Size = new Size(ConfigurationConstants.imageSize, ConfigurationConstants.imageSize);
+            pbSelectedPlane.Size = new Size(Constants.imageSize, Constants.imageSize);
             pbSelectedPlane.Parent = handleAppWindow;
         }
+
         public void refreshPbSelectedIfSelected(PlaneImage samolot)
         {
             if (selectedPlane == samolot)
@@ -72,8 +82,7 @@ namespace SymulatorLotniska.AirportManagement
             }
             else
                 handleAppWindow.getLabelInformacje().Text = "Wybierz samolot";
-
-
+            
         }
         public void refreshInformationPanelIfSelected(Plane samolot)
         {
@@ -93,28 +102,7 @@ namespace SymulatorLotniska.AirportManagement
                 handleAppWindow.uaktualnijPrzyciskiPanelu(selectedPlane);
             }
         }
-        public void dbgDodajSamolot(int i) { // Funkcja do usuniecia jak bedzie kreator
-            if (i == 1) wygenerujLosowySamolotWPowietrzu();
-            else
-            {
-                hangar.addToHangar(new PassengerPlane(this, handleAppWindow.getPanelSamolotow(), 50, 50, 1 , 30, 100, "Boen4ing707"));
-            }
-        }
-
-        public void wygenerujLosowySamolotWPowietrzu() { // DO usuniecia jak bedzie kreator
-            Plane samolot = new PassengerPlane(this, handleAppWindow.getPanelSamolotowPowietrze(), 20, 20, 500, 30, 100, "Tupolew");
-            samolot.setCurrentState(State.InAir);
-            samolot.setCurrentFuelLevel(samolot.getMaxFuelLevel()); // to pozniej bedzie losowe
-            airspace.addToAirspace(samolot);
-            handleOperationManager.addOperation(new OperationInAir(samolot));
-            //narysujSamolotyZListyPowietrze();
-        }
         
-
-        public OperationManager getMenedzerOperacji() { return handleOperationManager; }
-        
-
-
         
 
         public void zaznaczSamolot(PlaneImage samolot) {
@@ -141,7 +129,7 @@ namespace SymulatorLotniska.AirportManagement
         public void fuel()
         {
             if (selectedPlane is Plane)
-                getMenedzerOperacji().addOperation(new OperationFueling((Plane)selectedPlane));
+                OperationManager.getInstance().addOperation(new OperationFueling((Plane)selectedPlane));
         }
         /// <summary>
         /// rozpoczyna operacje kontroli technicznej zaznaczonego samolotu
@@ -149,7 +137,7 @@ namespace SymulatorLotniska.AirportManagement
         public void inspectTechnically()
         {
             if (selectedPlane is Plane)
-                getMenedzerOperacji().addOperation(new OperationTechnicalInspection((Plane)selectedPlane));
+                OperationManager.getInstance().addOperation(new OperationTechnicalInspection((Plane)selectedPlane));
         }
 
         public void odeslijZaznaczonySamolot()
@@ -163,7 +151,7 @@ namespace SymulatorLotniska.AirportManagement
                 else
                 {
                     // LOG --Samolot (zaznazczony) zostal odeslany--
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " zostal odeslany", NotificationType.Normal);
+                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " zostal odeslany", NotificationType.Neutral);
 
                     //listaSamolotowPowietrze.usunSamolot((Plane)selectedPlane);
                     airspace.remove((Plane)selectedPlane);
@@ -188,14 +176,14 @@ namespace SymulatorLotniska.AirportManagement
                 return;
             }
 
-            foreach(Runway runway in pasyStartowe)
+            foreach(Runway runway in runwayList)
             {
                 if (runway.isFree())
                 {
                     ((Plane)selectedPlane).setCurrentState(State.OnRunwayBefTakeoff);
                     hangar.remove((Plane)selectedPlane);
                     runway.setPlane((Plane)selectedPlane);
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " został umieszczony na pasie startowym nr " + runway.getID() + ".", NotificationType.Normal);
+                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " został umieszczony na pasie startowym nr " + runway.getID() + ".", NotificationType.Neutral);
                     return;
                 }
             }
@@ -214,15 +202,15 @@ namespace SymulatorLotniska.AirportManagement
                 return;
             }
 
-            foreach (Runway runway in pasyStartowe)
+            foreach (Runway runway in runwayList)
             {
                 if (!runway.isFree() && runway.getPlane() == (Plane)selectedPlane)
                 {
                     // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " startuje z pasa startowego nr " + runway.getID() + ".", NotificationType.Normal);
+                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " startuje z pasa startowego nr " + runway.getID() + ".", NotificationType.Neutral);
                             
                     ((Plane)selectedPlane).setCurrentState(State.Takeoff);
-                    getMenedzerOperacji().addOperation(new OperationTakeoff((Plane)selectedPlane, runway, this));
+                    OperationManager.getInstance().addOperation(new OperationTakeoff((Plane)selectedPlane, runway, this));
                     return;
                 }
             }          
@@ -232,11 +220,11 @@ namespace SymulatorLotniska.AirportManagement
         {
             if (!(selectedPlane is Plane) || ((Plane)selectedPlane).getCurrentState() != State.InAir) return;
 
-            foreach (Runway runway in pasyStartowe)
+            foreach (Runway runway in runwayList)
             {
                 if (runway.isFree())
                 {
-                    getMenedzerOperacji().addOperation(new OperationLanding((Plane)selectedPlane, runway));
+                    OperationManager.getInstance().addOperation(new OperationLanding((Plane)selectedPlane, runway));
                     airspace.remove((Plane)selectedPlane);
                     runway.setPlane((Plane)selectedPlane);
                     return;
@@ -260,7 +248,7 @@ namespace SymulatorLotniska.AirportManagement
                 }
                 // zaznaczony is SamolotTowarowy
 
-                foreach (Runway runway in pasyStartowe)
+                foreach (Runway runway in runwayList)
                 {
                     if (!runway.isFree() && runway.getPlane() == selectedPlane)
                     {
@@ -303,7 +291,7 @@ namespace SymulatorLotniska.AirportManagement
             //listaSamolotowPowietrze.dodajSamolot(samolot);
             airspace.addToAirspace(samolot);
             //samolot.getPlaneImage().Parent = handleAppWindow.getPanelSamolotowPowietrze();
-            getMenedzerOperacji().addOperation(new OperationInAir(samolot));
+            OperationManager.getInstance().addOperation(new OperationInAir(samolot));
             //narysujSamolotyZListyPowietrze();
         }
 

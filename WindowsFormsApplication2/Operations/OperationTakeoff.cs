@@ -21,7 +21,7 @@ namespace SymulatorLotniska.Operations
 
             if(plane.getCurrentState() == State.OnRunwayBefTakeoff) 
             {
-                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " startuje z pasa startowego nr " + runway.getID(), NotificationType.Normal);
+                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " startuje z pasa startowego nr " + runway.getID(), NotificationType.Neutral);
                 plane.setCurrentState(State.Takeoff);
             }
 

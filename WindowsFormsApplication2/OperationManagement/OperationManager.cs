@@ -7,13 +7,25 @@ namespace SymulatorLotniska.OperationManagement
 {
     public class OperationManager
     {
+        private static OperationManager instance;
+
+        public static void init(AppWindow handleAppWindow)
+        {
+            instance = new OperationManager(handleAppWindow);
+        }
+
+        public static OperationManager getInstance()
+        {
+            return instance;
+        }
+
         private Timer timer;
         private OperationList operationList;
-        public OperationManager(AppWindow uchwytOknoAplikacji)
+        private OperationManager(AppWindow uchwytOknoAplikacji)
         {
             timer = new Timer(); 
             timer.Tick += new EventHandler(onTimerTick);
-            timer.Interval = ConfigurationConstants.interwalTimera;
+            timer.Interval = Constants.interwalTimera;
             timer.Enabled = false; // timer ma sie właczać jak lista operacji nie jest pusta
 
             operationList = new OperationList();

@@ -21,7 +21,7 @@ namespace SymulatorLotniska.AirportManagement
         public Runway(Control handlePanel, int ID)
         {
             this.handlePanel = handlePanel;
-            maxX = this.handlePanel.Size.Width - ConfigurationConstants.imageSize;
+            maxX = this.handlePanel.Size.Width - Constants.imageSize;
             maxY = 40;
             this.ID = ID;
         }

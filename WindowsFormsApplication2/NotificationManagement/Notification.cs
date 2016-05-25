@@ -8,10 +8,6 @@ using System.Drawing;
 
 namespace SymulatorLotniska.NotificationManagement
 {
-    // ToDo: Powiadomienie raczej stanie sie interfejsem, (ew klasa abstrakcyjna)
-    // i stworzym konkretne implementacje tej klasy np PowiadomienieZajeciePasaStartowego itp. ale w sumie nie wiem
-    // troche dlugie te nazwy kappa a nie ma takiej potrzeby raczej 
-    
     public class Notification
     {
         Label textBox;
@@ -22,7 +18,7 @@ namespace SymulatorLotniska.NotificationManagement
             textBox = new Label();
             textBox.BorderStyle = BorderStyle.None;
             textBox.Location = new Point(3, 3);
-            textBox.MaximumSize = new Size(ConfigurationConstants.powiadomienieX, 0);
+            textBox.MaximumSize = new Size(Constants.powiadomienieX, 0);
             textBox.AutoSize = true;
             textBox.Text = text + "\n" + DateTime.Now.ToString
                 ("                                    HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
@@ -33,7 +29,7 @@ namespace SymulatorLotniska.NotificationManagement
             hide();
             panel.BorderStyle = BorderStyle.FixedSingle;
             panel.Controls.Add(textBox);
-            panel.Size = new Size(ConfigurationConstants.powiadomienieX, textBox.Size.Height+6);
+            panel.Size = new Size(Constants.powiadomienieX, textBox.Size.Height+6);
             panel.Parent = NotificationManager.getInstance().getPanel();
             panel.Click += onClick;
             this.notificationType = notificationType;
@@ -64,7 +60,7 @@ namespace SymulatorLotniska.NotificationManagement
             
             switch (notificationType)
             {
-                    case NotificationType.Normal:
+                    case NotificationType.Neutral:
                         panel.BackColor = Color.White;
                         break;
                     case NotificationType.Positive:

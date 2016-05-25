@@ -8,31 +8,17 @@ namespace SymulatorLotniska.Planes
         private int maxNumberOfPassengers;
         private int currentNumberOfPassengers;
 
-        public PassengerPlane(AirportManager handleAirportManager)
-        : base(handleAirportManager)
+        public PassengerPlane( )
         {
             maxNumberOfPassengers = 0;
             currentNumberOfPassengers = 0;
         }
-
-        public PassengerPlane(AirportManager handleAirportManager, Control parentControl)
-        : base(handleAirportManager, parentControl)
-        {
-            maxNumberOfPassengers = 0;
-            currentNumberOfPassengers = 0;
-        }
-        public PassengerPlane(AirportManager handleAirportManager, Control parentControl, int maxFuelLevel, int maksIloscPasazerow, int czasStartu, int czasKontroli, int spalanie, string model)
-        : base(handleAirportManager, parentControl, maxFuelLevel, czasStartu, czasKontroli, spalanie, model)
-        {
-            this.maxNumberOfPassengers = maksIloscPasazerow;
-            currentNumberOfPassengers = 0;
-        }
-
+        
         public int getCurrentNumberOfPassengers() { return currentNumberOfPassengers; }
         public int getMaxNumberOfPassengers() { return maxNumberOfPassengers; }
         public void setCurrentNumberOfPassengers(int newNumberOfPassengers) {
             this.currentNumberOfPassengers = newNumberOfPassengers;
-            handleAirportManager.refreshInformationPanelIfSelected(this);
+            AirportManager.getInstance().refreshInformationPanelIfSelected(this);
         }
         public void setMaxNumberOfPassengers(int maxNumberOfPassengers) { this.maxNumberOfPassengers = maxNumberOfPassengers; }
        

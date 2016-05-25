@@ -9,7 +9,7 @@ namespace SymulatorLotniska.Planes
         private int maxAmmo;
         private int currentAmmo;
 
-        public MilitaryPlane(AirportManager handleAirportManager): base(handleAirportManager)
+        public MilitaryPlane()
         { }
 
         public string getWeaponType() { return weaponType; }

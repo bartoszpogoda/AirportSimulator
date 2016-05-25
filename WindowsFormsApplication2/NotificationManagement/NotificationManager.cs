@@ -56,7 +56,7 @@ namespace SymulatorLotniska.NotificationManagement
         private void redraw()
         {
             int x = 0;
-            int y = 3*ConfigurationConstants.interspaceSize;
+            int y = 3*Constants.interspaceSize;
 
             int i = 0;
 
@@ -67,7 +67,7 @@ namespace SymulatorLotniska.NotificationManagement
                     break;
                 }
                 listNotification.ElementAt(i).show(new Point(x, y));
-                y += ConfigurationConstants.interspaceSize + listNotification.ElementAt(i).getHeight();
+                y += Constants.interspaceSize + listNotification.ElementAt(i).getHeight();
             }
             for(; i < listNotification.Count; i++)
             {

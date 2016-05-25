@@ -13,7 +13,7 @@ namespace SymulatorLotniska.Operations
 
             if (plane.isAfterTechnicalInspection())
             {
-                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " już jest po kontroli technicznej.", NotificationType.Normal);
+                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " już jest po kontroli technicznej.", NotificationType.Neutral);
                 return;
             }
             if (plane.getCurrentState() == State.Hangar)

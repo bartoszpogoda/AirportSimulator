@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+using SymulatorLotniska;
+using SymulatorLotniska.AirportManagement;
+using SymulatorLotniska.OperationManagement;
+using SymulatorLotniska.NotificationManagement;
 
 namespace SymulatorLotniska
 {
@@ -13,8 +17,14 @@ namespace SymulatorLotniska
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AppWindow());
-            
+            AppWindow appWindow = new AppWindow();
+
+            PlaneImagesCollection.init();
+            AirportManager.init(appWindow);
+            OperationManager.init(appWindow);
+            PlaneCreationManager.init(appWindow);
+
+            Application.Run(appWindow);
         }
     }
 }

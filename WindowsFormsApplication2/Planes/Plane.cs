@@ -13,9 +13,9 @@ namespace SymulatorLotniska.Planes
 
         //---parametry techniczne
         private int maxFuelLevel;
-        private int takeoffInterval;           //w tickach
-        private int technicalInspectionTime;         //w tickach
-        private int fuelUsage;         // co ile tickow spala 1l
+        private int takeoffInterval;                 // co który tick przesuwa sie o 1?
+        private int technicalInspectionTime;         // w tickach
+        private int fuelUsage;                       // co ile tickow spala 1l
         private string model;
         private int ID;        
         //-----------------------
@@ -48,18 +48,18 @@ namespace SymulatorLotniska.Planes
         {
                 currentState = newState;
                 setStateImage(newState);
-                handleAirportManager.refreshButtonPanelIfSelected(this);
-                handleAirportManager.refreshInformationPanelIfSelected(this);
+                AirportManager.getInstance().refreshButtonPanelIfSelected(this);
+                AirportManager.getInstance().refreshInformationPanelIfSelected(this);
         }
         public int getCurrentFuelLevel() { return currentFuelLevel; }
         public void setCurrentFuelLevel(int fuelLevel) {
             currentFuelLevel = fuelLevel;
-            handleAirportManager.refreshInformationPanelIfSelected(this);
+            AirportManager.getInstance().refreshInformationPanelIfSelected(this);
         }
         public void setCurrentTechnicalInspectionProgress(int progress)
         {
             currentTechnicalInspectionProgress = progress;
-            handleAirportManager.refreshInformationPanelIfSelected(this);
+            AirportManager.getInstance().refreshInformationPanelIfSelected(this);
         }
         public int getFuelUsage() { return fuelUsage; }
         public bool isTanked()
@@ -72,33 +72,12 @@ namespace SymulatorLotniska.Planes
 
         //--Konstruktory
         
-        public Plane(AirportManager handleAirportManager) : base(handleAirportManager)
+        public Plane()
         {
             ID = IDcounter++;
-
-        }
-
-        public Plane(AirportManager uchwytMenedzerSamolotow, Control parent)
-            : base(uchwytMenedzerSamolotow, parent)
-        {
-            ID = IDcounter++;
+            technicalInspectionTime = 100;
         }
         
-
-
-        public Plane(AirportManager uchwytMenedzerSamolotow, Control parent, int maksIloscPaliwa, int czasStartu, int czasKontroli, int spalanie, string model)
-            : base(uchwytMenedzerSamolotow, parent)
-        {
-            ID = IDcounter++;
-
-            this.takeoffInterval = czasStartu;
-            this.model = model;
-            this.maxFuelLevel = maksIloscPaliwa;
-            this.technicalInspectionTime = czasKontroli;
-            this.fuelUsage = spalanie;
-            this.currentFuelLevel = 0;
-            this.afterTechnicalInspection = false;
-       }
         //--------------
 
         abstract public string getInformation();

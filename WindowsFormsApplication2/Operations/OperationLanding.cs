@@ -19,7 +19,7 @@ namespace SymulatorLotniska.Operations
 
             if (plane.getCurrentState() == State.InAir)
             {
-                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " podchodzi do lądowania na pasie startowym nr " + runway.getID() + ".", NotificationType.Normal);
+                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " podchodzi do lądowania na pasie startowym nr " + runway.getID() + ".", NotificationType.Neutral);
                 plane.setCurrentState(State.Landing);
             }
 
