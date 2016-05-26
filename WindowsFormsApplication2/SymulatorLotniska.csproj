@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Bartek PC\Desktop\Publish\</PublishUrl>
+    <PublishUrl>C:\Users\Beata\Desktop\WebSite\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>38</ApplicationRevision>
+    <ApplicationRevision>39</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -79,6 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormaTestowa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormaTestowa.Designer.cs">
+      <DependentUpon>FormaTestowa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Operations\OperationInAir.cs" />
     <Compile Include="Operations\OperationLanding.cs" />
     <Compile Include="Operations\OperationTakeoff.cs" />
@@ -121,6 +127,9 @@
     <Compile Include="PlaneImagesCollection.cs" />
     <EmbeddedResource Include="AppWindow.resx">
       <DependentUpon>AppWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormaTestowa.resx">
+      <DependentUpon>FormaTestowa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -18,6 +18,8 @@ namespace SymulatorLotniska
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             AppWindow appWindow = new AppWindow();
+            FormaTestowa TESTGRAFIKI = new FormaTestowa();
+            
 
             PlaneImagesCollection.init();
             AirportManager.init(appWindow);
@@ -25,6 +27,7 @@ namespace SymulatorLotniska
             PlaneCreationManager.init(appWindow);
 
             Application.Run(appWindow);
+            //Application.Run(TESTGRAFIKI);
         }
     }
 }

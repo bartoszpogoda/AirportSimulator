@@ -13,6 +13,11 @@ namespace SymulatorLotniska
         public AppWindow()
         {
             InitializeComponent();
+            singleMode.Checked = true;
+            peopleCount.Text = "5";
+            cargoCount.Text = "44";
+            ammoCount.Text = "200";
+
             NotificationManager.getInstance().setPanel(groupBox1);
             
 
@@ -43,6 +48,8 @@ namespace SymulatorLotniska
             this.panelPasStartowy2.BackColor = Color.Transparent;
 
             schowajWszystkiePrzyciskiPanelu();
+
+
 
         }
         public Panel getPanelSamolotowPowietrze() { return this.panelSamolotyWPowietrzu; }
@@ -110,22 +117,12 @@ namespace SymulatorLotniska
                 btnStartowanie.Visible = true;
                 doHangaru.Visible = true;
                 doHangaru.Enabled = true;
-                btnD1C.Enabled = true;
-                btnD1C.Visible = true;
-                btnD5C.Enabled = true;
-                btnD5C.Visible = true;
-                btnM1C.Enabled = true;
-                btnM1C.Visible = true;
-                btnM5C.Enabled = true;
-                btnM5C.Visible = true;
             } else if (stanZaznaczonegoSamolotu == State.OnRunwayBefTakeoff && aktualnieZaznaczonySamolot is PassengerPlane)
             {
                 btnStartowanie.Enabled = true;
                 btnStartowanie.Visible = true;
                 doHangaru.Visible = true;
                 doHangaru.Enabled = true;
-                btnD1C.Enabled = true;
-                btnD1C.Visible = true;
             }
 
         }
@@ -145,14 +142,6 @@ namespace SymulatorLotniska
             btnStartowanie.Visible = false;
             doHangaru.Visible = false;
             doHangaru.Enabled = false;
-            btnD1C.Enabled = false;
-            btnD1C.Visible = false;
-            btnD5C.Enabled = false;
-            btnD5C.Visible = false;
-            btnM1C.Enabled = false;
-            btnM1C.Visible = false;
-            btnM5C.Enabled = false;
-            btnM5C.Visible = false;
             btnLanding.Enabled = false;
             btnLanding.Visible = false;
             btnSendAway.Enabled = false;
@@ -197,21 +186,14 @@ namespace SymulatorLotniska
             AirportManager.getInstance().odeslijZaznaczonySamolot();
         }
         
-        private void wprowadzenieLudzi_Click(object sender, EventArgs e)
-        {
-            AirportManager.getInstance().wprowadzLudzi(1);
-        }
+       
 
         private void doHangaru_Click(object sender, EventArgs e)
         {
             AirportManager.getInstance().umiescZaznaczonyWHangarze();
         }
 
-        private void btnD5C_Click(object sender, EventArgs e)
-        {
-            AirportManager.getInstance().wprowadzLudzi(5);
-        }
-
+   
         private void btnM1C_Click(object sender, EventArgs e)
         {
             AirportManager.getInstance().wyprowadzLudzi(1);
@@ -306,6 +288,39 @@ namespace SymulatorLotniska
         {
 
         }
-        
+
+        private void peoplePanel_Click(object sender, EventArgs e)
+        {
+            if(singleMode.Checked == true)
+            {
+                peopleCount.Text = (Int32.Parse(peopleCount.Text) - AirportManager.getInstance().addPeople(Int32.Parse(peopleCount.Text), false)).ToString();
+            }
+            else
+            {
+                peopleCount.Text = (Int32.Parse(peopleCount.Text) - AirportManager.getInstance().addPeople(Int32.Parse(peopleCount.Text), true)).ToString();
+            }
+        }
+        private void cargoPanel_Click(object sender, EventArgs e)
+        {
+            if (singleMode.Checked == true)
+            {
+                cargoCount.Text = (Int32.Parse(cargoCount.Text) - AirportManager.getInstance().addCargo(Int32.Parse(cargoCount.Text), false)).ToString();
+            }
+            else
+            {
+                cargoCount.Text = (Int32.Parse(cargoCount.Text) - AirportManager.getInstance().addCargo(Int32.Parse(cargoCount.Text), true)).ToString();
+            }
+        }
+        private void ammoPanel_Click(object sender, EventArgs e)
+        {
+            if (singleMode.Checked == true)
+            {
+                ammoCount.Text = (Int32.Parse(ammoCount.Text) - AirportManager.getInstance().addAmmo(Int32.Parse(ammoCount.Text), false)).ToString();
+            }
+            else
+            {
+                ammoCount.Text = (Int32.Parse(ammoCount.Text) - AirportManager.getInstance().addAmmo(Int32.Parse(ammoCount.Text), true)).ToString();
+            }
+        }
     }
 }

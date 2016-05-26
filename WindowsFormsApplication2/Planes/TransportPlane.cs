@@ -16,7 +16,10 @@ namespace SymulatorLotniska.Planes
         public void setMaxStorageCapacity(int maxStorageCapacity) { this.maxStorageCapacity = maxStorageCapacity; }
 
         public int getCurrentStorageContent() { return currentStorageContent;}
-        public void setCurrentStorageContent(int storageContent) { currentStorageContent = storageContent; }
+        public void setCurrentStorageContent(int storageContent) {
+            currentStorageContent = storageContent;
+            AirportManager.getInstance().refreshInformationPanelIfSelected(this);
+        }
 
 
 

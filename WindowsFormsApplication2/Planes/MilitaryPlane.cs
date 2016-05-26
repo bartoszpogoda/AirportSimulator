@@ -19,7 +19,10 @@ namespace SymulatorLotniska.Planes
         public void setMaxAmmo(int maxAmmo) { this.maxAmmo = maxAmmo; }
 
         public int getCurrentAmmo() { return currentAmmo; }
-        public void setCurrentAmmo(int currentAmmo) { this.currentAmmo = currentAmmo; }
+        public void setCurrentAmmo(int currentAmmo) {
+            this.currentAmmo = currentAmmo;
+            AirportManager.getInstance().refreshInformationPanelIfSelected(this);
+        }
 
 
         public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza

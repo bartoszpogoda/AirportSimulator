@@ -13,7 +13,7 @@ namespace SymulatorLotniska
         public const int interwalTimera = 15; 
         public const int interwalTankowanie = 10;
         public const int ilePowiadomien = 5;
-        public const int powiadomienieX = 170;
+        public const int powiadomienieX = 245;
 
         public const string adresZnacznik = "znacznik";
         public const string adresTankowanie = "tankowanieN";

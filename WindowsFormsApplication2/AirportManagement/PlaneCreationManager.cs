@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.Drawing;
 
 namespace SymulatorLotniska.AirportManagement
-{// moze singleton?
+{
     class PlaneCreationManager : Panel
     {
         private static PlaneCreationManager instance;
@@ -120,11 +120,12 @@ namespace SymulatorLotniska.AirportManagement
             //
             // panel1
             // 
-            panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
             panel1.Controls.Add(label1);
             panel1.Location = new System.Drawing.Point(1, 0);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(230, 27);
+            panel1.Visible = false;
             //panel1.TabIndex = 0;
             // 
             // label1
@@ -132,7 +133,7 @@ namespace SymulatorLotniska.AirportManagement
             label1.AutoSize = true;
             label1.BackColor = System.Drawing.Color.Transparent;
             label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            label1.ForeColor = System.Drawing.Color.Black;
             label1.Location = new System.Drawing.Point(3, 0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(200, 18);
