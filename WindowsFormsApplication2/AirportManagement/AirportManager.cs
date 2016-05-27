@@ -224,7 +224,7 @@ namespace SymulatorLotniska.AirportManagement
                 }
         public void placeSelectedInHangar()
         {
-            if (selectedPlane is Plane && ((Plane)selectedPlane).getCurrentState() == State.OnRunwayBefTakeoff)
+            if (selectedPlane is Plane && (((Plane)selectedPlane).getCurrentState() == State.OnRunwayBefTakeoff || ((Plane)selectedPlane).getCurrentState() == State.OnRunwayAftLanding))
             {
                 if (selectedPlane is PassengerPlane)
                 {

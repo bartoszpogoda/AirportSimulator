@@ -10,10 +10,11 @@ namespace SymulatorLotniska
 {
     public partial class AppWindow : Form
     {
+        bool operacja;
         public AppWindow()
         {
             InitializeComponent();
-            singleMode.Checked = true;
+            operacja = true;
             peopleCount.Text = "5";
             cargoCount.Text = "44";
             ammoCount.Text = "200";
@@ -99,6 +100,11 @@ namespace SymulatorLotniska
             else if (currentSelectedPlaneState == State.OnRunwayBefTakeoff)
             {
                 btnStartowanie.Visible = true;
+                doHangaru.Visible = true;
+                btnUnload.Visible = true;
+            }
+            else if(currentSelectedPlaneState == State.OnRunwayAftLanding)
+            {
                 doHangaru.Visible = true;
                 btnUnload.Visible = true;
             }
@@ -257,7 +263,7 @@ namespace SymulatorLotniska
                 return;
             }
 
-            if (singleMode.Checked == true)
+            if (!operacja)
             {
                 if (AirportManager.getInstance().addSinglePerson())
                     peopleCount.Text = (Int32.Parse(peopleCount.Text) - 1).ToString();
@@ -273,7 +279,7 @@ namespace SymulatorLotniska
                 return;
             }
 
-            if (singleMode.Checked == true)
+            if (!operacja)
             {
                 if (AirportManager.getInstance().addSingleCargo())
                     cargoCount.Text = (Int32.Parse(cargoCount.Text) - 1).ToString();
@@ -289,7 +295,7 @@ namespace SymulatorLotniska
                 return;
             }
 
-            if (singleMode.Checked == true)
+            if (!operacja)
             {
                 if (AirportManager.getInstance().addSingleAmmo())
                     ammoCount.Text = (Int32.Parse(ammoCount.Text) - 1).ToString();
@@ -334,12 +340,37 @@ namespace SymulatorLotniska
             {
                 AirportManager.getInstance().setAcceptingIncomingPlanes(false);
                 label1.BackColor = Color.FromArgb(252, 113, 113);
+                label1.Text = "Nie przyjmuje samolotów";
             }
             else
             {
                 AirportManager.getInstance().setAcceptingIncomingPlanes(true);
                 label1.BackColor = Color.FromArgb(162, 252, 140);
+                label1.Text = "Przyjmuje samoloty";
             }
+        }
+
+        private void notificationListClear_Click(object sender, EventArgs e)
+        {
+            NotificationManager.getInstance().clear();
+        }
+
+        private void switchOperationSingle_Click(object sender, EventArgs e)
+        {
+            if (operacja)
+            {
+                operacja = false;
+                switchOperationSingle.Text = "Pojedyńczo";
+                switchOperationSingle.BackColor = Color.Bisque;
+
+            }
+            else
+            {
+                operacja = true;
+                switchOperationSingle.Text = "Operacja";
+                switchOperationSingle.BackColor = Color.Aquamarine;
+            }
+                
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using SymulatorLotniska.Planes;
+﻿using SymulatorLotniska.OperationManagement;
+using SymulatorLotniska.Operations;
+using SymulatorLotniska.Planes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,6 +30,8 @@ namespace SymulatorLotniska.AirportManagement
         {
             airspaceContent.Add(plane);
             plane.setParent(handlePanel);
+
+            OperationManager.getInstance().addOperation(new OperationInAir(plane));
             redraw();
         }
         public void remove(Plane plane)

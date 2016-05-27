@@ -53,7 +53,6 @@ namespace SymulatorLotniska.Operations
             else
             {
                 AirportManager.getInstance().getAirspace().addToAirspace(plane);
-                OperationManager.getInstance().addOperation(new OperationInAir(plane));
 
                 NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " wzniósł się w powietrze. Teraz znajduje się w przestrzeni powietrznej nad lotniskiem", NotificationType.Positive);
             }

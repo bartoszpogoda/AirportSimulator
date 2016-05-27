@@ -4,7 +4,7 @@
 	  <Model>F-16</Model>
 	  <MaxFuelLevel>220</MaxFuelLevel>
 	  <TakeoffInterval>1</TakeoffInterval>
-	  <FuelUsage>10</FuelUsage>
+	  <FuelUsage>80</FuelUsage>
 	  <Type>MilitaryPlane</Type>
     <Image>samolot1</Image>
 	
@@ -18,7 +18,7 @@
     <Model>Tupolew</Model>
 	  <MaxFuelLevel>300</MaxFuelLevel>
 	  <TakeoffInterval>4</TakeoffInterval>
-	  <FuelUsage>7</FuelUsage>
+	  <FuelUsage>120</FuelUsage>
 	  <Type>PassengerPlane</Type>
     <Image>samolot1</Image>
 	

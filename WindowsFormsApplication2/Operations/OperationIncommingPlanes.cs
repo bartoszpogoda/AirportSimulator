@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SymulatorLotniska.Planes;
 using SymulatorLotniska.AirportManagement;
 using SymulatorLotniska.NotificationManagement;
+using SymulatorLotniska.OperationManagement;
 
 namespace SymulatorLotniska.Operations
 {
@@ -48,7 +49,9 @@ namespace SymulatorLotniska.Operations
             }
 
             NotificationManager.getInstance().addNotification("Samolot " + incommingPlane.getModelID() + " zawitał w przestrzeni powietrznej nad lotniskiem", NotificationType.Positive);
+           
             AirportManager.getInstance().getAirspace().addToAirspace(incommingPlane);
+
             return true;
         }
 
