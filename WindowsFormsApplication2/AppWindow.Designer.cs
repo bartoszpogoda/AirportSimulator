@@ -45,6 +45,7 @@ namespace SymulatorLotniska
             this.btnLewo = new System.Windows.Forms.Button();
             this.labelSamolotyPowietrze = new System.Windows.Forms.Label();
             this.panelPrzyciskow = new System.Windows.Forms.Panel();
+            this.btnUnload = new System.Windows.Forms.Button();
             this.btnSendAway = new System.Windows.Forms.Button();
             this.btnLanding = new System.Windows.Forms.Button();
             this.btnStartowanie = new System.Windows.Forms.Button();
@@ -56,6 +57,7 @@ namespace SymulatorLotniska
             this.panelPasStartowy1 = new System.Windows.Forms.Panel();
             this.panelPasStartowy2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.peopleCount = new System.Windows.Forms.TextBox();
@@ -66,11 +68,12 @@ namespace SymulatorLotniska
             this.ammoCount = new System.Windows.Forms.TextBox();
             this.singleMode = new System.Windows.Forms.RadioButton();
             this.fullMode = new System.Windows.Forms.RadioButton();
-            this.btnUnload = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
             this.panelPrzyciskow.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.peoplePanel.SuspendLayout();
             this.cargoPanel.SuspendLayout();
             this.ammoPanel.SuspendLayout();
@@ -218,6 +221,17 @@ namespace SymulatorLotniska
             this.panelPrzyciskow.Size = new System.Drawing.Size(59, 170);
             this.panelPrzyciskow.TabIndex = 0;
             // 
+            // btnUnload
+            // 
+            this.btnUnload.BackColor = System.Drawing.Color.White;
+            this.btnUnload.Image = global::SymulatorLotniska.Properties.Resources.btnDol;
+            this.btnUnload.Location = new System.Drawing.Point(4, 3);
+            this.btnUnload.Name = "btnUnload";
+            this.btnUnload.Size = new System.Drawing.Size(50, 50);
+            this.btnUnload.TabIndex = 16;
+            this.btnUnload.UseVisualStyleBackColor = false;
+            this.btnUnload.Click += new System.EventHandler(this.btnUnload_Click);
+            // 
             // btnSendAway
             // 
             this.btnSendAway.BackColor = System.Drawing.Color.White;
@@ -324,12 +338,23 @@ namespace SymulatorLotniska
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(522, 274);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(245, 258);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Centrum powiadomien";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(107, 87);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button4
             // 
@@ -416,7 +441,7 @@ namespace SymulatorLotniska
             // 
             this.singleMode.AutoSize = true;
             this.singleMode.Checked = true;
-            this.singleMode.Location = new System.Drawing.Point(594, 246);
+            this.singleMode.Location = new System.Drawing.Point(685, 231);
             this.singleMode.Name = "singleMode";
             this.singleMode.Size = new System.Drawing.Size(80, 17);
             this.singleMode.TabIndex = 12;
@@ -435,22 +460,26 @@ namespace SymulatorLotniska
             this.fullMode.UseVisualStyleBackColor = true;
             this.fullMode.CheckedChanged += new System.EventHandler(this.fullMode_CheckedChanged);
             // 
-            // btnUnload
+            // label1
             // 
-            this.btnUnload.BackColor = System.Drawing.Color.White;
-            this.btnUnload.Image = global::SymulatorLotniska.Properties.Resources.btnDol;
-            this.btnUnload.Location = new System.Drawing.Point(4, 3);
-            this.btnUnload.Name = "btnUnload";
-            this.btnUnload.Size = new System.Drawing.Size(50, 50);
-            this.btnUnload.TabIndex = 16;
-            this.btnUnload.UseVisualStyleBackColor = false;
-            this.btnUnload.Click += new System.EventHandler(this.btnUnload_Click);
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Red;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Location = new System.Drawing.Point(526, 238);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(5);
+            this.label1.Size = new System.Drawing.Size(136, 25);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Przyjmowanie samolotów";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // AppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.fullMode);
             this.Controls.Add(this.singleMode);
             this.Controls.Add(this.ammoPanel);
@@ -478,6 +507,7 @@ namespace SymulatorLotniska
             this.panelSamolotyWPowietrzu.ResumeLayout(false);
             this.panelSamolotyWPowietrzu.PerformLayout();
             this.panelPrzyciskow.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.peoplePanel.ResumeLayout(false);
             this.peoplePanel.PerformLayout();
             this.cargoPanel.ResumeLayout(false);
@@ -527,6 +557,8 @@ namespace SymulatorLotniska
         private RadioButton singleMode;
         private RadioButton fullMode;
         private Button btnUnload;
+        private Button button1;
+        private Label label1;
     }
 }
 

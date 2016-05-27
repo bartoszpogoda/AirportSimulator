@@ -320,5 +320,26 @@ namespace SymulatorLotniska
                 AirportManager.getInstance().unloadCargoOperation(cargoCount);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            Plane plane = Program.readFromFile(1);
+            AirportManager.getInstance().getHangar().addToHangar(plane);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            if (AirportManager.getInstance().isAcceptingIncommingPlanes())
+            {
+                AirportManager.getInstance().setAcceptingIncomingPlanes(false);
+                label1.BackColor = Color.FromArgb(252, 113, 113);
+            }
+            else
+            {
+                AirportManager.getInstance().setAcceptingIncomingPlanes(true);
+                label1.BackColor = Color.FromArgb(162, 252, 140);
+            }
+        }
     }
 }

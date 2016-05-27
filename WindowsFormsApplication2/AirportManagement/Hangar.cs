@@ -102,7 +102,8 @@ namespace SymulatorLotniska.AirportManagement
             }
         }
 
+        public List<Plane> getList() { return hangarContent; }
 
-
+        public Plane debugGetEement() { return hangarContent[0]; }
     }
 }

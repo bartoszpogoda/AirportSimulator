@@ -191,6 +191,33 @@ namespace SymulatorLotniska.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;Planes&gt;
+        ///  &lt;Plane id=&quot;0&quot;&gt;
+        ///	  &lt;Model&gt;F-16&lt;/Model&gt;
+        ///	  &lt;MaxFuelLevel&gt;220&lt;/MaxFuelLevel&gt;
+        ///	  &lt;TakeoffInterval&gt;1&lt;/TakeoffInterval&gt;
+        ///	  &lt;FuelUsage&gt;10&lt;/FuelUsage&gt;
+        ///	  &lt;Type&gt;MilitaryPlane&lt;/Type&gt;
+        ///    &lt;Image&gt;samolot1&lt;/Image&gt;
+        ///	
+        ///	  &lt;MaxPassengers&gt;&lt;/MaxPassengers&gt;
+        ///	  &lt;MaxStorage&gt;&lt;/MaxStorage&gt;
+        ///	  &lt;MaxAmmo&gt;1000&lt;/MaxAmmo&gt;
+        ///	  &lt;WeaponType&gt;Rakiety&lt;/WeaponType&gt;
+        ///  &lt;/Plane&gt;
+        ///  
+        ///  &lt;Plane id=&quot;1&quot;&gt;
+        ///    &lt;Model&gt;Tupolew&lt;/Model&gt;
+        ///	  &lt;MaxFuelLevel&gt;300&lt;/MaxFuelLevel&gt;
+        ///	  &lt;TakeoffInterval&gt;4&lt;/TakeoffInterval&gt;3&lt;/TakeoffInterval&gt;        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DefinedPlanes {
+            get {
+                return ResourceManager.GetString("DefinedPlanes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap kontrolatechniczna {

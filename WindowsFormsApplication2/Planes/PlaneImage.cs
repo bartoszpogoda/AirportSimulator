@@ -5,10 +5,14 @@ using SymulatorLotniska.AirportManagement;
 
 namespace SymulatorLotniska.Planes
 {
+    
     public class PlaneImage
     {
+        
         private PictureBox currentPlaneImage;
+        
         private PictureBox currentStateImage;
+        
         private Control currentOnTop;
         
         public PlaneImage(Control parentControl = null, String imageName = "samolot1")

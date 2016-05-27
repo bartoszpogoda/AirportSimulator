@@ -7,6 +7,7 @@ namespace SymulatorLotniska.Planes
     /*
         Klasa abstrakcyjna, poniewaz samolot musi miec jakis typ.
     */
+    
     public abstract class Plane : PlaneImage
     {
         public static int IDcounter = 0;

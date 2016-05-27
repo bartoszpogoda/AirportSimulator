@@ -35,6 +35,9 @@ namespace SymulatorLotniska.AirportManagement
         private Airspace airspace;
         private List<Runway> runwayList;
 
+        private bool acceptsIncomingPlanes;
+        IOperation incommingPlanes;
+
         private AirportManager(AppWindow handleAppWindow) {
             this.handleAppWindow = handleAppWindow;
 
@@ -42,6 +45,8 @@ namespace SymulatorLotniska.AirportManagement
             pbSelectedPlane = new PictureBox();
             hangar = new Hangar(handleAppWindow.getPanelSamolotow(), 3, 4);
             airspace = new Airspace(handleAppWindow.getPanelSamolotowPowietrze(), 8);
+            acceptsIncomingPlanes = false;
+            incommingPlanes = new OperationIncommingPlanes();
 
             initPbSelectedPlane();
 
@@ -52,6 +57,18 @@ namespace SymulatorLotniska.AirportManagement
         public PlaneImage getSelectedPlane() { return selectedPlane; }
         public Hangar getHangar() { return hangar; }
         public Airspace getAirspace() { return airspace; }
+
+        public bool isAcceptingIncommingPlanes() { return acceptsIncomingPlanes; }
+        public void setAcceptingIncomingPlanes(bool acceptsIncomingPlanes) {
+            if (acceptsIncomingPlanes == false && this.acceptsIncomingPlanes == true)
+            {
+                OperationManager.getInstance().stopOperation(incommingPlanes);
+            }
+            else if(acceptsIncomingPlanes == true && this.acceptsIncomingPlanes == false)
+                OperationManager.getInstance().addOperation(incommingPlanes);
+
+            this.acceptsIncomingPlanes = acceptsIncomingPlanes;
+        }
 
         private void initPbSelectedPlane()
         {
