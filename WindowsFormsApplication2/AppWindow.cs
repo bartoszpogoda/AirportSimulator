@@ -58,94 +58,64 @@ namespace SymulatorLotniska
         public Panel getPasStartowy1() { return this.panelPasStartowy1; }
         public Panel getPasStartowy2() { return this.panelPasStartowy2; }
 
-       public void uaktualnijPrzyciskiPanelu(PlaneImage aktualnieZaznaczony)
+       public void refreshButtonPanel(PlaneImage aktualnieZaznaczony)
         {
-
-            // bedziemy potem wyłapywac też typ samolotu
-
             schowajWszystkiePrzyciskiPanelu();
 
             if (!(aktualnieZaznaczony is Plane) )
                 return;
             
-            Plane aktualnieZaznaczonySamolot = (Plane)aktualnieZaznaczony;
+            Plane currentSelectedPlane = (Plane)aktualnieZaznaczony;
             
-
-            State stanZaznaczonegoSamolotu = aktualnieZaznaczonySamolot.getCurrentState();
+            State currentSelectedPlaneState = currentSelectedPlane.getCurrentState();
             
-
-            if (stanZaznaczonegoSamolotu == State.Fueling)
+            if (currentSelectedPlaneState == State.Fueling || currentSelectedPlaneState == State.TechnicalInspection
+                || currentSelectedPlaneState == State.Loading || currentSelectedPlaneState == State.Unloading )
             {
-                operationCancel.Enabled = true;
                 operationCancel.Visible = true;
             }
-            else if(stanZaznaczonegoSamolotu == State.Hangar)
+            else if(currentSelectedPlaneState == State.Hangar)
             {
-                kontrola.Enabled = true;
                 kontrola.Visible = true;
-                naPasStartowy.Enabled = true;
                 naPasStartowy.Visible = true;
-                tankowanie.Enabled = true;
                 tankowanie.Visible = true;
 
-                if (aktualnieZaznaczonySamolot.isTanked())
+                if (currentSelectedPlane.isTanked())
                     tankowanie.BackColor = System.Drawing.Color.YellowGreen;
                 else
                     tankowanie.BackColor = System.Drawing.Color.White;
 
-                if (aktualnieZaznaczonySamolot.isAfterTechnicalInspection())
+                if (currentSelectedPlane.isAfterTechnicalInspection())
                     kontrola.BackColor = System.Drawing.Color.YellowGreen;
                 else
                     kontrola.BackColor = System.Drawing.Color.White;
+
             }
-            else if(stanZaznaczonegoSamolotu == State.TechnicalInspection)
+            else if (currentSelectedPlaneState == State.InAir)
             {
-                //operationCancel.Text = "Zatrzymaj kontrole";
-                operationCancel.Enabled = true;
-                operationCancel.Visible = true;
-            }
-            else if (stanZaznaczonegoSamolotu == State.InAir)
-            {
-                btnLanding.Enabled = true;
                 btnLanding.Visible = true;
-                btnSendAway.Enabled = true;
                 btnSendAway.Visible = true;
             }
-            else if (stanZaznaczonegoSamolotu == State.OnRunwayBefTakeoff && aktualnieZaznaczonySamolot is PassengerPlane)
+            else if (currentSelectedPlaneState == State.OnRunwayBefTakeoff)
             {
-                btnStartowanie.Enabled = true;
                 btnStartowanie.Visible = true;
                 doHangaru.Visible = true;
-                doHangaru.Enabled = true;
-            } else if (stanZaznaczonegoSamolotu == State.OnRunwayBefTakeoff && aktualnieZaznaczonySamolot is PassengerPlane)
-            {
-                btnStartowanie.Enabled = true;
-                btnStartowanie.Visible = true;
-                doHangaru.Visible = true;
-                doHangaru.Enabled = true;
+                btnUnload.Visible = true;
             }
-
         }
 
         private void schowajWszystkiePrzyciskiPanelu()
         {
             // mozna potem to na tablice przerobic
-            kontrola.Enabled = false;
             kontrola.Visible = false;
-            naPasStartowy.Enabled = false;
             naPasStartowy.Visible = false;
-            tankowanie.Enabled = false;
             tankowanie.Visible = false;
-            operationCancel.Enabled = false;
             operationCancel.Visible = false;
-            btnStartowanie.Enabled = false;
             btnStartowanie.Visible = false;
             doHangaru.Visible = false;
-            doHangaru.Enabled = false;
-            btnLanding.Enabled = false;
             btnLanding.Visible = false;
-            btnSendAway.Enabled = false;
             btnSendAway.Visible = false;
+            btnUnload.Visible = false;
 
         }
 
@@ -155,7 +125,7 @@ namespace SymulatorLotniska
             AirportManager.getInstance().fuel();
         }
         // ugololnic nazwe
-        private void tankowanieCancel_Click(object sender, EventArgs e)
+        private void operationCancel_Click(object sender, EventArgs e)
         {
            if(AirportManager.getInstance().getSelectedPlane() is Plane) OperationManager.getInstance().stopOperation((Plane)AirportManager.getInstance().getSelectedPlane());
         }
@@ -183,27 +153,17 @@ namespace SymulatorLotniska
 
         private void odeslij_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().odeslijZaznaczonySamolot();
+            AirportManager.getInstance().sendAwaySelected();
         }
         
        
 
         private void doHangaru_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().umiescZaznaczonyWHangarze();
+            AirportManager.getInstance().placeSelectedInHangar();
         }
 
    
-        private void btnM1C_Click(object sender, EventArgs e)
-        {
-            AirportManager.getInstance().wyprowadzLudzi(1);
-        }
-
-        private void btnM5C_Click(object sender, EventArgs e)
-        {
-            AirportManager.getInstance().wyprowadzLudzi(5);
-        }
-
         private void btnLewo_Click(object sender, EventArgs e)
         {
             AirportManager.getInstance().getAirspace().scrollLeft();
@@ -236,7 +196,7 @@ namespace SymulatorLotniska
 
         private void btnSendAway_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().odeslijZaznaczonySamolot();
+            AirportManager.getInstance().sendAwaySelected();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -291,35 +251,73 @@ namespace SymulatorLotniska
 
         private void peoplePanel_Click(object sender, EventArgs e)
         {
-            if(singleMode.Checked == true)
+            if (Int32.Parse(peopleCount.Text) < 1)
             {
-                peopleCount.Text = (Int32.Parse(peopleCount.Text) - AirportManager.getInstance().addPeople(Int32.Parse(peopleCount.Text), false)).ToString();
+                NotificationManager.getInstance().addNotification("Nie ma już pasażerów na lotnisku", NotificationType.Negative);
+                return;
+            }
+
+            if (singleMode.Checked == true)
+            {
+                if (AirportManager.getInstance().addSinglePerson())
+                    peopleCount.Text = (Int32.Parse(peopleCount.Text) - 1).ToString();
             }
             else
-            {
-                peopleCount.Text = (Int32.Parse(peopleCount.Text) - AirportManager.getInstance().addPeople(Int32.Parse(peopleCount.Text), true)).ToString();
-            }
+                AirportManager.getInstance().loadPeopleOperation(peopleCount);
         }
         private void cargoPanel_Click(object sender, EventArgs e)
         {
+            if (Int32.Parse(cargoCount.Text) < 1)
+            {
+                NotificationManager.getInstance().addNotification("Nie ma już towaru w magazynie", NotificationType.Negative);
+                return;
+            }
+
             if (singleMode.Checked == true)
             {
-                cargoCount.Text = (Int32.Parse(cargoCount.Text) - AirportManager.getInstance().addCargo(Int32.Parse(cargoCount.Text), false)).ToString();
+                if (AirportManager.getInstance().addSingleCargo())
+                    cargoCount.Text = (Int32.Parse(cargoCount.Text) - 1).ToString();
             }
             else
-            {
-                cargoCount.Text = (Int32.Parse(cargoCount.Text) - AirportManager.getInstance().addCargo(Int32.Parse(cargoCount.Text), true)).ToString();
-            }
+                AirportManager.getInstance().loadCargoOperation(cargoCount);
         }
         private void ammoPanel_Click(object sender, EventArgs e)
         {
+            if(Int32.Parse(ammoCount.Text) < 1)
+            {
+                NotificationManager.getInstance().addNotification("Nie ma już amunicji w magazynie", NotificationType.Negative);
+                return;
+            }
+
             if (singleMode.Checked == true)
             {
-                ammoCount.Text = (Int32.Parse(ammoCount.Text) - AirportManager.getInstance().addAmmo(Int32.Parse(ammoCount.Text), false)).ToString();
+                if (AirportManager.getInstance().addSingleAmmo())
+                    ammoCount.Text = (Int32.Parse(ammoCount.Text) - 1).ToString();
             }
             else
+                AirportManager.getInstance().loadAmmoOperation(ammoCount);
+        }
+
+        private void fullMode_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUnload_Click(object sender, EventArgs e)
+        {
+            Plane selectedPlane = (Plane)AirportManager.getInstance().getSelectedPlane();
+
+            if(selectedPlane is PassengerPlane)
             {
-                ammoCount.Text = (Int32.Parse(ammoCount.Text) - AirportManager.getInstance().addAmmo(Int32.Parse(ammoCount.Text), true)).ToString();
+                AirportManager.getInstance().unloadPeopleOperation(peopleCount);
+            }
+            else if(selectedPlane is MilitaryPlane)
+            {
+                AirportManager.getInstance().unloadAmmoOperation(ammoCount);
+            }
+            else if(selectedPlane is TransportPlane)
+            {
+                AirportManager.getInstance().unloadCargoOperation(cargoCount);
             }
         }
     }

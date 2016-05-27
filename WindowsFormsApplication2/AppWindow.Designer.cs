@@ -66,6 +66,7 @@ namespace SymulatorLotniska
             this.ammoCount = new System.Windows.Forms.TextBox();
             this.singleMode = new System.Windows.Forms.RadioButton();
             this.fullMode = new System.Windows.Forms.RadioButton();
+            this.btnUnload = new System.Windows.Forms.Button();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
@@ -203,6 +204,7 @@ namespace SymulatorLotniska
             // panelPrzyciskow
             // 
             this.panelPrzyciskow.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelPrzyciskow.Controls.Add(this.btnUnload);
             this.panelPrzyciskow.Controls.Add(this.btnSendAway);
             this.panelPrzyciskow.Controls.Add(this.btnLanding);
             this.panelPrzyciskow.Controls.Add(this.btnStartowanie);
@@ -269,7 +271,7 @@ namespace SymulatorLotniska
             this.operationCancel.Size = new System.Drawing.Size(50, 50);
             this.operationCancel.TabIndex = 3;
             this.operationCancel.UseVisualStyleBackColor = false;
-            this.operationCancel.Click += new System.EventHandler(this.tankowanieCancel_Click);
+            this.operationCancel.Click += new System.EventHandler(this.operationCancel_Click);
             // 
             // kontrola
             // 
@@ -370,7 +372,7 @@ namespace SymulatorLotniska
             this.peoplePanel.Name = "peoplePanel";
             this.peoplePanel.Size = new System.Drawing.Size(90, 60);
             this.peoplePanel.TabIndex = 10;
-            this.peoplePanel.Click += new EventHandler(this.peoplePanel_Click);
+            this.peoplePanel.Click += new System.EventHandler(this.peoplePanel_Click);
             // 
             // cargoPanel
             // 
@@ -380,7 +382,7 @@ namespace SymulatorLotniska
             this.cargoPanel.Name = "cargoPanel";
             this.cargoPanel.Size = new System.Drawing.Size(90, 60);
             this.cargoPanel.TabIndex = 11;
-            this.cargoPanel.Click += new EventHandler(this.cargoPanel_Click);
+            this.cargoPanel.Click += new System.EventHandler(this.cargoPanel_Click);
             // 
             // cargoCount
             // 
@@ -399,7 +401,7 @@ namespace SymulatorLotniska
             this.ammoPanel.Name = "ammoPanel";
             this.ammoPanel.Size = new System.Drawing.Size(90, 60);
             this.ammoPanel.TabIndex = 11;
-            this.ammoPanel.Click += new EventHandler(this.ammoPanel_Click);
+            this.ammoPanel.Click += new System.EventHandler(this.ammoPanel_Click);
             // 
             // ammoCount
             // 
@@ -413,6 +415,7 @@ namespace SymulatorLotniska
             // singleMode
             // 
             this.singleMode.AutoSize = true;
+            this.singleMode.Checked = true;
             this.singleMode.Location = new System.Drawing.Point(594, 246);
             this.singleMode.Name = "singleMode";
             this.singleMode.Size = new System.Drawing.Size(80, 17);
@@ -426,11 +429,22 @@ namespace SymulatorLotniska
             this.fullMode.AutoSize = true;
             this.fullMode.Location = new System.Drawing.Point(685, 246);
             this.fullMode.Name = "fullMode";
-            this.fullMode.Size = new System.Drawing.Size(70, 17);
+            this.fullMode.Size = new System.Drawing.Size(68, 17);
             this.fullMode.TabIndex = 13;
-            this.fullMode.TabStop = true;
-            this.fullMode.Text = "Do pełna";
+            this.fullMode.Text = "Operacja";
             this.fullMode.UseVisualStyleBackColor = true;
+            this.fullMode.CheckedChanged += new System.EventHandler(this.fullMode_CheckedChanged);
+            // 
+            // btnUnload
+            // 
+            this.btnUnload.BackColor = System.Drawing.Color.White;
+            this.btnUnload.Image = global::SymulatorLotniska.Properties.Resources.btnDol;
+            this.btnUnload.Location = new System.Drawing.Point(4, 3);
+            this.btnUnload.Name = "btnUnload";
+            this.btnUnload.Size = new System.Drawing.Size(50, 50);
+            this.btnUnload.TabIndex = 16;
+            this.btnUnload.UseVisualStyleBackColor = false;
+            this.btnUnload.Click += new System.EventHandler(this.btnUnload_Click);
             // 
             // AppWindow
             // 
@@ -503,8 +517,6 @@ namespace SymulatorLotniska
         private Button button4;
         private Button btnSendAway;
         private Button btnLanding;
-        private Panel panel1;
-        private Label label1;
         private Button button6;
         private TextBox peopleCount;
         private Panel peoplePanel;
@@ -514,6 +526,7 @@ namespace SymulatorLotniska
         private TextBox ammoCount;
         private RadioButton singleMode;
         private RadioButton fullMode;
+        private Button btnUnload;
     }
 }
 

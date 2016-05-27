@@ -9,7 +9,8 @@ namespace SymulatorLotniska.Planes
     public enum State
     {
 
-        Hangar, TechnicalInspection, Fueling, Takeoff, InAir, Destroyed, OnRunwayBefTakeoff, Landing, OnRunwayAftLanding
-
+        Hangar, TechnicalInspection, Fueling, Takeoff, InAir, Destroyed, OnRunwayBefTakeoff, Landing, OnRunwayAftLanding,
+        Loading,
+        Unloading
     };
 }

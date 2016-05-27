@@ -87,7 +87,9 @@
     </Compile>
     <Compile Include="Operations\OperationInAir.cs" />
     <Compile Include="Operations\OperationLanding.cs" />
+    <Compile Include="Operations\OperationLoading.cs" />
     <Compile Include="Operations\OperationTakeoff.cs" />
+    <Compile Include="Operations\OperationUnloading.cs" />
     <Compile Include="Planes\MilitaryPlane.cs" />
     <Compile Include="Planes\State.cs" />
     <Compile Include="NotificationManagement\NotificationType.cs" />

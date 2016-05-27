@@ -27,46 +27,52 @@ namespace SymulatorLotniska.Planes
 
         public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza
         {
-            string budowanyString = "";
+            string builtString = "";
 
-            budowanyString += "Model: " + getModel() + " (ID: " + getID() + ")\n";
-            budowanyString += "Typ: Samolot wojskowy\n";
+            builtString += "Model: " + getModel() + " (ID: " + getID() + ")\n";
+            builtString += "Typ: Samolot wojskowy\n";
 
             switch (getCurrentState())
             {
                 case State.Hangar:
-                    budowanyString += "Stan: " + "W hangarze\n";
+                    builtString += "Stan: " + "W hangarze\n";
                     break;
                 case State.Fueling:
-                    budowanyString += "Stan: " + "Tankowanie\n";
+                    builtString += "Stan: " + "Tankowanie\n";
                     break;
                 case State.TechnicalInspection:
-                    budowanyString += "Stan: " + "Podczas kontroli technicznej\n";
+                    builtString += "Stan: " + "Podczas kontroli technicznej\n";
                     break;
                 case State.InAir:
-                    budowanyString += "Stan: " + "W locie nad lotniskiem\n";
+                    builtString += "Stan: " + "W locie nad lotniskiem\n";
                     break;
                 case State.Landing:
-                    budowanyString += "Stan: " + "Lądowanie\n";
+                    builtString += "Stan: " + "Lądowanie\n";
                     break;
                 case State.OnRunwayAftLanding:
-                    budowanyString += "Stan: " + "Po wylądowaniu\n";
+                    builtString += "Stan: " + "Po wylądowaniu\n";
                     break;
                 case State.OnRunwayBefTakeoff:
-                    budowanyString += "Stan: " + "Przed startem\n";
+                    builtString += "Stan: " + "Przed startem\n";
                     break;
                 case State.Takeoff:
-                    budowanyString += "Stan: " + "Startowanie\n";
+                    builtString += "Stan: " + "Startowanie\n";
+                    break;
+                case State.Loading:
+                    builtString += "Stan: " + "Zbrojenie\n";
+                    break;
+                case State.Unloading:
+                    builtString += "Stan: " + "Rozbrajanie\n";
                     break;
 
             }
 
-            budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
-            budowanyString += "Po kontroli technicznej: " + (isAfterTechnicalInspection() ? "Tak" : "Nie") + "\n";
-            budowanyString += "Rodzaj broni: " + weaponType + "\n";
-            budowanyString += "Ilość amunicji: " + currentAmmo + "/" + maxAmmo + "\n";
+            builtString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
+            builtString += "Po kontroli technicznej: " + (isAfterTechnicalInspection() ? "Tak" : "Nie") + "\n";
+            builtString += "Rodzaj broni: " + weaponType + "\n";
+            builtString += "Ilość amunicji: " + currentAmmo + "/" + maxAmmo + "\n";
 
-            return budowanyString;
+            return builtString;
         }
     }
 }

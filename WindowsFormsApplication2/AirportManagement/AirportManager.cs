@@ -17,7 +17,7 @@ namespace SymulatorLotniska.AirportManagement
 
         public static void init(AppWindow handleAppWindow)
         {
-            if(instance == null) instance = new AirportManager(handleAppWindow);
+            if (instance == null) instance = new AirportManager(handleAppWindow);
         }
 
         public static AirportManager getInstance()
@@ -30,7 +30,7 @@ namespace SymulatorLotniska.AirportManagement
 
         private PlaneImage selectedPlane;
         private PictureBox pbSelectedPlane;
-        
+
         private Hangar hangar;
         private Airspace airspace;
         private List<Runway> runwayList;
@@ -42,18 +42,18 @@ namespace SymulatorLotniska.AirportManagement
             pbSelectedPlane = new PictureBox();
             hangar = new Hangar(handleAppWindow.getPanelSamolotow(), 3, 4);
             airspace = new Airspace(handleAppWindow.getPanelSamolotowPowietrze(), 8);
-            
-            initializePbSelectedPlane();
+
+            initPbSelectedPlane();
 
             runwayList.Add(new Runway(handleAppWindow.getPasStartowy1(), 1));
             runwayList.Add(new Runway(handleAppWindow.getPasStartowy2(), 2));
         }
-        
+
         public PlaneImage getSelectedPlane() { return selectedPlane; }
         public Hangar getHangar() { return hangar; }
         public Airspace getAirspace() { return airspace; }
 
-        private void initializePbSelectedPlane()
+        private void initPbSelectedPlane()
         {
             if (pbSelectedPlane == null || handleAppWindow == null) return;
 
@@ -65,13 +65,11 @@ namespace SymulatorLotniska.AirportManagement
             pbSelectedPlane.Size = new Size(Constants.imageSize, Constants.imageSize);
             pbSelectedPlane.Parent = handleAppWindow;
         }
-
         public void refreshPbSelectedIfSelected(PlaneImage samolot)
         {
             if (selectedPlane == samolot)
                 pbSelectedPlane.Parent = selectedPlane.getCurrentOnTop();
         }
-
         public void refreshInformationPanel()
         {
             if (selectedPlane is Plane)
@@ -80,7 +78,6 @@ namespace SymulatorLotniska.AirportManagement
             }
             else
                 handleAppWindow.getLabelInformacje().Text = "Wybierz samolot";
-            
         }
         public void refreshInformationPanelIfSelected(Plane samolot)
         {
@@ -91,21 +88,18 @@ namespace SymulatorLotniska.AirportManagement
         }
         public void refreshButtonPanel()
         {
-            handleAppWindow.uaktualnijPrzyciskiPanelu(selectedPlane);
+            handleAppWindow.refreshButtonPanel(selectedPlane);
         }
         public void refreshButtonPanelIfSelected(Plane samolot)
         {
             if (selectedPlane is Plane && ((Plane)selectedPlane) == samolot)
             {
-                handleAppWindow.uaktualnijPrzyciskiPanelu(selectedPlane);
+                handleAppWindow.refreshButtonPanel(selectedPlane);
             }
         }
-        
-        
-
-        public void zaznaczSamolot(PlaneImage samolot) {
+        public void selectPlane(PlaneImage samolot) {
             selectedPlane = samolot;
-            
+
             pbSelectedPlane.Parent = samolot.getCurrentOnTop();
             pbSelectedPlane.Location = new Point(0, 0);
 
@@ -113,42 +107,38 @@ namespace SymulatorLotniska.AirportManagement
             refreshInformationPanel();
             refreshButtonPanel();
         }
-
+        public void redraw()
+        {
+            hangar.redraw();
+            airspace.redraw();
+        }
 
         //--------------------------------------------------------------------
         //--------------------------------------------------------------------
         //--------   OPERACJE NA ZAZNACZONYM AKTUALNIE SAMOLOCIE -------------
-        /// <summary>
-        /// rozpoczyna operacje tankowania zaznaczonego samolotu
-        /// </summary>
+
         public void fuel()
         {
             if (selectedPlane is Plane)
                 OperationManager.getInstance().addOperation(new OperationFueling((Plane)selectedPlane));
         }
-        /// <summary>
-        /// rozpoczyna operacje kontroli technicznej zaznaczonego samolotu
-        /// </summary>
         public void inspectTechnically()
         {
             if (selectedPlane is Plane)
                 OperationManager.getInstance().addOperation(new OperationTechnicalInspection((Plane)selectedPlane));
         }
-
-        public void odeslijZaznaczonySamolot()
+        public void sendAwaySelected()
         {
-            if(selectedPlane is Plane && ((Plane)selectedPlane).getCurrentState() == State.InAir)
+            if (selectedPlane is Plane && ((Plane)selectedPlane).getCurrentState() == State.InAir)
             {
-                if (false) // warunek odeslania - np za mala ilosc paliwa
+                if (((Plane)selectedPlane).getCurrentFuelLevel() < ((Plane)selectedPlane).getMaxFuelLevel()/2 ) 
                 {
-                   // LOG --Nie mozna odeslac samolotu (zaznaczony) ze wzgledu na......--
+                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie może zostać odesłany ze względu na małą ilość paliwa", NotificationType.Negative);
                 }
                 else
                 {
-                    // LOG --Samolot (zaznazczony) zostal odeslany--
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " zostal odeslany", NotificationType.Neutral);
-
-                    //listaSamolotowPowietrze.usunSamolot((Plane)selectedPlane);
+                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " opuszcza przestrzeń powietrzną nad lotniskiem", NotificationType.Positive);
+                    
                     airspace.remove((Plane)selectedPlane);
                     ((Plane)selectedPlane).hide();
 
@@ -157,60 +147,25 @@ namespace SymulatorLotniska.AirportManagement
 
                     refreshInformationPanel();
                     refreshButtonPanel();
-                    //narysujSamolotyZListyPowietrze();
                 }
             }
-        }
-
-        public void placeSelectedOnRunway()
-        {
-            if (!(selectedPlane is Plane) || !((Plane)selectedPlane).isAfterTechnicalInspection() || !(((Plane)selectedPlane).getCurrentState() == State.Hangar))
-            {
-                // LOG--Informacje ze nie jest po kontroli technicznej.--
-                NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie przeszedł kontroli technicznej", NotificationType.Negative);
-                return;
-            }
-
-            foreach(Runway runway in runwayList)
-            {
-                if (runway.isFree())
-                {
-                    ((Plane)selectedPlane).setCurrentState(State.OnRunwayBefTakeoff);
-                    hangar.remove((Plane)selectedPlane);
-                    runway.setPlane((Plane)selectedPlane);
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " został umieszczony na pasie startowym nr " + runway.getID() + ".", NotificationType.Neutral);
-                    return;
-                }
-            }
-            
-            // LOG--Informacja, ze nie ma wolnych pasów startowych.
-            NotificationManager.getInstance().addNotification("Wszystkie pasy startowe są aktualnie zajete", NotificationType.Negative);
-            
         }
         public void takeoffSelectedPlane()
         {
             if (!(selectedPlane is Plane) || ((Plane)selectedPlane).getCurrentState() != State.OnRunwayBefTakeoff) return;
             
-            if (false) // warunek  czy ludzi jest dobra ilosc i towarow
-            {
-                // LOG --Samolotu (zaznaczony) nie przeszedl kontroli przed startem. Np jest przeludniony--
-                return;
-            }
-
             foreach (Runway runway in runwayList)
             {
                 if (!runway.isFree() && runway.getPlane() == (Plane)selectedPlane)
                 {
-                    // LOG --Samolot (zaznaczony) startuje z pasa pierwszego.--
                     NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " startuje z pasa startowego nr " + runway.getID() + ".", NotificationType.Neutral);
-                            
+
                     ((Plane)selectedPlane).setCurrentState(State.Takeoff);
-                    OperationManager.getInstance().addOperation(new OperationTakeoff((Plane)selectedPlane, runway, this));
+                    OperationManager.getInstance().addOperation(new OperationTakeoff((Plane)selectedPlane, runway));
                     return;
                 }
-            }          
+            }
         }
-
         public void landSelectedPlane()
         {
             if (!(selectedPlane is Plane) || ((Plane)selectedPlane).getCurrentState() != State.InAir) return;
@@ -225,13 +180,34 @@ namespace SymulatorLotniska.AirportManagement
                     return;
                 }
             }
-            
+
             NotificationManager.getInstance().addNotification("Wszystkie pasy startowe są aktualnie zajete", NotificationType.Negative);
         }
+        public void placeSelectedOnRunway()
+                {
+                    if (!(selectedPlane is Plane) || !((Plane)selectedPlane).isAfterTechnicalInspection() || !(((Plane)selectedPlane).getCurrentState() == State.Hangar))
+                    {
+                        NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie przeszedł kontroli technicznej", NotificationType.Negative);
+                        return;
+                    }
 
-        public void umiescZaznaczonyWHangarze()
+                    foreach (Runway runway in runwayList)
+                    {
+                        if (runway.isFree())
+                        {
+                            ((Plane)selectedPlane).setCurrentState(State.OnRunwayBefTakeoff);
+                            hangar.remove((Plane)selectedPlane);
+                            runway.setPlane((Plane)selectedPlane);
+                            NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " został umieszczony na pasie startowym nr " + runway.getID() + ".", NotificationType.Neutral);
+                            return;
+                        }
+                    }
+            
+                    NotificationManager.getInstance().addNotification("Wszystkie pasy startowe są aktualnie zajete", NotificationType.Negative);
+                }
+        public void placeSelectedInHangar()
         {
-            if(selectedPlane is Plane && ((Plane)selectedPlane).getCurrentState() == State.OnRunwayBefTakeoff)
+            if (selectedPlane is Plane && ((Plane)selectedPlane).getCurrentState() == State.OnRunwayBefTakeoff)
             {
                 if (selectedPlane is PassengerPlane)
                 {
@@ -241,7 +217,6 @@ namespace SymulatorLotniska.AirportManagement
                         return;
                     }
                 }
-                // zaznaczony is SamolotTowarowy
 
                 foreach (Runway runway in runwayList)
                 {
@@ -255,226 +230,167 @@ namespace SymulatorLotniska.AirportManagement
                 }
             }
         }
+        
+        public void loadPeopleOperation(TextBox handleTextBox)
+        {
+            if (selectedPlane is PassengerPlane)
+            {
+                if(((PassengerPlane)selectedPlane).getCurrentState() == State.Loading)
+                    return;
 
-        public int unload()
+                OperationManager.getInstance().addOperation(new OperationLoading((Plane)selectedPlane, handleTextBox));
+                return;
+            }
+               
+            NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem pasażerskim", NotificationType.Negative);
+        }
+        public void loadCargoOperation(TextBox handleTextBox)
         {
             if (selectedPlane is TransportPlane)
             {
-                if(((TransportPlane)selectedPlane).getCurrentStorageContent() == 0)
-                {
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " jest juz rozładowany", NotificationType.Neutral);
-                    return 0;
-                }
+                if (((TransportPlane)selectedPlane).getCurrentState() == State.Loading)
+                    return;
 
-                int diff = ((TransportPlane)selectedPlane).getCurrentStorageContent();
-                ((TransportPlane)selectedPlane).setCurrentStorageContent(0);
-
-                NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " został rozładowany", NotificationType.Positive);
-
-                return diff;
+                OperationManager.getInstance().addOperation(new OperationLoading((Plane)selectedPlane, handleTextBox));
+                return;
             }
 
-            if(selectedPlane is PassengerPlane)
-            {
-                if (((PassengerPlane)selectedPlane).getCurrentNumberOfPassengers() == 0)
-                {
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " jest pusty", NotificationType.Neutral);
-                    return 0;
-                }
-
-                int diff = ((PassengerPlane)selectedPlane).getCurrentNumberOfPassengers();
-                ((PassengerPlane)selectedPlane).setCurrentNumberOfPassengers(0);
-
-                NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " został opuszczony przez pasażerów", NotificationType.Positive);
-
-                return diff;
-            }
-
-            return 0;
+            NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem transportowym", NotificationType.Negative);
         }
-        public int addCargo(int numberOfCargo, bool toFull)
+        public void loadAmmoOperation(TextBox handleTextBox)
+        {
+            if (selectedPlane is MilitaryPlane)
+            {
+                if (((MilitaryPlane)selectedPlane).getCurrentState() == State.Loading)
+                    return;
+
+                OperationManager.getInstance().addOperation(new OperationLoading((Plane)selectedPlane, handleTextBox));
+                return;
+            }
+            NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem militarnym", NotificationType.Negative);
+        }
+       
+        public void unloadPeopleOperation(TextBox handleTextBox)
+        {
+            if (selectedPlane is PassengerPlane)
+            {
+                if (((PassengerPlane)selectedPlane).getCurrentState() == State.Unloading)
+                    return;
+
+                OperationManager.getInstance().addOperation(new OperationUnloading((Plane)selectedPlane, handleTextBox));
+                return;
+            }
+
+            NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem pasażerskim", NotificationType.Negative);
+        }
+        public void unloadCargoOperation(TextBox handleTextBox)
+        {
+            if (selectedPlane is TransportPlane)
+            {
+                if (((TransportPlane)selectedPlane).getCurrentState() == State.Unloading)
+                    return;
+
+                OperationManager.getInstance().addOperation(new OperationUnloading((Plane)selectedPlane, handleTextBox));
+                return;
+            }
+
+            NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem transportowym", NotificationType.Negative);
+        }
+        public void unloadAmmoOperation(TextBox handleTextBox)
+        {
+            if (selectedPlane is MilitaryPlane)
+            {
+                if (((MilitaryPlane)selectedPlane).getCurrentState() == State.Unloading)
+                    return;
+
+                OperationManager.getInstance().addOperation(new OperationUnloading((Plane)selectedPlane, handleTextBox));
+                return;
+            }
+            NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem militarnym", NotificationType.Negative);
+        }
+
+        public bool addSinglePerson()
         {
             if (selectedPlane == null)
             {
                 NotificationManager.getInstance().addNotification("Najpierw zaznacz samolot", NotificationType.Negative);
-
-                return 0;
+                return false;
             }
-            if (!(selectedPlane is TransportPlane))
-            {
-                NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem transportowym", NotificationType.Negative);
-                return 0;
-            }
-
-
-            TransportPlane plane = ((TransportPlane)selectedPlane);
-
-            if (!(plane.getCurrentState() == State.OnRunwayBefTakeoff || plane.getCurrentState() == State.Hangar))
-            {
-                NotificationManager.getInstance().addNotification("Teraz nie można załadować towaru", NotificationType.Negative);
-                return 0;
-            }
-            if (toFull)
-            {
-                if (plane.getMaxStorageCapacity() - plane.getCurrentStorageContent() > numberOfCargo)
-                {
-                    plane.setCurrentStorageContent(plane.getCurrentStorageContent() + numberOfCargo);
-                    return numberOfCargo;
-                }
-                else
-                {
-                    int difference = plane.getMaxStorageCapacity() - plane.getCurrentStorageContent();
-                    plane.setCurrentStorageContent(plane.getMaxStorageCapacity());
-                    return difference;
-                }
-            }
-            else
-            {
-                if (numberOfCargo < 1)
-                {
-                    return 0;
-                }
-                if (plane.getCurrentStorageContent() + 1 <= plane.getMaxStorageCapacity())
-                {
-                    plane.setCurrentStorageContent(plane.getCurrentStorageContent() + 1);
-                    return 1;
-                }
-
-                return 0;
-
-            }
-
-        }
-        public int addPeople(int numberOfPeople, bool toFull)
-        {
-            if(selectedPlane == null)
-            {
-                NotificationManager.getInstance().addNotification("Najpierw zaznacz samolot", NotificationType.Negative);
-
-                return 0;
-            }
-            if(!(selectedPlane is PassengerPlane))
+            if (!(selectedPlane is PassengerPlane))
             {
                 NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem pasażerskim", NotificationType.Negative);
-                return 0;
+                return false;
             }
-            
 
-            PassengerPlane plane = ((PassengerPlane)selectedPlane);
-
-            if(!(plane.getCurrentState() == State.OnRunwayBefTakeoff))
+            if (!(((Plane)selectedPlane).getCurrentState() == State.OnRunwayBefTakeoff))
             {
                 NotificationManager.getInstance().addNotification("Pasażerowie do samolotu mogą wchodzić tylko na pasie startowym przed startem", NotificationType.Negative);
-                return 0;
+                return false;
             }
-            if (toFull)
+
+            if (((PassengerPlane)selectedPlane).getCurrentNumberOfPassengers() + 1 <= ((PassengerPlane)selectedPlane).getMaxNumberOfPassengers())
             {
-                if(plane.getMaxNumberOfPassengers() - plane.getCurrentNumberOfPassengers() > numberOfPeople)
-                {
-                    plane.setCurrentNumberOfPassengers(plane.getCurrentNumberOfPassengers() + numberOfPeople);
-                    return numberOfPeople;
-                }
-                else
-                {
-                    int difference = plane.getMaxNumberOfPassengers() - plane.getCurrentNumberOfPassengers();
-                    plane.setCurrentNumberOfPassengers(plane.getMaxNumberOfPassengers());
-                    return difference;
-                }
-            }
-            else
-            {
-                if (numberOfPeople < 1)
-                {
-                    return 0;
-                }
-                if(plane.getCurrentNumberOfPassengers() + 1 <= plane.getMaxNumberOfPassengers())
-                {
-                    plane.setCurrentNumberOfPassengers(plane.getCurrentNumberOfPassengers() + 1);
-                    return 1;
-                }
-
-                return 0;
-
+                ((PassengerPlane)selectedPlane).setCurrentNumberOfPassengers(((PassengerPlane)selectedPlane).getCurrentNumberOfPassengers() + 1);
+                return true;
             }
 
+            return false;
         }
-        public int addAmmo(int numberOfAmmo, bool toFull)
+        public bool addSingleAmmo()
         {
             if (selectedPlane == null)
             {
                 NotificationManager.getInstance().addNotification("Najpierw zaznacz samolot", NotificationType.Negative);
-
-                return 0;
+                return false;
             }
             if (!(selectedPlane is MilitaryPlane))
             {
                 NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem militarnym", NotificationType.Negative);
-                return 0;
+                return false;
             }
 
-
-            MilitaryPlane plane = ((MilitaryPlane)selectedPlane);
-
-            if (!(plane.getCurrentState() == State.OnRunwayBefTakeoff || plane.getCurrentState() == State.Hangar))
+            if (!(((Plane)selectedPlane).getCurrentState() == State.OnRunwayBefTakeoff || ((Plane)selectedPlane).getCurrentState() == State.Hangar))
             {
                 NotificationManager.getInstance().addNotification("W tym momencie nie można naładować broni.", NotificationType.Negative);
-                return 0;
+                return false;
             }
-            if (toFull)
+
+            if (((MilitaryPlane)selectedPlane).getCurrentAmmo() + 1 <= ((MilitaryPlane)selectedPlane).getMaxAmmo())
             {
-                if (plane.getMaxAmmo() - plane.getCurrentAmmo() > numberOfAmmo)
-                {
-                    plane.setCurrentAmmo(plane.getCurrentAmmo() + numberOfAmmo);
-                    return numberOfAmmo;
-                }
-                else
-                {
-                    int difference = plane.getMaxAmmo() - plane.getCurrentAmmo();
-                    plane.setCurrentAmmo(plane.getMaxAmmo());
-                    return difference;
-                }
-            }
-            else
-            {
-                if (numberOfAmmo < 1)
-                {
-                    return 0;
-                }
-                if (plane.getCurrentAmmo() + 1 <= plane.getMaxAmmo())
-                {
-                    plane.setCurrentAmmo(plane.getCurrentAmmo() + 1);
-                    return 1;
-                }
-
-                return 0;
-
+                ((MilitaryPlane)selectedPlane).setCurrentAmmo(((MilitaryPlane)selectedPlane).getCurrentAmmo() + 1);
+                return true;
             }
 
+            return false;
         }
-        public void wyprowadzLudzi(int n)
+        public bool addSingleCargo()
         {
-            if (selectedPlane is PassengerPlane)
+            if (selectedPlane == null)
             {
-                if(((PassengerPlane)selectedPlane).getCurrentNumberOfPassengers() - n < 0)
-                {
-                    // LOG --Nie ma tylu pasazerow
-                    return;
-                }
-
-                ((PassengerPlane)selectedPlane).setCurrentNumberOfPassengers(((PassengerPlane)selectedPlane).getCurrentNumberOfPassengers() - n);
+                NotificationManager.getInstance().addNotification("Najpierw zaznacz samolot", NotificationType.Negative);
+                return false;
             }
+            if (!(selectedPlane is TransportPlane))
+            {
+                NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie jest samolotem transportowym", NotificationType.Negative);
+                return false;
+            }
+
+            if (!(((Plane)selectedPlane).getCurrentState() == State.OnRunwayBefTakeoff || ((Plane)selectedPlane).getCurrentState() == State.Hangar))
+            {
+                NotificationManager.getInstance().addNotification("Teraz nie można załadować towaru", NotificationType.Negative);
+                return false;
+            }
+
+            if (((TransportPlane)selectedPlane).getCurrentStorageContent() + 1 <= ((TransportPlane)selectedPlane).getMaxStorageCapacity())
+            {
+                ((TransportPlane)selectedPlane).setCurrentStorageContent(((TransportPlane)selectedPlane).getCurrentStorageContent() + 1);
+                return true;
+            }
+
+
+            return false;
         }
         
-        public void umiescWPowietrzu(Plane samolot)
-        {
-            airspace.addToAirspace(samolot);
-            OperationManager.getInstance().addOperation(new OperationInAir(samolot));
-        }
-        
-        public void redraw()
-        {
-            hangar.redraw();
-            airspace.redraw();
-        }
     }
 }

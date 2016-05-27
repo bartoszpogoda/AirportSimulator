@@ -47,7 +47,7 @@ namespace SymulatorLotniska.Planes
         /// </summary>
         private void onClick(object sender, EventArgs e)
         {
-            AirportManager.getInstance().zaznaczSamolot(this);
+            AirportManager.getInstance().selectPlane(this);
         }
         public void show()
         {

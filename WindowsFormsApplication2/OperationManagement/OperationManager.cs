@@ -16,6 +16,7 @@ namespace SymulatorLotniska.OperationManagement
 
         public static OperationManager getInstance()
         {
+            if (instance == null) throw new Exception("AirportManager nie zostal zainicjalizowany");
             return instance;
         }
 
