@@ -74,5 +74,11 @@ namespace SymulatorLotniska.Planes
 
             return builtString;
         }
+
+        public override bool isEmpty()
+        {
+            if (currentAmmo == 0) return true;
+            else return false;
+        }
     }
 }

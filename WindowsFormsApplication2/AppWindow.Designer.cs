@@ -67,6 +67,7 @@ namespace SymulatorLotniska
             this.doHangaru = new System.Windows.Forms.Button();
             this.notificationListClear = new System.Windows.Forms.Label();
             this.switchOperationSingle = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
@@ -441,7 +442,7 @@ namespace SymulatorLotniska
             // 
             // switchOperationSingle
             // 
-            this.switchOperationSingle.BackColor = Color.Aquamarine;
+            this.switchOperationSingle.BackColor = System.Drawing.Color.Aquamarine;
             this.switchOperationSingle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.switchOperationSingle.Location = new System.Drawing.Point(680, 238);
             this.switchOperationSingle.Name = "switchOperationSingle";
@@ -452,11 +453,25 @@ namespace SymulatorLotniska
             this.switchOperationSingle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.switchOperationSingle.Click += new System.EventHandler(this.switchOperationSingle_Click);
             // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Location = new System.Drawing.Point(300, 219);
+            this.label2.Name = "label2";
+            this.label2.Padding = new System.Windows.Forms.Padding(5);
+            this.label2.Size = new System.Drawing.Size(46, 25);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Bot";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
             // AppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.switchOperationSingle);
             this.Controls.Add(this.notificationListClear);
             this.Controls.Add(this.label1);
@@ -532,6 +547,7 @@ namespace SymulatorLotniska
         private Button doHangaru;
         private Label notificationListClear;
         private Label switchOperationSingle;
+        private Label label2;
     }
 }
 

@@ -59,7 +59,11 @@ namespace SymulatorLotniska
         public Panel getPasStartowy1() { return this.panelPasStartowy1; }
         public Panel getPasStartowy2() { return this.panelPasStartowy2; }
 
-       public void refreshButtonPanel(PlaneImage aktualnieZaznaczony)
+        public TextBox getPeopleCount() { return peopleCount; }
+        public TextBox getCargoCount() { return cargoCount; }
+        public TextBox getAmmoCount() { return ammoCount; }
+
+        public void refreshButtonPanel(PlaneImage aktualnieZaznaczony)
         {
             schowajWszystkiePrzyciskiPanelu();
 
@@ -144,29 +148,29 @@ namespace SymulatorLotniska
         
         private void naPasStartowy_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().placeSelectedOnRunway();
+            AirportManager.getInstance().placeOnRunway();
         }
 
         private void wyladuj_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().landSelectedPlane();
+            AirportManager.getInstance().land();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().takeoffSelectedPlane();
+            AirportManager.getInstance().takeOff();
         }
 
         private void odeslij_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().sendAwaySelected();
+            AirportManager.getInstance().sendAway();
         }
         
        
 
         private void doHangaru_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().placeSelectedInHangar();
+            AirportManager.getInstance().placeInHangar();
         }
 
    
@@ -197,12 +201,12 @@ namespace SymulatorLotniska
         
         private void btnLanding_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().landSelectedPlane();
+            AirportManager.getInstance().land();
         }
 
         private void btnSendAway_Click(object sender, EventArgs e)
         {
-            AirportManager.getInstance().sendAwaySelected();
+            AirportManager.getInstance().sendAway();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -269,7 +273,7 @@ namespace SymulatorLotniska
                     peopleCount.Text = (Int32.Parse(peopleCount.Text) - 1).ToString();
             }
             else
-                AirportManager.getInstance().loadPeopleOperation(peopleCount);
+                AirportManager.getInstance().loadPeopleOperation();
         }
         private void cargoPanel_Click(object sender, EventArgs e)
         {
@@ -285,7 +289,7 @@ namespace SymulatorLotniska
                     cargoCount.Text = (Int32.Parse(cargoCount.Text) - 1).ToString();
             }
             else
-                AirportManager.getInstance().loadCargoOperation(cargoCount);
+                AirportManager.getInstance().loadCargoOperation();
         }
         private void ammoPanel_Click(object sender, EventArgs e)
         {
@@ -301,7 +305,7 @@ namespace SymulatorLotniska
                     ammoCount.Text = (Int32.Parse(ammoCount.Text) - 1).ToString();
             }
             else
-                AirportManager.getInstance().loadAmmoOperation(ammoCount);
+                AirportManager.getInstance().loadAmmoOperation();
         }
 
         private void fullMode_CheckedChanged(object sender, EventArgs e)
@@ -315,15 +319,15 @@ namespace SymulatorLotniska
 
             if(selectedPlane is PassengerPlane)
             {
-                AirportManager.getInstance().unloadPeopleOperation(peopleCount);
+                AirportManager.getInstance().unloadPeopleOperation();
             }
             else if(selectedPlane is MilitaryPlane)
             {
-                AirportManager.getInstance().unloadAmmoOperation(ammoCount);
+                AirportManager.getInstance().unloadAmmoOperation();
             }
             else if(selectedPlane is TransportPlane)
             {
-                AirportManager.getInstance().unloadCargoOperation(cargoCount);
+                AirportManager.getInstance().unloadCargoOperation();
             }
         }
 
@@ -371,6 +375,20 @@ namespace SymulatorLotniska
                 switchOperationSingle.BackColor = Color.Aquamarine;
             }
                 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            if (AirportManager.getInstance().isAssistantOn())
+            {
+                AirportManager.getInstance().setAsistant(false);
+                label2.BackColor = Color.FromArgb(252, 113, 113);
+            }
+            else
+            {
+                AirportManager.getInstance().setAsistant(true);
+                label2.BackColor = Color.FromArgb(162, 252, 140);
+            }
         }
     }
 }

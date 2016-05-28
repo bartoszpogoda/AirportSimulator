@@ -43,6 +43,14 @@ namespace SymulatorLotniska
             xDoc.LoadXml(Resources.DefinedPlanes);
             return Int32.Parse(xDoc.SelectSingleNode("Planes/NumberOfPlanes").InnerText);
         }
+
+        static public void saveToFile(Plane plane)
+        {
+            //XmlTextWriter xText = new XmlTextWriter(Resources.DefinedPlanes,null);
+            //xText.
+
+        }
+
         static public Plane readFromFile(int id)
         {
             XmlDocument xDoc = new XmlDocument();

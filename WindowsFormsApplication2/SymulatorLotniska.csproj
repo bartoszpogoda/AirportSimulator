@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>42</ApplicationRevision>
+    <ApplicationRevision>44</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -85,6 +85,7 @@
     <Compile Include="FormaTestowa.Designer.cs">
       <DependentUpon>FormaTestowa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Operations\OperationAssistant.cs" />
     <Compile Include="Operations\OperationInAir.cs" />
     <Compile Include="Operations\OperationIncommingPlanes.cs" />
     <Compile Include="Operations\OperationLanding.cs" />
@@ -185,7 +186,9 @@
     <None Include="Resources\T3.png" />
     <None Include="Resources\T4.png" />
     <None Include="Resources\btnTick.png" />
-    <EmbeddedResource Include="Resources\DefinedPlanes.xml" />
+    <EmbeddedResource Include="Resources\DefinedPlanes.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="Resources\zn.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>

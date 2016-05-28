@@ -49,6 +49,9 @@ namespace SymulatorLotniska.AirportManagement
         private Label labelSpecific;
         private Label labelWeaponType;
 
+
+        private ComboBox comboBox1;
+
         private Button buttonCreateInHangar;
         private Button cancelButton;
 
@@ -92,7 +95,6 @@ namespace SymulatorLotniska.AirportManagement
             textBoxModel = new TextBox();
             textBoxFuelUsage = new TextBox();
             textBoxMaxFuelLevel = new TextBox();
-            textBoxTakeoffInterval = new TextBox();
             textBoxSpecific = new TextBox();
             labelFuelUsage = new Label();
             labelTakeoffInterval = new Label();
@@ -101,6 +103,7 @@ namespace SymulatorLotniska.AirportManagement
             textBoxWeaponType = new TextBox();
             labelWeaponType = new Label();
             cancelButton = new Button();
+            comboBox1 = new ComboBox();
 
             BackColor = System.Drawing.SystemColors.ControlLightLight;
             Controls.Add(cancelButton);
@@ -183,6 +186,25 @@ namespace SymulatorLotniska.AirportManagement
             imageChoosePanel.Name = "imageChoosePanel";
             imageChoosePanel.Size = new System.Drawing.Size(170, 115);
             imageChoosePanel.TabIndex = 4;
+            //comboBox1
+            comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",});
+            comboBox1.Location = new System.Drawing.Point(117, 81);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new System.Drawing.Size(100, 20);
+            comboBox1.SelectedItem = comboBox1.Items[0];
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            
+            
             // 
             // parameterChoosePanel
             // 
@@ -194,11 +216,11 @@ namespace SymulatorLotniska.AirportManagement
             parameterChoosePanel.Controls.Add(labelTakeoffInterval);
             parameterChoosePanel.Controls.Add(labelFuelUsage);
             parameterChoosePanel.Controls.Add(textBoxSpecific);
-            parameterChoosePanel.Controls.Add(textBoxTakeoffInterval);
             parameterChoosePanel.Controls.Add(textBoxMaxFuelLevel);
             parameterChoosePanel.Controls.Add(textBoxFuelUsage);
             parameterChoosePanel.Controls.Add(textBoxModel);
             parameterChoosePanel.Controls.Add(labelModel);
+            parameterChoosePanel.Controls.Add(comboBox1);
             parameterChoosePanel.Location = new System.Drawing.Point(359, 6);
             parameterChoosePanel.Name = "parameterChoosePanel";
             parameterChoosePanel.Size = new System.Drawing.Size(255, 180);
@@ -287,12 +309,6 @@ namespace SymulatorLotniska.AirportManagement
             textBoxMaxFuelLevel.Size = new System.Drawing.Size(100, 20);
             textBoxMaxFuelLevel.TabIndex = 3;
             // 
-            // textBoxTakeoffInterval
-            // 
-            textBoxTakeoffInterval.Location = new System.Drawing.Point(117, 81);
-            textBoxTakeoffInterval.Name = "textBoxTakeoffInterval";
-            textBoxTakeoffInterval.Size = new System.Drawing.Size(100, 20);
-            textBoxTakeoffInterval.TabIndex = 4;
             // 
             // textBoxSpecific
             // 
@@ -381,8 +397,7 @@ namespace SymulatorLotniska.AirportManagement
             textBoxMaxFuelLevel.Visible = true;
 
             labelTakeoffInterval.Visible = true;
-            textBoxTakeoffInterval.Visible = true;
-
+            
             rbPassenger.Checked = true;
 
         }
@@ -439,7 +454,6 @@ namespace SymulatorLotniska.AirportManagement
             textBoxModel.ResetText();
             textBoxFuelUsage.ResetText();
             textBoxMaxFuelLevel.ResetText();
-            textBoxTakeoffInterval.ResetText();
             textBoxWeaponType.ResetText();
             textBoxSpecific.ResetText();
 
@@ -586,11 +600,6 @@ namespace SymulatorLotniska.AirportManagement
                 MessageBox.Show("Określ pojemność baku samolotu");
                 return false;
             }
-            if (textBoxTakeoffInterval.Text == "")
-            {
-                MessageBox.Show("Określ czas startu samolotu");
-                return false;
-            }
             if(!textBoxFuelUsage.Text.All(char.IsDigit))
             {
                 MessageBox.Show("Spalanie samolotu musi być liczbą całkowitą");
@@ -599,11 +608,6 @@ namespace SymulatorLotniska.AirportManagement
             if (!textBoxMaxFuelLevel.Text.All(char.IsDigit))
             {
                 MessageBox.Show("Pojemność baku samolotu musi być liczbą całkowitą");
-                return false;
-            }
-            if (!textBoxTakeoffInterval.Text.All(char.IsDigit))
-            {
-                MessageBox.Show("Czas startu samolotu musi być liczbą całkowitą");
                 return false;
             }
 
@@ -684,7 +688,7 @@ namespace SymulatorLotniska.AirportManagement
             factoriedPlane.setModel(textBoxModel.Text);
             factoriedPlane.setFuelUsage(Int32.Parse(textBoxFuelUsage.Text));
             factoriedPlane.setMaxFuelLevel(Int32.Parse(textBoxMaxFuelLevel.Text));
-            factoriedPlane.setTakeoffTime(Int32.Parse(textBoxTakeoffInterval.Text));
+            factoriedPlane.setTakeoffTime(Int32.Parse(comboBox1.Text));
             factoriedPlane.setAfterTechnicalInspection(false);
             
             AirportManager.getInstance().getHangar().addToHangar(factoriedPlane);

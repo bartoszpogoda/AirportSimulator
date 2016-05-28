@@ -89,5 +89,7 @@ namespace SymulatorLotniska.AirportManagement
                 i++;
             }
         }
+
+        public List<Plane> getList() { return airspaceContent; }
     }
 }

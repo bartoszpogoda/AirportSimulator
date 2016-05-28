@@ -25,6 +25,8 @@ namespace SymulatorLotniska.AirportManagement
             this.columnCount = columnCount;
         }
 
+        public List<Plane> getList() { return hangarContent; }
+
         public void addToHangar(Plane plane)
         {
             hangarContent.Add(plane);
@@ -101,9 +103,5 @@ namespace SymulatorLotniska.AirportManagement
                 }
             }
         }
-
-        public List<Plane> getList() { return hangarContent; }
-
-        public Plane debugGetEement() { return hangarContent[0]; }
     }
 }
