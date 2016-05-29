@@ -61,7 +61,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -98,11 +97,12 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 110);
+            this.label5.Location = new System.Drawing.Point(344, 374);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 13);
+            this.label5.Size = new System.Drawing.Size(124, 13);
             this.label5.TabIndex = 7;
-            this.label5.Text = "maks. ilość pasażerów";
+            this.label5.Text = "etaetatetstststsaatdstasd";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
             // 
@@ -247,7 +247,7 @@
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.SystemColors.Control;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(300, 97);
+            this.label9.Location = new System.Drawing.Point(248, 121);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(95, 18);
             this.label9.TabIndex = 6;
@@ -301,6 +301,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 414);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label9);

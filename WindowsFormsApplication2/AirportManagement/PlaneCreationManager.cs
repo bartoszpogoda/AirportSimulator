@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using SymulatorLotniska;
 
 namespace SymulatorLotniska.AirportManagement
 {
@@ -31,11 +32,9 @@ namespace SymulatorLotniska.AirportManagement
 
         private Panel parameterChoosePanel;
         private Panel imageChoosePanel;
-        private Panel panel2;
         private Panel panel1;
 
         private TextBox textBoxSpecific;
-        private TextBox textBoxTakeoffInterval;
         private TextBox textBoxMaxFuelLevel;
         private TextBox textBoxFuelUsage;
         private TextBox textBoxModel;
@@ -52,12 +51,11 @@ namespace SymulatorLotniska.AirportManagement
 
         private ComboBox comboBox1;
 
-        private Button buttonCreateInHangar;
+        private Button buttonCreate;
         private Button cancelButton;
 
         private PictureBox chosenImageHandle;
         private PictureBox chosenImageMark;
-        private PictureBox chosenImage;
         private string chosenImageName;
         
         private AppWindow handleAppWindow;
@@ -76,19 +74,17 @@ namespace SymulatorLotniska.AirportManagement
 
             chosenImageMark = new PictureBox();
 
-            chosenImageMark.Image = (Image)Properties.Resources.ResourceManager.GetObject(Constants.adresZnacznik);
+            chosenImageMark.Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.adressSelectedMark);
             chosenImageMark.BackColor = Color.Transparent;
             chosenImageMark.Location = new Point(0, 0);
-            chosenImageMark.Size = new Size(Constants.imageSize, Constants.imageSize);
+            chosenImageMark.Size = new Size(Constants.planeImageSizeX, Constants.planeImageSizeY);
             
             rbPassenger = new RadioButton();
             rbTransport = new RadioButton();
             rbMilitary = new RadioButton();
             imageChoosePanel = new Panel();
             parameterChoosePanel = new Panel();
-            buttonCreateInHangar = new Button();
-            chosenImage = new PictureBox();
-            panel2 = new Panel();
+            buttonCreate = new Button();
             panel1 = new Panel();
             labelModel = new Label();
             label1 = new Label();
@@ -106,9 +102,6 @@ namespace SymulatorLotniska.AirportManagement
             comboBox1 = new ComboBox();
 
             BackColor = System.Drawing.SystemColors.ControlLightLight;
-            Controls.Add(cancelButton);
-            Controls.Add(panel2);
-            Controls.Add(buttonCreateInHangar);
             Controls.Add(parameterChoosePanel);
             Controls.Add(imageChoosePanel);
             Controls.Add(rbMilitary);
@@ -182,9 +175,9 @@ namespace SymulatorLotniska.AirportManagement
             // imageChoosePanel
             // 
             imageChoosePanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            imageChoosePanel.Location = new System.Drawing.Point(169, 33);
+            imageChoosePanel.Location = new System.Drawing.Point(169, 6);
             imageChoosePanel.Name = "imageChoosePanel";
-            imageChoosePanel.Size = new System.Drawing.Size(170, 115);
+            imageChoosePanel.Size = new System.Drawing.Size(212, 168);
             imageChoosePanel.TabIndex = 4;
             //comboBox1
             comboBox1.Items.AddRange(new object[] {
@@ -198,7 +191,7 @@ namespace SymulatorLotniska.AirportManagement
             "8",
             "9",
             "10",});
-            comboBox1.Location = new System.Drawing.Point(117, 81);
+            comboBox1.Location = new System.Drawing.Point(137, 81);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new System.Drawing.Size(100, 20);
             comboBox1.SelectedItem = comboBox1.Items[0];
@@ -220,22 +213,35 @@ namespace SymulatorLotniska.AirportManagement
             parameterChoosePanel.Controls.Add(textBoxFuelUsage);
             parameterChoosePanel.Controls.Add(textBoxModel);
             parameterChoosePanel.Controls.Add(labelModel);
+            parameterChoosePanel.Controls.Add(buttonCreate);
+            parameterChoosePanel.Controls.Add(cancelButton);
             parameterChoosePanel.Controls.Add(comboBox1);
-            parameterChoosePanel.Location = new System.Drawing.Point(359, 6);
+            parameterChoosePanel.Location = new System.Drawing.Point(400, 6);
             parameterChoosePanel.Name = "parameterChoosePanel";
-            parameterChoosePanel.Size = new System.Drawing.Size(255, 180);
+            parameterChoosePanel.Size = new System.Drawing.Size(350, 168);
             parameterChoosePanel.TabIndex = 5;
             // 
-            // buttonCreateInHangar
+            // cancelButton
             // 
-            buttonCreateInHangar.Image = (Image)Properties.Resources.btnTick;
-            buttonCreateInHangar.BackColor = System.Drawing.Color.White;
-            buttonCreateInHangar.Location = new System.Drawing.Point(200, 150);
-            buttonCreateInHangar.Name = "buttonCreateInHangar";
-            buttonCreateInHangar.Size = new System.Drawing.Size(50, 50);
-            buttonCreateInHangar.TabIndex = 6;
-            buttonCreateInHangar.UseVisualStyleBackColor = false;
-            buttonCreateInHangar.Click += new System.EventHandler(buttonCreateInHangar_Click);
+            cancelButton.Image = (Image)Properties.Resources.buttonZatrzymanie;
+            cancelButton.BackColor = System.Drawing.Color.White;
+            cancelButton.Location = new System.Drawing.Point(250, 25+50+3);
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new System.Drawing.Size(50, 50);
+            cancelButton.TabIndex = 10;
+            cancelButton.UseVisualStyleBackColor = false;
+            cancelButton.Click += new System.EventHandler(cancelButton_Click);
+            // 
+            // buttonCreate
+            // 
+            buttonCreate.Image = (Image)Properties.Resources.btnTick;
+            buttonCreate.BackColor = System.Drawing.Color.White;
+            buttonCreate.Location = new System.Drawing.Point(250, 25);
+            buttonCreate.Name = "buttonCreateInHangar";
+            buttonCreate.Size = new System.Drawing.Size(50, 50);
+            buttonCreate.TabIndex = 6;
+            buttonCreate.UseVisualStyleBackColor = false;
+            buttonCreate.Click += new System.EventHandler(buttonCreateInHangar_Click);
 
             // 
             // pictureBox1
@@ -246,43 +252,29 @@ namespace SymulatorLotniska.AirportManagement
             {
                 images[i] = new PictureBox();
                 images[i].BackColor = System.Drawing.Color.Transparent;
-                images[i].Size = new System.Drawing.Size(50, 50);
+                images[i].Size = new System.Drawing.Size(100, 50);
                 images[i].Visible = false;
                 images[i].Click += image_onClick;
                 images[i].Parent = imageChoosePanel;
             }
             
             images[0].Location = new System.Drawing.Point(3, 3);
-            images[1].Location = new System.Drawing.Point(59, 3);
-            images[2].Location = new System.Drawing.Point(115, 3);
-            images[3].Location = new System.Drawing.Point(3, 59);
-            images[4].Location = new System.Drawing.Point(59, 59);
-            images[5].Location = new System.Drawing.Point(115, 59);
+            images[1].Location = new System.Drawing.Point(109, 3);
+            images[2].Location = new System.Drawing.Point(3, 59);
+            images[3].Location = new System.Drawing.Point(109, 59);
+            images[4].Location = new System.Drawing.Point(3, 115);
+            images[5].Location = new System.Drawing.Point(109, 115);
 
-            // 
-            // chosenImage
-            // 
-            chosenImage.BackColor = System.Drawing.SystemColors.Desktop;
-            chosenImage.Location = new System.Drawing.Point(5, 5);
-            chosenImage.Name = "chosenImage";
-            chosenImage.Size = new System.Drawing.Size(50, 50);
-            chosenImage.TabIndex = 7;
-            chosenImage.TabStop = false;
-            // 
-            // panel2
-            // 
-            panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            panel2.Controls.Add(chosenImage);
-            panel2.Location = new System.Drawing.Point(37, 124);
-            panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(60, 60);
-            panel2.TabIndex = 8;
+            // 3 , 59 , 115         56 - diff   115 + 50 + 3  = 115 + 53 = 168  112 + 100 
+            // 3 109 109 + 103
+
+           
             // 
             // labelModel
             // 
             labelModel.AutoSize = true;
             labelModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelModel.Location = new System.Drawing.Point(63, 6);
+            labelModel.Location = new System.Drawing.Point(83, 6);
             labelModel.Name = "labelModel";
             labelModel.Size = new System.Drawing.Size(42, 15);
             labelModel.TabIndex = 0;
@@ -290,21 +282,21 @@ namespace SymulatorLotniska.AirportManagement
             // 
             // textBoxModel
             // 
-            textBoxModel.Location = new System.Drawing.Point(117, 5);
+            textBoxModel.Location = new System.Drawing.Point(137, 5);
             textBoxModel.Name = "textBoxModel";
             textBoxModel.Size = new System.Drawing.Size(100, 20);
             textBoxModel.TabIndex = 1;
             // 
             // textBoxFuelUsage
             // 
-            textBoxFuelUsage.Location = new System.Drawing.Point(117, 30);
+            textBoxFuelUsage.Location = new System.Drawing.Point(137, 30);
             textBoxFuelUsage.Name = "textBoxFuelUsage";
             textBoxFuelUsage.Size = new System.Drawing.Size(100, 20);
             textBoxFuelUsage.TabIndex = 2;
             // 
             // textBoxMaxFuelLevel
             // 
-            textBoxMaxFuelLevel.Location = new System.Drawing.Point(117, 55);
+            textBoxMaxFuelLevel.Location = new System.Drawing.Point(137, 55);
             textBoxMaxFuelLevel.Name = "textBoxMaxFuelLevel";
             textBoxMaxFuelLevel.Size = new System.Drawing.Size(100, 20);
             textBoxMaxFuelLevel.TabIndex = 3;
@@ -312,7 +304,7 @@ namespace SymulatorLotniska.AirportManagement
             // 
             // textBoxSpecific
             // 
-            textBoxSpecific.Location = new System.Drawing.Point(69, 157);
+            textBoxSpecific.Location = new System.Drawing.Point(137, 107+25);
             textBoxSpecific.Name = "textBoxSpecific";
             textBoxSpecific.Size = new System.Drawing.Size(100, 20);
             textBoxSpecific.TabIndex = 5;
@@ -321,7 +313,7 @@ namespace SymulatorLotniska.AirportManagement
             // 
             labelFuelUsage.AutoSize = true;
             labelFuelUsage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelFuelUsage.Location = new System.Drawing.Point(49, 31);
+            labelFuelUsage.Location = new System.Drawing.Point(69, 31);
             labelFuelUsage.Name = "labelFuelUsage";
             labelFuelUsage.Size = new System.Drawing.Size(56, 15);
             labelFuelUsage.TabIndex = 6;
@@ -331,7 +323,7 @@ namespace SymulatorLotniska.AirportManagement
             // 
             labelTakeoffInterval.AutoSize = true;
             labelTakeoffInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelTakeoffInterval.Location = new System.Drawing.Point(38, 82);
+            labelTakeoffInterval.Location = new System.Drawing.Point(58, 82);
             labelTakeoffInterval.Name = "labelTakeoffInterval";
             labelTakeoffInterval.Size = new System.Drawing.Size(67, 15);
             labelTakeoffInterval.TabIndex = 7;
@@ -341,7 +333,7 @@ namespace SymulatorLotniska.AirportManagement
             // 
             labelMaxFuelLevel.AutoSize = true;
             labelMaxFuelLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelMaxFuelLevel.Location = new System.Drawing.Point(6, 56);
+            labelMaxFuelLevel.Location = new System.Drawing.Point(26, 56);
             labelMaxFuelLevel.Name = "labelMaxFuelLevel";
             labelMaxFuelLevel.Size = new System.Drawing.Size(99, 15);
             labelMaxFuelLevel.TabIndex = 8;
@@ -351,17 +343,17 @@ namespace SymulatorLotniska.AirportManagement
             // 
             labelSpecific.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             labelSpecific.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelSpecific.Location = new System.Drawing.Point(30, 139);
+            labelSpecific.Location = new System.Drawing.Point(1, 133);
             labelSpecific.Name = "labelSpecific";
             labelSpecific.RightToLeft = System.Windows.Forms.RightToLeft.No;
             labelSpecific.Size = new System.Drawing.Size(177, 15);
+            labelSpecific.AutoSize = true;
             labelSpecific.TabIndex = 9;
-            labelSpecific.Text = "Maksymalna ilość pasażerow";
-            labelSpecific.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelSpecific.Text = "   Maks. pasażerow";
             // 
             // textBoxWeaponType
             // 
-            textBoxWeaponType.Location = new System.Drawing.Point(117, 107);
+            textBoxWeaponType.Location = new System.Drawing.Point(137, 107);
             textBoxWeaponType.Name = "textBoxWeaponType";
             textBoxWeaponType.Size = new System.Drawing.Size(100, 20);
             textBoxWeaponType.TabIndex = 10;
@@ -370,22 +362,12 @@ namespace SymulatorLotniska.AirportManagement
             // 
             labelWeaponType.AutoSize = true;
             labelWeaponType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelWeaponType.Location = new System.Drawing.Point(32, 108);
+            labelWeaponType.Location = new System.Drawing.Point(52, 108);
             labelWeaponType.Name = "labelWeaponType";
             labelWeaponType.Size = new System.Drawing.Size(73, 15);
             labelWeaponType.TabIndex = 11;
             labelWeaponType.Text = "Model broni";
-            // 
-            // cancelButton
-            // 
-            cancelButton.Image = (Image)Properties.Resources.buttonZatrzymanie;
-            cancelButton.BackColor = System.Drawing.Color.White;
-            cancelButton.Location = new System.Drawing.Point(260, 150);
-            cancelButton.Name = "cancelButton";
-            cancelButton.Size = new System.Drawing.Size(50, 50);
-            cancelButton.TabIndex = 10;
-            cancelButton.UseVisualStyleBackColor = false;
-            cancelButton.Click += new System.EventHandler(cancelButton_Click);
+           
 
             labelModel.Visible = true;
             textBoxModel.Visible = true;
@@ -409,11 +391,11 @@ namespace SymulatorLotniska.AirportManagement
                 if(images[i] == sender)
                 {
                     chosenImageName = getCurrentImageName(i);
-                    chosenImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(chosenImageName);
-                    chosenImage.Visible = true;
-
                     chosenImageHandle = images[i];
-                    updateImages();
+
+                    chosenImageMark.Parent = images[i];
+                    chosenImageMark.Visible = true;
+                    // updateImages();
 
                     return;
                 }
@@ -458,7 +440,6 @@ namespace SymulatorLotniska.AirportManagement
             textBoxSpecific.ResetText();
 
             chosenImageHandle = null;
-            chosenImage.Visible = false;
             chosenImageMark.Parent = null;
             chosenImageName = null;
         }
@@ -504,6 +485,23 @@ namespace SymulatorLotniska.AirportManagement
                 }
                 return;
             }
+            if (currentFactoring == PlaneType.Military)
+            {
+                for (int i = 0; i < PlaneImagesCollection.militaryPlaneNames.Count; i++)
+                {
+                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.militaryPlaneNames[i]);
+                    images[i].Visible = true;
+                    images[i].Enabled = true;
+
+                    if (images[i] == chosenImageHandle)
+                    {
+                        chosenImageMark.Parent = images[i];
+                        chosenImageMark.Visible = true;
+                    }
+
+                }
+                return;
+            }
         }
 
         public void updateControls()
@@ -514,7 +512,7 @@ namespace SymulatorLotniska.AirportManagement
             {
                 case PlaneType.Passenger:
 
-                    labelSpecific.Text = "Maksymalna ilość pasażerow";
+                    labelSpecific.Text = "       Maks. pasażerów";
                     labelSpecific.Visible = true;
                     textBoxSpecific.Visible = true;
 
@@ -523,7 +521,7 @@ namespace SymulatorLotniska.AirportManagement
 
                     break;
                 case PlaneType.Transport:
-                    labelSpecific.Text = "Maksymalna ładowność (kg)";
+                    labelSpecific.Text = "Maks. ładowność (kg)";
                     labelSpecific.Visible = true;
                     textBoxSpecific.Visible = true;
 
@@ -533,7 +531,7 @@ namespace SymulatorLotniska.AirportManagement
                     break;
                 case PlaneType.Military:
 
-                    labelSpecific.Text = "Maksymalna ilość amunicji";
+                    labelSpecific.Text = "  Maks. ilość amunicji";
                     labelSpecific.Visible = true;
                     textBoxSpecific.Visible = true;
 

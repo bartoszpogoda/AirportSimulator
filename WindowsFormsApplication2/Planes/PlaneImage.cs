@@ -22,14 +22,14 @@ namespace SymulatorLotniska.Planes
             currentStateImage = new PictureBox();
 
             currentPlaneImage.Parent = parentControl;
-            currentPlaneImage.Size = new Size(50, 50);
+            currentPlaneImage.Size = new Size(Constants.planeImageSizeX, Constants.planeImageSizeY);
             currentPlaneImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
             hide();
             currentPlaneImage.Click += new EventHandler(onClick);
 
             currentStateImage.Parent = currentPlaneImage;
             currentStateImage.Location = new Point(0, 0);
-            currentStateImage.Size = new Size(50, 50);
+            currentStateImage.Size = new Size(Constants.planeImageSizeX, Constants.planeImageSizeY);
             currentStateImage.Visible = false;
             currentStateImage.Enabled = false;
             currentStateImage.BackColor = Color.Transparent;
@@ -87,16 +87,60 @@ namespace SymulatorLotniska.Planes
                 currentStateImage.Enabled = true;
                 currentOnTop = currentStateImage;
             }
-            else if (newState == State.Takeoff)
+            else if (newState == State.Takeoff || newState == State.Landing || newState == State.Hangar
+                || newState == State.OnRunwayAftLanding || newState == State.OnRunwayBefTakeoff)
             {
-                currentStateImage.Image = (Image)Properties.Resources.ResourceManager.GetObject("startowanie");
-                currentStateImage.Visible = true;
-                currentStateImage.Enabled = true;
-                currentOnTop = currentStateImage;
+                if (this is PassengerPlane)
+                {
+                    currentStateImage.Image = Properties.Resources.kolaPasazerski;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+                else if (this is TransportPlane)
+                {
+                    currentStateImage.Image = Properties.Resources.kolaTowarowy;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+                else
+                {
+                    currentStateImage.Image = Properties.Resources.kolaWojskowy;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+            }
+            else if(newState == State.Loading || newState == State.Unloading)
+            {
+                if (this is PassengerPlane)
+                {
+                    currentStateImage.Image = Properties.Resources.wprowadzaniePasazerow;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+                else if (this is TransportPlane)
+                {
+                    currentStateImage.Image = Properties.Resources.wyprowadzanieTowarowy;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+                else
+                {
+                    currentStateImage.Image = Properties.Resources.kolaWojskowy;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+            
+               
             }
             else if (newState == State.Destroyed)
             {
-                currentStateImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(Constants.adresZniszczony);
+                //currentStateImage.Image = (Image)Properties.Resources.);
                 currentStateImage.Visible = true;
                 currentStateImage.Enabled = true;
                 currentOnTop = currentStateImage;

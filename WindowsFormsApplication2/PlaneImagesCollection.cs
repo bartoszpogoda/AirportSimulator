@@ -12,19 +12,31 @@ namespace SymulatorLotniska
         public static List<string> transportPlaneNames;
         public static List<string> militaryPlaneNames;
 
+        public const string adressSelectedMark = "selection";
+        public const string adressFueling = "tankowanieN";
+        public const string adressTechnicalInspection = "kontrolatechniczna";
+
         public static void init()
         {
             passengerPlaneNames = new List<string>();
             transportPlaneNames = new List<string>();
             militaryPlaneNames = new List<string>();
 
-            passengerPlaneNames.Add("P1");
-            passengerPlaneNames.Add("P2");
+            passengerPlaneNames.Add("p1");
+            passengerPlaneNames.Add("p2");
+            passengerPlaneNames.Add("p3");
+            passengerPlaneNames.Add("p4");
+            passengerPlaneNames.Add("p5");
+            passengerPlaneNames.Add("p6");
+ //           passengerPlaneNames.Add("p7");
 
-            transportPlaneNames.Add("T1");
-            transportPlaneNames.Add("T2");
-            transportPlaneNames.Add("T3");
-            transportPlaneNames.Add("T4");
+            transportPlaneNames.Add("t1");
+            transportPlaneNames.Add("t2");
+            transportPlaneNames.Add("t3");
+
+            militaryPlaneNames.Add("m1");
+            militaryPlaneNames.Add("m2");
+            militaryPlaneNames.Add("m3");
         }
     }
 }

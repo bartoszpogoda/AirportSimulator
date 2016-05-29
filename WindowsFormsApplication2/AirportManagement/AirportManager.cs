@@ -50,8 +50,8 @@ namespace SymulatorLotniska.AirportManagement
 
             runwayList = new List<Runway>();
             pbSelectedPlane = new PictureBox();
-            hangar = new Hangar(handleAppWindow.getPanelSamolotow(), 3, 4);
-            airspace = new Airspace(handleAppWindow.getPanelSamolotowPowietrze(), 8);
+            hangar = new Hangar(handleAppWindow.getPanelSamolotow(), 3, 2);
+            airspace = new Airspace(handleAppWindow.getPanelSamolotowPowietrze(), 4);
 
             acceptsIncomingPlanes = false;
             assistant = false;
@@ -104,12 +104,12 @@ namespace SymulatorLotniska.AirportManagement
         {
             if (pbSelectedPlane == null || handleAppWindow == null) return;
 
-            pbSelectedPlane.Image = (Image)Properties.Resources.ResourceManager.GetObject(Constants.adresZnacznik);
+            pbSelectedPlane.Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.adressSelectedMark);
             pbSelectedPlane.BackColor = Color.Transparent;
             pbSelectedPlane.Location = new Point(0, 0);
             pbSelectedPlane.Enabled = false;
             pbSelectedPlane.Visible = false;
-            pbSelectedPlane.Size = new Size(Constants.imageSize, Constants.imageSize);
+            pbSelectedPlane.Size = new Size(Constants.planeImageSizeX, Constants.planeImageSizeY);
             pbSelectedPlane.Parent = handleAppWindow;
         }
         public void refreshPbSelectedIfSelected(PlaneImage samolot)
@@ -337,8 +337,12 @@ namespace SymulatorLotniska.AirportManagement
                     airspace.remove(plane);
                     plane.hide();
 
+                    if (plane == selectedPlane)
+                        selectedPlane = null;
+
                     plane.setParent(null);
                     plane = null;
+
 
                     refreshInformationPanel();
                     refreshButtonPanel();

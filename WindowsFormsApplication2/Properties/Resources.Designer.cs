@@ -63,6 +63,16 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ammo {
+            get {
+                object obj = ResourceManager.GetObject("ammo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnDoHangaru {
             get {
                 object obj = ResourceManager.GetObject("btnDoHangaru", resourceCulture);
@@ -133,49 +143,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap buttonM1czlowiek {
-            get {
-                object obj = ResourceManager.GetObject("buttonM1czlowiek", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap buttonM5czlowiek {
-            get {
-                object obj = ResourceManager.GetObject("buttonM5czlowiek", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap buttonNaPas {
             get {
                 object obj = ResourceManager.GetObject("buttonNaPas", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap buttonP1czlowiek {
-            get {
-                object obj = ResourceManager.GetObject("buttonP1czlowiek", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap buttonP5czlowiek {
-            get {
-                object obj = ResourceManager.GetObject("buttonP5czlowiek", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -191,14 +161,25 @@ namespace SymulatorLotniska.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cargo {
+            get {
+                object obj = ResourceManager.GetObject("cargo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;Planes&gt;
+        ///  &lt;NumberOfPlanes&gt;2&lt;/NumberOfPlanes&gt;
         ///  &lt;Plane id=&quot;0&quot;&gt;
         ///	  &lt;Model&gt;F-16&lt;/Model&gt;
         ///	  &lt;MaxFuelLevel&gt;220&lt;/MaxFuelLevel&gt;
         ///	  &lt;TakeoffInterval&gt;1&lt;/TakeoffInterval&gt;
-        ///	  &lt;FuelUsage&gt;10&lt;/FuelUsage&gt;
+        ///	  &lt;FuelUsage&gt;80&lt;/FuelUsage&gt;
         ///	  &lt;Type&gt;MilitaryPlane&lt;/Type&gt;
-        ///    &lt;Image&gt;samolot1&lt;/Image&gt;
+        ///    &lt;Image&gt;m1&lt;/Image&gt;
         ///	
         ///	  &lt;MaxPassengers&gt;&lt;/MaxPassengers&gt;
         ///	  &lt;MaxStorage&gt;&lt;/MaxStorage&gt;
@@ -209,11 +190,41 @@ namespace SymulatorLotniska.Properties {
         ///  &lt;Plane id=&quot;1&quot;&gt;
         ///    &lt;Model&gt;Tupolew&lt;/Model&gt;
         ///	  &lt;MaxFuelLevel&gt;300&lt;/MaxFuelLevel&gt;
-        ///	  &lt;TakeoffInterval&gt;4&lt;/TakeoffInterval&gt;3&lt;/TakeoffInterval&gt;        /// [rest of string was truncated]&quot;;.
+        ///	  &lt;TakeoffInterval&gt;4&lt;/Take [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DefinedPlanes {
             get {
                 return ResourceManager.GetString("DefinedPlanes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kolaPasazerski {
+            get {
+                object obj = ResourceManager.GetObject("kolaPasazerski", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kolaTowarowy {
+            get {
+                object obj = ResourceManager.GetObject("kolaTowarowy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kolaWojskowy {
+            get {
+                object obj = ResourceManager.GetObject("kolaWojskowy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -240,9 +251,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap P1 {
+        internal static System.Drawing.Bitmap m1 {
             get {
-                object obj = ResourceManager.GetObject("P1", resourceCulture);
+                object obj = ResourceManager.GetObject("m1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -250,9 +261,89 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap P2 {
+        internal static System.Drawing.Bitmap m2 {
             get {
-                object obj = ResourceManager.GetObject("P2", resourceCulture);
+                object obj = ResourceManager.GetObject("m2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap m3 {
+            get {
+                object obj = ResourceManager.GetObject("m3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap p1 {
+            get {
+                object obj = ResourceManager.GetObject("p1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap p2 {
+            get {
+                object obj = ResourceManager.GetObject("p2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap p3 {
+            get {
+                object obj = ResourceManager.GetObject("p3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap p4 {
+            get {
+                object obj = ResourceManager.GetObject("p4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap p5 {
+            get {
+                object obj = ResourceManager.GetObject("p5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap p6 {
+            get {
+                object obj = ResourceManager.GetObject("p6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap p7 {
+            get {
+                object obj = ResourceManager.GetObject("p7", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -270,9 +361,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap samolot1 {
+        internal static System.Drawing.Bitmap people {
             get {
-                object obj = ResourceManager.GetObject("samolot1", resourceCulture);
+                object obj = ResourceManager.GetObject("people", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -280,9 +371,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap startowanie {
+        internal static System.Drawing.Bitmap selection {
             get {
-                object obj = ResourceManager.GetObject("startowanie", resourceCulture);
+                object obj = ResourceManager.GetObject("selection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -290,9 +381,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T1 {
+        internal static System.Drawing.Bitmap t1 {
             get {
-                object obj = ResourceManager.GetObject("T1", resourceCulture);
+                object obj = ResourceManager.GetObject("t1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -300,9 +391,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2 {
+        internal static System.Drawing.Bitmap t2 {
             get {
-                object obj = ResourceManager.GetObject("T2", resourceCulture);
+                object obj = ResourceManager.GetObject("t2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -310,19 +401,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T3 {
+        internal static System.Drawing.Bitmap t3 {
             get {
-                object obj = ResourceManager.GetObject("T3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap T4 {
-            get {
-                object obj = ResourceManager.GetObject("T4", resourceCulture);
+                object obj = ResourceManager.GetObject("t3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -350,9 +431,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zn {
+        internal static System.Drawing.Bitmap wprowadzaniePasazerow {
             get {
-                object obj = ResourceManager.GetObject("zn", resourceCulture);
+                object obj = ResourceManager.GetObject("wprowadzaniePasazerow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -360,9 +441,9 @@ namespace SymulatorLotniska.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap znacznik {
+        internal static System.Drawing.Bitmap wyprowadzanieTowarowy {
             get {
-                object obj = ResourceManager.GetObject("znacznik", resourceCulture);
+                object obj = ResourceManager.GetObject("wyprowadzanieTowarowy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

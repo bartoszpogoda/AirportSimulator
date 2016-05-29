@@ -41,6 +41,7 @@ namespace SymulatorLotniska
             this.labelTekstInformacje = new System.Windows.Forms.Label();
             this.labelInformacje = new System.Windows.Forms.Label();
             this.panelSamolotyWPowietrzu = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnPrawo = new System.Windows.Forms.Button();
             this.btnLewo = new System.Windows.Forms.Button();
             this.labelSamolotyPowietrze = new System.Windows.Forms.Label();
@@ -67,7 +68,6 @@ namespace SymulatorLotniska
             this.doHangaru = new System.Windows.Forms.Button();
             this.notificationListClear = new System.Windows.Forms.Label();
             this.switchOperationSingle = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
@@ -159,6 +159,7 @@ namespace SymulatorLotniska
             // panelSamolotyWPowietrzu
             // 
             this.panelSamolotyWPowietrzu.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panelSamolotyWPowietrzu.Controls.Add(this.label2);
             this.panelSamolotyWPowietrzu.Controls.Add(this.btnPrawo);
             this.panelSamolotyWPowietrzu.Controls.Add(this.btnLewo);
             this.panelSamolotyWPowietrzu.Controls.Add(this.labelSamolotyPowietrze);
@@ -166,6 +167,19 @@ namespace SymulatorLotniska
             this.panelSamolotyWPowietrzu.Name = "panelSamolotyWPowietrzu";
             this.panelSamolotyWPowietrzu.Size = new System.Drawing.Size(491, 109);
             this.panelSamolotyWPowietrzu.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Location = new System.Drawing.Point(454, 0);
+            this.label2.Name = "label2";
+            this.label2.Padding = new System.Windows.Forms.Padding(5);
+            this.label2.Size = new System.Drawing.Size(37, 27);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "AI";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btnPrawo
             // 
@@ -264,6 +278,7 @@ namespace SymulatorLotniska
             // peoplePanel
             // 
             this.peoplePanel.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.peoplePanel.BackgroundImage = global::SymulatorLotniska.Properties.Resources.people;
             this.peoplePanel.Controls.Add(this.peopleCount);
             this.peoplePanel.Location = new System.Drawing.Point(680, 31);
             this.peoplePanel.Name = "peoplePanel";
@@ -274,6 +289,7 @@ namespace SymulatorLotniska
             // cargoPanel
             // 
             this.cargoPanel.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.cargoPanel.BackgroundImage = global::SymulatorLotniska.Properties.Resources.cargo;
             this.cargoPanel.Controls.Add(this.cargoCount);
             this.cargoPanel.Location = new System.Drawing.Point(680, 99);
             this.cargoPanel.Name = "cargoPanel";
@@ -293,6 +309,7 @@ namespace SymulatorLotniska
             // ammoPanel
             // 
             this.ammoPanel.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ammoPanel.BackgroundImage = global::SymulatorLotniska.Properties.Resources.ammo;
             this.ammoPanel.Controls.Add(this.ammoCount);
             this.ammoPanel.Location = new System.Drawing.Point(680, 168);
             this.ammoPanel.Name = "ammoPanel";
@@ -453,25 +470,11 @@ namespace SymulatorLotniska
             this.switchOperationSingle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.switchOperationSingle.Click += new System.EventHandler(this.switchOperationSingle_Click);
             // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(300, 219);
-            this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(5);
-            this.label2.Size = new System.Drawing.Size(46, 25);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Bot";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
             // AppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.switchOperationSingle);
             this.Controls.Add(this.notificationListClear);
             this.Controls.Add(this.label1);

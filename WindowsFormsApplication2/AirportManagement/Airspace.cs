@@ -59,7 +59,7 @@ namespace SymulatorLotniska.AirportManagement
 
         private Point getPosition(int i)
         {
-            return new Point(Constants.interspaceSize * (i + 1) + i * Constants.imageSize,
+            return new Point(Constants.interspaceSize * (i + 1) + i * Constants.planeImageSizeX,
                            10 + Constants.interspaceSize);
         }
 

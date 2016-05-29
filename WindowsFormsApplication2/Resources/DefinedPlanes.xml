@@ -6,7 +6,7 @@
 	  <TakeoffInterval>1</TakeoffInterval>
 	  <FuelUsage>80</FuelUsage>
 	  <Type>MilitaryPlane</Type>
-    <Image>samolot1</Image>
+    <Image>m1</Image>
 	
 	  <MaxPassengers></MaxPassengers>
 	  <MaxStorage></MaxStorage>
@@ -20,7 +20,7 @@
 	  <TakeoffInterval>4</TakeoffInterval>
 	  <FuelUsage>120</FuelUsage>
 	  <Type>PassengerPlane</Type>
-    <Image>samolot1</Image>
+    <Image>p1</Image>
 	
 	  <MaxPassengers>350</MaxPassengers>
 	  <MaxStorage></MaxStorage>
