@@ -88,6 +88,11 @@ namespace SymulatorLotniska.AirportManagement
 
                 i++;
             }
+
+            for(; i < airspaceContent.Count; i++)
+            {
+                airspaceContent.ElementAt(i).hide();
+            }
         }
 
         public List<Plane> getList() { return airspaceContent; }
