@@ -14,7 +14,7 @@ namespace SymulatorLotniska.Operations
 
             if (plane.isTanked())
             {
-                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " ma już pełny bak.", NotificationType.Normal);
+                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " ma już pełny bak.", NotificationType.Neutral);
                 return;
             }
 
@@ -26,7 +26,7 @@ namespace SymulatorLotniska.Operations
         {
             if (plane.getCurrentState() != State.Fueling) return false;
             
-            if (++intervalTimer < ConfigurationConstants.interwalTankowanie) return true;
+            if (++intervalTimer < Constants.interwalTankowanie) return true;
 
             intervalTimer = 0;
                     

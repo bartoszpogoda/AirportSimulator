@@ -41,33 +41,40 @@ namespace SymulatorLotniska
             this.labelTekstInformacje = new System.Windows.Forms.Label();
             this.labelInformacje = new System.Windows.Forms.Label();
             this.panelSamolotyWPowietrzu = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnPrawo = new System.Windows.Forms.Button();
             this.btnLewo = new System.Windows.Forms.Button();
             this.labelSamolotyPowietrze = new System.Windows.Forms.Label();
-            this.panelPrzyciskow = new System.Windows.Forms.Panel();
             this.btnSendAway = new System.Windows.Forms.Button();
-            this.btnLanding = new System.Windows.Forms.Button();
-            this.btnM5C = new System.Windows.Forms.Button();
-            this.btnM1C = new System.Windows.Forms.Button();
-            this.btnD5C = new System.Windows.Forms.Button();
-            this.btnStartowanie = new System.Windows.Forms.Button();
-            this.btnD1C = new System.Windows.Forms.Button();
-            this.doHangaru = new System.Windows.Forms.Button();
-            this.operationCancel = new System.Windows.Forms.Button();
-            this.kontrola = new System.Windows.Forms.Button();
-            this.naPasStartowy = new System.Windows.Forms.Button();
-            this.tankowanie = new System.Windows.Forms.Button();
             this.panelPasStartowy1 = new System.Windows.Forms.Panel();
             this.panelPasStartowy2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.peopleCount = new System.Windows.Forms.TextBox();
+            this.peoplePanel = new System.Windows.Forms.Panel();
+            this.cargoPanel = new System.Windows.Forms.Panel();
+            this.cargoCount = new System.Windows.Forms.TextBox();
+            this.ammoPanel = new System.Windows.Forms.Panel();
+            this.ammoCount = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tankowanie = new System.Windows.Forms.Button();
+            this.naPasStartowy = new System.Windows.Forms.Button();
+            this.kontrola = new System.Windows.Forms.Button();
+            this.operationCancel = new System.Windows.Forms.Button();
+            this.btnStartowanie = new System.Windows.Forms.Button();
+            this.btnLanding = new System.Windows.Forms.Button();
+            this.btnUnload = new System.Windows.Forms.Button();
+            this.panelPrzyciskow = new System.Windows.Forms.Panel();
+            this.doHangaru = new System.Windows.Forms.Button();
+            this.notificationListClear = new System.Windows.Forms.Label();
+            this.switchOperationSingle = new System.Windows.Forms.Label();
             this.panelSamolotow.SuspendLayout();
             this.panelInformacji.SuspendLayout();
             this.panelSamolotyWPowietrzu.SuspendLayout();
+            this.peoplePanel.SuspendLayout();
+            this.cargoPanel.SuspendLayout();
+            this.ammoPanel.SuspendLayout();
             this.panelPrzyciskow.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSamolotow
@@ -121,9 +128,9 @@ namespace SymulatorLotniska
             this.panelInformacji.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.panelInformacji.Controls.Add(this.labelTekstInformacje);
             this.panelInformacji.Controls.Add(this.labelInformacje);
-            this.panelInformacji.Location = new System.Drawing.Point(412, 28);
+            this.panelInformacji.Location = new System.Drawing.Point(361, 28);
             this.panelInformacji.Name = "panelInformacji";
-            this.panelInformacji.Size = new System.Drawing.Size(280, 200);
+            this.panelInformacji.Size = new System.Drawing.Size(301, 200);
             this.panelInformacji.TabIndex = 0;
             // 
             // labelTekstInformacje
@@ -152,6 +159,7 @@ namespace SymulatorLotniska
             // panelSamolotyWPowietrzu
             // 
             this.panelSamolotyWPowietrzu.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panelSamolotyWPowietrzu.Controls.Add(this.label2);
             this.panelSamolotyWPowietrzu.Controls.Add(this.btnPrawo);
             this.panelSamolotyWPowietrzu.Controls.Add(this.btnLewo);
             this.panelSamolotyWPowietrzu.Controls.Add(this.labelSamolotyPowietrze);
@@ -159,6 +167,19 @@ namespace SymulatorLotniska
             this.panelSamolotyWPowietrzu.Name = "panelSamolotyWPowietrzu";
             this.panelSamolotyWPowietrzu.Size = new System.Drawing.Size(491, 109);
             this.panelSamolotyWPowietrzu.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Location = new System.Drawing.Point(454, 0);
+            this.label2.Name = "label2";
+            this.label2.Padding = new System.Windows.Forms.Padding(5);
+            this.label2.Size = new System.Drawing.Size(37, 27);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "AI";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btnPrawo
             // 
@@ -195,158 +216,16 @@ namespace SymulatorLotniska
             this.labelSamolotyPowietrze.Text = "Samoloty w powietrzu:";
             this.labelSamolotyPowietrze.Click += new System.EventHandler(this.labelSamolotyPowietrze_Click);
             // 
-            // panelPrzyciskow
-            // 
-            this.panelPrzyciskow.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panelPrzyciskow.Controls.Add(this.btnSendAway);
-            this.panelPrzyciskow.Controls.Add(this.btnLanding);
-            this.panelPrzyciskow.Controls.Add(this.btnM5C);
-            this.panelPrzyciskow.Controls.Add(this.btnM1C);
-            this.panelPrzyciskow.Controls.Add(this.btnD5C);
-            this.panelPrzyciskow.Controls.Add(this.btnStartowanie);
-            this.panelPrzyciskow.Controls.Add(this.btnD1C);
-            this.panelPrzyciskow.Controls.Add(this.doHangaru);
-            this.panelPrzyciskow.Controls.Add(this.operationCancel);
-            this.panelPrzyciskow.Controls.Add(this.kontrola);
-            this.panelPrzyciskow.Controls.Add(this.naPasStartowy);
-            this.panelPrzyciskow.Controls.Add(this.tankowanie);
-            this.panelPrzyciskow.Location = new System.Drawing.Point(293, 58);
-            this.panelPrzyciskow.Name = "panelPrzyciskow";
-            this.panelPrzyciskow.Size = new System.Drawing.Size(113, 170);
-            this.panelPrzyciskow.TabIndex = 0;
-            // 
             // btnSendAway
             // 
             this.btnSendAway.BackColor = System.Drawing.Color.White;
             this.btnSendAway.Image = global::SymulatorLotniska.Properties.Resources.btnGora;
-            this.btnSendAway.Location = new System.Drawing.Point(59, 3);
+            this.btnSendAway.Location = new System.Drawing.Point(4, 59);
             this.btnSendAway.Name = "btnSendAway";
             this.btnSendAway.Size = new System.Drawing.Size(50, 50);
             this.btnSendAway.TabIndex = 15;
             this.btnSendAway.UseVisualStyleBackColor = false;
             this.btnSendAway.Click += new System.EventHandler(this.btnSendAway_Click);
-            // 
-            // btnLanding
-            // 
-            this.btnLanding.BackColor = System.Drawing.Color.White;
-            this.btnLanding.Image = global::SymulatorLotniska.Properties.Resources.btnDol;
-            this.btnLanding.Location = new System.Drawing.Point(4, 3);
-            this.btnLanding.Name = "btnLanding";
-            this.btnLanding.Size = new System.Drawing.Size(50, 50);
-            this.btnLanding.TabIndex = 14;
-            this.btnLanding.UseVisualStyleBackColor = false;
-            this.btnLanding.Click += new System.EventHandler(this.btnLanding_Click);
-            // 
-            // btnM5C
-            // 
-            this.btnM5C.BackColor = System.Drawing.Color.White;
-            this.btnM5C.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnM5C.Image = global::SymulatorLotniska.Properties.Resources.buttonM5czlowiek;
-            this.btnM5C.Location = new System.Drawing.Point(59, 59);
-            this.btnM5C.Name = "btnM5C";
-            this.btnM5C.Size = new System.Drawing.Size(50, 50);
-            this.btnM5C.TabIndex = 13;
-            this.btnM5C.UseVisualStyleBackColor = false;
-            this.btnM5C.Click += new System.EventHandler(this.btnM5C_Click);
-            // 
-            // btnM1C
-            // 
-            this.btnM1C.BackColor = System.Drawing.Color.White;
-            this.btnM1C.Image = global::SymulatorLotniska.Properties.Resources.buttonM1czlowiek;
-            this.btnM1C.Location = new System.Drawing.Point(59, 3);
-            this.btnM1C.Name = "btnM1C";
-            this.btnM1C.Size = new System.Drawing.Size(50, 50);
-            this.btnM1C.TabIndex = 12;
-            this.btnM1C.UseVisualStyleBackColor = false;
-            this.btnM1C.Click += new System.EventHandler(this.btnM1C_Click);
-            // 
-            // btnD5C
-            // 
-            this.btnD5C.BackColor = System.Drawing.Color.White;
-            this.btnD5C.Image = global::SymulatorLotniska.Properties.Resources.buttonP5czlowiek;
-            this.btnD5C.Location = new System.Drawing.Point(4, 59);
-            this.btnD5C.Name = "btnD5C";
-            this.btnD5C.Size = new System.Drawing.Size(50, 50);
-            this.btnD5C.TabIndex = 11;
-            this.btnD5C.UseVisualStyleBackColor = false;
-            this.btnD5C.Click += new System.EventHandler(this.btnD5C_Click);
-            // 
-            // btnStartowanie
-            // 
-            this.btnStartowanie.BackColor = System.Drawing.Color.White;
-            this.btnStartowanie.Image = global::SymulatorLotniska.Properties.Resources.btnStartowanie;
-            this.btnStartowanie.Location = new System.Drawing.Point(4, 115);
-            this.btnStartowanie.Name = "btnStartowanie";
-            this.btnStartowanie.Size = new System.Drawing.Size(50, 50);
-            this.btnStartowanie.TabIndex = 8;
-            this.btnStartowanie.UseVisualStyleBackColor = false;
-            this.btnStartowanie.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // btnD1C
-            // 
-            this.btnD1C.BackColor = System.Drawing.Color.White;
-            this.btnD1C.Image = global::SymulatorLotniska.Properties.Resources.buttonP1czlowiek;
-            this.btnD1C.Location = new System.Drawing.Point(4, 3);
-            this.btnD1C.Name = "btnD1C";
-            this.btnD1C.Size = new System.Drawing.Size(50, 50);
-            this.btnD1C.TabIndex = 6;
-            this.btnD1C.UseVisualStyleBackColor = false;
-            this.btnD1C.Click += new System.EventHandler(this.wprowadzenieLudzi_Click);
-            // 
-            // doHangaru
-            // 
-            this.doHangaru.BackColor = System.Drawing.Color.White;
-            this.doHangaru.Image = global::SymulatorLotniska.Properties.Resources.btnDoHangaru;
-            this.doHangaru.Location = new System.Drawing.Point(60, 115);
-            this.doHangaru.Name = "doHangaru";
-            this.doHangaru.Size = new System.Drawing.Size(50, 50);
-            this.doHangaru.TabIndex = 5;
-            this.doHangaru.UseVisualStyleBackColor = false;
-            this.doHangaru.Click += new System.EventHandler(this.doHangaru_Click);
-            // 
-            // operationCancel
-            // 
-            this.operationCancel.BackColor = System.Drawing.Color.Pink;
-            this.operationCancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("operationCancel.BackgroundImage")));
-            this.operationCancel.Location = new System.Drawing.Point(3, 3);
-            this.operationCancel.Name = "operationCancel";
-            this.operationCancel.Size = new System.Drawing.Size(50, 50);
-            this.operationCancel.TabIndex = 3;
-            this.operationCancel.UseVisualStyleBackColor = false;
-            this.operationCancel.Click += new System.EventHandler(this.tankowanieCancel_Click);
-            // 
-            // kontrola
-            // 
-            this.kontrola.BackColor = System.Drawing.Color.LightGoldenrodYellow;
-            this.kontrola.Image = global::SymulatorLotniska.Properties.Resources.kontrolatechniczna;
-            this.kontrola.Location = new System.Drawing.Point(3, 59);
-            this.kontrola.Name = "kontrola";
-            this.kontrola.Size = new System.Drawing.Size(50, 50);
-            this.kontrola.TabIndex = 2;
-            this.kontrola.UseVisualStyleBackColor = false;
-            this.kontrola.Click += new System.EventHandler(this.kontrola_Click);
-            // 
-            // naPasStartowy
-            // 
-            this.naPasStartowy.BackColor = System.Drawing.Color.White;
-            this.naPasStartowy.Image = ((System.Drawing.Image)(resources.GetObject("naPasStartowy.Image")));
-            this.naPasStartowy.Location = new System.Drawing.Point(3, 115);
-            this.naPasStartowy.Name = "naPasStartowy";
-            this.naPasStartowy.Size = new System.Drawing.Size(50, 50);
-            this.naPasStartowy.TabIndex = 1;
-            this.naPasStartowy.UseVisualStyleBackColor = false;
-            this.naPasStartowy.Click += new System.EventHandler(this.naPasStartowy_Click);
-            // 
-            // tankowanie
-            // 
-            this.tankowanie.BackColor = System.Drawing.Color.White;
-            this.tankowanie.Image = global::SymulatorLotniska.Properties.Resources.tankowanieN;
-            this.tankowanie.Location = new System.Drawing.Point(3, 3);
-            this.tankowanie.Name = "tankowanie";
-            this.tankowanie.Size = new System.Drawing.Size(50, 50);
-            this.tankowanie.TabIndex = 0;
-            this.tankowanie.UseVisualStyleBackColor = false;
-            this.tankowanie.Click += new System.EventHandler(this.tankowanie_Click);
             // 
             // panelPasStartowy1
             // 
@@ -366,23 +245,12 @@ namespace SymulatorLotniska
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Location = new System.Drawing.Point(522, 246);
+            this.groupBox1.Location = new System.Drawing.Point(522, 274);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(170, 286);
+            this.groupBox1.Size = new System.Drawing.Size(245, 250);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Centrum powiadomien";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(522, 538);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(170, 20);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Wyczyść";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button6
             // 
@@ -392,29 +260,228 @@ namespace SymulatorLotniska
             this.button6.Location = new System.Drawing.Point(0, 0);
             this.button6.Margin = new System.Windows.Forms.Padding(0);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(707, 23);
+            this.button6.Size = new System.Drawing.Size(785, 23);
             this.button6.TabIndex = 8;
             this.button6.Text = "Fabryka samolotów";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
-            // button2
+            // peopleCount
             // 
-            this.button2.Location = new System.Drawing.Point(27, 128);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.peopleCount.Enabled = false;
+            this.peopleCount.Location = new System.Drawing.Point(26, 37);
+            this.peopleCount.Name = "peopleCount";
+            this.peopleCount.ReadOnly = true;
+            this.peopleCount.Size = new System.Drawing.Size(61, 20);
+            this.peopleCount.TabIndex = 9;
+            // 
+            // peoplePanel
+            // 
+            this.peoplePanel.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.peoplePanel.BackgroundImage = global::SymulatorLotniska.Properties.Resources.people;
+            this.peoplePanel.Controls.Add(this.peopleCount);
+            this.peoplePanel.Location = new System.Drawing.Point(680, 31);
+            this.peoplePanel.Name = "peoplePanel";
+            this.peoplePanel.Size = new System.Drawing.Size(90, 60);
+            this.peoplePanel.TabIndex = 10;
+            this.peoplePanel.Click += new System.EventHandler(this.peoplePanel_Click);
+            // 
+            // cargoPanel
+            // 
+            this.cargoPanel.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.cargoPanel.BackgroundImage = global::SymulatorLotniska.Properties.Resources.cargo;
+            this.cargoPanel.Controls.Add(this.cargoCount);
+            this.cargoPanel.Location = new System.Drawing.Point(680, 99);
+            this.cargoPanel.Name = "cargoPanel";
+            this.cargoPanel.Size = new System.Drawing.Size(90, 60);
+            this.cargoPanel.TabIndex = 11;
+            this.cargoPanel.Click += new System.EventHandler(this.cargoPanel_Click);
+            // 
+            // cargoCount
+            // 
+            this.cargoCount.Enabled = false;
+            this.cargoCount.Location = new System.Drawing.Point(26, 37);
+            this.cargoCount.Name = "cargoCount";
+            this.cargoCount.ReadOnly = true;
+            this.cargoCount.Size = new System.Drawing.Size(61, 20);
+            this.cargoCount.TabIndex = 9;
+            // 
+            // ammoPanel
+            // 
+            this.ammoPanel.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ammoPanel.BackgroundImage = global::SymulatorLotniska.Properties.Resources.ammo;
+            this.ammoPanel.Controls.Add(this.ammoCount);
+            this.ammoPanel.Location = new System.Drawing.Point(680, 168);
+            this.ammoPanel.Name = "ammoPanel";
+            this.ammoPanel.Size = new System.Drawing.Size(90, 60);
+            this.ammoPanel.TabIndex = 11;
+            this.ammoPanel.Click += new System.EventHandler(this.ammoPanel_Click);
+            // 
+            // ammoCount
+            // 
+            this.ammoCount.Enabled = false;
+            this.ammoCount.Location = new System.Drawing.Point(26, 37);
+            this.ammoCount.Name = "ammoCount";
+            this.ammoCount.ReadOnly = true;
+            this.ammoCount.Size = new System.Drawing.Size(61, 20);
+            this.ammoCount.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Location = new System.Drawing.Point(526, 238);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(5);
+            this.label1.Size = new System.Drawing.Size(136, 25);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Nie przyjmuje samolotów";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // tankowanie
+            // 
+            this.tankowanie.BackColor = System.Drawing.Color.White;
+            this.tankowanie.Image = global::SymulatorLotniska.Properties.Resources.tankowanieN;
+            this.tankowanie.Location = new System.Drawing.Point(3, 3);
+            this.tankowanie.Name = "tankowanie";
+            this.tankowanie.Size = new System.Drawing.Size(50, 50);
+            this.tankowanie.TabIndex = 0;
+            this.tankowanie.UseVisualStyleBackColor = false;
+            this.tankowanie.Click += new System.EventHandler(this.tankowanie_Click);
+            // 
+            // naPasStartowy
+            // 
+            this.naPasStartowy.BackColor = System.Drawing.Color.White;
+            this.naPasStartowy.Image = ((System.Drawing.Image)(resources.GetObject("naPasStartowy.Image")));
+            this.naPasStartowy.Location = new System.Drawing.Point(3, 115);
+            this.naPasStartowy.Name = "naPasStartowy";
+            this.naPasStartowy.Size = new System.Drawing.Size(50, 50);
+            this.naPasStartowy.TabIndex = 1;
+            this.naPasStartowy.UseVisualStyleBackColor = false;
+            this.naPasStartowy.Click += new System.EventHandler(this.naPasStartowy_Click);
+            // 
+            // kontrola
+            // 
+            this.kontrola.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.kontrola.Image = global::SymulatorLotniska.Properties.Resources.kontrolatechniczna;
+            this.kontrola.Location = new System.Drawing.Point(4, 59);
+            this.kontrola.Name = "kontrola";
+            this.kontrola.Size = new System.Drawing.Size(50, 50);
+            this.kontrola.TabIndex = 2;
+            this.kontrola.UseVisualStyleBackColor = false;
+            this.kontrola.Click += new System.EventHandler(this.kontrola_Click);
+            // 
+            // operationCancel
+            // 
+            this.operationCancel.BackColor = System.Drawing.Color.Pink;
+            this.operationCancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("operationCancel.BackgroundImage")));
+            this.operationCancel.Location = new System.Drawing.Point(4, 3);
+            this.operationCancel.Name = "operationCancel";
+            this.operationCancel.Size = new System.Drawing.Size(50, 50);
+            this.operationCancel.TabIndex = 3;
+            this.operationCancel.UseVisualStyleBackColor = false;
+            this.operationCancel.Click += new System.EventHandler(this.operationCancel_Click);
+            // 
+            // btnStartowanie
+            // 
+            this.btnStartowanie.BackColor = System.Drawing.Color.White;
+            this.btnStartowanie.Image = global::SymulatorLotniska.Properties.Resources.btnStartowanie;
+            this.btnStartowanie.Location = new System.Drawing.Point(4, 115);
+            this.btnStartowanie.Name = "btnStartowanie";
+            this.btnStartowanie.Size = new System.Drawing.Size(50, 50);
+            this.btnStartowanie.TabIndex = 8;
+            this.btnStartowanie.UseVisualStyleBackColor = false;
+            this.btnStartowanie.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // btnLanding
+            // 
+            this.btnLanding.BackColor = System.Drawing.Color.White;
+            this.btnLanding.Image = global::SymulatorLotniska.Properties.Resources.btnDol;
+            this.btnLanding.Location = new System.Drawing.Point(4, 3);
+            this.btnLanding.Name = "btnLanding";
+            this.btnLanding.Size = new System.Drawing.Size(50, 50);
+            this.btnLanding.TabIndex = 14;
+            this.btnLanding.UseVisualStyleBackColor = false;
+            this.btnLanding.Click += new System.EventHandler(this.btnLanding_Click);
+            // 
+            // btnUnload
+            // 
+            this.btnUnload.BackColor = System.Drawing.Color.White;
+            this.btnUnload.Image = global::SymulatorLotniska.Properties.Resources.btnDol;
+            this.btnUnload.Location = new System.Drawing.Point(4, 3);
+            this.btnUnload.Name = "btnUnload";
+            this.btnUnload.Size = new System.Drawing.Size(50, 50);
+            this.btnUnload.TabIndex = 16;
+            this.btnUnload.UseVisualStyleBackColor = false;
+            this.btnUnload.Click += new System.EventHandler(this.btnUnload_Click);
+            // 
+            // panelPrzyciskow
+            // 
+            this.panelPrzyciskow.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelPrzyciskow.Controls.Add(this.btnUnload);
+            this.panelPrzyciskow.Controls.Add(this.btnSendAway);
+            this.panelPrzyciskow.Controls.Add(this.btnLanding);
+            this.panelPrzyciskow.Controls.Add(this.btnStartowanie);
+            this.panelPrzyciskow.Controls.Add(this.doHangaru);
+            this.panelPrzyciskow.Controls.Add(this.operationCancel);
+            this.panelPrzyciskow.Controls.Add(this.kontrola);
+            this.panelPrzyciskow.Controls.Add(this.naPasStartowy);
+            this.panelPrzyciskow.Controls.Add(this.tankowanie);
+            this.panelPrzyciskow.Location = new System.Drawing.Point(296, 46);
+            this.panelPrzyciskow.Name = "panelPrzyciskow";
+            this.panelPrzyciskow.Size = new System.Drawing.Size(59, 170);
+            this.panelPrzyciskow.TabIndex = 0;
+            // 
+            // doHangaru
+            // 
+            this.doHangaru.BackColor = System.Drawing.Color.White;
+            this.doHangaru.Image = global::SymulatorLotniska.Properties.Resources.btnDoHangaru;
+            this.doHangaru.Location = new System.Drawing.Point(4, 59);
+            this.doHangaru.Name = "doHangaru";
+            this.doHangaru.Size = new System.Drawing.Size(50, 50);
+            this.doHangaru.TabIndex = 5;
+            this.doHangaru.UseVisualStyleBackColor = false;
+            this.doHangaru.Click += new System.EventHandler(this.doHangaru_Click);
+            // 
+            // notificationListClear
+            // 
+            this.notificationListClear.BackColor = System.Drawing.Color.Bisque;
+            this.notificationListClear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.notificationListClear.Location = new System.Drawing.Point(526, 527);
+            this.notificationListClear.Name = "notificationListClear";
+            this.notificationListClear.Padding = new System.Windows.Forms.Padding(5);
+            this.notificationListClear.Size = new System.Drawing.Size(241, 25);
+            this.notificationListClear.TabIndex = 15;
+            this.notificationListClear.Text = "Wyczyść listę";
+            this.notificationListClear.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.notificationListClear.Click += new System.EventHandler(this.notificationListClear_Click);
+            // 
+            // switchOperationSingle
+            // 
+            this.switchOperationSingle.BackColor = System.Drawing.Color.Aquamarine;
+            this.switchOperationSingle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.switchOperationSingle.Location = new System.Drawing.Point(680, 238);
+            this.switchOperationSingle.Name = "switchOperationSingle";
+            this.switchOperationSingle.Padding = new System.Windows.Forms.Padding(5);
+            this.switchOperationSingle.Size = new System.Drawing.Size(87, 25);
+            this.switchOperationSingle.TabIndex = 16;
+            this.switchOperationSingle.Text = "Operacja";
+            this.switchOperationSingle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.switchOperationSingle.Click += new System.EventHandler(this.switchOperationSingle_Click);
             // 
             // AppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 579);
+            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.switchOperationSingle);
+            this.Controls.Add(this.notificationListClear);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ammoPanel);
+            this.Controls.Add(this.cargoPanel);
+            this.Controls.Add(this.peoplePanel);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelSamolotyWPowietrzu);
             this.Controls.Add(this.panelPasStartowy2);
@@ -434,8 +501,13 @@ namespace SymulatorLotniska
             this.panelInformacji.PerformLayout();
             this.panelSamolotyWPowietrzu.ResumeLayout(false);
             this.panelSamolotyWPowietrzu.PerformLayout();
+            this.peoplePanel.ResumeLayout(false);
+            this.peoplePanel.PerformLayout();
+            this.cargoPanel.ResumeLayout(false);
+            this.cargoPanel.PerformLayout();
+            this.ammoPanel.ResumeLayout(false);
+            this.ammoPanel.PerformLayout();
             this.panelPrzyciskow.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -446,36 +518,39 @@ namespace SymulatorLotniska
 
         private System.Windows.Forms.Panel panelSamolotow;
         private System.Windows.Forms.Panel panelInformacji;
-        private System.Windows.Forms.Panel panelPrzyciskow;
         private System.Windows.Forms.Label labelHangar;
         private System.Windows.Forms.Label labelInformacje;
         private System.Windows.Forms.Label labelTekstInformacje;
         private System.Windows.Forms.Panel panelSamolotyWPowietrzu;
-        private Button kontrola;
-        private Button naPasStartowy;
-        private Button tankowanie;
-        private Button operationCancel;
         private Panel panelPasStartowy1;
         private Panel panelPasStartowy2;
-        private Button btnStartowanie;
-        private Button btnD1C;
-        private Button doHangaru;
         private Label labelSamolotyPowietrze;
-        private Button btnM5C;
-        private Button btnM1C;
-        private Button btnD5C;
         private Button btnDol;
         private Button btnGora;
         private Button btnPrawo;
         private Button btnLewo;
         private GroupBox groupBox1;
-        private Button button4;
         private Button btnSendAway;
-        private Button btnLanding;
-        private Panel panel1;
-        private Label label1;
         private Button button6;
-        private Button button2;
+        private TextBox peopleCount;
+        private Panel peoplePanel;
+        private Panel cargoPanel;
+        private TextBox cargoCount;
+        private Panel ammoPanel;
+        private TextBox ammoCount;
+        private Label label1;
+        private Button tankowanie;
+        private Button naPasStartowy;
+        private Button kontrola;
+        private Button operationCancel;
+        private Button btnStartowanie;
+        private Button btnLanding;
+        private Button btnUnload;
+        private Panel panelPrzyciskow;
+        private Button doHangaru;
+        private Label notificationListClear;
+        private Label switchOperationSingle;
+        private Label label2;
     }
 }
 

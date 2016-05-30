@@ -1,6 +1,7 @@
 ﻿using SymulatorLotniska.Planes;
 using SymulatorLotniska.AirportManagement;
 using SymulatorLotniska.NotificationManagement;
+using SymulatorLotniska.OperationManagement;
 
 namespace SymulatorLotniska.Operations
 {
@@ -8,20 +9,18 @@ namespace SymulatorLotniska.Operations
     {
         private Plane plane;
         private Runway runway;
-        private AirportManager handleAirportManager;
 
         private int fuelUsageInterval;
         private int fuelUsageIntervalTimer;
 
-        public OperationTakeoff(Plane plane, Runway runway, AirportManager handleAirportManager)
+        public OperationTakeoff(Plane plane, Runway runway)
         {
             this.plane = plane;
             this.runway = runway;
-            this.handleAirportManager = handleAirportManager;
 
             if(plane.getCurrentState() == State.OnRunwayBefTakeoff) 
             {
-                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " startuje z pasa startowego nr " + runway.getID(), NotificationType.Normal);
+                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " startuje z pasa startowego nr " + runway.getID(), NotificationType.Neutral);
                 plane.setCurrentState(State.Takeoff);
             }
 
@@ -53,7 +52,8 @@ namespace SymulatorLotniska.Operations
             }
             else
             {
-                handleAirportManager.umiescWPowietrzu(plane);
+                AirportManager.getInstance().getAirspace().addToAirspace(plane);
+
                 NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " wzniósł się w powietrze. Teraz znajduje się w przestrzeni powietrznej nad lotniskiem", NotificationType.Positive);
             }
             return false;

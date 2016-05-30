@@ -1,4 +1,5 @@
 ﻿using SymulatorLotniska.AirportManagement;
+using System;
 using System.Windows.Forms;
 
 namespace SymulatorLotniska.Planes
@@ -8,85 +9,72 @@ namespace SymulatorLotniska.Planes
         private int maxNumberOfPassengers;
         private int currentNumberOfPassengers;
 
-        public PassengerPlane(AirportManager handleAirportManager)
-        : base(handleAirportManager)
+        public PassengerPlane( )
         {
             maxNumberOfPassengers = 0;
             currentNumberOfPassengers = 0;
         }
-
-        public PassengerPlane(AirportManager handleAirportManager, Control parentControl)
-        : base(handleAirportManager, parentControl)
-        {
-            maxNumberOfPassengers = 0;
-            currentNumberOfPassengers = 0;
-        }
-        public PassengerPlane(AirportManager handleAirportManager, Control parentControl, int maxFuelLevel, int maksIloscPasazerow, int czasStartu, int czasKontroli, int spalanie, string model)
-        : base(handleAirportManager, parentControl, maxFuelLevel, czasStartu, czasKontroli, spalanie, model)
-        {
-            this.maxNumberOfPassengers = maksIloscPasazerow;
-            currentNumberOfPassengers = 0;
-        }
-
+        
         public int getCurrentNumberOfPassengers() { return currentNumberOfPassengers; }
         public int getMaxNumberOfPassengers() { return maxNumberOfPassengers; }
         public void setCurrentNumberOfPassengers(int newNumberOfPassengers) {
             this.currentNumberOfPassengers = newNumberOfPassengers;
-            handleAirportManager.refreshInformationPanelIfSelected(this);
+            AirportManager.getInstance().refreshInformationPanelIfSelected(this);
         }
         public void setMaxNumberOfPassengers(int maxNumberOfPassengers) { this.maxNumberOfPassengers = maxNumberOfPassengers; }
        
         public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza
         {
-            string budowanyString = "";       
-
-            budowanyString += "Model: " + getModel() + " (ID: " + getID() + ")\n";
-            budowanyString += "Typ: Samolot osobowy \n";
+            string builtString = "";
+            builtString += "Model: " + getModel() + " (ID: " + getID() + ")\n";
+            builtString += "Typ: Samolot osobowy \n";
 
             switch (getCurrentState())
             {
                 case State.Hangar:
-                    budowanyString += "Stan: " + "W hangarze\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
-                    budowanyString += "Po kontroli technicznej: " + (isAfterTechnicalInspection() ? "Tak" : "Nie") + "\n";
+                    builtString += "Stan: " + "W hangarze\n";
                     break;
                 case State.Fueling:
-                    budowanyString += "Stan: " + "Tankowanie\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
+                    builtString += "Stan: " + "Tankowanie\n";
                     break;
                 case State.TechnicalInspection:
-                    budowanyString += "Stan: " + "Podczas kontroli technicznej\n";
-                    budowanyString += "Postep: " + (int)(100*(double)getCurrentTechnicalInspectionProgress() / getTechnicalInspectionTime()) + "%\n";
+                    builtString += "Stan: " + "Podczas kontroli technicznej\n";
                     break;
                 case State.InAir:
-                    budowanyString += "Stan: " + "W locie nad lotniskiem\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
-                    budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
+                    builtString += "Stan: " + "W locie nad lotniskiem\n";
                     break;
                 case State.Landing:
-                    budowanyString += "Stan: " + "Lądowanie\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
-                    budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
+                    builtString += "Stan: " + "Lądowanie\n";
                     break;
                 case State.OnRunwayAftLanding:
-                    budowanyString += "Stan: " + "Po wylądowaniu\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
-                    budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
+                    builtString += "Stan: " + "Po wylądowaniu\n";
                     break;
                 case State.OnRunwayBefTakeoff:
-                    budowanyString += "Stan: " + "Przed startem\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
-                    budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
+                    builtString += "Stan: " + "Przed startem\n";
                     break;
                 case State.Takeoff:
-                    budowanyString += "Stan: " + "Startowanie\n";
-                    budowanyString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
-                    budowanyString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
+                    builtString += "Stan: " + "Startowanie\n";
+                    break;
+                case State.Loading:
+                    builtString += "Stan: " + "Wprowadzanie pasażerów\n";
+                    break;
+                case State.Unloading:
+                    builtString += "Stan: " + "Wyprowadzanie pasażerów\n";
                     break;
 
             }
 
-            return budowanyString;
+            builtString += "Paliwo: " + getCurrentFuelLevel() + "/" + getMaxFuelLevel() + "l\n";
+            builtString += "Po kontroli technicznej: " + (isAfterTechnicalInspection() ? "Tak" : "Nie") + "\n";
+            builtString += "Pasazerow: " + currentNumberOfPassengers + "/" + maxNumberOfPassengers + "\n";
+
+            return builtString;
+        }
+
+        public override bool isEmpty()
+        {
+            if (currentNumberOfPassengers == 0) return true;
+            else return false;
         }
     }
 }

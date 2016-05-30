@@ -1,4 +1,6 @@
-﻿using SymulatorLotniska.Planes;
+﻿using SymulatorLotniska.OperationManagement;
+using SymulatorLotniska.Operations;
+using SymulatorLotniska.Planes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,6 +30,8 @@ namespace SymulatorLotniska.AirportManagement
         {
             airspaceContent.Add(plane);
             plane.setParent(handlePanel);
+
+            OperationManager.getInstance().addOperation(new OperationInAir(plane));
             redraw();
         }
         public void remove(Plane plane)
@@ -55,8 +59,8 @@ namespace SymulatorLotniska.AirportManagement
 
         private Point getPosition(int i)
         {
-            return new Point(ConfigurationConstants.interspaceSize * (i + 1) + i * ConfigurationConstants.imageSize,
-                           10 + ConfigurationConstants.interspaceSize);
+            return new Point(Constants.interspaceSize * (i + 1) + i * Constants.planeImageSizeX,
+                           10 + Constants.interspaceSize);
         }
 
         public void redraw()
@@ -84,6 +88,13 @@ namespace SymulatorLotniska.AirportManagement
 
                 i++;
             }
+
+            for(; i < airspaceContent.Count; i++)
+            {
+                airspaceContent.ElementAt(i).hide();
+            }
         }
+
+        public List<Plane> getList() { return airspaceContent; }
     }
 }

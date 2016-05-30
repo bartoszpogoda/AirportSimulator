@@ -5,29 +5,31 @@ using SymulatorLotniska.AirportManagement;
 
 namespace SymulatorLotniska.Planes
 {
+    
     public class PlaneImage
     {
+        
         private PictureBox currentPlaneImage;
+        
         private PictureBox currentStateImage;
+        
         private Control currentOnTop;
-
-        protected AirportManager handleAirportManager;
-        public PlaneImage(AirportManager handleAirportManager, Control parentControl = null, String imageName = "samolot1")
+        
+        public PlaneImage(Control parentControl = null, String imageName = "samolot1")
         {
-            this.handleAirportManager = handleAirportManager;
 
             currentPlaneImage = new PictureBox();
             currentStateImage = new PictureBox();
 
             currentPlaneImage.Parent = parentControl;
-            currentPlaneImage.Size = new Size(50, 50);
+            currentPlaneImage.Size = new Size(Constants.planeImageSizeX, Constants.planeImageSizeY);
             currentPlaneImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
             hide();
             currentPlaneImage.Click += new EventHandler(onClick);
 
             currentStateImage.Parent = currentPlaneImage;
             currentStateImage.Location = new Point(0, 0);
-            currentStateImage.Size = new Size(50, 50);
+            currentStateImage.Size = new Size(Constants.planeImageSizeX, Constants.planeImageSizeY);
             currentStateImage.Visible = false;
             currentStateImage.Enabled = false;
             currentStateImage.BackColor = Color.Transparent;
@@ -49,7 +51,7 @@ namespace SymulatorLotniska.Planes
         /// </summary>
         private void onClick(object sender, EventArgs e)
         {
-            handleAirportManager.zaznaczSamolot(this);
+            AirportManager.getInstance().selectPlane(this);
         }
         public void show()
         {
@@ -85,16 +87,60 @@ namespace SymulatorLotniska.Planes
                 currentStateImage.Enabled = true;
                 currentOnTop = currentStateImage;
             }
-            else if (newState == State.Takeoff)
+            else if (newState == State.Takeoff || newState == State.Landing || newState == State.Hangar
+                || newState == State.OnRunwayAftLanding || newState == State.OnRunwayBefTakeoff)
             {
-                currentStateImage.Image = (Image)Properties.Resources.ResourceManager.GetObject("startowanie");
-                currentStateImage.Visible = true;
-                currentStateImage.Enabled = true;
-                currentOnTop = currentStateImage;
+                if (this is PassengerPlane)
+                {
+                    currentStateImage.Image = Properties.Resources.kolaPasazerski;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+                else if (this is TransportPlane)
+                {
+                    currentStateImage.Image = Properties.Resources.kolaTowarowy;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+                else
+                {
+                    currentStateImage.Image = Properties.Resources.kolaWojskowy;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+            }
+            else if(newState == State.Loading || newState == State.Unloading)
+            {
+                if (this is PassengerPlane)
+                {
+                    currentStateImage.Image = Properties.Resources.wprowadzaniePasazerow;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+                else if (this is TransportPlane)
+                {
+                    currentStateImage.Image = Properties.Resources.wyprowadzanieTowarowy;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+                else
+                {
+                    currentStateImage.Image = Properties.Resources.kolaWojskowy;
+                    currentStateImage.Visible = true;
+                    currentStateImage.Enabled = true;
+                    currentOnTop = currentStateImage;
+                }
+            
+               
             }
             else if (newState == State.Destroyed)
             {
-                currentStateImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(ConfigurationConstants.adresZniszczony);
+                //currentStateImage.Image = (Image)Properties.Resources.);
                 currentStateImage.Visible = true;
                 currentStateImage.Enabled = true;
                 currentOnTop = currentStateImage;
@@ -106,8 +152,8 @@ namespace SymulatorLotniska.Planes
                 currentOnTop = currentPlaneImage;
             }
 
-            handleAirportManager.refreshPbSelectedIfSelected(this);
-            handleAirportManager.redraw();
+            AirportManager.getInstance().refreshPbSelectedIfSelected(this);
+            AirportManager.getInstance().redraw();
 
         }
         public bool isVisible()

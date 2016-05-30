@@ -1,0 +1,32 @@
+<Planes>
+  <NumberOfPlanes>2</NumberOfPlanes>
+  <Plane id="0">
+	  <Model>F-16</Model>
+	  <MaxFuelLevel>220</MaxFuelLevel>
+	  <TakeoffInterval>1</TakeoffInterval>
+	  <FuelUsage>80</FuelUsage>
+	  <Type>MilitaryPlane</Type>
+    <Image>m1</Image>
+	
+	  <MaxPassengers></MaxPassengers>
+	  <MaxStorage></MaxStorage>
+	  <MaxAmmo>1000</MaxAmmo>
+	  <WeaponType>Rakiety</WeaponType>
+  </Plane>
+  
+  <Plane id="1">
+    <Model>Tupolew</Model>
+	  <MaxFuelLevel>300</MaxFuelLevel>
+	  <TakeoffInterval>4</TakeoffInterval>
+	  <FuelUsage>120</FuelUsage>
+	  <Type>PassengerPlane</Type>
+    <Image>p1</Image>
+	
+	  <MaxPassengers>350</MaxPassengers>
+	  <MaxStorage></MaxStorage>
+	  <MaxAmmo></MaxAmmo>
+	  <WeaponType></WeaponType>
+  </Plane>"
+  
+</Planes>
+  

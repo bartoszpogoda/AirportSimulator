@@ -1,22 +1,8 @@
 ﻿
-
-			POMYSŁY:
-			 -zestrzel xD
-			 -logi gdzies na dole (przyda sie tablica )
-			 
-			 W LOCIE:
-			  - wyladuj
-			  - odeslij
-
-			  W HANGARZE
-			  - tankuj
-			  - kontrola (czy zatankowany)
-			  - na pas startowy  // dodawanie pasazerow na pasie startowym
-			 
-			 NA PASIE STARTOWYM
-			  - zaladuj ludzi / towary
-			  - kontrola
-			  - wystartuj if kontrola
+Switche:
+	- Przyjmowanie samolotow TAK NIE
+	- Pojedyncze wprowadzenie / Operacja
+	- 
 
 			  Moze powinna byc operacja ktora co np sekunde wykonuje jakies sprawdzenia 
 			  itp?

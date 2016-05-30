@@ -8,6 +8,6 @@ namespace SymulatorLotniska.NotificationManagement
 {
     public enum NotificationType
     {
-        Normal,Positive,Negative
+        Neutral,Positive,Negative
     };
 }

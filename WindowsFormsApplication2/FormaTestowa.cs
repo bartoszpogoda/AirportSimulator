@@ -8,13 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SymulatorLotniska.AirportManagement
+namespace SymulatorLotniska
 {
-    public partial class PlaneFactory : Panel
+    public partial class FormaTestowa : Form
     {
-        public PlaneFactory()
+        public FormaTestowa()
         {
             InitializeComponent();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

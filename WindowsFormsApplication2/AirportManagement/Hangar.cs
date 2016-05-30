@@ -25,6 +25,8 @@ namespace SymulatorLotniska.AirportManagement
             this.columnCount = columnCount;
         }
 
+        public List<Plane> getList() { return hangarContent; }
+
         public void addToHangar(Plane plane)
         {
             hangarContent.Add(plane);
@@ -65,10 +67,10 @@ namespace SymulatorLotniska.AirportManagement
 
         private Point getPosition(int i, int j)
         {
-            return new Point(ConfigurationConstants.interspaceSize * (j + 1)
-                            + j * ConfigurationConstants.imageSize,
-                          10 + ConfigurationConstants.interspaceSize * (i + 1)
-                          + i * ConfigurationConstants.imageSize);
+            return new Point(Constants.interspaceSize * (j + 1)
+                            + j * Constants.planeImageSizeX,
+                          10 + Constants.interspaceSize * (i + 1)
+                          + i * Constants.planeImageSizeY);
         }
 
         public void redraw()
@@ -101,8 +103,5 @@ namespace SymulatorLotniska.AirportManagement
                 }
             }
         }
-
-
-
     }
 }
