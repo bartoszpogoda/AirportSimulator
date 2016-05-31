@@ -172,29 +172,39 @@ namespace SymulatorLotniska.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;Planes&gt;
-        ///  &lt;NumberOfPlanes&gt;2&lt;/NumberOfPlanes&gt;
+        ///  &lt;NumberOfPlanes&gt;5&lt;/NumberOfPlanes&gt;
         ///  &lt;Plane id=&quot;0&quot;&gt;
         ///	  &lt;Model&gt;F-16&lt;/Model&gt;
-        ///	  &lt;MaxFuelLevel&gt;220&lt;/MaxFuelLevel&gt;
+        ///	  &lt;MaxFuelLevel&gt;3000&lt;/MaxFuelLevel&gt;
         ///	  &lt;TakeoffInterval&gt;1&lt;/TakeoffInterval&gt;
-        ///	  &lt;FuelUsage&gt;80&lt;/FuelUsage&gt;
+        ///	  &lt;FuelUsage&gt;20&lt;/FuelUsage&gt;
         ///	  &lt;Type&gt;MilitaryPlane&lt;/Type&gt;
-        ///    &lt;Image&gt;m1&lt;/Image&gt;
+        ///    &lt;Image&gt;m2&lt;/Image&gt;
         ///	
         ///	  &lt;MaxPassengers&gt;&lt;/MaxPassengers&gt;
         ///	  &lt;MaxStorage&gt;&lt;/MaxStorage&gt;
         ///	  &lt;MaxAmmo&gt;1000&lt;/MaxAmmo&gt;
-        ///	  &lt;WeaponType&gt;Rakiety&lt;/WeaponType&gt;
+        ///	  &lt;WeaponType&gt;M61A1 20 mm&lt;/WeaponType&gt;
         ///  &lt;/Plane&gt;
         ///  
         ///  &lt;Plane id=&quot;1&quot;&gt;
-        ///    &lt;Model&gt;Tupolew&lt;/Model&gt;
-        ///	  &lt;MaxFuelLevel&gt;300&lt;/MaxFuelLevel&gt;
-        ///	  &lt;TakeoffInterval&gt;4&lt;/Take [rest of string was truncated]&quot;;.
+        ///    &lt;Model&gt;Bombardier Q Series&lt;/Model&gt;
+        ///	  &lt;MaxFuelLevel&gt;1&lt;/MaxFuelLevel&gt;
+        ///	  &lt;TakeoffI [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DefinedPlanes {
             get {
                 return ResourceManager.GetString("DefinedPlanes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap destroyed {
+            get {
+                object obj = ResourceManager.GetObject("destroyed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

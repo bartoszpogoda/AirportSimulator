@@ -72,7 +72,7 @@
                 return;
             }
 
-            OperationListElement iterator = this.first;
+            OperationListElement iterator = first;
 
             while(iterator.nextElement != null)
             {

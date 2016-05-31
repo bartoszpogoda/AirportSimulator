@@ -25,7 +25,7 @@ namespace SymulatorLotniska.Planes
         }
 
 
-        public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza
+        public override string getInformation()
         {
             string builtString = "";
 
@@ -63,6 +63,9 @@ namespace SymulatorLotniska.Planes
                     break;
                 case State.Unloading:
                     builtString += "Stan: " + "Rozbrajanie\n";
+                    break;
+                case State.Destroyed:
+                    builtString += "Stan: " + "Zniszczony\n";
                     break;
 
             }

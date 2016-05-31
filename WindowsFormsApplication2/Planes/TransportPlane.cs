@@ -21,9 +21,8 @@ namespace SymulatorLotniska.Planes
             AirportManager.getInstance().refreshInformationPanelIfSelected(this);
         }
 
-
-
-        public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza
+        
+        public override string getInformation()
         {
             string builtString = "";
 
@@ -61,6 +60,9 @@ namespace SymulatorLotniska.Planes
                     break;
                 case State.Unloading:
                     builtString += "Stan: " + "Rozładunek towaru\n";
+                    break;
+                case State.Destroyed:
+                    builtString += "Stan: " + "Zniszczony\n";
                     break;
             }
 

@@ -18,12 +18,12 @@ namespace SymulatorLotniska.Planes
         public int getCurrentNumberOfPassengers() { return currentNumberOfPassengers; }
         public int getMaxNumberOfPassengers() { return maxNumberOfPassengers; }
         public void setCurrentNumberOfPassengers(int newNumberOfPassengers) {
-            this.currentNumberOfPassengers = newNumberOfPassengers;
+            currentNumberOfPassengers = newNumberOfPassengers;
             AirportManager.getInstance().refreshInformationPanelIfSelected(this);
         }
         public void setMaxNumberOfPassengers(int maxNumberOfPassengers) { this.maxNumberOfPassengers = maxNumberOfPassengers; }
        
-        public override string getInformation() // do ogarniecia bo za duzo kodu sie powtarza
+        public override string getInformation()
         {
             string builtString = "";
             builtString += "Model: " + getModel() + " (ID: " + getID() + ")\n";
@@ -60,6 +60,9 @@ namespace SymulatorLotniska.Planes
                     break;
                 case State.Unloading:
                     builtString += "Stan: " + "Wyprowadzanie pasażerów\n";
+                    break;
+                case State.Destroyed:
+                    builtString += "Stan: " + "Zniszczony\n";
                     break;
 
             }

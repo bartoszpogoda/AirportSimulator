@@ -15,25 +15,20 @@ namespace SymulatorLotniska
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             AppWindow appWindow = new AppWindow();
-            FormaTestowa TESTGRAFIKI = new FormaTestowa();
             
 
-            PlaneImagesCollection.init();
+            ImageConstants.init();
             AirportManager.init(appWindow);
             OperationManager.init(appWindow);
             PlaneCreationManager.init(appWindow);
 
             Application.Run(appWindow);
-            //Application.Run(TESTGRAFIKI);
         }
 
         static public int howManyInFile()
@@ -43,14 +38,10 @@ namespace SymulatorLotniska
             xDoc.LoadXml(Resources.DefinedPlanes);
             return Int32.Parse(xDoc.SelectSingleNode("Planes/NumberOfPlanes").InnerText);
         }
-
-        static public void saveToFile(Plane plane)
-        {
-            //XmlTextWriter xText = new XmlTextWriter(Resources.DefinedPlanes,null);
-            //xText.
-
-        }
-
+        
+        /// <summary>
+        /// Odczytuje samolot o zadanym id z pliku xml z samolotami
+        /// </summary>
         static public Plane readFromFile(int id)
         {
             XmlDocument xDoc = new XmlDocument();

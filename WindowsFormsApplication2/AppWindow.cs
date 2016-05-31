@@ -10,221 +10,191 @@ namespace SymulatorLotniska
 {
     public partial class AppWindow : Form
     {
-        bool operacja;
+        bool operationModeOn;
         public AppWindow()
         {
             InitializeComponent();
-            operacja = true;
-            peopleCount.Text = "5";
-            cargoCount.Text = "44";
+            operationModeOn = true;
+
+            peopleCount.Text = "50";
+            cargoCount.Text = "400";
             ammoCount.Text = "200";
 
             NotificationManager.getInstance().setPanel(groupBox1);
+
+            labelTekstInformacje.Parent = panelInformacji;
+            labelTekstInformacje.AutoSize = false;
+            labelTekstInformacje.Size = new Size(labelTekstInformacje.Parent.Size.Width, labelTekstInformacje.Size.Height);
+
+            labelSamolotyPowietrze.Parent = panelSamolotyWPowietrzu;
+            labelSamolotyPowietrze.AutoSize = false;
+            labelSamolotyPowietrze.Size = new Size(labelSamolotyPowietrze.Parent.Size.Width, labelSamolotyPowietrze.Size.Height);
             
+            labelInformacje.Parent = panelInformacji;
 
-            //panelSamolotow.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventHangar);
-            //panelSamolotyWPowietrzu.MouseWheel += new MouseEventHandler(menedzerSamolotow.mouseWheelEventPowietrze); // do zaprogramowania
+            labelHangar.Parent = panelSamolotow;
+            labelHangar.AutoSize = false;
+            labelHangar.Size = new Size(labelHangar.Parent.Size.Width, labelHangar.Size.Height);
 
-            this.labelTekstInformacje.Parent = panelInformacji;
-            this.labelTekstInformacje.AutoSize = false;
-            this.labelTekstInformacje.Size = new System.Drawing.Size(labelTekstInformacje.Parent.Size.Width, this.labelTekstInformacje.Size.Height);
+            panelPasStartowy1.Size = new Size(panelPasStartowy1.Size.Width,2*Constants.interspaceSize+Constants.imageSize+30); // wznoszenie 0 do 30 pikseli
+            panelPasStartowy1.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
+            panelPasStartowy1.BackColor = Color.Transparent;
 
-            this.labelSamolotyPowietrze.Parent = panelSamolotyWPowietrzu;
-            this.labelSamolotyPowietrze.AutoSize = false;
-            this.labelSamolotyPowietrze.Size = new System.Drawing.Size(this.labelSamolotyPowietrze.Parent.Size.Width, this.labelSamolotyPowietrze.Size.Height);
+            panelPasStartowy2.Size = new Size(panelPasStartowy1.Size.Width, 2 * Constants.interspaceSize + Constants.imageSize + 30); // wznoszenie 0 do 30 pikseli
+            panelPasStartowy2.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
+            panelPasStartowy2.BackColor = Color.Transparent;
 
-           
-            this.labelInformacje.Parent = panelInformacji;
-
-            this.labelHangar.Parent = panelSamolotow;
-            this.labelHangar.AutoSize = false;
-            this.labelHangar.Size = new System.Drawing.Size(labelHangar.Parent.Size.Width, this.labelHangar.Size.Height);
-
-            this.panelPasStartowy1.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width,2*Constants.interspaceSize+Constants.imageSize+30); // wznoszenie 0 do 30 pikseli
-            this.panelPasStartowy1.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
-            this.panelPasStartowy1.BackColor = Color.Transparent;
-
-            this.panelPasStartowy2.Size = new System.Drawing.Size(this.panelPasStartowy1.Size.Width, 2 * Constants.interspaceSize + Constants.imageSize + 30); // wznoszenie 0 do 30 pikseli
-            this.panelPasStartowy2.BackgroundImage = (Image)Properties.Resources.ResourceManager.GetObject("passtartowy");
-            this.panelPasStartowy2.BackColor = Color.Transparent;
-
-            schowajWszystkiePrzyciskiPanelu();
-
-
-
+            hideAllButtons();
         }
-        public Panel getPanelSamolotowPowietrze() { return this.panelSamolotyWPowietrzu; }
-        public Panel getPanelSamolotow() { return this.panelSamolotow;  }
-        public Label getLabelInformacje() { return this.labelInformacje;  }
-        public Panel getPasStartowy1() { return this.panelPasStartowy1; }
-        public Panel getPasStartowy2() { return this.panelPasStartowy2; }
+
+        public Panel getPanelSamolotowPowietrze() { return panelSamolotyWPowietrzu; }
+        public Panel getPanelSamolotow() { return panelSamolotow;  }
+        public Label getLabelInformacje() { return labelInformacje;  }
+        public Panel getPasStartowy1() { return panelPasStartowy1; }
+        public Panel getPasStartowy2() { return panelPasStartowy2; }
 
         public TextBox getPeopleCount() { return peopleCount; }
         public TextBox getCargoCount() { return cargoCount; }
         public TextBox getAmmoCount() { return ammoCount; }
 
-        public void refreshButtonPanel(PlaneImage aktualnieZaznaczony)
+        public void refreshButtonPanel(PlaneImage currrentSelected)
         {
-            schowajWszystkiePrzyciskiPanelu();
+            hideAllButtons();
 
-            if (!(aktualnieZaznaczony is Plane) )
+            if (!(currrentSelected is Plane) )
                 return;
             
-            Plane currentSelectedPlane = (Plane)aktualnieZaznaczony;
+            Plane currentSelectedPlane = (Plane)currrentSelected;
             
             State currentSelectedPlaneState = currentSelectedPlane.getCurrentState();
             
             if (currentSelectedPlaneState == State.Fueling || currentSelectedPlaneState == State.TechnicalInspection
                 || currentSelectedPlaneState == State.Loading || currentSelectedPlaneState == State.Unloading )
             {
-                operationCancel.Visible = true;
+                btnCancelOperation.Visible = true;
             }
             else if(currentSelectedPlaneState == State.Hangar)
             {
-                kontrola.Visible = true;
-                naPasStartowy.Visible = true;
-                tankowanie.Visible = true;
+                btnTechnicalInspection.Visible = true;
+                btnOnRunway.Visible = true;
+                btnFuel.Visible = true;
 
                 if (currentSelectedPlane.isTanked())
-                    tankowanie.BackColor = System.Drawing.Color.YellowGreen;
+                    btnFuel.BackColor = Color.YellowGreen;
                 else
-                    tankowanie.BackColor = System.Drawing.Color.White;
+                    btnFuel.BackColor = Color.White;
 
                 if (currentSelectedPlane.isAfterTechnicalInspection())
-                    kontrola.BackColor = System.Drawing.Color.YellowGreen;
+                    btnTechnicalInspection.BackColor = Color.YellowGreen;
                 else
-                    kontrola.BackColor = System.Drawing.Color.White;
+                    btnTechnicalInspection.BackColor = Color.White;
 
             }
             else if (currentSelectedPlaneState == State.InAir)
             {
-                btnLanding.Visible = true;
+                btnLand.Visible = true;
                 btnSendAway.Visible = true;
             }
             else if (currentSelectedPlaneState == State.OnRunwayBefTakeoff)
             {
                 btnStartowanie.Visible = true;
-                doHangaru.Visible = true;
+                btnToHangar.Visible = true;
                 btnUnload.Visible = true;
             }
             else if(currentSelectedPlaneState == State.OnRunwayAftLanding)
             {
-                doHangaru.Visible = true;
+                btnToHangar.Visible = true;
                 btnUnload.Visible = true;
+            }
+            else if (currentSelectedPlaneState == State.Destroyed)
+            {
+                btnDelete.Visible = true;
             }
         }
 
-        private void schowajWszystkiePrzyciskiPanelu()
+        private void hideAllButtons()
         {
-            // mozna potem to na tablice przerobic
-            kontrola.Visible = false;
-            naPasStartowy.Visible = false;
-            tankowanie.Visible = false;
-            operationCancel.Visible = false;
+            btnTechnicalInspection.Visible = false;
+            btnOnRunway.Visible = false;
+            btnFuel.Visible = false;
+            btnCancelOperation.Visible = false;
             btnStartowanie.Visible = false;
-            doHangaru.Visible = false;
-            btnLanding.Visible = false;
+            btnToHangar.Visible = false;
+            btnLand.Visible = false;
             btnSendAway.Visible = false;
             btnUnload.Visible = false;
-
+            btnDelete.Visible = false;
         }
 
         
-        private void tankowanie_Click(object sender, EventArgs e)
+        private void btnFuel_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().fuel();
         }
-        // ugololnic nazwe
-        private void operationCancel_Click(object sender, EventArgs e)
+       
+        private void btnCancelOperation_click(object sender, EventArgs e)
         {
-           if(AirportManager.getInstance().getSelectedPlane() is Plane) OperationManager.getInstance().stopOperation((Plane)AirportManager.getInstance().getSelectedPlane());
+           if(AirportManager.getInstance().getSelectedPlane() is Plane)
+                OperationManager.getInstance().stopOperation((Plane)AirportManager.getInstance().getSelectedPlane());
         }
 
-        private void kontrola_Click(object sender, EventArgs e)
+        private void btnTechnicalInspection_click(object sender, EventArgs e)
         {
-
             AirportManager.getInstance().inspectTechnically();
         }
         
-        private void naPasStartowy_Click(object sender, EventArgs e)
+        private void btnOnRunway_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().placeOnRunway();
         }
 
-        private void wyladuj_Click(object sender, EventArgs e)
+        private void btnLand_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().land();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void btnTakeoff_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().takeOff();
         }
 
-        private void odeslij_Click(object sender, EventArgs e)
+        private void btnSendAway_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().sendAway();
         }
         
-       
-
-        private void doHangaru_Click(object sender, EventArgs e)
+        private void btnToHangar_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().placeInHangar();
         }
 
    
-        private void btnLewo_Click(object sender, EventArgs e)
+        private void btnLeft_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().getAirspace().scrollLeft();
         }
 
-        private void btnPrawo_Click(object sender, EventArgs e)
+        private void btnRight_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().getAirspace().scrollRight();
         }
 
-        private void btnDol_Click(object sender, EventArgs e)
+        private void btnDown_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().getHangar().scrollDown();
         }
 
-        private void btnGora_Click(object sender, EventArgs e)
+        private void btnUp_click(object sender, EventArgs e)
         {
             AirportManager.getInstance().getHangar().scrollUp();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnClearNotificationList_click(object sender, EventArgs e)
         {
             NotificationManager.getInstance().clear();
         }
         
-        private void btnLanding_Click(object sender, EventArgs e)
-        {
-            AirportManager.getInstance().land();
-        }
-
-        private void btnSendAway_Click(object sender, EventArgs e)
-        {
-            AirportManager.getInstance().sendAway();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            PlaneCreationManager.getInstance().showFactoryPanel();
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button6_Click_1(object sender, EventArgs e)
+        private void btnShowFactoryPanel(object sender, EventArgs e)
         {
             if (PlaneCreationManager.getInstance().Visible)
             {
@@ -242,23 +212,13 @@ namespace SymulatorLotniska
             }
         }
 
-        public void planeFactoryButtonToTop()
+        public void refreshBtnPlaneFactory()
         {
             button6.Parent = this;
             button6.Location = new Point(0, 0);
             button6.BackColor = SystemColors.MenuHighlight;
         }
-
-        private void AppWindow_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelSamolotyPowietrze_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void peoplePanel_Click(object sender, EventArgs e)
         {
             if (Int32.Parse(peopleCount.Text) < 1)
@@ -267,7 +227,7 @@ namespace SymulatorLotniska
                 return;
             }
 
-            if (!operacja)
+            if (!operationModeOn)
             {
                 if (AirportManager.getInstance().addSinglePerson())
                     peopleCount.Text = (Int32.Parse(peopleCount.Text) - 1).ToString();
@@ -283,7 +243,7 @@ namespace SymulatorLotniska
                 return;
             }
 
-            if (!operacja)
+            if (!operationModeOn)
             {
                 if (AirportManager.getInstance().addSingleCargo())
                     cargoCount.Text = (Int32.Parse(cargoCount.Text) - 1).ToString();
@@ -299,7 +259,7 @@ namespace SymulatorLotniska
                 return;
             }
 
-            if (!operacja)
+            if (!operationModeOn)
             {
                 if (AirportManager.getInstance().addSingleAmmo())
                     ammoCount.Text = (Int32.Parse(ammoCount.Text) - 1).ToString();
@@ -307,12 +267,7 @@ namespace SymulatorLotniska
             else
                 AirportManager.getInstance().loadAmmoOperation();
         }
-
-        private void fullMode_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void btnUnload_Click(object sender, EventArgs e)
         {
             Plane selectedPlane = (Plane)AirportManager.getInstance().getSelectedPlane();
@@ -330,27 +285,18 @@ namespace SymulatorLotniska
                 AirportManager.getInstance().unloadCargoOperation();
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-            Plane plane = Program.readFromFile(1);
-            AirportManager.getInstance().getHangar().addToHangar(plane);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
+        
+        private void switchAcceptingIncomingPlanes_click(object sender, EventArgs e)
         {
             if (AirportManager.getInstance().isAcceptingIncommingPlanes())
             {
                 AirportManager.getInstance().setAcceptingIncomingPlanes(false);
-                label1.BackColor = Color.FromArgb(252, 113, 113);
-                label1.Text = "Nie przyjmuje samolotów";
+                switchAcceptingIncomingPlanes.BackColor = Color.FromArgb(252, 113, 113);
             }
             else
             {
                 AirportManager.getInstance().setAcceptingIncomingPlanes(true);
-                label1.BackColor = Color.FromArgb(162, 252, 140);
-                label1.Text = "Przyjmuje samoloty";
+                switchAcceptingIncomingPlanes.BackColor = Color.FromArgb(162, 252, 140);
             }
         }
 
@@ -361,34 +307,39 @@ namespace SymulatorLotniska
 
         private void switchOperationSingle_Click(object sender, EventArgs e)
         {
-            if (operacja)
+            if (operationModeOn)
             {
-                operacja = false;
+                operationModeOn = false;
                 switchOperationSingle.Text = "Pojedyńczo";
                 switchOperationSingle.BackColor = Color.Bisque;
 
             }
             else
             {
-                operacja = true;
+                operationModeOn = true;
                 switchOperationSingle.Text = "Operacja";
                 switchOperationSingle.BackColor = Color.Aquamarine;
             }
                 
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void switchAssistant_click(object sender, EventArgs e)
         {
             if (AirportManager.getInstance().isAssistantOn())
             {
                 AirportManager.getInstance().setAsistant(false);
-                label2.BackColor = Color.FromArgb(252, 113, 113);
+                switchAssistant.BackColor = Color.FromArgb(252, 113, 113);
             }
             else
             {
                 AirportManager.getInstance().setAsistant(true);
-                label2.BackColor = Color.FromArgb(162, 252, 140);
+                switchAssistant.BackColor = Color.FromArgb(162, 252, 140);
             }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            AirportManager.getInstance().delete();
         }
     }
 }

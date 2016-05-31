@@ -41,6 +41,7 @@ namespace SymulatorLotniska.Operations
 
             if (plane.getCurrentFuelLevel() <= 0)
             {
+                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " rozbił się przy próbie lądowania na pasie startowym nr. " + runway.getID() + ".", NotificationType.Negative);
                 plane.setCurrentState(State.Destroyed);
                 return false;
             }

@@ -9,10 +9,6 @@ using System.Collections.Generic;
 
 namespace SymulatorLotniska.AirportManagement
 {
-    // Mozna napisać bota, który będzie automatycznie przyjmował przylajtujące samoloty, rozładowywał, tankowal i odsyłał
-   
-        
-    //TODO: W setCurrentState mozna dodac ifa ktory sprawdza czy samolot sie zniszczyl i wtedy ewentualnie robi cos ciekawego
     public class AirportManager
     {
         private static AirportManager instance;
@@ -104,7 +100,7 @@ namespace SymulatorLotniska.AirportManagement
         {
             if (pbSelectedPlane == null || handleAppWindow == null) return;
 
-            pbSelectedPlane.Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.adressSelectedMark);
+            pbSelectedPlane.Image = (Image)Properties.Resources.ResourceManager.GetObject(ImageConstants.adressSelectedMark);
             pbSelectedPlane.BackColor = Color.Transparent;
             pbSelectedPlane.Location = new Point(0, 0);
             pbSelectedPlane.Enabled = false;
@@ -199,120 +195,15 @@ namespace SymulatorLotniska.AirportManagement
             if (selectedPlane is Plane)
                 placeInHangar((Plane)selectedPlane);
         }
-        /*
-        public void fuel()
+        public void delete()
         {
             if (selectedPlane is Plane)
-                OperationManager.getInstance().addOperation(new OperationFueling((Plane)selectedPlane));
+                delete((Plane)selectedPlane);
         }
-        public void inspectTechnically()
-        {
-            if (selectedPlane is Plane)
-                OperationManager.getInstance().addOperation(new OperationTechnicalInspection((Plane)selectedPlane));
-        }
-        public void sendAwaySelected()
-        {
-            if (selectedPlane is Plane && ((Plane)selectedPlane).getCurrentState() == State.InAir)
-            {
-                if (((Plane)selectedPlane).getCurrentFuelLevel() < ((Plane)selectedPlane).getMaxFuelLevel()/2 ) 
-                {
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie może zostać odesłany ze względu na małą ilość paliwa", NotificationType.Negative);
-                }
-                else
-                {
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " opuszcza przestrzeń powietrzną nad lotniskiem", NotificationType.Positive);
-                    
-                    airspace.remove((Plane)selectedPlane);
-                    ((Plane)selectedPlane).hide();
 
-                    selectedPlane.setParent(null);
-                    selectedPlane = null;
-
-                    refreshInformationPanel();
-                    refreshButtonPanel();
-                }
-            }
-        }
-        public void takeoffSelectedPlane()
-        {
-            if (!(selectedPlane is Plane) || ((Plane)selectedPlane).getCurrentState() != State.OnRunwayBefTakeoff) return;
-            
-            foreach (Runway runway in runwayList)
-            {
-                if (!runway.isFree() && runway.getPlane() == (Plane)selectedPlane)
-                {
-                    NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " startuje z pasa startowego nr " + runway.getID() + ".", NotificationType.Neutral);
-
-                    ((Plane)selectedPlane).setCurrentState(State.Takeoff);
-                    OperationManager.getInstance().addOperation(new OperationTakeoff((Plane)selectedPlane, runway));
-                    return;
-                }
-            }
-        }
-        public void landSelectedPlane()
-        {
-            if (!(selectedPlane is Plane) || ((Plane)selectedPlane).getCurrentState() != State.InAir) return;
-
-            foreach (Runway runway in runwayList)
-            {
-                if (runway.isFree())
-                {
-                    OperationManager.getInstance().addOperation(new OperationLanding((Plane)selectedPlane, runway));
-                    airspace.remove((Plane)selectedPlane);
-                    runway.setPlane((Plane)selectedPlane);
-                    return;
-                }
-            }
-
-            NotificationManager.getInstance().addNotification("Wszystkie pasy startowe są aktualnie zajete", NotificationType.Negative);
-        }
-        public void placeSelectedOnRunway()
-                {
-                    if (!(selectedPlane is Plane) || !((Plane)selectedPlane).isAfterTechnicalInspection() || !(((Plane)selectedPlane).getCurrentState() == State.Hangar))
-                    {
-                        NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie przeszedł kontroli technicznej", NotificationType.Negative);
-                        return;
-                    }
-
-                    foreach (Runway runway in runwayList)
-                    {
-                        if (runway.isFree())
-                        {
-                            ((Plane)selectedPlane).setCurrentState(State.OnRunwayBefTakeoff);
-                            hangar.remove((Plane)selectedPlane);
-                            runway.setPlane((Plane)selectedPlane);
-                            NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " został umieszczony na pasie startowym nr " + runway.getID() + ".", NotificationType.Neutral);
-                            return;
-                        }
-                    }
-            
-                    NotificationManager.getInstance().addNotification("Wszystkie pasy startowe są aktualnie zajete", NotificationType.Negative);
-                }
-        public void placeSelectedInHangar()
-        {
-            if (selectedPlane is Plane && (((Plane)selectedPlane).getCurrentState() == State.OnRunwayBefTakeoff || ((Plane)selectedPlane).getCurrentState() == State.OnRunwayAftLanding))
-            {
-                if (selectedPlane is PassengerPlane)
-                {
-                    if (((PassengerPlane)selectedPlane).getCurrentNumberOfPassengers() != 0)
-                    {
-                        NotificationManager.getInstance().addNotification("Samolot " + ((Plane)selectedPlane).getModelID() + " nie moze zostac umieszczony w hangarze, poniewaz nie zostal opuszczony przez pasazerow.", NotificationType.Negative);
-                        return;
-                    }
-                }
-
-                foreach (Runway runway in runwayList)
-                {
-                    if (!runway.isFree() && runway.getPlane() == selectedPlane)
-                    {
-                        runway.takeOffCurrentPlane();
-                        hangar.addToHangar((Plane)selectedPlane);
-                        ((Plane)selectedPlane).setCurrentState(State.Hangar);
-                        return;
-                    }
-                }
-            }
-        }*/
+        //--------------------------------------------------------------------
+        //--------------------------------------------------------------------
+        //-----------------------   OPERACJE  --------------------------------
 
         public void fuel(Plane plane)
         {
@@ -349,6 +240,31 @@ namespace SymulatorLotniska.AirportManagement
                 }
             }
         }
+        public void delete(Plane plane)
+        {
+            if (plane.getCurrentState() != State.Destroyed) return;
+
+            airspace.remove(plane); 
+            
+            foreach (Runway runway in runwayList)
+            {
+                if (!runway.isFree() && runway.getPlane() == plane)
+                {
+                    runway.takeOffCurrentPlane();
+                }
+            }
+            
+            plane.hide();
+
+            if (plane == selectedPlane)
+                  selectedPlane = null;
+
+            plane.setParent(null);
+            plane = null;
+            
+            refreshInformationPanel();
+            refreshButtonPanel();
+    }
         public void takeOff(Plane plane)
         {
             if (plane.getCurrentState() != State.OnRunwayBefTakeoff) return;

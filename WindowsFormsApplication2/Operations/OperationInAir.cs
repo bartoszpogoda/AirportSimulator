@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SymulatorLotniska.Planes;
 using SymulatorLotniska.AirportManagement;
+using SymulatorLotniska.NotificationManagement;
 
 namespace SymulatorLotniska.Operations
 {
@@ -38,6 +39,7 @@ namespace SymulatorLotniska.Operations
             
             if (plane.getCurrentFuelLevel() <= 0)
             {
+                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " rozbił się w przestrzeni powietrznej nad lotniskiem.", NotificationType.Negative);
                 plane.setCurrentState(State.Destroyed);
                 return false;
             }

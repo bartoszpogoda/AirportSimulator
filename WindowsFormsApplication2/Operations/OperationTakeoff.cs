@@ -22,6 +22,7 @@ namespace SymulatorLotniska.Operations
             {
                 NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " startuje z pasa startowego nr " + runway.getID(), NotificationType.Neutral);
                 plane.setCurrentState(State.Takeoff);
+                plane.setAfterTechnicalInspection(false);
             }
 
             fuelUsageIntervalTimer = 0;
@@ -42,6 +43,7 @@ namespace SymulatorLotniska.Operations
             
             if (plane.getCurrentFuelLevel() <= 0)
             {
+                NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " rozbił się przy próbie startu z pasa startowego nr. " + runway.getID() + ".", NotificationType.Negative);
                 plane.setCurrentState(State.Destroyed);
                 return false;
             }

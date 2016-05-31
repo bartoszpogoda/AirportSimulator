@@ -5,14 +5,10 @@ using SymulatorLotniska.AirportManagement;
 
 namespace SymulatorLotniska.Planes
 {
-    
     public class PlaneImage
     {
-        
         private PictureBox currentPlaneImage;
-        
         private PictureBox currentStateImage;
-        
         private Control currentOnTop;
         
         public PlaneImage(Control parentControl = null, String imageName = "samolot1")
@@ -87,6 +83,13 @@ namespace SymulatorLotniska.Planes
                 currentStateImage.Enabled = true;
                 currentOnTop = currentStateImage;
             }
+            else if (newState == State.Destroyed)
+            {
+                currentStateImage.Image = Properties.Resources.destroyed;
+                currentStateImage.Visible = true;
+                currentStateImage.Enabled = true;
+                currentOnTop = currentStateImage;
+            }
             else if (newState == State.Takeoff || newState == State.Landing || newState == State.Hangar
                 || newState == State.OnRunwayAftLanding || newState == State.OnRunwayBefTakeoff)
             {
@@ -135,15 +138,6 @@ namespace SymulatorLotniska.Planes
                     currentStateImage.Enabled = true;
                     currentOnTop = currentStateImage;
                 }
-            
-               
-            }
-            else if (newState == State.Destroyed)
-            {
-                //currentStateImage.Image = (Image)Properties.Resources.);
-                currentStateImage.Visible = true;
-                currentStateImage.Enabled = true;
-                currentOnTop = currentStateImage;
             }
             else
             {
@@ -156,9 +150,11 @@ namespace SymulatorLotniska.Planes
             AirportManager.getInstance().redraw();
 
         }
+
         public bool isVisible()
         {
             return currentPlaneImage.Visible;
         }
+
         }
 }

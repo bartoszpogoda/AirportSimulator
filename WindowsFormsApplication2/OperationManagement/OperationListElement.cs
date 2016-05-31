@@ -15,7 +15,7 @@ namespace SymulatorLotniska.OperationManagement
 
         public OperationListElement(IOperation operacja)
         {
-            this.operation = operacja;
+            operation = operacja;
             nextElement = null;
             previousElement = null;
         }

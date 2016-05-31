@@ -14,9 +14,10 @@ namespace SymulatorLotniska
 
         public const int interspaceSize = 10;
         public const int interwalTimera = 15; 
-        public const int interwalTankowanie = 10;
+        public const int intervalFueling = 1;
+        public const int fuelingSpeed = 10;
         public const int intervalLoading = 10;
-        public const int intervalCommingPlane = 100;//2000;
+        public const int intervalCommingPlane = 2000;
         public const int intervalAssistant = 10;
 
         public const int ilePowiadomien = 5;

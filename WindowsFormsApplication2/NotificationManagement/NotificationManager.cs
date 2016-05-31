@@ -28,7 +28,7 @@ namespace SymulatorLotniska.NotificationManagement
             listNotification = new List<Notification>();
             
         }
-        public void setPanel(GroupBox handePanel) { this.handlePanel = handePanel; }
+        public void setPanel(GroupBox handePanel) { handlePanel = handePanel; }
         
         public void addNotification(String text, NotificationType notificationType)
         {

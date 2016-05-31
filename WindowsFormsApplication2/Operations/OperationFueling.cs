@@ -26,15 +26,15 @@ namespace SymulatorLotniska.Operations
         {
             if (plane.getCurrentState() != State.Fueling) return false;
             
-            if (++intervalTimer < Constants.interwalTankowanie) return true;
+            if (++intervalTimer < Constants.intervalFueling) return true;
 
             intervalTimer = 0;
                     
-            plane.setCurrentFuelLevel(plane.getCurrentFuelLevel() + 1);
+            plane.setCurrentFuelLevel(plane.getCurrentFuelLevel() + Constants.fuelingSpeed);
 
-            if (plane.getCurrentFuelLevel() == plane.getMaxFuelLevel()) // było >=
+            if (plane.getCurrentFuelLevel() >= plane.getMaxFuelLevel())
             {
-                //plane.setCurrentFuelLevel(plane.getMaxFuelLevel());
+                plane.setCurrentFuelLevel(plane.getMaxFuelLevel());
                 NotificationManager.getInstance().addNotification("Samolot " + plane.getModelID() + " zostal zatankowany.", NotificationType.Positive);
                 plane.setCurrentState(State.Hangar);
                 return false;

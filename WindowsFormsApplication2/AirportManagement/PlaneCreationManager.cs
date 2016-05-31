@@ -48,7 +48,6 @@ namespace SymulatorLotniska.AirportManagement
         private Label labelSpecific;
         private Label labelWeaponType;
 
-
         private ComboBox comboBox1;
 
         private Button buttonCreate;
@@ -74,7 +73,7 @@ namespace SymulatorLotniska.AirportManagement
 
             chosenImageMark = new PictureBox();
 
-            chosenImageMark.Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.adressSelectedMark);
+            chosenImageMark.Image = (Image)Properties.Resources.ResourceManager.GetObject(ImageConstants.adressSelectedMark);
             chosenImageMark.BackColor = Color.Transparent;
             chosenImageMark.Location = new Point(0, 0);
             chosenImageMark.Size = new Size(Constants.planeImageSizeX, Constants.planeImageSizeY);
@@ -100,84 +99,86 @@ namespace SymulatorLotniska.AirportManagement
             labelWeaponType = new Label();
             cancelButton = new Button();
             comboBox1 = new ComboBox();
+            
 
-            BackColor = System.Drawing.SystemColors.ControlLightLight;
+            BackColor = SystemColors.ControlLightLight;
             Controls.Add(parameterChoosePanel);
             Controls.Add(imageChoosePanel);
             Controls.Add(rbMilitary);
             Controls.Add(rbTransport);
             Controls.Add(rbPassenger);
             Controls.Add(panel1);
-            Location = new System.Drawing.Point(0, 0);
+            Location = new Point(0, 0);
             Name = "mainPlaneFactoryPanel";
-            Size = new System.Drawing.Size(Parent.Size.Width, 230);
+            Size = new Size(Parent.Size.Width, 230);
             //TabIndex = 8;
+
 
             //
             // panel1
             // 
-            panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            panel1.BackColor = SystemColors.MenuHighlight;
             panel1.Controls.Add(label1);
-            panel1.Location = new System.Drawing.Point(1, 0);
+            panel1.Location = new Point(1, 0);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(230, 27);
+            panel1.Size = new Size(230, 27);
             panel1.Visible = false;
             //panel1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = System.Drawing.Color.Transparent;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            label1.ForeColor = System.Drawing.Color.Black;
-            label1.Location = new System.Drawing.Point(3, 0);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(200, 18);
+            label1.Size = new Size(200, 18);
             label1.TabIndex = 0;
             label1.Text = "Tworzenie nowego samolotu";
             // 
             // rbPassenger
             // 
             rbPassenger.AutoSize = true;
-            rbPassenger.Location = new System.Drawing.Point(7, 41);
+            rbPassenger.Location = new Point(7, 41);
             rbPassenger.Name = "rbPassenger";
-            rbPassenger.Size = new System.Drawing.Size(116, 17);
+            rbPassenger.Size = new Size(116, 17);
             rbPassenger.TabIndex = 1;
             rbPassenger.TabStop = true;
             rbPassenger.Text = "Samolot pasażerski";
             rbPassenger.UseVisualStyleBackColor = true;
-            rbPassenger.CheckedChanged += new System.EventHandler(rbPassenger_CheckedChanged);
+            rbPassenger.CheckedChanged += new EventHandler(rbPassenger_CheckedChanged);
             // 
             // rbTransport
             // 
             rbTransport.AutoSize = true;
-            rbTransport.Location = new System.Drawing.Point(7, 64);
+            rbTransport.Location = new Point(7, 64);
             rbTransport.Name = "rbTransport";
-            rbTransport.Size = new System.Drawing.Size(126, 17);
+            rbTransport.Size = new Size(126, 17);
             rbTransport.TabIndex = 2;
             rbTransport.TabStop = true;
             rbTransport.Text = "Samolot transportowy";
             rbTransport.UseVisualStyleBackColor = true;
-            rbTransport.CheckedChanged += new System.EventHandler(rbTransport_CheckedChanged);
+            rbTransport.CheckedChanged += new EventHandler(rbTransport_CheckedChanged);
             // 
             // rbMilitary
             // 
             rbMilitary.AutoSize = true;
-            rbMilitary.Location = new System.Drawing.Point(7, 87);
+            rbMilitary.Location = new Point(7, 87);
             rbMilitary.Name = "rbMilitary";
-            rbMilitary.Size = new System.Drawing.Size(112, 17);
+            rbMilitary.Size = new Size(112, 17);
             rbMilitary.TabIndex = 3;
             rbMilitary.TabStop = true;
             rbMilitary.Text = "Samolot wojskowy";
             rbMilitary.UseVisualStyleBackColor = true;
-            rbMilitary.CheckedChanged += new System.EventHandler(rbMilitary_CheckedChanged);
+            rbMilitary.CheckedChanged += new EventHandler(rbMilitary_CheckedChanged);
             // 
             // imageChoosePanel
             // 
-            imageChoosePanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            imageChoosePanel.Location = new System.Drawing.Point(169, 6);
+            imageChoosePanel.BackColor = SystemColors.GradientInactiveCaption;
+            imageChoosePanel.Location = new Point(169, 6);
             imageChoosePanel.Name = "imageChoosePanel";
-            imageChoosePanel.Size = new System.Drawing.Size(212, 168);
+            imageChoosePanel.Size = new Size(212, 168);
             imageChoosePanel.TabIndex = 4;
             //comboBox1
             comboBox1.Items.AddRange(new object[] {
@@ -191,9 +192,9 @@ namespace SymulatorLotniska.AirportManagement
             "8",
             "9",
             "10",});
-            comboBox1.Location = new System.Drawing.Point(137, 81);
+            comboBox1.Location = new Point(137, 81);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new System.Drawing.Size(100, 20);
+            comboBox1.Size = new Size(100, 20);
             comboBox1.SelectedItem = comboBox1.Items[0];
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             
@@ -201,7 +202,7 @@ namespace SymulatorLotniska.AirportManagement
             // 
             // parameterChoosePanel
             // 
-            parameterChoosePanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            parameterChoosePanel.BackColor = SystemColors.GradientInactiveCaption;
             parameterChoosePanel.Controls.Add(labelWeaponType);
             parameterChoosePanel.Controls.Add(textBoxWeaponType);
             parameterChoosePanel.Controls.Add(labelSpecific);
@@ -216,54 +217,57 @@ namespace SymulatorLotniska.AirportManagement
             parameterChoosePanel.Controls.Add(buttonCreate);
             parameterChoosePanel.Controls.Add(cancelButton);
             parameterChoosePanel.Controls.Add(comboBox1);
-            parameterChoosePanel.Location = new System.Drawing.Point(400, 6);
+            parameterChoosePanel.Location = new Point(400, 6);
             parameterChoosePanel.Name = "parameterChoosePanel";
-            parameterChoosePanel.Size = new System.Drawing.Size(350, 168);
+            parameterChoosePanel.Size = new Size(360, 168);
             parameterChoosePanel.TabIndex = 5;
             // 
             // cancelButton
             // 
-            cancelButton.Image = (Image)Properties.Resources.buttonZatrzymanie;
-            cancelButton.BackColor = System.Drawing.Color.White;
-            cancelButton.Location = new System.Drawing.Point(250, 25+50+3);
-            cancelButton.Name = "cancelButton";
-            cancelButton.Size = new System.Drawing.Size(50, 50);
-            cancelButton.TabIndex = 10;
+   
+            cancelButton.BackColor = Color.White;
+            cancelButton.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            cancelButton.Location = new Point(250, 25 + 50 + 3);
+            cancelButton.Name = "button1";
+            cancelButton.Size = new Size(99, 41);
+            cancelButton.TabIndex = 6;
+            cancelButton.Text = "Wyczyść";
             cancelButton.UseVisualStyleBackColor = false;
-            cancelButton.Click += new System.EventHandler(cancelButton_Click);
+            cancelButton.Click += new EventHandler(cancelButton_Click);
             // 
             // buttonCreate
             // 
-            buttonCreate.Image = (Image)Properties.Resources.btnTick;
-            buttonCreate.BackColor = System.Drawing.Color.White;
-            buttonCreate.Location = new System.Drawing.Point(250, 25);
-            buttonCreate.Name = "buttonCreateInHangar";
-            buttonCreate.Size = new System.Drawing.Size(50, 50);
-            buttonCreate.TabIndex = 6;
-            buttonCreate.UseVisualStyleBackColor = false;
-            buttonCreate.Click += new System.EventHandler(buttonCreateInHangar_Click);
 
+            buttonCreate.BackColor = Color.White;
+            buttonCreate.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            buttonCreate.Location = new Point(250, 25);
+            buttonCreate.Name = "button1";
+            buttonCreate.Size = new Size(99, 41);
+            buttonCreate.TabIndex = 6;
+            buttonCreate.Text = "Stwórz";
+            buttonCreate.UseVisualStyleBackColor = false;
+            buttonCreate.Click += new EventHandler(buttonCreateInHangar_Click);
             // 
             // pictureBox1
             // 
-            
+
 
             for (int i = 0; i < 6; i++)
             {
                 images[i] = new PictureBox();
-                images[i].BackColor = System.Drawing.Color.Transparent;
-                images[i].Size = new System.Drawing.Size(100, 50);
+                images[i].BackColor = Color.Transparent;
+                images[i].Size = new Size(100, 50);
                 images[i].Visible = false;
                 images[i].Click += image_onClick;
                 images[i].Parent = imageChoosePanel;
             }
             
-            images[0].Location = new System.Drawing.Point(3, 3);
-            images[1].Location = new System.Drawing.Point(109, 3);
-            images[2].Location = new System.Drawing.Point(3, 59);
-            images[3].Location = new System.Drawing.Point(109, 59);
-            images[4].Location = new System.Drawing.Point(3, 115);
-            images[5].Location = new System.Drawing.Point(109, 115);
+            images[0].Location = new Point(3, 3);
+            images[1].Location = new Point(109, 3);
+            images[2].Location = new Point(3, 59);
+            images[3].Location = new Point(109, 59);
+            images[4].Location = new Point(3, 115);
+            images[5].Location = new Point(109, 115);
 
             // 3 , 59 , 115         56 - diff   115 + 50 + 3  = 115 + 53 = 168  112 + 100 
             // 3 109 109 + 103
@@ -273,98 +277,98 @@ namespace SymulatorLotniska.AirportManagement
             // labelModel
             // 
             labelModel.AutoSize = true;
-            labelModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelModel.Location = new System.Drawing.Point(83, 6);
+            labelModel.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            labelModel.Location = new Point(83, 6);
             labelModel.Name = "labelModel";
-            labelModel.Size = new System.Drawing.Size(42, 15);
+            labelModel.Size = new Size(42, 15);
             labelModel.TabIndex = 0;
             labelModel.Text = "Model";
             // 
             // textBoxModel
             // 
-            textBoxModel.Location = new System.Drawing.Point(137, 5);
+            textBoxModel.Location = new Point(137, 5);
             textBoxModel.Name = "textBoxModel";
-            textBoxModel.Size = new System.Drawing.Size(100, 20);
+            textBoxModel.Size = new Size(100, 20);
             textBoxModel.TabIndex = 1;
             // 
             // textBoxFuelUsage
             // 
-            textBoxFuelUsage.Location = new System.Drawing.Point(137, 30);
+            textBoxFuelUsage.Location = new Point(137, 30);
             textBoxFuelUsage.Name = "textBoxFuelUsage";
-            textBoxFuelUsage.Size = new System.Drawing.Size(100, 20);
+            textBoxFuelUsage.Size = new Size(100, 20);
             textBoxFuelUsage.TabIndex = 2;
             // 
             // textBoxMaxFuelLevel
             // 
-            textBoxMaxFuelLevel.Location = new System.Drawing.Point(137, 55);
+            textBoxMaxFuelLevel.Location = new Point(137, 55);
             textBoxMaxFuelLevel.Name = "textBoxMaxFuelLevel";
-            textBoxMaxFuelLevel.Size = new System.Drawing.Size(100, 20);
+            textBoxMaxFuelLevel.Size = new Size(100, 20);
             textBoxMaxFuelLevel.TabIndex = 3;
             // 
             // 
             // textBoxSpecific
             // 
-            textBoxSpecific.Location = new System.Drawing.Point(137, 107+25);
+            textBoxSpecific.Location = new Point(137, 107+25);
             textBoxSpecific.Name = "textBoxSpecific";
-            textBoxSpecific.Size = new System.Drawing.Size(100, 20);
+            textBoxSpecific.Size = new Size(100, 20);
             textBoxSpecific.TabIndex = 5;
             // 
             // labelFuelUsage
             // 
             labelFuelUsage.AutoSize = true;
-            labelFuelUsage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelFuelUsage.Location = new System.Drawing.Point(69, 31);
+            labelFuelUsage.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            labelFuelUsage.Location = new Point(69, 31);
             labelFuelUsage.Name = "labelFuelUsage";
-            labelFuelUsage.Size = new System.Drawing.Size(56, 15);
+            labelFuelUsage.Size = new Size(56, 15);
             labelFuelUsage.TabIndex = 6;
             labelFuelUsage.Text = "Spalanie";
             // 
             // labelTakeoffInterval
             // 
             labelTakeoffInterval.AutoSize = true;
-            labelTakeoffInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelTakeoffInterval.Location = new System.Drawing.Point(58, 82);
+            labelTakeoffInterval.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            labelTakeoffInterval.Location = new Point(58, 82);
             labelTakeoffInterval.Name = "labelTakeoffInterval";
-            labelTakeoffInterval.Size = new System.Drawing.Size(67, 15);
+            labelTakeoffInterval.Size = new Size(67, 15);
             labelTakeoffInterval.TabIndex = 7;
             labelTakeoffInterval.Text = "Czas startu";
             // 
             // labelMaxFuelLevel
             // 
             labelMaxFuelLevel.AutoSize = true;
-            labelMaxFuelLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelMaxFuelLevel.Location = new System.Drawing.Point(26, 56);
+            labelMaxFuelLevel.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            labelMaxFuelLevel.Location = new Point(26, 56);
             labelMaxFuelLevel.Name = "labelMaxFuelLevel";
-            labelMaxFuelLevel.Size = new System.Drawing.Size(99, 15);
+            labelMaxFuelLevel.Size = new Size(99, 15);
             labelMaxFuelLevel.TabIndex = 8;
             labelMaxFuelLevel.Text = "Pojemnosc baku";
             // 
             // labelSpecific
             // 
-            labelSpecific.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            labelSpecific.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelSpecific.Location = new System.Drawing.Point(1, 133);
+            labelSpecific.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
+            labelSpecific.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            labelSpecific.Location = new Point(1, 133);
             labelSpecific.Name = "labelSpecific";
             labelSpecific.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            labelSpecific.Size = new System.Drawing.Size(177, 15);
+            labelSpecific.Size = new Size(177, 15);
             labelSpecific.AutoSize = true;
             labelSpecific.TabIndex = 9;
             labelSpecific.Text = "   Maks. pasażerow";
             // 
             // textBoxWeaponType
             // 
-            textBoxWeaponType.Location = new System.Drawing.Point(137, 107);
+            textBoxWeaponType.Location = new Point(137, 107);
             textBoxWeaponType.Name = "textBoxWeaponType";
-            textBoxWeaponType.Size = new System.Drawing.Size(100, 20);
+            textBoxWeaponType.Size = new Size(100, 20);
             textBoxWeaponType.TabIndex = 10;
             // 
             // labelWeaponType
             // 
             labelWeaponType.AutoSize = true;
-            labelWeaponType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            labelWeaponType.Location = new System.Drawing.Point(52, 108);
+            labelWeaponType.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            labelWeaponType.Location = new Point(52, 108);
             labelWeaponType.Name = "labelWeaponType";
-            labelWeaponType.Size = new System.Drawing.Size(73, 15);
+            labelWeaponType.Size = new Size(73, 15);
             labelWeaponType.TabIndex = 11;
             labelWeaponType.Text = "Model broni";
            
@@ -407,11 +411,11 @@ namespace SymulatorLotniska.AirportManagement
             switch(currentFactoring)
             {
                 case PlaneType.Passenger:
-                    return PlaneImagesCollection.passengerPlaneNames[i];
+                    return ImageConstants.passengerPlaneNames[i];
                 case PlaneType.Military:
-                    return PlaneImagesCollection.militaryPlaneNames[i];
+                    return ImageConstants.militaryPlaneNames[i];
                 case PlaneType.Transport:
-                    return PlaneImagesCollection.transportPlaneNames[i];
+                    return ImageConstants.transportPlaneNames[i];
                 default:
                     return "error";
             }
@@ -453,9 +457,9 @@ namespace SymulatorLotniska.AirportManagement
 
             if(currentFactoring == PlaneType.Passenger)
             {
-                for(int i=0; i<PlaneImagesCollection.passengerPlaneNames.Count; i++)
+                for(int i=0; i<ImageConstants.passengerPlaneNames.Count; i++)
                 {
-                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.passengerPlaneNames[i]);
+                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(ImageConstants.passengerPlaneNames[i]);
                     images[i].Visible = true;
                     images[i].Enabled = true;
 
@@ -470,9 +474,9 @@ namespace SymulatorLotniska.AirportManagement
             }
             if(currentFactoring == PlaneType.Transport)
             {
-                for (int i = 0; i < PlaneImagesCollection.transportPlaneNames.Count; i++)
+                for (int i = 0; i < ImageConstants.transportPlaneNames.Count; i++)
                 {
-                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.transportPlaneNames[i]);
+                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(ImageConstants.transportPlaneNames[i]);
                     images[i].Visible = true;
                     images[i].Enabled = true;
 
@@ -487,9 +491,9 @@ namespace SymulatorLotniska.AirportManagement
             }
             if (currentFactoring == PlaneType.Military)
             {
-                for (int i = 0; i < PlaneImagesCollection.militaryPlaneNames.Count; i++)
+                for (int i = 0; i < ImageConstants.militaryPlaneNames.Count; i++)
                 {
-                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(PlaneImagesCollection.militaryPlaneNames[i]);
+                    images[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(ImageConstants.militaryPlaneNames[i]);
                     images[i].Visible = true;
                     images[i].Enabled = true;
 
@@ -521,7 +525,7 @@ namespace SymulatorLotniska.AirportManagement
 
                     break;
                 case PlaneType.Transport:
-                    labelSpecific.Text = "Maks. ładowność (kg)";
+                    labelSpecific.Text = "  Maks. ładowność (t)";
                     labelSpecific.Visible = true;
                     textBoxSpecific.Visible = true;
 
@@ -530,7 +534,6 @@ namespace SymulatorLotniska.AirportManagement
 
                     break;
                 case PlaneType.Military:
-
                     labelSpecific.Text = "  Maks. ilość amunicji";
                     labelSpecific.Visible = true;
                     textBoxSpecific.Visible = true;
@@ -539,8 +542,6 @@ namespace SymulatorLotniska.AirportManagement
                     textBoxWeaponType.Visible = true;
 
                     break;
-
-
             }
             
         }
@@ -603,13 +604,23 @@ namespace SymulatorLotniska.AirportManagement
                 MessageBox.Show("Spalanie samolotu musi być liczbą całkowitą");
                 return false;
             }
+            if (!(textBoxFuelUsage.Text.Length <= 9))
+            {
+                MessageBox.Show("Spalanie samolotu jest zbyt dużą liczbą!");
+                return false;
+            }
             if (!textBoxMaxFuelLevel.Text.All(char.IsDigit))
             {
                 MessageBox.Show("Pojemność baku samolotu musi być liczbą całkowitą");
                 return false;
             }
+            if (!(textBoxMaxFuelLevel.Text.Length <= 9))
+            {
+                MessageBox.Show("Pojemność baku samolotu jest zbyt dużą liczbą!");
+                return false;
+            }
 
-            if(currentFactoring == PlaneType.Passenger)
+            if (currentFactoring == PlaneType.Passenger)
             {
                 if (textBoxSpecific.Text == "")
                 {
@@ -621,17 +632,27 @@ namespace SymulatorLotniska.AirportManagement
                     MessageBox.Show("Maksymalna ilość pasażerów musi być liczbą całkowitą");
                     return false;
                 }
+                if (!(textBoxSpecific.Text.Length <= 9))
+                {
+                    MessageBox.Show("Maksymalna ilość pasażerów jest zbyt dużą liczbą!");
+                    return false;
+                }
             }
             else if(currentFactoring == PlaneType.Transport)
             {
                 if (textBoxSpecific.Text == "")
                 {
-                    MessageBox.Show("Określ maksymalna pojemność samolotu");
+                    MessageBox.Show("Określ maksymalna ładowność samolotu");
                     return false;
                 }
                 if (!textBoxSpecific.Text.All(char.IsDigit))
                 {
-                    MessageBox.Show("Maksymalna pojemność samolotu musi być liczbą całkowitą");
+                    MessageBox.Show("Maksymalna ładowność samolotu musi być liczbą całkowitą");
+                    return false;
+                }
+                if (!(textBoxSpecific.Text.Length <= 9))
+                {
+                    MessageBox.Show("Maksymalna ładowność jest zbyt dużą liczbą!");
                     return false;
                 }
             }
@@ -652,6 +673,11 @@ namespace SymulatorLotniska.AirportManagement
                 if (!textBoxSpecific.Text.All(char.IsDigit))
                 {
                     MessageBox.Show("Maksymalna ilość amunicji musi być liczbą całkowitą");
+                    return false;
+                }
+                if (!(textBoxSpecific.Text.Length <= 9))
+                {
+                    MessageBox.Show("Maksymalna ilość amunicji jest zbyt dużą liczbą!");
                     return false;
                 }
             }
@@ -692,7 +718,7 @@ namespace SymulatorLotniska.AirportManagement
             AirportManager.getInstance().getHangar().addToHangar(factoriedPlane);
             hideFactoryPanel();
             resetControls();
-            handleAppWindow.planeFactoryButtonToTop();
+            handleAppWindow.refreshBtnPlaneFactory();
 
         }
         

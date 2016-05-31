@@ -35,7 +35,7 @@ namespace SymulatorLotniska.Planes
         public int getMaxFuelLevel()  { return maxFuelLevel; }
         public void setMaxFuelLevel(int maxFuelLevel) { this.maxFuelLevel = maxFuelLevel; }
         public int getTakeoffInterval() { return takeoffInterval; }
-        public void setTakeoffTime(int takeoffTime) { this.takeoffInterval = takeoffTime; }
+        public void setTakeoffTime(int takeoffTime) { takeoffInterval = takeoffTime; }
         public int getID() { return ID; }
         public string getModel() { return model; }
         public void setModel(string model) { this.model = model; }
